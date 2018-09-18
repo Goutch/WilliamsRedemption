@@ -1,0 +1,12 @@
+@ECHO OFF
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+SET DIR=%~dp0
+
+python "!DIR!CodeGenerator.py" %~1 %~2
+
+IF %ERRORLEVEL% EQU 0 (
+    EXIT /B 0
+) ElSE (
+    EXIT /B 1
+)

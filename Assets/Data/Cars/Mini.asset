@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03008da5ec224b5381d30a8af3304f97, type: 3}
+  m_Name: Mini
+  m_EditorClassIdentifier: 
+  bodyConfig: {fileID: 11400000, guid: b5aa2b1879b16364eb864cf78d36d6b8, type: 2}
+  engineConfig: {fileID: 11400000, guid: a8980e3234a5f7a4baaa53ef1647e8cf, type: 2}
+  wheelConfig: {fileID: 11400000, guid: 6b8ace0b91cfb744e90ecc319824f7cc, type: 2}
