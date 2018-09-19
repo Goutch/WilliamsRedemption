@@ -115,40 +115,40 @@ namespace Light
 
         private void DetectLightTrigger()
         {
-            if(LightTrigger.Instance!=null)
-            if (Vector2.Distance(this.transform.position, LightTrigger.Instance.transform.position) < radius)
-            {
-                float AngleRad =
-                    Mathf.Atan2(LightTrigger.Instance.transform.position.y - transform.position.y,
-                        LightTrigger.Instance.transform.position.x - transform.position.x);
-                //Angle en Degrés
-                float AngleDeg = (180 / Mathf.PI) * AngleRad;
-                if (AngleDeg < 0)
+            if (LightTrigger.Instance != null)
+                if (Vector2.Distance(this.transform.position, LightTrigger.Instance.transform.position) < radius)
                 {
-                    AngleDeg += 360;
-                }
-
-                if (CheckDegreeWithinCone(AngleDeg))
-                {
-                    RaycastHit2D hit =
-                        Physics2D.Raycast(transform.position, new Vector2(
-                            LightTrigger.Instance.transform.position.x - transform.position.x,
-                            LightTrigger.Instance.transform.position.y - transform.position.y), radius);
-                    Debug.DrawRay(transform.position, new Vector2(
-                        hit.point.x - transform.position.x,
-                        hit.point.y - transform.position.y), Color.green);
-                    if (hit.collider != null)
+                    float AngleRad =
+                        Mathf.Atan2(LightTrigger.Instance.transform.position.y - transform.position.y,
+                            LightTrigger.Instance.transform.position.x - transform.position.x);
+                    //Angle en Degrés
+                    float AngleDeg = (180 / Mathf.PI) * AngleRad;
+                    if (AngleDeg < 0)
                     {
-                        if (hit.collider.tag == "Avatar")
-                        {
-                            print("Inlight");
-                            LightTrigger.Instance.NotifyInLight();
-                        }
+                        AngleDeg += 360;
+                    }
 
-                        print("Hit" + hit.collider.name);
+                    if (CheckDegreeWithinCone(AngleDeg))
+                    {
+                        RaycastHit2D hit =
+                            Physics2D.Raycast(transform.position, new Vector2(
+                                LightTrigger.Instance.transform.position.x - transform.position.x,
+                                LightTrigger.Instance.transform.position.y - transform.position.y), radius);
+                        Debug.DrawRay(transform.position, new Vector2(
+                            hit.point.x - transform.position.x,
+                            hit.point.y - transform.position.y), Color.green);
+                        if (hit.collider != null)
+                        {
+                            if (hit.collider.tag == "Avatar")
+                            {
+                                print("Inlight");
+                                LightTrigger.Instance.NotifyInLight();
+                            }
+
+                            print("Hit" + hit.collider.name);
+                        }
                     }
                 }
-            }
         }
 
         private void AddNewTriangle(int v0, int v1, int v2)
@@ -230,7 +230,9 @@ namespace Light
 
             return degree;
         }
-        public static Vector2 DegreeToVector (float degree) {
+
+        public static Vector2 DegreeToVector(float degree)
+        {
             float radian = degree * Mathf.Deg2Rad;
             return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
         }
