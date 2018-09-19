@@ -28,8 +28,6 @@ namespace Light
         {
             mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = mesh;
-            startAngle = coneAngle == 0 ? 0 : faceAngle - coneAngle / 2;
-            endAngle = coneAngle == 0 ? 360 : faceAngle + coneAngle / 2;
             vertices = new List<Vector3>();
             triangles = new List<int>();
         }
@@ -47,13 +45,14 @@ namespace Light
             //todo:dont make as much triangle just make em at edge of tiles
             //todo:on/off method
             //todo:off when out of camera bound
-            //todo: full circle condition
         }
 
         private void Scan()
         {
             vertices.Clear();
             triangles.Clear();
+            startAngle = coneAngle == 0 ? 0 : faceAngle - coneAngle / 2;
+            endAngle = coneAngle == 0 ? 360 : faceAngle + coneAngle / 2;
             Vector2 raycastDirection = new Vector2();
             vertices.Add(new Vector3(0, 0, 0)); // add vertecies 0
             int cornerAIndex = 1;
