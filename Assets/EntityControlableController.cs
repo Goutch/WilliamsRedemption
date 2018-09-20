@@ -32,27 +32,27 @@ public class EntityControlableController : MonoBehaviour {
         else if (inputHorizontalMovement < 0)
             sprite.flipX = true;
 
-        inputJump = Input.GetButton("Jump");
-
+        inputJump = Input.GetButtonDown("Jump");
 
         animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
+        animator.SetBool("IsJumping", !isOnGround);
     }
 
     private void FixedUpdate()
     {
         root.Translate(inputHorizontalMovement * Time.deltaTime, 0, 0);
 
-        if (inputJump && isOnGround && rb.velocity.y == 0)
+        if (rb.velocity.y == 0)
         {
-            rb.velocity = new Vector2(0,0);
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            isOnGround = true;
 
-            isOnGround = false;
+            if (inputJump)
+            {
+                rb.velocity = new Vector2(0, 0);
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+
+                isOnGround = false;
+            }
         }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        isOnGround = true;
     }
 }
