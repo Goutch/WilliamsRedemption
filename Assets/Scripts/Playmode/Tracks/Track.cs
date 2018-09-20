@@ -7,6 +7,7 @@ namespace Playmode.Tracks
     [AddComponentMenu("Game/Tracks/Track")]
     public class Track : MonoBehaviour
     {
+        //BEN_TOTO
 #if UNITY_EDITOR
         [Header("Debug")] [SerializeField] public bool showInEditor;
 #endif
