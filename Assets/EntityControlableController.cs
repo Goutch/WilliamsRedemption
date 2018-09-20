@@ -4,45 +4,55 @@ using UnityEngine;
 
 public class EntityControlableController : MonoBehaviour {
     [SerializeField] protected float speed;
+    [SerializeField] protected float jumpForce;
     protected Animator animator;
     protected SpriteRenderer sprite;
+    protected Rigidbody2D rb;
 
     protected Transform root;
 
-    protected float horizontalMovement = 0.0f;
+    protected float inputHorizontalMovement = 0.0f;
+    protected bool inputJump = false;
 
-    protected float HorizontalMovement
-    {
-        get
-        {
-            return horizontalMovement;
-        }
-        set
-        {
-            horizontalMovement = value;
-            if (horizontalMovement > 0)
-                sprite.flipX = false;
-            else if (horizontalMovement < 0)
-                sprite.flipX = true;
-        }
-    }
+    protected bool isOnGround = true;
 
     private void Awake()
     {
         root = gameObject.transform.parent;
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        HorizontalMovement = Input.GetAxis("Horizontal") * speed;
+        inputHorizontalMovement = Input.GetAxis("Horizontal") * speed;
+        if (inputHorizontalMovement > 0)
+            sprite.flipX = false;
+        else if (inputHorizontalMovement < 0)
+            sprite.flipX = true;
 
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
+        inputJump = Input.GetButton("Jump");
+
+
+        animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
     }
 
     private void FixedUpdate()
     {
-        root.Translate(horizontalMovement * Time.deltaTime, 0, 0);
+        root.Translate(inputHorizontalMovement * Time.deltaTime, 0, 0);
+
+        if (inputJump && isOnGround && rb.velocity.y == 0)
+        {
+            rb.velocity = new Vector2(0,0);
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+
+            isOnGround = false;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        isOnGround = true;
     }
 }
