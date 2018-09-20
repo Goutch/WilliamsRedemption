@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 451204488}
   - component: {fileID: 451204490}
   - component: {fileID: 451204489}
-  - component: {fileID: 451204491}
   m_Layer: 0
   m_Name: Reaper
   m_TagString: Untagged
@@ -205,17 +204,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &451204491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 451204487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbe8cb0d5144164a9f978aa62518cba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &564087010
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +454,8 @@ GameObject:
   - component: {fileID: 1898161279}
   - component: {fileID: 1898161281}
   - component: {fileID: 1898161280}
+  - component: {fileID: 1898161282}
+  - component: {fileID: 1898161283}
   m_Layer: 0
   m_Name: William
   m_TagString: Untagged
@@ -536,7 +526,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: de3c36d9404380743a5b5c98b3809ab2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: adde2fe55ed76fc46853fa4bf600d8f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -547,3 +537,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1898161282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1898161278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbe8cb0d5144164a9f978aa62518cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+--- !u!95 &1898161283
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1898161278}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ffd29e0d22a3bc40bfca5703699495c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

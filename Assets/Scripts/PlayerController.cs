@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
-        OnLightEnter();
     }
 
     public void OnLightEnter()

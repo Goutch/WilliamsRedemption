@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WilliamController : EntityControlableController
-{
+public class ReaperController : EntityControlableController {
+
 }
