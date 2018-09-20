@@ -15,7 +15,6 @@ namespace Light
         [SerializeField] [Range(0.1f, 2)] private float precisionInDegree = 1;
         [SerializeField] private Color color = Color.white;
         [SerializeField] private int obstacleLayerIndex = 1;
-        [SerializeField] private bool execureInEditMode;
 
         [Tooltip("Draw the triangles of the mesh in blue in the scene tab")] [SerializeField]
         private bool debugDraw = false;
@@ -75,15 +74,6 @@ namespace Light
 
         private void Update()
         {
-#if UNITY_EDITOR
-            if (execureInEditMode)
-            {
-                Scan();
-                DrawMesh();
-                if (debugDraw) DebugDraw(Color.blue, 0.1f);
-                return;
-            }
-#endif
             Scan();
             DrawMesh();
             if (debugDraw) DebugDraw(Color.blue, 0.1f);
