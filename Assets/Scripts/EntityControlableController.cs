@@ -33,9 +33,11 @@ public class EntityControlableController : MonoBehaviour {
             sprite.flipX = true;
 
         inputJump = Input.GetButtonDown("Jump");
+        animator.SetBool("IsJumping", inputJump && isOnGround);
+
 
         animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
-        animator.SetBool("IsJumping", !isOnGround);
+        animator.SetBool("IsInAir", !isOnGround);
     }
 
     private void FixedUpdate()
@@ -53,6 +55,10 @@ public class EntityControlableController : MonoBehaviour {
 
                 isOnGround = false;
             }
+        }
+        else
+        {
+            isOnGround = false;
         }
     }
 }
