@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58795196718774958}
   - component: {fileID: 114863095067038874}
   m_Layer: 2
-  m_Name: MeshLight
+  m_Name: CircleMeshLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601090304264160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 1.61, z: 0}
+  m_LocalPosition: {x: -0.1, y: 9.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,10 +115,9 @@ MonoBehaviour:
   coneAngle: 0
   faceAngle: 0
   radius: 3
-  precisionInDegree: 1
+  precisionInDegree: 2
   color: {r: 1, g: 1, b: 1, a: 1}
   obstacleLayerIndex: 1
-  execureInEditMode: 0
   debugDraw: 0
 --- !u!114 &114863095067038874
 MonoBehaviour:

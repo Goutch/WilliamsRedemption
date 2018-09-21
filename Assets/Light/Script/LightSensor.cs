@@ -21,6 +21,14 @@ namespace Light
             {
                 if (inLight != value)
                 {
+                    if(value)
+                    {
+                        Debug.Log(name+" is now in light");
+                    }
+                    else
+                    {
+                        Debug.Log(name+" is now in darkness");
+                    }
                     inLight = value;
                     if (OnLightExpositionChange != null)
                     {
@@ -46,7 +54,7 @@ namespace Light
         private void Update()
         {
             transform.Translate(Vector3.down*Time.deltaTime);
-            if (lastLightExposure > Time.deltaTime + TimeWithoutLightLimit)
+            if (Time.time-lastLightExposure > Time.deltaTime + TimeWithoutLightLimit)
             {
                 InLight = false;
             }

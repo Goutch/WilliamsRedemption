@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Light
 {
-    public class LightStimuli : MonoBehaviour
+    public class LightStimulu : MonoBehaviour
     {
         private List<LightSensor> lightSensorsInRange;
         private MeshLight light;
@@ -22,8 +22,7 @@ namespace Light
             {
                 foreach (LightSensor lightSensor in lightSensorsInRange)
                 {
-                    if (light.isWithinLightLimits(lightSensor.transform.position))
-                        lightSensor.Exposed();
+                    light.IsWithinLightLimits(lightSensor.transform.position)?.Exposed();
                 }
             }
         }
@@ -52,6 +51,7 @@ namespace Light
         public void OndDimentionsChange(Vector2 newSize)
         {
             GetComponent<BoxCollider2D>().size = newSize;
+            GetComponent<BoxCollider2D>().offset =( newSize /2)*Vector2.down;
         }
     }
 }

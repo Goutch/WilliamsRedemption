@@ -33,7 +33,7 @@ namespace Light
             set
             {
                 radius = value;
-                GetComponent<LightStimuli>().OnRadiusChange(radius);
+                GetComponent<LightStimulu>().OnRadiusChange(radius);
             }
         }
 
@@ -66,9 +66,9 @@ namespace Light
                 this.gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
             }
 
-            if (!GetComponent<LightStimuli>())
+            if (!GetComponent<LightStimulu>())
             {
-                this.gameObject.AddComponent<LightStimuli>();
+                this.gameObject.AddComponent<LightStimulu>();
             }
         }
 
@@ -112,7 +112,7 @@ namespace Light
                 {
                     hit.point = hit.point - (Vector2) transform.position;
                 }
-
+                 
                 vertices.Add(hit.point);
                 cornerBIndex = vertices.Count - 1;
                 AddNewTriangle(0, cornerAIndex, cornerBIndex);
@@ -230,13 +230,13 @@ namespace Light
             return degree;
         }
 
-        public static Vector2 DegreeToVector(float degree)
+        public Vector2 DegreeToVector(float degree)
         {
             float radian = degree * Mathf.Deg2Rad;
             return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
         }
 
-        public bool isWithinLightLimits(Vector2 position)
+        public LightSensor IsWithinLightLimits(Vector2 position)
         {
             float AngleRad =
                 Mathf.Atan2(position.y - transform.position.y,
@@ -258,14 +258,14 @@ namespace Light
                     hit.point.x - transform.position.x,
                     hit.point.y - transform.position.y), Color.green);
                 if (hit.collider != null)
-                {
-                    if (hit.collider.GetComponent<LightSensor>())
-                        return true;
+                {        
                     print("Hit" + hit.collider.name);
+                    return hit.collider.GetComponent<LightSensor>();
+
                 }
             }
 
-            return false;
+            return null;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Light
 {
     public interface MeshLight
     {
-        bool isWithinLightLimits(Vector2 position);
+        LightSensor IsWithinLightLimits(Vector2 position);
 
     }
 }
