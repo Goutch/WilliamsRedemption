@@ -56,5 +56,9 @@ public class EntityControlableController : MonoBehaviour {
                 isOnGround = false;
             }
         }
+        else
+        {
+            isOnGround = false;
+        }
     }
 }
