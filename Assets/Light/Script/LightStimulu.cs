@@ -7,17 +7,18 @@ namespace Light
     public class LightStimulu : MonoBehaviour
     {
         private List<LightSensor> lightSensorsInRange;
+        private List<MovingLightObstacle> movingLightObstaclesInRange;
         private MeshLight light;
 
         private void Start()
         {
             lightSensorsInRange = new List<LightSensor>();
+            movingLightObstaclesInRange = new List<MovingLightObstacle>();
             light = GetComponent<MeshLight>();
         }
 
         private void Update()
         {
-
             if (lightSensorsInRange.Any())
             {
                 foreach (LightSensor lightSensor in lightSensorsInRange)
@@ -33,6 +34,19 @@ namespace Light
             {
                 lightSensorsInRange.Add(other.GetComponent<LightSensor>());
             }
+
+            if (other.GetComponent<MovingLightObstacle>())
+            {
+                movingLightObstaclesInRange.Add(other.GetComponent<MovingLightObstacle>());
+                if (movingLightObstaclesInRange.Any())
+                {
+                    light.HasMovingObstaclesInRange = true;
+                }
+                else
+                {
+                    light.HasMovingObstaclesInRange = false;
+                }
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -40,6 +54,19 @@ namespace Light
             if (other.GetComponent<LightSensor>())
             {
                 lightSensorsInRange.Remove(other.GetComponent<LightSensor>());
+            }
+
+            if (other.GetComponent<MovingLightObstacle>())
+            {
+                movingLightObstaclesInRange.Remove(other.GetComponent<MovingLightObstacle>());
+                if (movingLightObstaclesInRange.Any())
+                {
+                    light.HasMovingObstaclesInRange = true;
+                }
+                else
+                {
+                    light.HasMovingObstaclesInRange = false;
+                }
             }
         }
 
@@ -51,7 +78,7 @@ namespace Light
         public void OndDimentionsChange(Vector2 newSize)
         {
             GetComponent<BoxCollider2D>().size = newSize;
-            GetComponent<BoxCollider2D>().offset =( newSize /2)*Vector2.down;
+            GetComponent<BoxCollider2D>().offset = (newSize / 2) * Vector2.down;
         }
     }
 }

@@ -6,25 +6,15 @@ using UnityEngine.Experimental.UIElements;
 
 namespace Light
 {
-    [ExecuteInEditMode]
-    public class CircleMeshLight : MonoBehaviour, MeshLight
+    public class CircleLight : MeshLight
     {
         [Range(0, 360)] [SerializeField] private float coneAngle = 0;
         [Range(0, 360)] [SerializeField] private float faceAngle = 0;
         [SerializeField] private float radius = 3;
         [SerializeField] [Range(0.1f, 2)] private float precisionInDegree = 1;
-        [SerializeField] private Color color = Color.white;
-        [SerializeField] private int obstacleLayerIndex = 1;
-
-        [Tooltip("Draw the triangles of the mesh in blue in the scene tab")] [SerializeField]
-        private bool debugDraw = false;
 
         private float startAngle;
         private float endAngle;
-        private Mesh mesh;
-        private Vector2[] uvs;
-        private List<Vector3> vertices;
-        private List<int> triangles;
 
 
         public float Radius
@@ -39,53 +29,23 @@ namespace Light
 
         private void Start()
         {
-            this.gameObject.layer = 2;
-            InitializeComponent();
-            mesh = new Mesh();
-            GetComponent<MeshFilter>().mesh = mesh;
-            vertices = new List<Vector3>();
-            triangles = new List<int>();
+            base.Start();
             Radius = radius;
+            DrawMesh();
         }
 
-        private void InitializeComponent()
+        protected override void InitializeComponent()
         {
-            if (!GetComponent<MeshRenderer>())
-            {
-                this.gameObject.AddComponent<MeshRenderer>();
-            }
-
-            if (!GetComponent<MeshFilter>())
-            {
-                this.gameObject.AddComponent<MeshFilter>();
-            }
-
+            base.InitializeComponent();
             if (!GetComponent<CircleCollider2D>())
             {
                 this.gameObject.AddComponent<CircleCollider2D>();
                 this.gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
             }
-
-            if (!GetComponent<LightStimulu>())
-            {
-                this.gameObject.AddComponent<LightStimulu>();
-            }
         }
 
-        private void Update()
-        {
-            Scan();
-            DrawMesh();
-            if (debugDraw) DebugDraw(Color.blue, 0.1f);
-            //todo:optomize:
-            //todo:update only when a moving obstacle go in it
-            //todo:update only when transform move
-            //todo:dont make as much triangle just make em at edge of tiles
-            //todo:on/off method
-            //todo:off when out of camera bound
-        }
 
-        private void Scan()
+        protected override void Scan()
         {
             vertices.Clear();
             triangles.Clear();
@@ -112,7 +72,7 @@ namespace Light
                 {
                     hit.point = hit.point - (Vector2) transform.position;
                 }
-                 
+
                 vertices.Add(hit.point);
                 cornerBIndex = vertices.Count - 1;
                 AddNewTriangle(0, cornerAIndex, cornerBIndex);
@@ -125,38 +85,6 @@ namespace Light
             }
         }
 
-        private void DrawMesh()
-        {
-            mesh.Clear();
-            mesh.SetVertices(vertices);
-            mesh.triangles = triangles.ToArray();
-            UpdateUVs();
-            UpdateColor();
-        }
-
-        private void DebugDraw(Color color, float time)
-        {
-            for (int i = 0; i < triangles.Count; i++)
-            {
-                Debug.DrawLine(vertices[triangles[i]] + transform.position,
-                    vertices[triangles[++i]] + transform.position,
-                    color, time);
-                Debug.DrawLine(vertices[triangles[i]] + transform.position,
-                    vertices[triangles[++i]] + transform.position,
-                    color, time);
-                Debug.DrawLine(vertices[triangles[i]] + transform.position,
-                    vertices[triangles[i - 2]] + transform.position,
-                    color, time);
-            }
-        }
-
-        private void AddNewTriangle(int v0, int v1, int v2)
-        {
-            //add in wrong order to inverse normals
-            triangles.Add(v2);
-            triangles.Add(v1);
-            triangles.Add(v0);
-        }
 
         private bool CheckDegreeWithinCone(float degree)
         {
@@ -178,7 +106,7 @@ namespace Light
             return degree > min;
         }
 
-        protected void UpdateUVs()
+        protected override void UpdateUVs()
         {
             uvs = new Vector2[vertices.Count];
 
@@ -196,7 +124,7 @@ namespace Light
             mesh.uv = uvs;
         }
 
-        protected void UpdateColor()
+        protected override void UpdateColor()
 
         {
             Color32[] colors32 = new Color32[vertices.Count];
@@ -215,57 +143,27 @@ namespace Light
             return target;
         }
 
-        public static float ClampDegree0To360(float degree)
+       
+
+        public override LightSensor IsWithinLightLimits(Vector2 position)
         {
-            while (degree >= 360)
-            {
-                degree -= 360;
-            }
-
-            while (degree < 0)
-            {
-                degree += 360;
-            }
-
-            return degree;
-        }
-
-        public Vector2 DegreeToVector(float degree)
-        {
-            float radian = degree * Mathf.Deg2Rad;
-            return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
-        }
-
-        public LightSensor IsWithinLightLimits(Vector2 position)
-        {
-            float AngleRad =
-                Mathf.Atan2(position.y - transform.position.y,
-                    position.x - transform.position.x);
-            //Angle en Degrés
-            float AngleDeg = (180 / Mathf.PI) * AngleRad;
-            if (AngleDeg < 0)
-            {
-                AngleDeg += 360;
-            }
+            float AngleDeg = VectorToDegree(position - (Vector2) transform.position);
 
             if (CheckDegreeWithinCone(AngleDeg))
             {
                 RaycastHit2D hit =
-                    Physics2D.Raycast(transform.position, new Vector2(
-                        position.x - transform.position.x,
-                        position.y - transform.position.y), Radius);
+                    Physics2D.Raycast(transform.position,position - (Vector2) transform.position, Radius);
                 Debug.DrawRay(transform.position, new Vector2(
                     hit.point.x - transform.position.x,
                     hit.point.y - transform.position.y), Color.green);
                 if (hit.collider != null)
-                {        
+                {
                     print("Hit" + hit.collider.name);
                     return hit.collider.GetComponent<LightSensor>();
-
                 }
             }
-
             return null;
         }
+
     }
 }
