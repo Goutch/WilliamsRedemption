@@ -30,10 +30,8 @@ namespace Light
                         Debug.Log(name+" is now in darkness");
                     }
                     inLight = value;
-                    if (OnLightExpositionChange != null)
-                    {
-                        OnLightExpositionChange(value);
-                    }
+
+                    OnLightExpositionChange?.Invoke(value);
                 }
             }
         }

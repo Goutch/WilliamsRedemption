@@ -38,6 +38,7 @@ namespace Light
             if (other.GetComponent<MovingLightObstacle>())
             {
                 movingLightObstaclesInRange.Add(other.GetComponent<MovingLightObstacle>());
+
                 if (movingLightObstaclesInRange.Any())
                 {
                     light.HasMovingObstaclesInRange = true;
