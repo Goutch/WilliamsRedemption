@@ -89,6 +89,7 @@ namespace Light
             {
                 updating = false;
             }
+
             if (updating)
             {
                 DrawMesh();

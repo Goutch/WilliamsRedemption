@@ -55,21 +55,19 @@ namespace Light
                         raycastDirection, range,
                         obstacleLayerIndex, 0);
 
-                //ray hit nothing
                 if (hit.collider == null)
                 {
-                    //set hitA hit point to max range
                     hit.point = new Vector2(
                         (raycastDirection.x * range) + i,
                         raycastDirection.y * range);
                 }
-                //ray hit something
                 else
                 {
                     hit.point = hit.point - (Vector2) transform.position;
                 }
 
                 RaycastEndPos = hit.point;
+
                 vertices.Add(RaycastBeginPos);
                 vertices.Add(RaycastEndPos);
             }
