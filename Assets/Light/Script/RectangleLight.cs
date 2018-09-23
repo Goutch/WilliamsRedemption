@@ -120,7 +120,7 @@ namespace Light
 
             if (hit.collider != null)
             {
-                Debug.DrawLine(startPos + (transform.position * Vector2.up), hit.point, Color.green);
+                Debug.DrawLine(startPos, hit.point, Color.green);
                 print("Hit" + hit.collider.name);
                 return hit.collider.GetComponent<LightSensor>();
             }

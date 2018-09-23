@@ -51,7 +51,6 @@ namespace Light
         
         private void Update()
         {
-            transform.Translate(Vector3.down*Time.deltaTime);
             if (Time.time-lastLightExposure > Time.deltaTime + TimeWithoutLightLimit)
             {
                 InLight = false;
