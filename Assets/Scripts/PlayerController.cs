@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
 
-        OnLightEnter();
+        OnLightExit();
     }
 
     private void Update()
@@ -42,7 +42,9 @@ public class PlayerController : MonoBehaviour {
         currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
         currentController.animator.SetBool("IsJumping", inputJump && data.IsOnGround);
         currentController.animator.SetBool("IsFalling", !data.IsOnGround && !data.IsDashing);
-        currentController.animator.SetBool("IsDashing", data.IsDashing);
+
+        if(currentController is WilliamController)
+            currentController.animator.SetBool("IsDashing", data.IsDashing);
     }
 
     private void FixedUpdate()
