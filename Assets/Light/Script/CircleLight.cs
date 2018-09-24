@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEditorInternal;
-using UnityEngine;
-using UnityEngine.Experimental.UIElements;
-
+﻿using UnityEngine;
 
 namespace Light
 {
@@ -16,6 +12,7 @@ namespace Light
         private float startAngle;
         private float endAngle;
 
+        private Vector3 centerVertices = Vector3.zero;
 
         public float Radius
         {
@@ -27,7 +24,7 @@ namespace Light
             }
         }
 
-        private void Start()
+        private new void Start()
         {
             base.Start();
             Radius = radius;
@@ -47,12 +44,16 @@ namespace Light
 
         protected override void Scan()
         {
+            Vector2 raycastDirection = new Vector2();
+
             vertices.Clear();
             triangles.Clear();
+
             startAngle = coneAngle == 0 ? 0 : faceAngle - coneAngle / 2;
             endAngle = coneAngle == 0 ? 360 : faceAngle + coneAngle / 2;
-            Vector2 raycastDirection = new Vector2();
-            vertices.Add(new Vector3(0, 0, 0)); // add vertecies 0
+            
+            vertices.Add(centerVertices);
+
             int cornerAIndex = 1;
             int cornerBIndex;
             for (float i = startAngle; i < endAngle; i += precisionInDegree)
@@ -63,7 +64,6 @@ namespace Light
 
                 if (hit.collider == null)
                 {
-                    //set ray point to max range
                     hit.point = new Vector2(
                         raycastDirection.x * Radius,
                         raycastDirection.y * Radius);
@@ -84,7 +84,6 @@ namespace Light
                 AddNewTriangle(0, 1, vertices.Count - 1);
             }
         }
-
 
         private bool CheckDegreeWithinCone(float degree)
         {
@@ -110,7 +109,7 @@ namespace Light
         {
             uvs = new Vector2[vertices.Count];
 
-            for (int i = 0; i < uvs.Length; i++)
+            for (int i = 0; i < uvs.Length; ++i)
             {
                 float u = vertices[i].x / Radius / 2 + 0.5f;
                 float v = vertices[i].y / Radius / 2 + 0.5f;
@@ -124,26 +123,12 @@ namespace Light
             mesh.uv = uvs;
         }
 
-        protected override void UpdateColor()
-
-        {
-            Color32[] colors32 = new Color32[vertices.Count];
-            for (int i = 0; i < colors32.Length; i++)
-            {
-                colors32[i] = color;
-            }
-
-            mesh.colors32 = colors32;
-        }
-
         private float Clamp(float min, float target, float max)
         {
             target = Mathf.Max(min, target);
             target = Mathf.Min(max, target);
             return target;
         }
-
-       
 
         public override LightSensor IsWithinLightLimits(Vector2 position)
         {
@@ -152,13 +137,14 @@ namespace Light
             if (CheckDegreeWithinCone(AngleDeg))
             {
                 RaycastHit2D hit =
-                    Physics2D.Raycast(transform.position,position - (Vector2) transform.position, Radius);
+                    Physics2D.Raycast(transform.position, position - (Vector2) transform.position, Radius);
+
                 Debug.DrawRay(transform.position, new Vector2(
                     hit.point.x - transform.position.x,
                     hit.point.y - transform.position.y), Color.green);
+
                 if (hit.collider != null)
                 {
-                    print("Hit" + hit.collider.name);
                     return hit.collider.GetComponent<LightSensor>();
                 }
             }

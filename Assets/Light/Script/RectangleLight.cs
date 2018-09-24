@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine;
 
 namespace Light
 {
     public class RectangleLight : MeshLight
     {
-        [SerializeField] private float width=30;
-        [SerializeField] private float range=20;
-        [Range(0.01f, 1)] [SerializeField] private float precisionInTile = 0.1f;
+        [SerializeField] private float width = 30;
+        [SerializeField] private float range = 20;
+        [Range(0.01f, 1)] [SerializeField] private float raycastPrecision = 0.1f;
+
         public float Width
         {
             get { return width; }
             set
             {
                 width = value;
-                GetComponent<LightStimulu>().OndDimentionsChange(new Vector2(width, range));
+                GetComponent<LightStimulu>().OnDimentionsChange(new Vector2(width, range));
             }
         }
 
@@ -25,11 +24,11 @@ namespace Light
             set
             {
                 range = value;
-                GetComponent<LightStimulu>().OndDimentionsChange(new Vector2(width, range));
+                GetComponent<LightStimulu>().OnDimentionsChange(new Vector2(width, range));
             }
         }
 
-        private void Start()
+        private new void Start()
         {
             base.Start();
             Width = width;
@@ -42,16 +41,16 @@ namespace Light
         {
             vertices.Clear();
             triangles.Clear();
-            Vector2 RaycastBeginPos;
-            Vector2 RaycastEndPos;
+
             Vector2 raycastDirection = Vector2.down;
-            // add vertecies 0
-            for (float i = -Width / 2; i <= Width / 2; i += precisionInTile)
+
+            for (float i = -Width / 2; i <= Width / 2; i += raycastPrecision)
             {
-                RaycastBeginPos = new Vector2(i, 0);
+                Vector2 raycastBeginPos = new Vector2(i, 0);
+                Vector2 raycastEndPos;
 
                 RaycastHit2D hit =
-                    Physics2D.Raycast(RaycastBeginPos + (Vector2) transform.position,
+                    Physics2D.Raycast(raycastBeginPos + (Vector2) transform.position,
                         raycastDirection, range,
                         obstacleLayerIndex, 0);
 
@@ -66,15 +65,15 @@ namespace Light
                     hit.point = hit.point - (Vector2) transform.position;
                 }
 
-                RaycastEndPos = hit.point;
+                raycastEndPos = hit.point;
 
-                vertices.Add(RaycastBeginPos);
-                vertices.Add(RaycastEndPos);
+                vertices.Add(raycastBeginPos);
+                vertices.Add(raycastEndPos);
             }
 
-            for (int i = 2; i < vertices.Count; i++)
+            for (int i = 0; i < vertices.Count - 2; ++i)
             {
-                AddNewTriangle(i - 2, i - 1, i);
+                AddNewTriangle(i, i + 1, i + 2);
             }
         }
 
@@ -84,28 +83,16 @@ namespace Light
 
             for (int i = 0; i < uvs.Length; i++)
             {
-                //uvs[i] = new Vector2(vertices[i].x, vertices[i].y);
                 uvs[i] = new Vector2((vertices[i].x / width), (vertices[i].y / range));
             }
 
             mesh.uv = uvs;
         }
 
-        protected override void UpdateColor()
-
-        {
-            Color32[] colors32 = new Color32[vertices.Count];
-            for (int i = 0; i < colors32.Length; i++)
-            {
-                colors32[i] = color;
-            }
-
-            mesh.colors32 = colors32;
-        }
-
         protected override void InitializeComponent()
         {
             base.InitializeComponent();
+
             if (!GetComponent<BoxCollider2D>())
             {
                 this.gameObject.AddComponent<BoxCollider2D>();
@@ -121,7 +108,6 @@ namespace Light
             if (hit.collider != null)
             {
                 Debug.DrawLine(startPos, hit.point, Color.green);
-                print("Hit" + hit.collider.name);
                 return hit.collider.GetComponent<LightSensor>();
             }
 

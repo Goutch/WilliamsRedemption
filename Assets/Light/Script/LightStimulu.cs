@@ -8,23 +8,21 @@ namespace Light
     {
         private List<LightSensor> lightSensorsInRange;
         private List<MovingLightObstacle> movingLightObstaclesInRange;
-        private MeshLight light;
+        private MeshLight meshLight;
 
         private void Start()
         {
             lightSensorsInRange = new List<LightSensor>();
             movingLightObstaclesInRange = new List<MovingLightObstacle>();
-            light = GetComponent<MeshLight>();
+
+            meshLight = GetComponent<MeshLight>();
         }
 
         private void Update()
         {
-            if (lightSensorsInRange.Any())
+            foreach (LightSensor lightSensor in lightSensorsInRange)
             {
-                foreach (LightSensor lightSensor in lightSensorsInRange)
-                {
-                    light.IsWithinLightLimits(lightSensor.transform.position)?.Exposed();
-                }
+                meshLight.IsWithinLightLimits(lightSensor.transform.position)?.Exposed();
             }
         }
 
@@ -39,14 +37,7 @@ namespace Light
             {
                 movingLightObstaclesInRange.Add(other.GetComponent<MovingLightObstacle>());
 
-                if (movingLightObstaclesInRange.Any())
-                {
-                    light.HasMovingObstaclesInRange = true;
-                }
-                else
-                {
-                    light.HasMovingObstaclesInRange = false;
-                }
+                meshLight.HasMovingObstaclesInRange = true;
             }
         }
 
@@ -60,13 +51,14 @@ namespace Light
             if (other.GetComponent<MovingLightObstacle>())
             {
                 movingLightObstaclesInRange.Remove(other.GetComponent<MovingLightObstacle>());
+
                 if (movingLightObstaclesInRange.Any())
                 {
-                    light.HasMovingObstaclesInRange = true;
+                    meshLight.HasMovingObstaclesInRange = true;
                 }
                 else
                 {
-                    light.HasMovingObstaclesInRange = false;
+                    meshLight.HasMovingObstaclesInRange = false;
                 }
             }
         }
@@ -76,7 +68,7 @@ namespace Light
             GetComponent<CircleCollider2D>().radius = newRadius;
         }
 
-        public void OndDimentionsChange(Vector2 newSize)
+        public void OnDimentionsChange(Vector2 newSize)
         {
             GetComponent<BoxCollider2D>().size = newSize;
             GetComponent<BoxCollider2D>().offset = (newSize / 2) * Vector2.down;

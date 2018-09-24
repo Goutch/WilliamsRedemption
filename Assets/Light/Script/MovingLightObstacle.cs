@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Light
 {
-    public class MovingLightObstacle:MonoBehaviour
+    public class MovingLightObstacle : MonoBehaviour
     {
         private void Awake()
         {

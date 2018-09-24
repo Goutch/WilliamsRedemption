@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Schema;
-using Unity.Collections;
 using UnityEngine;
 
 namespace Light
@@ -17,6 +14,7 @@ namespace Light
         [SerializeField] private bool updateEveryFrame = false;
         [SerializeField] private float movingObstacleUpdateStopCooldown = 1; 
         [SerializeField]private bool hasMovingObstaclesInRange = false;
+
         public bool HasMovingObstaclesInRange
         {
             get { return hasMovingObstaclesInRange;}
@@ -29,8 +27,6 @@ namespace Light
             }
         }
 
-        [SerializeField]private bool updating = true;
-
         protected Mesh mesh;
         protected Vector2[] uvs;
         protected List<Vector3> vertices;
@@ -39,7 +35,6 @@ namespace Light
         public abstract LightSensor IsWithinLightLimits(Vector2 position);
         protected abstract void Scan();
         protected abstract void UpdateUVs();
-        protected abstract void UpdateColor();
 
         protected void Start()
         {
@@ -82,15 +77,6 @@ namespace Light
         protected void Update()
         {
             if (updateEveryFrame || HasMovingObstaclesInRange)
-            {
-                updating = true;
-            }
-            else
-            {
-                updating = false;
-            }
-
-            if (updating)
             {
                 DrawMesh();
             }
@@ -140,6 +126,17 @@ namespace Light
                 degree += 360;
             }
             return degree;
+        }
+
+        protected void UpdateColor()
+        {
+            Color32[] colors32 = new Color32[vertices.Count];
+            for (int i = 0; i < colors32.Length; i++)
+            {
+                colors32[i] = color;
+            }
+
+            mesh.colors32 = colors32;
         }
 
         protected float VectorToDegree(Vector2 dir)

@@ -1,18 +1,18 @@
 ﻿using System;
-using System.CodeDom;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Light
 {
-    public delegate void LightSensorEventHandler(bool inlight);
+    public delegate void LightSensorEventHandler(bool inLight);
 
     public class LightSensor : MonoBehaviour
     {
-        [SerializeField] private float TimeWithoutLightLimit = 0;
-        [SerializeField] private bool inLight;
+        [SerializeField] private float timeWithoutLightLimit;
+
         public event LightSensorEventHandler OnLightExpositionChange;
+
         private float lastLightExposure;
+        private bool inLight;
 
         public bool InLight
         {
@@ -29,6 +29,7 @@ namespace Light
                     {
                         Debug.Log(name+" is now in darkness");
                     }
+
                     inLight = value;
 
                     OnLightExpositionChange?.Invoke(value);
@@ -51,7 +52,7 @@ namespace Light
         
         private void Update()
         {
-            if (Time.time-lastLightExposure > Time.deltaTime + TimeWithoutLightLimit)
+            if (Time.time-lastLightExposure > Time.deltaTime + timeWithoutLightLimit)
             {
                 InLight = false;
             }
