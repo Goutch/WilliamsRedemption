@@ -144,7 +144,7 @@ namespace Light
             float AngleRad = Mathf.Atan2(dir.x, dir.y);
             float AngleDeg = (180 / Mathf.PI) * AngleRad;
 
-            return ClampDegree0To360(AngleDeg);
+            return ClampDegree0To360(AngleDeg+90);
         }
 
         protected IEnumerator StartUpdateCooldownRoutine(float cooldown)
