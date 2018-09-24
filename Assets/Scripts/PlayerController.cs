@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     private float inputHorizontalMovement;
     private bool inputJump;
 
-    private bool inputDash;
+    private bool inputUseCapacity1;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
         else if (inputHorizontalMovement < 0)
             currentController.sprite.flipX = true;
 
-        inputDash = Input.GetButtonDown("Fire3");
+        inputUseCapacity1 = Input.GetButtonDown("Fire3");
 
         currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
         currentController.animator.SetBool("IsJumping", inputJump && data.IsOnGround);
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour {
     {
         transform.Translate(inputHorizontalMovement * Time.deltaTime, 0, 0);
 
-        if (currentController.Capacity1Usable(data) && inputDash)
+        if (currentController.Capacity1Usable(data) && inputUseCapacity1)
         {
             currentController.UseCapacity1(data);
         }

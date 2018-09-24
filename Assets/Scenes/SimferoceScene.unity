@@ -218,6 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportationDistance: 300
+  tpEffect: {fileID: 1755848583395488, guid: 83f64db88aee946448db9a3ae94dd822, type: 2}
+  timeBeforeTpEffectVanish: 0.5
 --- !u!95 &451204493
 Animator:
   serializedVersion: 3
