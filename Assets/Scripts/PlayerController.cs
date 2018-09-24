@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Light;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -9,7 +10,6 @@ public class PlayerController : MonoBehaviour {
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
-
     private IPlayerData data = new PlayerData();
 
     private float inputHorizontalMovement;
@@ -23,8 +23,9 @@ public class PlayerController : MonoBehaviour {
 
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
-
-        OnLightEnter();
+        GetComponent<LightSensor>().OnLightExpositionChange+=OnLightExpositionChanged;
+        OnLightExpositionChanged(true);
+        
     }
 
     private void Update()
@@ -72,6 +73,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+   private void OnLightExpositionChanged(bool exposed)
+    {
+        if(exposed)
+            OnLightEnter();
+        else
+        {
+            OnLightExit();
+        }
+    }
     public void OnLightEnter()
     {
         williamController.gameObject.SetActive(true);

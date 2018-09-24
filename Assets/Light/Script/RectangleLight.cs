@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Harmony;
+using UnityEngine;
 
 namespace Light
 {
@@ -108,7 +109,7 @@ namespace Light
             if (hit.collider != null)
             {
                 Debug.DrawLine(startPos, hit.point, Color.green);
-                return hit.collider.GetComponent<LightSensor>();
+                return hit.collider.Root().GetComponent<LightSensor>();
             }
 
             return null;
