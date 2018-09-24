@@ -9,6 +9,7 @@ TagManager:
   - Ai
   - Enemy
   - ProjectilePlayer
+  - Plateforme
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - LightSensor
   - 
   - 
   - 
