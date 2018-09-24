@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Harmony;
 using UnityEngine;
 
 namespace Light
@@ -15,7 +16,7 @@ namespace Light
             lightSensorsInRange = new List<LightSensor>();
             movingLightObstaclesInRange = new List<MovingLightObstacle>();
 
-            meshLight = GetComponent<MeshLight>();
+            meshLight =GetComponent<MeshLight>();
         }
 
         private void Update()
@@ -28,14 +29,14 @@ namespace Light
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<LightSensor>())
+            if (other.transform.root.GetComponent<LightSensor>())
             {
-                lightSensorsInRange.Add(other.GetComponent<LightSensor>());
+                lightSensorsInRange.Add(other.transform.root.GetComponent<LightSensor>());
             }
 
-            if (other.GetComponent<MovingLightObstacle>())
+            if (other.transform.root.GetComponent<MovingLightObstacle>())
             {
-                movingLightObstaclesInRange.Add(other.GetComponent<MovingLightObstacle>());
+                movingLightObstaclesInRange.Add(other.transform.root.GetComponent<MovingLightObstacle>());
 
                 meshLight.HasMovingObstaclesInRange = true;
             }
@@ -43,14 +44,14 @@ namespace Light
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.GetComponent<LightSensor>())
+            if (other.transform.root.GetComponent<LightSensor>())
             {
-                lightSensorsInRange.Remove(other.GetComponent<LightSensor>());
+                lightSensorsInRange.Remove(other.transform.root.GetComponent<LightSensor>());
             }
 
-            if (other.GetComponent<MovingLightObstacle>())
+            if (other.transform.root.GetComponent<MovingLightObstacle>())
             {
-                movingLightObstaclesInRange.Remove(other.GetComponent<MovingLightObstacle>());
+                movingLightObstaclesInRange.Remove(other.transform.root.GetComponent<MovingLightObstacle>());
 
                 if (movingLightObstaclesInRange.Any())
                 {

@@ -103,7 +103,7 @@ namespace Light
         public override LightSensor IsWithinLightLimits(Vector2 position)
         {
             Vector2 startPos = (position * Vector2.right) + (transform.position * Vector2.up);
-            RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range, obstacleLayerIndex, 0);
+            RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range);
 
             if (hit.collider != null)
             {
