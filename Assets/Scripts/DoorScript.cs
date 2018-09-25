@@ -6,13 +6,10 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
-	private bool isOpened;
-
 	private bool canBeOpened;
 	// Use this for initialization
 	void Start ()
 	{
-		isOpened = false;
 		canBeOpened = true;
 	}
 	
@@ -24,16 +21,14 @@ public class DoorScript : MonoBehaviour
 
 	public void Open()
 	{
-		if (canBeOpened)
+		if (canBeOpened && this.gameObject.activeInHierarchy)
 		{
-			isOpened = true;
 			this.gameObject.SetActive(false);
 		}	
 	}
 
 	public void Close()
 	{
-		isOpened = false;
 		this.gameObject.SetActive(true);
 	}
 
