@@ -6,26 +6,28 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private int nbPlayerLives;
 
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
     private IPlayerData data = new PlayerData();
-
+    
     private float inputHorizontalMovement;
     private bool inputJump;
 
     private bool inputDash;
+    
+    private int nbPlayerLivesLeft;
 
     private void Awake()
     {
         data.RigidBody = GetComponent<Rigidbody2D>();
-
+        nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
         GetComponent<LightSensor>().OnLightExpositionChange+=OnLightExpositionChanged;
-        OnLightExpositionChanged(true);
-        
+        OnLightExpositionChanged(true);    
     }
 
     private void Update()
@@ -96,5 +98,25 @@ public class PlayerController : MonoBehaviour {
         reaperController.gameObject.SetActive(true);
 
         currentController = reaperController;
+    }
+
+    public void DamagePlayer()
+    {
+        nbPlayerLivesLeft--;
+    }
+
+    public void ResetNbPlayerLives()
+    {
+        nbPlayerLivesLeft = nbPlayerLives;
+    }
+
+    public bool IsPlayerDead()
+    {
+        if (nbPlayerLivesLeft <= 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
