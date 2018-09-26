@@ -1,36 +1,65 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Light;
 using UnityEngine;
+
+public delegate void PlayerDeathEventHandler();
 
 public class PlayerController : MonoBehaviour, IPlayerData {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private int nbPlayerLives;
+
+    public event PlayerDeathEventHandler OnPlayerDie;
 
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
+    private LightSensor lightSensor;
+
+    private Rigidbody2D rb;
+    public Rigidbody2D Rigidbody { get { return rb; } }
 
     private float inputHorizontalMovement;
     private float inputVerticalMovement;
     private bool inputJump;
     private bool inputBasicAttack;
 
-    private bool inputDash;
+    private bool inputUseCapacity1;
+    
+    private int nbPlayerLivesLeft;
+
+    private int numbOfLocks = 0;
+
+    public int NbPlayerLivesLeft
+    {
+        get { return nbPlayerLivesLeft; }
+        set
+        {
+            nbPlayerLivesLeft = value;
+            if (IsPlayerDead())
+            {
+                OnPlayerDie?.Invoke();
+            }
+        }
+    }
 
     public bool IsOnGround { get; set; }
-    public bool IsDashing { get ; set; }
-    public Rigidbody2D RigidBody { get ; set ; }
+
+    public bool IsDashing { get; set; }
 
     private void Awake()
     {
-        RigidBody = GetComponent<Rigidbody2D>();
-
+        rb = GetComponent<Rigidbody2D>();
+        nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
 
-        OnLightEnter();
-    }
+        lightSensor = GetComponent<LightSensor>();
+        lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
 
+        OnLightExpositionChanged(true);    
+    }
     private void Update()
     {
         inputJump = Input.GetButtonDown("Jump");
@@ -79,8 +108,8 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
             if (inputJump)
             {
-                RigidBody.velocity = new Vector2(0, 0);
-                RigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                rb.velocity = new Vector2(0, 0);
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
 
                 IsOnGround = false;
             }
@@ -91,20 +120,65 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         }
     }
 
+   private void OnLightExpositionChanged(bool exposed)
+    {
+        if(exposed)
+            OnLightEnter();
+        else
+        {
+            OnLightExit();
+        }
+    }
     public void OnLightEnter()
     {
-        williamController.gameObject.SetActive(true);
-        reaperController.gameObject.SetActive(false);
+        if(numbOfLocks == 0)
+        {
+            williamController.gameObject.SetActive(true);
+            reaperController.gameObject.SetActive(false);
 
-        currentController = williamController;
+            currentController = williamController;
+        }
     }
 
     public void OnLightExit()
     {
-        williamController.gameObject.SetActive(false);
-        reaperController.gameObject.SetActive(true);
+        if(numbOfLocks == 0)
+        {
+            williamController.gameObject.SetActive(false);
+            reaperController.gameObject.SetActive(true);
 
-        currentController = reaperController;
+            currentController = reaperController;
+        }
+    }
+
+    public void DamagePlayer()
+    {
+        NbPlayerLivesLeft--;
+    }
+
+
+    private bool IsPlayerDead()
+    {
+        if (NbPlayerLivesLeft <= 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void LockTransformation()
+    {
+        numbOfLocks += 1;
+    }
+
+    public void UnlockTransformation()
+    {
+        if(numbOfLocks > 0)
+            numbOfLocks -= 1;
+
+        if(numbOfLocks == 0)
+            OnLightExpositionChanged(lightSensor.InLight);
     }
 
     public IPlayerDataReadOnly Clone()
