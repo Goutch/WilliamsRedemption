@@ -34,7 +34,7 @@ public class WilliamController : EntityControlableController
         while (numbOfTimePassed < durationOfDash)
         {
             numbOfTimePassed += Time.deltaTime;
-            data.RigidBody.velocity = new Vector2(Vector2.right.x * (sprite.flipX ? dashForce * -1 : dashForce), 0.0f);
+            data.RigidBody.velocity = new Vector2(Vector2.right.x * (sprite.flipX ? dashForce * -1 : dashForce), 0.0f) * Time.deltaTime;
 
             yield return null;
         }
