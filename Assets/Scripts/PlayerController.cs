@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour {
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
+
         GetComponent<LightSensor>().OnLightExpositionChange+=OnLightExpositionChanged;
         OnLightExpositionChanged(true);    
     }
