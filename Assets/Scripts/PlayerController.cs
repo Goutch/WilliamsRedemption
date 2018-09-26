@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using Light;
 using UnityEngine;
 
+public delegate void PlayerDeathEventHandler();
+
 public class PlayerController : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
 
+    public event PlayerDeathEventHandler OnPlayerDie;
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
@@ -19,6 +22,19 @@ public class PlayerController : MonoBehaviour {
     private bool inputUseCapacity1;
     
     private int nbPlayerLivesLeft;
+    
+    public int NbPlayerLivesLeft
+    {
+        get { return nbPlayerLivesLeft; }
+        set
+        {
+            nbPlayerLivesLeft = value;
+            if (IsPlayerDead())
+            {
+                OnPlayerDie?.Invoke();
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -105,17 +121,13 @@ public class PlayerController : MonoBehaviour {
 
     public void DamagePlayer()
     {
-        nbPlayerLivesLeft--;
+        NbPlayerLivesLeft--;
     }
 
-    public void ResetNbPlayerLives()
-    {
-        nbPlayerLivesLeft = nbPlayerLives;
-    }
 
-    public bool IsPlayerDead()
+    private bool IsPlayerDead()
     {
-        if (nbPlayerLivesLeft <= 0)
+        if (NbPlayerLivesLeft <= 0)
         {
             return true;
         }
