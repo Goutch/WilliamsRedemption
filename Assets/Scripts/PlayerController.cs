@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     private bool inputJump;
     private bool inputBasicAttack;
 
-    private bool inputUseCapacity1;
+    private bool inputCapacity1;
     
     private int nbPlayerLivesLeft;
 
@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     }
 
     public bool IsOnGround { get; set; }
-
     public bool IsDashing { get; set; }
+    public FacingSideUpDown DirectionFacingUpDown { get; set; }
 
     private void Awake()
     {
@@ -72,15 +72,29 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         inputVerticalMovement = Input.GetAxis("Vertical");
 
-        inputDash = Input.GetButtonDown("Fire3");
+        inputCapacity1 = Input.GetButtonDown("Fire3");
         inputBasicAttack = Input.GetButtonDown("Fire1");
 
+
+        if(inputVerticalMovement < 0)
+        {
+            currentController.animator.SetBool("IsLookingDown", true);
+            DirectionFacingUpDown = FacingSideUpDown.Down;
+        }
+        else if(inputVerticalMovement > 0)
+        {
+            currentController.animator.SetBool("IsLookingUp", true);
+            DirectionFacingUpDown = FacingSideUpDown.Up;
+        }
+        else
+        {
+            DirectionFacingUpDown = FacingSideUpDown.None;
+        }
+
         currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
-        currentController.animator.SetBool("IsJumping", RigidBody.velocity.y > 0);
+        currentController.animator.SetBool("IsJumping", rb.velocity.y > 0);
         currentController.animator.SetBool("IsFalling", !IsOnGround && !IsDashing);
         currentController.animator.SetBool("IsDashing", IsDashing);
-        currentController.animator.SetBool("IsLookingDown", inputVerticalMovement < 0);
-        Debug.Log(inputVerticalMovement);
     }
 
     private void FixedUpdate()
@@ -90,19 +104,19 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         if(currentController.CanUseBasicAttack(this) && inputBasicAttack)
         {
             currentController.UseBasicAttack(this);
-            currentController.animator.SetBool("IsShooting", true);
+            currentController.animator.SetBool("IsAttacking", true);
         }
         else
         {
-            currentController.animator.SetBool("IsShooting", false);
+            currentController.animator.SetBool("IsAttacking", false);
         }
 
-        if (currentController.Capacity1Usable(this) && inputDash)
+        if (currentController.Capacity1Usable(this) && inputCapacity1)
         {
             currentController.UseCapacity1(this);
         }
 
-        if (RigidBody.velocity.y == 0 && !IsDashing)
+        if (rb.velocity.y == 0 && !IsDashing)
         {
             IsOnGround = true;
 

@@ -8,6 +8,7 @@ public interface IPlayerDataReadOnly : IEntityData
 {
     bool IsOnGround { get; }
     bool IsDashing { get; }
+    FacingSideUpDown DirectionFacingUpDown { get; }
 
     IPlayerDataReadOnly Clone();
 }

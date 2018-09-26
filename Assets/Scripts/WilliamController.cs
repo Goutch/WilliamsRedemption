@@ -61,7 +61,12 @@ public class WilliamController : EntityControlableController
         if (sprite.flipX)
             angle = Quaternion.AngleAxis(180, Vector3.up);
 
-        GameObject projectileObject = Instantiate(projectile, gameObject.transform.parent.position, angle);
+        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down)
+            angle = Quaternion.AngleAxis(-90, Vector3.forward);
+        else if (playerData.DirectionFacingUpDown == FacingSideUpDown.Up)
+            angle = Quaternion.AngleAxis(90, Vector3.forward);
+
+        GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
         projectile.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
     }
 }

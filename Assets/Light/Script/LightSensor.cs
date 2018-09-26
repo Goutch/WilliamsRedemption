@@ -12,7 +12,7 @@ namespace Light
         public event LightSensorEventHandler OnLightExpositionChange;
 
         private float lastLightExposure;
-     [SerializeField]   private bool inLight;
+        [SerializeField]   private bool inLight;
 
         public bool InLight
         {
@@ -32,7 +32,7 @@ namespace Light
 
                     inLight = value;
 
-                    if (OnLightExpositionChange != null) OnLightExpositionChange(value);
+                    OnLightExpositionChange?.Invoke(value);
                 }
             }
         }
