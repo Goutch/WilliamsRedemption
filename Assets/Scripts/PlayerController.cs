@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour {
         GetComponent<LightSensor>().OnLightExpositionChange+=OnLightExpositionChanged;
         OnLightExpositionChanged(true);    
     }
-
     private void Update()
     {
         inputJump = Input.GetButtonDown("Jump");
