@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, IPlayerData {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
 
@@ -10,16 +10,20 @@ public class PlayerController : MonoBehaviour {
     private ReaperController reaperController;
     private EntityControlableController currentController;
 
-    private IPlayerData data = new PlayerData();
-
     private float inputHorizontalMovement;
+    private float inputVerticalMovement;
     private bool inputJump;
+    private bool inputBasicAttack;
 
     private bool inputDash;
 
+    public bool IsOnGround { get; set; }
+    public bool IsDashing { get ; set; }
+    public Rigidbody2D RigidBody { get ; set ; }
+
     private void Awake()
     {
-        data.RigidBody = GetComponent<Rigidbody2D>();
+        RigidBody = GetComponent<Rigidbody2D>();
 
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
@@ -37,38 +41,53 @@ public class PlayerController : MonoBehaviour {
         else if (inputHorizontalMovement < 0)
             currentController.sprite.flipX = true;
 
+        inputVerticalMovement = Input.GetAxis("Vertical");
+
         inputDash = Input.GetButtonDown("Fire3");
+        inputBasicAttack = Input.GetButtonDown("Fire1");
 
         currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
-        currentController.animator.SetBool("IsJumping", inputJump && data.IsOnGround);
-        currentController.animator.SetBool("IsFalling", !data.IsOnGround && !data.IsDashing);
-        currentController.animator.SetBool("IsDashing", data.IsDashing);
+        currentController.animator.SetBool("IsJumping", RigidBody.velocity.y > 0);
+        currentController.animator.SetBool("IsFalling", !IsOnGround && !IsDashing);
+        currentController.animator.SetBool("IsDashing", IsDashing);
+        currentController.animator.SetBool("IsLookingDown", inputVerticalMovement < 0);
+        Debug.Log(inputVerticalMovement);
     }
 
     private void FixedUpdate()
     {
         transform.Translate(inputHorizontalMovement * Time.deltaTime, 0, 0);
 
-        if (currentController.Capacity1Usable(data) && inputDash)
+        if(currentController.CanUseBasicAttack(this) && inputBasicAttack)
         {
-            currentController.UseCapacity1(data);
+            currentController.UseBasicAttack(this);
+            currentController.animator.SetBool("IsShooting", true);
+        }
+        else
+        {
+            currentController.animator.SetBool("IsShooting", false);
         }
 
-        if (data.RigidBody.velocity.y == 0 && !data.IsDashing)
+        if (currentController.Capacity1Usable(this) && inputDash)
         {
-            data.IsOnGround = true;
+            currentController.UseCapacity1(this);
+        }
+
+        if (RigidBody.velocity.y == 0 && !IsDashing)
+        {
+            IsOnGround = true;
 
             if (inputJump)
             {
-                data.RigidBody.velocity = new Vector2(0, 0);
-                data.RigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                RigidBody.velocity = new Vector2(0, 0);
+                RigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
 
-                data.IsOnGround = false;
+                IsOnGround = false;
             }
         }
         else
         {
-            data.IsOnGround = false;
+            IsOnGround = false;
         }
     }
 
@@ -86,5 +105,10 @@ public class PlayerController : MonoBehaviour {
         reaperController.gameObject.SetActive(true);
 
         currentController = reaperController;
+    }
+
+    public IPlayerDataReadOnly Clone()
+    {
+        return this.MemberwiseClone() as IPlayerDataReadOnly;
     }
 }

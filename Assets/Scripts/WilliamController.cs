@@ -7,6 +7,8 @@ public class WilliamController : EntityControlableController
     [SerializeField] private float dashForce;
     [SerializeField] private float durationOfDash;
 
+    [SerializeField] private GameObject projectile;
+
     protected bool capacityUsedOnceInAir = false;
 
     public override void UseCapacity1(IPlayerData data)
@@ -41,5 +43,21 @@ public class WilliamController : EntityControlableController
         data.RigidBody.velocity = new Vector2(0, data.RigidBody.velocity.y);
 
         data.IsDashing = false;
+    }
+
+    public override bool CanUseBasicAttack(IPlayerDataReadOnly playerData)
+    {
+        return true;
+    }
+
+    public override void UseBasicAttack(IPlayerData playerData)
+    {
+        Quaternion angle = Quaternion.identity;
+
+        if (sprite.flipX)
+            angle = Quaternion.AngleAxis(180, Vector3.up);
+
+        GameObject projectileObject = Instantiate(projectile, gameObject.transform.parent.position, angle);
+        projectile.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
     }
 }

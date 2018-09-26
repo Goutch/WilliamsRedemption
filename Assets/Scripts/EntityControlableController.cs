@@ -15,4 +15,7 @@ public abstract class EntityControlableController : MonoBehaviour{
 
     public abstract void UseCapacity1(IPlayerData playerData);
     public abstract bool Capacity1Usable(IPlayerDataReadOnly playerData);
+
+    public abstract bool CanUseBasicAttack(IPlayerDataReadOnly playerData);
+    public abstract void UseBasicAttack(IPlayerData playerData);
 }

@@ -11,4 +11,14 @@ public class ReaperController : EntityControlableController
     {
         return true;
     }
+
+    public override bool CanUseBasicAttack(IPlayerDataReadOnly playerData)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void UseBasicAttack(IPlayerData playerData)
+    {
+        throw new System.NotImplementedException();
+    }
 }
