@@ -9,15 +9,18 @@ namespace Light
     {
         [SerializeField] protected Color color = Color.white;
         [SerializeField] protected int obstacleLayerIndex = 1;
+
         [Tooltip("Draw the triangles of the mesh in blue in the scene tab")] [SerializeField]
         protected bool debugDraw = false;
+
         [SerializeField] private bool updateEveryFrame = false;
-        [SerializeField] private float movingObstacleUpdateStopCooldown = 1; 
-        [SerializeField]private bool hasMovingObstaclesInRange = false;
+        [SerializeField] private float movingObstacleUpdateStopCooldown = 1;
+        [SerializeField] private bool hasMovingObstaclesInRange = false;
+        private bool isOpen=true;
 
         public bool HasMovingObstaclesInRange
         {
-            get { return hasMovingObstaclesInRange;}
+            get { return hasMovingObstaclesInRange; }
             set
             {
                 if (value)
@@ -76,9 +79,12 @@ namespace Light
 
         protected void Update()
         {
-            if (updateEveryFrame || HasMovingObstaclesInRange)
+            if (isOpen)
             {
-                DrawMesh();
+                if (updateEveryFrame || HasMovingObstaclesInRange)
+                {
+                    DrawMesh();
+                }
             }
         }
 
@@ -125,6 +131,7 @@ namespace Light
             {
                 degree += 360;
             }
+
             return degree;
         }
 
@@ -144,13 +151,26 @@ namespace Light
             float AngleRad = Mathf.Atan2(dir.x, dir.y);
             float AngleDeg = (180 / Mathf.PI) * AngleRad;
 
-            return ClampDegree0To360(AngleDeg+90);
+            return ClampDegree0To360(AngleDeg + 90);
         }
 
         protected IEnumerator StartUpdateCooldownRoutine(float cooldown)
         {
             yield return new WaitForSeconds(cooldown);
             hasMovingObstaclesInRange = false;
+        }
+
+        private void Open()
+        {
+            isOpen = true;
+            DrawMesh();
+        }
+
+        private void Close()
+        {
+            isOpen = false;
+            mesh.Clear();
+            vertices.Clear();
         }
     }
 }
