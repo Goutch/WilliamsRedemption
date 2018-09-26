@@ -307,6 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 5
+  nbPlayerLives: 3
 --- !u!114 &114453037947686884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -318,6 +319,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205f42d22b2d64844a6e0ee8c8713450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleportationDistance: 0
+  tpEffect: {fileID: 1755848583395488, guid: 83f64db88aee946448db9a3ae94dd822, type: 2}
+  timeBeforeTpEffectVanish: 0
 --- !u!114 &114532851351739626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeWithoutLightLimit: 0.1
+  inLight: 0
 --- !u!114 &114593398273491556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,6 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeWithoutLightLimit: 0.1
+  inLight: 0
 --- !u!114 &114622292881330064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeWithoutLightLimit: 0.1
+  inLight: 0
 --- !u!114 &114814960698773824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbe8cb0d5144164a9f978aa62518cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashForce: 16
+  dashForce: 960
   durationOfDash: 0.1
 --- !u!212 &212028161552566146
 SpriteRenderer:

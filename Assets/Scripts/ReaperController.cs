@@ -8,13 +8,13 @@ public class ReaperController : EntityControlableController
     [SerializeField] private GameObject tpEffect;
     [SerializeField] private float timeBeforeTpEffectVanish;
 
-    public override void UseCapacity1(IPlayerData data)
+    public override void UseCapacity1(PlayerController player)
     {
         Transform root = transform.parent;
         Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
 
         GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
-        StartCoroutine(TeleportEffectRemove(tpEffectTemp));
+        StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
 
         root.position = root.position + direction * teleportationDistance * Time.deltaTime;
     }
@@ -44,9 +44,11 @@ public class ReaperController : EntityControlableController
         return colliding && data.IsOnGround;
     }
 
-    IEnumerator TeleportEffectRemove(GameObject tpEffect)
+    IEnumerator TeleportEffectRemove(GameObject tpEffect, PlayerController player)
     {
+        player.LockTransformation();
         yield return new WaitForSeconds(timeBeforeTpEffectVanish);
         Destroy(tpEffect);
+        player.UnlockTransformation();
     }
 }
