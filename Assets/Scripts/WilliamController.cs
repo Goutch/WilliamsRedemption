@@ -9,9 +9,9 @@ public class WilliamController : EntityControlableController
 
     protected bool capacityUsedOnceInAir = false;
 
-    public override void UseCapacity1(IPlayerData data)
+    public override void UseCapacity1(PlayerController player)
     {
-        StartCoroutine(Dash(data));
+        StartCoroutine(Dash(player));
         capacityUsedOnceInAir = true;
     }
 
@@ -26,20 +26,24 @@ public class WilliamController : EntityControlableController
             return true;
     }
 
-    IEnumerator Dash(IPlayerData data)
+    IEnumerator Dash(PlayerController player)
     {
-        data.IsDashing = true;
-        float numbOfTimePassed = 0;
+        player.LockTransformation();
 
+        player.IsDashing = true;
+
+        float numbOfTimePassed = 0;
         while (numbOfTimePassed < durationOfDash)
         {
             numbOfTimePassed += Time.deltaTime;
-            data.RigidBody.velocity = new Vector2(Vector2.right.x * (sprite.flipX ? dashForce * -1 : dashForce), 0.0f) * Time.deltaTime;
+            player.Rigidbody.velocity = new Vector2(Vector2.right.x * (sprite.flipX ? dashForce * -1 : dashForce), 0.0f) * Time.deltaTime;
 
             yield return null;
         }
-        data.RigidBody.velocity = new Vector2(0, data.RigidBody.velocity.y);
+        player.Rigidbody.velocity = new Vector2(0, player.Rigidbody.velocity.y);
 
-        data.IsDashing = false;
+        player.IsDashing = false;
+
+        player.UnlockTransformation();
     }
 }
