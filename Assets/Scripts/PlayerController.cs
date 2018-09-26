@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         OnLightExpositionChanged(true);    
     }
-
     private void Update()
     {
         inputJump = Input.GetButtonDown("Jump");
