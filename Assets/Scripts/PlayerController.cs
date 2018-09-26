@@ -1,30 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Light;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private int nbPlayerLives;
 
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
-
     private IPlayerData data = new PlayerData();
-
+    
     private float inputHorizontalMovement;
     private bool inputJump;
 
     private bool inputUseCapacity1;
+    
+    private int nbPlayerLivesLeft;
 
     private void Awake()
     {
         data.RigidBody = GetComponent<Rigidbody2D>();
-
+        nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
-
-        OnLightExit();
+        GetComponent<LightSensor>().OnLightExpositionChange+=OnLightExpositionChanged;
+        OnLightExpositionChanged(true);    
     }
 
     private void Update()
@@ -74,6 +77,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+   private void OnLightExpositionChanged(bool exposed)
+    {
+        if(exposed)
+            OnLightEnter();
+        else
+        {
+            OnLightExit();
+        }
+    }
     public void OnLightEnter()
     {
         williamController.gameObject.SetActive(true);
@@ -88,5 +100,25 @@ public class PlayerController : MonoBehaviour {
         reaperController.gameObject.SetActive(true);
 
         currentController = reaperController;
+    }
+
+    public void DamagePlayer()
+    {
+        nbPlayerLivesLeft--;
+    }
+
+    public void ResetNbPlayerLives()
+    {
+        nbPlayerLivesLeft = nbPlayerLives;
+    }
+
+    public bool IsPlayerDead()
+    {
+        if (nbPlayerLivesLeft <= 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
