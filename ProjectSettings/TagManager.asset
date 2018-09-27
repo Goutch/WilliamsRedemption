@@ -7,6 +7,9 @@ TagManager:
   - GlobalComponents
   - Track
   - Ai
+  - Enemy
+  - ProjectilePlayer
+  - Plateforme
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
+  - Obstacles
+  - LightSensor
   - 
   - 
   - 
