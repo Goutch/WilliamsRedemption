@@ -1,0 +1,52 @@
+﻿using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
+using UnityEngine.Experimental.Rendering;
+
+namespace Playmode.EnnemyRework
+{
+    public class EnemyControllerRework : MonoBehaviour
+    {
+        [SerializeField] private Enemy enemyStrategy;
+
+        public Enemy EnemyStrategy
+        {
+            get { return enemyStrategy;}
+            set { enemyStrategy = Instantiate(value); }
+        }
+
+        private Health health;
+
+        private void Awake()
+        {
+            Init(enemyStrategy);
+        }
+
+        public void Init(Enemy enemyStrategy)
+        {
+            EnemyStrategy = enemyStrategy;
+            EnemyStrategy.Init(gameObject);
+            GetComponent<SpriteRenderer>().sprite = EnemyStrategy.Sprite;
+            gameObject.AddComponent<BoxCollider2D>();
+            health = this.GetComponent<Health>();
+        }
+
+        private void FixedUpdate()
+        {
+            enemyStrategy.Act();
+        }
+        private void OnHit(int hitPoints)
+        {
+            health.Hit(hitPoints);
+            Debug.Log(health.HealthPoints);
+            OnHealthChange(health.HealthPoints);
+        }
+
+        private void OnHealthChange(int newHealth)
+        {
+            if (newHealth <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
+}
