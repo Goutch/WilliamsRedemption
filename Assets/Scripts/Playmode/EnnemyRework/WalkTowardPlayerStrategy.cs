@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DefaultNamespace;
+using UnityEngine;
 using UnityEngine.UI;
 using Slider = UnityEngine.Experimental.UIElements.Slider;
 
@@ -7,6 +8,7 @@ namespace Playmode.EnnemyRework
     [CreateAssetMenu(fileName = "WalkToward", menuName = "EnnemyStrategy/WalkToward", order = 1)]
     public class WalkTowardPlayerStrategy : Enemy
     {
+        [SerializeField] private Vector2 jumpForce;
         protected Animator animator;
         protected RootMover rootMover;
         protected SpriteRenderer spriteRenderer;
@@ -34,7 +36,13 @@ namespace Playmode.EnnemyRework
                 spriteRenderer.flipX = true;
             }
             rootMover.WalkToward(currenDirection,speed);
-            
+            int surroundingRange = 1;
+            bool[,] surrounding=new bool[3,3];
+            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, rootMover.transform.position);
+            if (!surrounding[currenDirection+surroundingRange, 0+surroundingRange] && surrounding[currenDirection+surroundingRange, 1+surroundingRange])
+            {
+                rootMover.Jump(new Vector2(jumpForce.x*currenDirection,jumpForce.y));
+            }
         }
     }
 }
