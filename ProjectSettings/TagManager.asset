@@ -10,7 +10,8 @@ TagManager:
   - Enemy
   - ProjectilePlayer
   - Plateforme
-  - ProjectileEnemy
+  - William
+  - Reaper
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,9 @@ TagManager:
   - Player
   - Obstacles
   - LightSensor
-  - Projectile
+  - Reaper
+  - Walls
+  - 
   - 
   - 
   - 

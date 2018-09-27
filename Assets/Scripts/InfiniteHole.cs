@@ -15,5 +15,10 @@ public class InfiniteHole : MonoBehaviour
             other.Root().transform.position = respawnPoint.position;
             other.transform.root.GetComponent<PlayerController>().DamagePlayer();
         }
+
+        if (other.Root().tag == "Enemy")
+        {
+            Destroy(other.Root());
+        }
     }
 }

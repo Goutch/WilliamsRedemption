@@ -39,8 +39,9 @@ namespace Playmode.EnnemyRework
             int surroundingRange = 1;
             bool[,] surrounding=new bool[3,3];
             surrounding = PathFinder.instance.GetSurrounding(surroundingRange, rootMover.transform.position);
-            if (!surrounding[currenDirection+surroundingRange, 0+surroundingRange] && surrounding[currenDirection+surroundingRange, 1+surroundingRange])
+            if (surrounding[currenDirection+surroundingRange, 0+surroundingRange])
             {
+                if(!rootMover.IsJumping)
                 rootMover.Jump(new Vector2(jumpForce.x*currenDirection,jumpForce.y));
             }
         }
