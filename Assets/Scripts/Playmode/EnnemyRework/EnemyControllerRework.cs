@@ -6,20 +6,33 @@ namespace Playmode.EnnemyRework
 {
     public class EnemyControllerRework : MonoBehaviour
     {
-        [SerializeField] private Enemy enemy;
+        [SerializeField] private Enemy enemyStrategy;
+
+        public Enemy EnemyStrategy
+        {
+            get { return enemyStrategy;}
+            set { enemyStrategy = Instantiate(value); }
+        }
+
         private Health health;
+
         private void Awake()
         {
-            enemy.Init(gameObject);
-            GetComponent<SpriteRenderer>().sprite = enemy.Sprite;
+            Init(enemyStrategy);
+        }
+
+        public void Init(Enemy enemyStrategy)
+        {
+            EnemyStrategy = enemyStrategy;
+            EnemyStrategy.Init(gameObject);
+            GetComponent<SpriteRenderer>().sprite = EnemyStrategy.Sprite;
             gameObject.AddComponent<BoxCollider2D>();
             health = this.GetComponent<Health>();
-           
         }
 
         private void FixedUpdate()
         {
-            enemy.Act();
+            enemyStrategy.Act();
         }
         private void OnHit(int hitPoints)
         {

@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.Eventing.Reader;
+using UnityEngine;
 
 namespace Playmode.EnnemyRework
 {
     public class RootMover : MonoBehaviour
     {
         private bool isJumping = false;
+
+        public bool IsJumping => isJumping;
+
         private Rigidbody2D rootRigidBody;
 
         private void Awake()
@@ -14,19 +18,19 @@ namespace Playmode.EnnemyRework
 
         private void FixedUpdate()
         {
-            if (!this.isJumping || (double) this.rootRigidBody.velocity.y != 0.0)
-                return;
-            this.isJumping = false;
+            if (this.isJumping &&this.rootRigidBody.velocity.y == 0.0)
+                this.isJumping = false;
         }
 
-        public void WalkToward(int direction ,float speed)
+        public void WalkToward(int direction, float speed)
         {
-            this.transform.root.Translate(Vector3.right * (float) direction * speed * Time.deltaTime);
+            rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
         }
 
-        public void FlyToward(Vector2 targetPosition,float speed)
+        public void FlyToward(Vector2 targetPosition, float speed)
         {
-            this.transform.root.position = Vector3.MoveTowards(this.transform.root.position, (Vector3) targetPosition, speed * Time.deltaTime);
+            this.transform.root.position = Vector3.MoveTowards(this.transform.root.position, (Vector3) targetPosition,
+                speed * Time.deltaTime);
         }
 
         public void Jump(Vector2 jumpForce)

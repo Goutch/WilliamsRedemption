@@ -28,7 +28,11 @@ public class LifePointsUI : MonoBehaviour
 
     public void UpdateLP()
     {
-        lifePointsImages[playerController.NbPlayerLivesLeft].SetActive(false);
+        if (playerController.NbPlayerLivesLeft >= 0)
+        {
+            lifePointsImages[playerController.NbPlayerLivesLeft].SetActive(false);
+        }
+        
     }
 
 }

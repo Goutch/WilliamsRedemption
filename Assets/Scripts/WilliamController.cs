@@ -52,7 +52,6 @@ public class WilliamController : EntityControlableController
         }
         else
         {
-            Debug.Log(Time.time - lastTimeAttack);
             return false;
         }
 
