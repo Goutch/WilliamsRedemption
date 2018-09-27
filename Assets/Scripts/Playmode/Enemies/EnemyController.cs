@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
 	void Awake () {
 		InitializeComponent();
 	}
-
+	
 	private void InitializeComponent()
 	{
 		startingPosition = transform.position;

@@ -33,7 +33,7 @@ namespace DefaultNamespace
                     
                     int cellPosX = StartPos.x + x;
                     int cellPosY = StartPos.y + y;
-                    surrounding[x+range,y+range]=!obstacles.GetTile(new Vector3Int(cellPosX,cellPosY,0));
+                    surrounding[x+range,y+range]=obstacles.GetTile(new Vector3Int(cellPosX,cellPosY,0));
                 }
             }
 
