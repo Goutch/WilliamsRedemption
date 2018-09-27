@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Harmony;
 using Light;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public delegate void PlayerDeathEventHandler();
 
@@ -15,7 +18,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
-
+    
     public int NbPlayerLives => nbPlayerLives;
     public static PlayerController instance;
     public event PlayerDeathEventHandler OnPlayerDie;
@@ -23,12 +26,18 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     private WilliamController williamController;
     private ReaperController reaperController;
     public EntityControlableController CurrentController { get; private set; }
+    private EntityControlableController currentController;
+
+    public EntityControlableController CurrentController => currentController;
+
+    private IPlayerData data = new PlayerData();
 
     private LightSensor lightSensor;
     public Rigidbody2D Rigidbody { get; private set; }
 
     private int nbPlayerLivesLeft;
 
+    private int currentLevel;
     private int numbOfLocks = 0;
 
     public int NbPlayerLivesLeft
@@ -41,6 +50,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
             if (IsPlayerDead())
             {
                 OnPlayerDie?.Invoke();
+                SceneManager.LoadScene("Level"+currentLevel);
             }
         }
     }
@@ -56,6 +66,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         buttonsHeld = new Dictionary<string, bool>();
         buttonsReleased = new Dictionary<string, bool>();
 
+        currentLevel = 1;
         if (instance == null)
             instance = this;
         else
