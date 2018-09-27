@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class WilliamController : EntityControlableController
 {
-    [SerializeField] private float dashForce;
+    [SerializeField] private float dashDistance;
     [SerializeField] private float durationOfDash;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private float fireRate;
 
-    protected bool capacityUsedOnceInAir = false;
+    private bool capacityUsedOnceInAir = false;
+    private float? lastTimeAttack = null;
 
-    public override void UseCapacity1(IPlayerData data)
+    public override void UseCapacity1(PlayerController player)
     {
-        StartCoroutine(Dash(data));
+        StartCoroutine(Dash(player));
         capacityUsedOnceInAir = true;
     }
 
@@ -26,20 +29,51 @@ public class WilliamController : EntityControlableController
             return true;
     }
 
-    IEnumerator Dash(IPlayerData data)
+    IEnumerator Dash(PlayerController player)
     {
-        data.IsDashing = true;
-        float numbOfTimePassed = 0;
+        player.LockTransformation();
+        player.IsDashing = true;
 
-        while (numbOfTimePassed < durationOfDash)
+        Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
+        player.Rigidbody.velocity = new Vector2(direction.x * (dashDistance / durationOfDash), player.Rigidbody.velocity.y);
+
+        yield return new WaitForSeconds(durationOfDash);
+
+        player.Rigidbody.velocity = new Vector2(0, player.Rigidbody.velocity.y);
+        player.IsDashing = false;
+        player.UnlockTransformation();
+    }
+
+    public override bool CanUseBasicAttack(IPlayerDataReadOnly playerData)
+    {
+        if(lastTimeAttack == null || Time.time - lastTimeAttack > fireRate)
         {
-            numbOfTimePassed += Time.deltaTime;
-            data.RigidBody.velocity = new Vector2(Vector2.right.x * (sprite.flipX ? dashForce * -1 : dashForce), 0.0f) * Time.deltaTime;
-
-            yield return null;
+            return true;
         }
-        data.RigidBody.velocity = new Vector2(0, data.RigidBody.velocity.y);
+        else
+        {
+            return false;
+        }
 
-        data.IsDashing = false;
+    }
+
+    public override void UseBasicAttack(IPlayerData playerData)
+    {
+        Quaternion angle = Quaternion.identity;
+
+        if (sprite.flipX)
+            angle = Quaternion.AngleAxis(180, Vector3.up);
+
+        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down && !playerData.IsOnGround)
+            angle = Quaternion.AngleAxis(-90, Vector3.forward);
+        else if (playerData.DirectionFacingUpDown == FacingSideUpDown.Up)
+            angle = Quaternion.AngleAxis(90, Vector3.forward);
+
+        GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
+        projectileObject.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
+
+        Attacking = true;
+
+        lastTimeAttack = Time.time;
     }
 }

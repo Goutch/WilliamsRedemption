@@ -25,7 +25,7 @@ namespace Playmode.EnnemyRework
 
         public override void Act()
         {
-            currenDirection = PlayerController.instance.transform.position.x - rootMover.transform.root.position.x >0
+            currenDirection = PlayerController.instance.transform.position.x - rootMover.transform.root.position.x > 0
                 ? 1
                 : -1;
             if (currenDirection == 1)

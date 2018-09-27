@@ -16,6 +16,12 @@ namespace Playmode.EnnemyRework
 
         private Health health;
 
+        private void Awake()
+        {
+            Init(enemyStrategy);
+        }
+
+
         public void Init(Enemy enemyStrategy)
         {
             EnemyStrategy = enemyStrategy;
