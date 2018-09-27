@@ -20,13 +20,14 @@ public class SwitchController : MonoBehaviour
 		{
 			foreach (var triggerable in triggerables)
 			{
-				triggerable.GetComponent<ITriggerable>()?.Open();
+				
 				if (triggerable.GetComponent<ITriggerable>().CanBeOpened())
 				{
+					triggerable.GetComponent<ITriggerable>()?.Open();
+					isOpened = true;
 					if (hasTimer)
 					{
-						timerStartTime = Time.time;
-						isOpened = true;
+						timerStartTime = Time.time;						
 					}
 				}
 			}
