@@ -7,7 +7,7 @@ public class Cannon : EnemyController
 	[SerializeField] private int rotationCannon;
 	[SerializeField] private GameObject bulletPrefab;
 	private float timeJustAfterShooting;
-	private const float TIME_BEFORE_SHOOTING_AGAIN=4;
+	private const float TIME_BEFORE_SHOOTING_AGAIN=2;
 
 	private void Awake()
 	{
@@ -24,7 +24,7 @@ public class Cannon : EnemyController
 
 	private void Shoot()
 	{
-		Instantiate(bulletPrefab,transform.position,Quaternion.identity/*AngleAxis(rotationCannon,Vector3.back)*/);	
+		Instantiate(bulletPrefab,transform.position,Quaternion.AngleAxis(rotationCannon,Vector3.back));	
 	}
 
 	private void ResetTimeToShoot()

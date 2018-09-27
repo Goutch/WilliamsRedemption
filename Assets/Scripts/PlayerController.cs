@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     public event PlayerDeathEventHandler OnPlayerDie;
 
     private WilliamController williamController;
+    public static PlayerController instance;
     private ReaperController reaperController;
     private EntityControlableController currentController;
     private LightSensor lightSensor;
@@ -55,6 +56,13 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        
         rb = GetComponent<Rigidbody2D>();
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();

@@ -9,7 +9,7 @@ namespace DefaultNamespace
         {
             if (other.collider.tag == R.E.Tag.Player.ToString())
             {
-                other.collider.Root().GetComponent<PlayerController>().DamagePlayer(1);
+                other.collider.Root().GetComponent<PlayerController>().DamagePlayer();
             }
         }
     }

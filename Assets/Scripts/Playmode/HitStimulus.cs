@@ -27,14 +27,10 @@ public class HitStimulus : MonoBehaviour
 	}
 
 	private void OnCollisionEnter2D(Collision2D other)
-	{
+	{	
 		if (other.gameObject.tag == "Player" && gameObject.tag == "Enemy")
 		{
 			hitSensor = other.gameObject.GetComponentInChildren<HitSensor>();
-			if(hitSensor != null)
-			{
-				hitSensor.Hit(hitPoints);
-			}
 		}
 		if(hitSensor != null)
 		{
@@ -44,21 +40,17 @@ public class HitStimulus : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "ProjectilePlayer" && gameObject.tag == "Enemy")
+		if ((other.gameObject.tag == "ProjectilePlayer" && gameObject.tag == "Enemy" )|| 
+		    (other.gameObject.tag == "ProjectileEnemy" && gameObject.tag == "Player"))
 		{
 			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
+			Destroy(other.gameObject);
 		}
-		else if (other.gameObject.tag == "Enemy" && gameObject.tag == "ProjectilePlayer")
+		else if ((other.gameObject.tag == "Enemy" && gameObject.tag == "ProjectilePlayer") || 
+		         (other.gameObject.tag == "Player" && gameObject.tag == "ProjectileEnemy"))
 		{
 			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
-		}
-		else if (other.gameObject.tag == "ProjectileEnemy" && gameObject.tag == "Player")
-		{
-			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
-		}
-		else if (other.gameObject.tag == "Player" && gameObject.tag == "ProjectileEnemy")
-		{
-			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
+			Destroy(gameObject);
 		}
 		if(hitSensor != null)
 		{

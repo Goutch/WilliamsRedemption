@@ -23,9 +23,6 @@ public class Bat : EnemyController
 			ChangeDirection();
 		else if (transform.position.x  - startingPosition.x >= distanceFromSpawningPoint)
 			ChangeDirection();
-		Debug.Log("s"+ startingPosition.x);
-		Debug.Log("t" + transform.position.x);
-		Debug.Log("d" + distanceFromSpawningPoint);
 	}
 
 	void ChangeDirection()

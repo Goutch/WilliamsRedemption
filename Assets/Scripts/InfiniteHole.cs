@@ -13,7 +13,7 @@ public class InfiniteHole : MonoBehaviour
         if (other.Root().tag == "Player")
         {
             other.Root().transform.position = respawnPoint.position;
-            other.transform.root.GetComponent<PlayerController>().DamagePlayer(1);
+            other.transform.root.GetComponent<PlayerController>().DamagePlayer();
         }
     }
 }
