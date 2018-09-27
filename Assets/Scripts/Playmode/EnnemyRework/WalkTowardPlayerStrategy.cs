@@ -22,16 +22,18 @@ namespace Playmode.EnnemyRework
 
         public override void Act()
         {
-            int direction;
-            direction = PlayerController.instance.transform.position.x - rootMover.transform.root.position.x > 0
+            
+            currenDirection= PlayerController.instance.transform.position.x - rootMover.transform.root.position.x > 0
                 ? 1
                 : -1;
-            if (direction != currenDirection)
+
+            if (currenDirection == 1)
+                spriteRenderer.flipX = false;
+            else
             {
-                currenDirection = direction;
-                spriteRenderer.flipX = !spriteRenderer.flipX;
+                spriteRenderer.flipX = true;
             }
-            rootMover.WalkToward(direction);
+            rootMover.WalkToward(currenDirection,speed);
             
         }
     }
