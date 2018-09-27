@@ -5,26 +5,35 @@ using UnityEngine;
 
 public delegate void PlayerDeathEventHandler();
 
-public class PlayerController : MonoBehaviour
-{
+
+public class PlayerController : MonoBehaviour, IPlayerData {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
 
     public int NbPlayerLives => nbPlayerLives;
-    public static PlayerController instance;
+
     public event PlayerDeathEventHandler OnPlayerDie;
+
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
-    private IPlayerData data = new PlayerData();
+    private LightSensor lightSensor;
+
+    private Rigidbody2D rb;
+    public Rigidbody2D Rigidbody { get { return rb; } }
 
     private float inputHorizontalMovement;
+    private float inputVerticalMovement;
     private bool inputJump;
+    private bool inputBasicAttack;
 
-    private bool inputUseCapacity1;
+    private bool inputCapacity1;
 
     private int nbPlayerLivesLeft;
+
+
+    private int numbOfLocks = 0;
 
     public int NbPlayerLivesLeft
     {
@@ -40,28 +49,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool IsOnGround { get; set; }
+    public bool IsDashing { get; set; }
+    public FacingSideUpDown DirectionFacingUpDown { get; set; }
+
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
-        {
-            Destroy(this.gameObject);
-        }
-
-        data.RigidBody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
-        GetComponent<HitSensor>().OnHit += DamagePlayer;
 
-        GetComponent<LightSensor>().OnLightExpositionChange += OnLightExpositionChanged;
-        OnLightExpositionChanged(true);
-    }
+        lightSensor = GetComponent<LightSensor>();
+        lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
 
-    public void DamagePlayer(int hitpoints)
-    {
-        NbPlayerLivesLeft -= hitpoints;
+        OnLightExpositionChanged(true);    
     }
 
     private void Update()
@@ -74,40 +76,86 @@ public class PlayerController : MonoBehaviour
         else if (inputHorizontalMovement < 0)
             currentController.sprite.flipX = true;
 
-        inputUseCapacity1 = Input.GetButtonDown("Dash/Teleport");
+        inputVerticalMovement = Input.GetAxis("Vertical");
+
+        inputCapacity1 = Input.GetButtonDown("Fire3");
+        inputBasicAttack = Input.GetButtonDown("Fire1");
+
+
+        if(inputVerticalMovement < 0)
+        {
+            currentController.animator.SetBool("IsLookingDown", true);
+            DirectionFacingUpDown = FacingSideUpDown.Down;
+        }
+        else if(inputVerticalMovement > 0)
+        {
+            currentController.animator.SetBool("IsLookingUp", true);
+            DirectionFacingUpDown = FacingSideUpDown.Up;
+        }
+        else
+        {
+            DirectionFacingUpDown = FacingSideUpDown.None;
+        }
 
         currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
-        currentController.animator.SetBool("IsJumping", inputJump && data.IsOnGround);
-        currentController.animator.SetBool("IsFalling", !data.IsOnGround && !data.IsDashing);
-
-        if (currentController is WilliamController)
-            currentController.animator.SetBool("IsDashing", data.IsDashing);
+        currentController.animator.SetBool("IsJumping", rb.velocity.y > 0);
+        currentController.animator.SetBool("IsFalling", !IsOnGround && !IsDashing);
+        currentController.animator.SetBool("IsDashing", IsDashing);
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(inputHorizontalMovement * Time.deltaTime, 0, 0);
-
-        if (currentController.Capacity1Usable(data) && inputUseCapacity1)
+        if(currentController.CanUseBasicAttack(this) && inputBasicAttack)
         {
-            currentController.UseCapacity1(data);
+            currentController.UseBasicAttack(this);
+            currentController.animator.SetBool("IsAttacking", true);
+        }
+        else
+        {
+            currentController.animator.SetBool("IsAttacking", false);
         }
 
-        if (data.RigidBody.velocity.y == 0 && !data.IsDashing)
+
+
+        if (rb.velocity.y == 0 && !IsDashing)
         {
-            data.IsOnGround = true;
+            IsOnGround = true;
 
             if (inputJump)
             {
-                data.RigidBody.velocity = new Vector2(0, 0);
-                data.RigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                rb.velocity = new Vector2(0, 0);
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
 
-                data.IsOnGround = false;
+                IsOnGround = false;
             }
         }
         else
         {
-            data.IsOnGround = false;
+            IsOnGround = false;
+        }
+
+        if (!IsDashing)
+        {
+            if(Input.GetButton("Gauche"))
+                rb.velocity = new Vector2(-Time.deltaTime * speed, rb.velocity.y);
+            if(Input.GetButton("Droite"))
+                rb.velocity = new Vector2(Time.deltaTime * speed, rb.velocity.y);
+
+            if (Input.GetButtonUp("Gauche"))
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            if (Input.GetButtonUp("Droite"))
+                rb.velocity = new Vector2(0, rb.velocity.y);
+
+
+            //rb.velocity = new Vector2(Input.GetAxis("Horizontal") * Time.deltaTime * speed, rb.velocity.y);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (currentController.Capacity1Usable(this) && inputCapacity1)
+        {
+            currentController.UseCapacity1(this);
         }
     }
 
@@ -123,18 +171,29 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightEnter()
     {
-        williamController.gameObject.SetActive(true);
-        reaperController.gameObject.SetActive(false);
+        if(numbOfLocks == 0)
+        {
+            williamController.gameObject.SetActive(true);
+            reaperController.gameObject.SetActive(false);
 
-        currentController = williamController;
+            currentController = williamController;
+        }
     }
 
     public void OnLightExit()
     {
-        williamController.gameObject.SetActive(false);
-        reaperController.gameObject.SetActive(true);
+        if(numbOfLocks == 0)
+        {
+            williamController.gameObject.SetActive(false);
+            reaperController.gameObject.SetActive(true);
 
-        currentController = reaperController;
+            currentController = reaperController;
+        }
+    }
+
+    public void DamagePlayer()
+    {
+        NbPlayerLivesLeft--;
     }
 
 
@@ -146,5 +205,24 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void LockTransformation()
+    {
+        numbOfLocks += 1;
+    }
+
+    public void UnlockTransformation()
+    {
+        if(numbOfLocks > 0)
+            numbOfLocks -= 1;
+
+        if(numbOfLocks == 0)
+            OnLightExpositionChanged(lightSensor.InLight);
+    }
+
+    public IPlayerDataReadOnly Clone()
+    {
+        return this.MemberwiseClone() as IPlayerDataReadOnly;
     }
 }

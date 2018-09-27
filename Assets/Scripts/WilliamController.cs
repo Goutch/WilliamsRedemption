@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class WilliamController : EntityControlableController
 {
-    [SerializeField] private float dashForce;
+    [SerializeField] private float dashDistance;
     [SerializeField] private float durationOfDash;
+
+    [SerializeField] private GameObject projectile;
 
     protected bool capacityUsedOnceInAir = false;
 
-    public override void UseCapacity1(IPlayerData data)
+    public override void UseCapacity1(PlayerController player)
     {
-        StartCoroutine(Dash(data));
+        StartCoroutine(Dash(player));
         capacityUsedOnceInAir = true;
     }
 
@@ -26,20 +28,39 @@ public class WilliamController : EntityControlableController
             return true;
     }
 
-    IEnumerator Dash(IPlayerData data)
+    IEnumerator Dash(PlayerController player)
     {
-        data.IsDashing = true;
-        float numbOfTimePassed = 0;
+        player.LockTransformation();
+        player.IsDashing = true;
 
-        while (numbOfTimePassed < durationOfDash)
-        {
-            numbOfTimePassed += Time.deltaTime;
-            data.RigidBody.velocity = new Vector2(Vector2.right.x * (sprite.flipX ? dashForce * -1 : dashForce), 0.0f) * Time.deltaTime;
+        Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
+        player.Rigidbody.velocity = new Vector2(direction.x * (dashDistance / durationOfDash), player.Rigidbody.velocity.y);
 
-            yield return null;
-        }
-        data.RigidBody.velocity = new Vector2(0, data.RigidBody.velocity.y);
+        yield return new WaitForSeconds(durationOfDash);
 
-        data.IsDashing = false;
+        player.Rigidbody.velocity = new Vector2(0, player.Rigidbody.velocity.y);
+        player.IsDashing = false;
+        player.UnlockTransformation();
+    }
+
+    public override bool CanUseBasicAttack(IPlayerDataReadOnly playerData)
+    {
+        return true;
+    }
+
+    public override void UseBasicAttack(IPlayerData playerData)
+    {
+        Quaternion angle = Quaternion.identity;
+
+        if (sprite.flipX)
+            angle = Quaternion.AngleAxis(180, Vector3.up);
+
+        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down)
+            angle = Quaternion.AngleAxis(-90, Vector3.forward);
+        else if (playerData.DirectionFacingUpDown == FacingSideUpDown.Up)
+            angle = Quaternion.AngleAxis(90, Vector3.forward);
+
+        GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
+        projectile.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
     }
 }

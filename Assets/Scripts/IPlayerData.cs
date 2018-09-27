@@ -9,5 +9,5 @@ public interface IPlayerData : IPlayerDataReadOnly
 {
     new bool IsOnGround { get; set; }
     new bool IsDashing { get; set; }
-    Rigidbody2D RigidBody { get; set; }
+    new FacingSideUpDown DirectionFacingUpDown { get; set; }
 }

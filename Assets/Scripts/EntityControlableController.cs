@@ -13,6 +13,9 @@ public abstract class EntityControlableController : MonoBehaviour{
         sprite = GetComponent<SpriteRenderer>();
     }
 
-    public abstract void UseCapacity1(IPlayerData playerData);
+    public abstract void UseCapacity1(PlayerController player);
     public abstract bool Capacity1Usable(IPlayerDataReadOnly playerData);
+
+    public abstract bool CanUseBasicAttack(IPlayerDataReadOnly playerData);
+    public abstract void UseBasicAttack(IPlayerData playerData);
 }
