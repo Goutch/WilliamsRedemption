@@ -18,6 +18,7 @@ public class HitStimulus : MonoBehaviour
 	private void Awake()
 	{
 		ValidateSerializeFields();
+	
 	}
 	
 	private void ValidateSerializeFields()
@@ -28,19 +29,20 @@ public class HitStimulus : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.gameObject.tag == "Player" && gameObject.tag == "Enemy")
+		hitSensor = null;
+		if (other.collider.tag == "Player" && gameObject.tag == "Enemy")
 		{
-			hitSensor = other.gameObject.GetComponentInChildren<HitSensor>();
+			hitSensor = other.gameObject.GetComponent<HitSensor>();
 			if(hitSensor != null)
 			{
 				hitSensor.Hit(hitPoints);
 			}
 		}
-		else if (other.gameObject.tag == "ProjectilePlayer" && gameObject.tag == "Enemy")
+		else if (other.collider.tag == "ProjectilePlayer" && gameObject.tag == "Enemy")
 		{
 			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
 		}
-		else if (other.gameObject.tag == "ProjectileEnemy" && gameObject.tag == "Player")
+		else if (other.collider.tag == "ProjectileEnemy" && gameObject.tag == "Player")
 		{
 			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
 		}

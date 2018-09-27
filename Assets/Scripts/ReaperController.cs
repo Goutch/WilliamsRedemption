@@ -6,6 +6,7 @@ public class ReaperController : EntityControlableController
 {
     [SerializeField] private float teleportationDistance;
     [SerializeField] private GameObject tpEffect;
+    [SerializeField] private GameObject meleeAttack;
     [SerializeField] private float timeBeforeTpEffectVanish;
 
     public override void UseCapacity1(PlayerController player)
@@ -52,6 +53,19 @@ public class ReaperController : EntityControlableController
 
     public override void UseBasicAttack(IPlayerData playerData)
     {
-        
+        Quaternion angle = Quaternion.identity;
+
+        if (sprite.flipX)
+            angle = Quaternion.AngleAxis(180, Vector3.up);
+
+        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down)
+            angle = Quaternion.AngleAxis(-90, Vector3.forward);
+        else if (playerData.DirectionFacingUpDown == FacingSideUpDown.Up)
+            angle = Quaternion.AngleAxis(90, Vector3.forward);
+
+        GameObject meleeAttackObject = Instantiate(meleeAttack, gameObject.transform.position, angle);
+        meleeAttackObject.GetComponent<MeleeAttackController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
+
+        Attacking = true;
     }
 }

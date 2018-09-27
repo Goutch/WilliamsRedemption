@@ -6,6 +6,7 @@ public abstract class EntityControlableController : MonoBehaviour{
 
     public Animator animator { get; private set; }
     public SpriteRenderer sprite { get; private set; }
+    public bool Attacking { get; protected set; }
 
     private void Awake()
     {
@@ -18,4 +19,9 @@ public abstract class EntityControlableController : MonoBehaviour{
 
     public abstract bool CanUseBasicAttack(IPlayerDataReadOnly playerData);
     public abstract void UseBasicAttack(IPlayerData playerData);
+
+    public void OnAttackFinish()
+    {
+        Attacking = false;
+    }
 }

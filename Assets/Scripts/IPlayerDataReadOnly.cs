@@ -8,7 +8,9 @@ public interface IPlayerDataReadOnly : IEntityData
 {
     bool IsOnGround { get; }
     bool IsDashing { get; }
+    EntityControlableController CurrentController { get; }
     FacingSideUpDown DirectionFacingUpDown { get; }
+    FacingSideLeftRight DirectionFacingLeftRight { get; }
 
     IPlayerDataReadOnly Clone();
 }
