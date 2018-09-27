@@ -17,4 +17,5 @@ public class HitSensor : MonoBehaviour
 	{
 		OnHit?.Invoke(hitPoints);
 	}
+	
 }

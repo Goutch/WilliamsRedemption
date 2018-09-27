@@ -3,43 +3,41 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour
+public class DoorScript : MonoBehaviour, ITriggerable
 {
+    [SerializeField] private bool IsLocked;
+    
+    public void Open()
+    {
+        if (!IsLocked)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().enabled =false;
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
+    }
 
-	private bool canBeOpened;
-	// Use this for initialization
-	void Start ()
-	{
-		canBeOpened = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void Close()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().enabled =true;
+        this.gameObject.GetComponent<BoxCollider2D>().enabled =true;
+    }
+
+    public void LockDoor()
+    {
+        IsLocked = true;
+    }
+
+    public void UnlockDoor()
+    {
+        IsLocked = false;
+    }
+    
+    public bool CanBeOpened()
+    {
+        return !IsLocked;
+    }
+    
 
 
-	public void Open()
-	{
-		if (canBeOpened && this.gameObject.activeInHierarchy)
-		{
-			this.gameObject.SetActive(false);
-		}	
-	}
-
-	public void Close()
-	{
-		this.gameObject.SetActive(true);
-	}
-
-	public void LockDoor()
-	{
-		canBeOpened = false;
-	}
-
-	public void UnlockDoor()
-	{
-		canBeOpened = true;
-	}
-	
+    
 }

@@ -5,30 +5,34 @@ using UnityEngine;
 
 public delegate void PlayerDeathEventHandler();
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
 
+    public int NbPlayerLives => nbPlayerLives;
+    public static PlayerController instance;
     public event PlayerDeathEventHandler OnPlayerDie;
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
     private IPlayerData data = new PlayerData();
-    
+
     private float inputHorizontalMovement;
     private bool inputJump;
 
     private bool inputUseCapacity1;
-    
+
     private int nbPlayerLivesLeft;
-    
+
     public int NbPlayerLivesLeft
     {
         get { return nbPlayerLivesLeft; }
         set
         {
             nbPlayerLivesLeft = value;
+            LifePointsUI.instance.UpdateLP();
             if (IsPlayerDead())
             {
                 OnPlayerDie?.Invoke();
@@ -38,14 +42,28 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
         data.RigidBody = GetComponent<Rigidbody2D>();
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
+        GetComponent<HitSensor>().OnHit += DamagePlayer;
 
-        GetComponent<LightSensor>().OnLightExpositionChange+=OnLightExpositionChanged;
-        OnLightExpositionChanged(true);    
+        GetComponent<LightSensor>().OnLightExpositionChange += OnLightExpositionChanged;
+        OnLightExpositionChanged(true);
     }
+
+    public void DamagePlayer(int hitpoints)
+    {
+        NbPlayerLivesLeft -= hitpoints;
+    }
+
     private void Update()
     {
         inputJump = Input.GetButtonDown("Jump");
@@ -56,13 +74,13 @@ public class PlayerController : MonoBehaviour {
         else if (inputHorizontalMovement < 0)
             currentController.sprite.flipX = true;
 
-        inputUseCapacity1 = Input.GetButtonDown("Fire3");
+        inputUseCapacity1 = Input.GetButtonDown("Dash/Teleport");
 
         currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
         currentController.animator.SetBool("IsJumping", inputJump && data.IsOnGround);
         currentController.animator.SetBool("IsFalling", !data.IsOnGround && !data.IsDashing);
 
-        if(currentController is WilliamController)
+        if (currentController is WilliamController)
             currentController.animator.SetBool("IsDashing", data.IsDashing);
     }
 
@@ -93,15 +111,16 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-   private void OnLightExpositionChanged(bool exposed)
+    private void OnLightExpositionChanged(bool exposed)
     {
-        if(exposed)
+        if (exposed)
             OnLightEnter();
         else
         {
             OnLightExit();
         }
     }
+
     public void OnLightEnter()
     {
         williamController.gameObject.SetActive(true);
@@ -116,11 +135,6 @@ public class PlayerController : MonoBehaviour {
         reaperController.gameObject.SetActive(true);
 
         currentController = reaperController;
-    }
-
-    public void DamagePlayer()
-    {
-        NbPlayerLivesLeft--;
     }
 
 
