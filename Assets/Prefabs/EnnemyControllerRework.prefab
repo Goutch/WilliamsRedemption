@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114094149894363724}
   m_Layer: 1
   m_Name: EnnemyControllerRework
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

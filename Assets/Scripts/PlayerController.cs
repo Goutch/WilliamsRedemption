@@ -48,13 +48,20 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
         data.RigidBody = GetComponent<Rigidbody2D>();
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
+        GetComponent<HitSensor>().OnHit += DamagePlayer;
 
         GetComponent<LightSensor>().OnLightExpositionChange += OnLightExpositionChanged;
         OnLightExpositionChanged(true);
+    }
+
+    public void DamagePlayer(int hitpoints)
+    {
+        NbPlayerLivesLeft -= hitpoints;
     }
 
     private void Update()
@@ -128,11 +135,6 @@ public class PlayerController : MonoBehaviour
         reaperController.gameObject.SetActive(true);
 
         currentController = reaperController;
-    }
-
-    public void DamagePlayer()
-    {
-        NbPlayerLivesLeft--;
     }
 
 
