@@ -5,30 +5,34 @@ using UnityEngine;
 
 public delegate void PlayerDeathEventHandler();
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
+
+    public int NbPlayerLives => nbPlayerLives;
 
     public event PlayerDeathEventHandler OnPlayerDie;
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
     private IPlayerData data = new PlayerData();
-    
+
     private float inputHorizontalMovement;
     private bool inputJump;
 
     private bool inputUseCapacity1;
-    
+
     private int nbPlayerLivesLeft;
-    
+
     public int NbPlayerLivesLeft
     {
         get { return nbPlayerLivesLeft; }
         set
         {
             nbPlayerLivesLeft = value;
+            LifePointsUI.instance.UpdateLP();
             if (IsPlayerDead())
             {
                 OnPlayerDie?.Invoke();
@@ -43,9 +47,10 @@ public class PlayerController : MonoBehaviour {
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
 
-        GetComponent<LightSensor>().OnLightExpositionChange+=OnLightExpositionChanged;
-        OnLightExpositionChanged(true);    
+        GetComponent<LightSensor>().OnLightExpositionChange += OnLightExpositionChanged;
+        OnLightExpositionChanged(true);
     }
+
     private void Update()
     {
         inputJump = Input.GetButtonDown("Jump");
@@ -62,7 +67,7 @@ public class PlayerController : MonoBehaviour {
         currentController.animator.SetBool("IsJumping", inputJump && data.IsOnGround);
         currentController.animator.SetBool("IsFalling", !data.IsOnGround && !data.IsDashing);
 
-        if(currentController is WilliamController)
+        if (currentController is WilliamController)
             currentController.animator.SetBool("IsDashing", data.IsDashing);
     }
 
@@ -93,15 +98,16 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-   private void OnLightExpositionChanged(bool exposed)
+    private void OnLightExpositionChanged(bool exposed)
     {
-        if(exposed)
+        if (exposed)
             OnLightEnter();
         else
         {
             OnLightExit();
         }
     }
+
     public void OnLightEnter()
     {
         williamController.gameObject.SetActive(true);
