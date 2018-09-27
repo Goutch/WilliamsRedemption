@@ -5,10 +5,13 @@ using UnityEngine;
 
 public delegate void PlayerDeathEventHandler();
 
+
 public class PlayerController : MonoBehaviour, IPlayerData {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
+
+    public int NbPlayerLives => nbPlayerLives;
 
     public event PlayerDeathEventHandler OnPlayerDie;
 
@@ -26,8 +29,9 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     private bool inputBasicAttack;
 
     private bool inputCapacity1;
-    
+
     private int nbPlayerLivesLeft;
+
 
     private int numbOfLocks = 0;
 
@@ -37,6 +41,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         set
         {
             nbPlayerLivesLeft = value;
+            LifePointsUI.instance.UpdateLP();
             if (IsPlayerDead())
             {
                 OnPlayerDie?.Invoke();
@@ -60,6 +65,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         OnLightExpositionChanged(true);    
     }
+
     private void Update()
     {
         inputJump = Input.GetButtonDown("Jump");
@@ -99,8 +105,6 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     private void FixedUpdate()
     {
-        transform.Translate(inputHorizontalMovement * Time.deltaTime, 0, 0);
-
         if(currentController.CanUseBasicAttack(this) && inputBasicAttack)
         {
             currentController.UseBasicAttack(this);
@@ -111,10 +115,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
             currentController.animator.SetBool("IsAttacking", false);
         }
 
-        if (currentController.Capacity1Usable(this) && inputCapacity1)
-        {
-            currentController.UseCapacity1(this);
-        }
+
 
         if (rb.velocity.y == 0 && !IsDashing)
         {
@@ -132,17 +133,42 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         {
             IsOnGround = false;
         }
+
+        if (!IsDashing)
+        {
+            if(Input.GetButton("Gauche"))
+                rb.velocity = new Vector2(-Time.deltaTime * speed, rb.velocity.y);
+            if(Input.GetButton("Droite"))
+                rb.velocity = new Vector2(Time.deltaTime * speed, rb.velocity.y);
+
+            if (Input.GetButtonUp("Gauche"))
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            if (Input.GetButtonUp("Droite"))
+                rb.velocity = new Vector2(0, rb.velocity.y);
+
+
+            //rb.velocity = new Vector2(Input.GetAxis("Horizontal") * Time.deltaTime * speed, rb.velocity.y);
+        }
     }
 
-   private void OnLightExpositionChanged(bool exposed)
+    private void LateUpdate()
     {
-        if(exposed)
+        if (currentController.Capacity1Usable(this) && inputCapacity1)
+        {
+            currentController.UseCapacity1(this);
+        }
+    }
+
+    private void OnLightExpositionChanged(bool exposed)
+    {
+        if (exposed)
             OnLightEnter();
         else
         {
             OnLightExit();
         }
     }
+
     public void OnLightEnter()
     {
         if(numbOfLocks == 0)

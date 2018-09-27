@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WilliamController : EntityControlableController
 {
-    [SerializeField] private float dashForce;
+    [SerializeField] private float dashDistance;
     [SerializeField] private float durationOfDash;
 
     [SerializeField] private GameObject projectile;
@@ -31,21 +31,15 @@ public class WilliamController : EntityControlableController
     IEnumerator Dash(PlayerController player)
     {
         player.LockTransformation();
-
         player.IsDashing = true;
 
-        float numbOfTimePassed = 0;
-        while (numbOfTimePassed < durationOfDash)
-        {
-            numbOfTimePassed += Time.deltaTime;
-            player.Rigidbody.velocity = new Vector2(Vector2.right.x * (sprite.flipX ? dashForce * -1 : dashForce), 0.0f) * Time.deltaTime;
+        Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
+        player.Rigidbody.velocity = new Vector2(direction.x * (dashDistance / durationOfDash), player.Rigidbody.velocity.y);
 
-            yield return null;
-        }
+        yield return new WaitForSeconds(durationOfDash);
+
         player.Rigidbody.velocity = new Vector2(0, player.Rigidbody.velocity.y);
-
         player.IsDashing = false;
-
         player.UnlockTransformation();
     }
 

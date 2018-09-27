@@ -13,35 +13,28 @@ public class ReaperController : EntityControlableController
         Transform root = transform.parent;
         Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
 
-        GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
-        StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
-
-        root.position = root.position + direction * teleportationDistance * Time.deltaTime;
-    }
-
-    public override bool Capacity1Usable(IPlayerDataReadOnly data)
-    {
-        Transform root = transform.parent;
-        Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
-        bool colliding = false;
-
         RaycastHit2D hit =
                     Physics2D.Raycast(
                         root.position,
                         direction, teleportationDistance * Time.deltaTime,
-                        1 << LayerMask.NameToLayer("Obstacles"));
+                        1);
 
         if (hit.collider == null)
         {
-            Debug.DrawRay(root.position, direction * teleportationDistance * Time.deltaTime, Color.yellow);
-            colliding = true;
+            root.Translate(direction * teleportationDistance * Time.deltaTime);
         }
         else
         {
-            Debug.DrawRay(root.position, direction * hit.distance, Color.red);
+            root.Translate(direction* hit.distance * Time.deltaTime);
         }
 
-        return colliding && data.IsOnGround;
+        GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
+        StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
+    }
+
+    public override bool Capacity1Usable(IPlayerDataReadOnly data)
+    { 
+        return data.IsOnGround;
     }
 
     IEnumerator TeleportEffectRemove(GameObject tpEffect, PlayerController player)
