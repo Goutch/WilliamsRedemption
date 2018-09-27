@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Light
 {
     [ExecuteInEditMode]
-    public abstract class MeshLight : MonoBehaviour
+    public abstract class MeshLight : MonoBehaviour ,ITriggerable
     {
         [SerializeField] protected Color color = Color.white;
         [SerializeField] protected int obstacleLayerIndex = 1;
@@ -160,17 +160,22 @@ namespace Light
             hasMovingObstaclesInRange = false;
         }
 
-        private void Open()
+        public void Open()
         {
             isOpen = true;
             DrawMesh();
         }
 
-        private void Close()
+        public void Close()
         {
             isOpen = false;
             mesh.Clear();
             vertices.Clear();
+        }
+
+        public bool CanBeOpened()
+        {
+            return true;
         }
     }
 }
