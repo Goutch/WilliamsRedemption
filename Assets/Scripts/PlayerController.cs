@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int nbPlayerLives;
 
     public int NbPlayerLives => nbPlayerLives;
-
+    public static PlayerController instance;
     public event PlayerDeathEventHandler OnPlayerDie;
     private WilliamController williamController;
     private ReaperController reaperController;
@@ -42,6 +42,12 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(this.gameObject);
+        }
         data.RigidBody = GetComponent<Rigidbody2D>();
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
