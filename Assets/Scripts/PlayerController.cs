@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         else if (inputHorizontalMovement < 0)
             currentController.sprite.flipX = true;
 
-        inputUseCapacity1 = Input.GetButtonDown("Fire3");
+        inputUseCapacity1 = Input.GetButtonDown("Dash/Teleport");
 
         currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
         currentController.animator.SetBool("IsJumping", inputJump && data.IsOnGround);
