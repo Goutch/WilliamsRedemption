@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - ProjectilePlayer
   - Plateforme
+  - ProjectileEnemy
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,6 @@ TagManager:
   - Player
   - Obstacles
   - LightSensor
-  - 
-  - 
   - 
   - 
   - 

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Bat : EnemyController
+public class Bat : EnemyController
 {
+	[SerializeField] private float distanceFromSpawningPoint;
+	
 	public void Update ()
 	{
 		CheckDirection();
@@ -12,15 +14,18 @@ class Bat : EnemyController
 
 	void Move()
 	{
-		movementManager.MoveBat(direction, ref actualPosition);
+		movementManager.MoveBat(direction);
 	}
 
 	void CheckDirection()
 	{
-		if (startingPosition.x - actualPosition.x >= movementManager.DistanceFromSpawningPoint)
+		if (startingPosition.x - transform.position.x >= distanceFromSpawningPoint)
 			ChangeDirection();
-		else if (actualPosition.x - startingPosition.x >= movementManager.DistanceFromSpawningPoint)
+		else if (transform.position.x  - startingPosition.x >= distanceFromSpawningPoint)
 			ChangeDirection();
+		Debug.Log("s"+ startingPosition.x);
+		Debug.Log("t" + transform.position.x);
+		Debug.Log("d" + distanceFromSpawningPoint);
 	}
 
 	void ChangeDirection()

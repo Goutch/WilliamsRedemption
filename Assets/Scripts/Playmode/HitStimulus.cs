@@ -36,11 +36,27 @@ public class HitStimulus : MonoBehaviour
 				hitSensor.Hit(hitPoints);
 			}
 		}
-		else if (other.gameObject.tag == "ProjectilePlayer" && gameObject.tag == "Enemy")
+		if(hitSensor != null)
+		{
+			hitSensor.Hit(hitPoints);
+		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "ProjectilePlayer" && gameObject.tag == "Enemy")
+		{
+			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
+		}
+		else if (other.gameObject.tag == "Enemy" && gameObject.tag == "ProjectilePlayer")
 		{
 			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
 		}
 		else if (other.gameObject.tag == "ProjectileEnemy" && gameObject.tag == "Player")
+		{
+			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
+		}
+		else if (other.gameObject.tag == "Player" && gameObject.tag == "ProjectileEnemy")
 		{
 			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
 		}
