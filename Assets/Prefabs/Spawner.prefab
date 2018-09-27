@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4107460812199340}
   - component: {fileID: 114217071265689750}
   - component: {fileID: 58494503059204444}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1278022251580288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.236222, y: 3.9380298, z: -0.0546875}
+  m_LocalPosition: {x: 4.091074, y: 4.44, z: -0.0546875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,7 +55,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.91
+  m_Radius: 10.79
 --- !u!114 &114217071265689750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,3 +71,5 @@ MonoBehaviour:
     type: 2}
   enemyStrategyToSpawn: {fileID: 11400000, guid: 2a62beb4207217f428f87333b6d2aa55,
     type: 2}
+  spawnNumber: 4
+  secondsBetweenSpawns: 0.2

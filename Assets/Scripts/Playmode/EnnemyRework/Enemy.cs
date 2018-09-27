@@ -8,10 +8,16 @@ namespace Playmode.EnnemyRework
         public abstract void Init(GameObject enemyControllerObject);
         public abstract void Act();
 
-        public virtual void ReactToColision(Collision2D collision2D)
+        public virtual void ReactTriggerEnter(Collider2D other)
         {
-            
         }
 
+        public virtual void ReactCollisionEnter(Collision2D other)
+        {
+        }
+
+        public virtual void ReactToColision(Collision2D collision2D)
+        {
+        }
     }
 }

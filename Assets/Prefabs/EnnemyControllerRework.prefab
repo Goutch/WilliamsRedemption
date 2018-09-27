@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 95405655825665094}
   - component: {fileID: 114477125900532212}
   - component: {fileID: 114094149894363724}
-  m_Layer: 1
+  m_Layer: 13
   m_Name: EnnemyControllerRework
   m_TagString: Enemy
   m_Icon: {fileID: 0}

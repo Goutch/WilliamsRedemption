@@ -10,16 +10,18 @@ namespace Playmode.EnnemyRework
 
         public Enemy EnemyStrategy
         {
-            get { return enemyStrategy;}
+            get { return enemyStrategy; }
             set { enemyStrategy = Instantiate(value); }
         }
+
         private Health health;
+
         public void Init(Enemy enemyStrategy)
         {
             EnemyStrategy = enemyStrategy;
-            EnemyStrategy.Init(gameObject);
             GetComponent<SpriteRenderer>().sprite = EnemyStrategy.Sprite;
             gameObject.AddComponent<BoxCollider2D>();
+            EnemyStrategy.Init(gameObject);
             health = this.GetComponent<Health>();
         }
 
@@ -27,6 +29,7 @@ namespace Playmode.EnnemyRework
         {
             enemyStrategy.Act();
         }
+
         private void OnHit(int hitPoints)
         {
             health.Hit(hitPoints);
@@ -40,6 +43,17 @@ namespace Playmode.EnnemyRework
             {
                 Destroy(this.gameObject);
             }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            enemyStrategy.ReactCollisionEnter(other);
+           
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            enemyStrategy.ReactTriggerEnter(other);
         }
     }
 }

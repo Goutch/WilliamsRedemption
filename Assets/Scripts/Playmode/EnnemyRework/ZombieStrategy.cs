@@ -1,4 +1,5 @@
-﻿using DefaultNamespace;
+﻿using System.Runtime.Serialization.Formatters;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 using Slider = UnityEngine.Experimental.UIElements.Slider;
@@ -6,7 +7,7 @@ using Slider = UnityEngine.Experimental.UIElements.Slider;
 namespace Playmode.EnnemyRework
 {
     [CreateAssetMenu(fileName = "WalkToward", menuName = "EnnemyStrategy/WalkToward", order = 1)]
-    public class WalkTowardPlayerStrategy : Enemy
+    public class ZombieStrategy : Enemy
     {
         [SerializeField] private Vector2 jumpForce;
         protected Animator animator;
@@ -24,25 +25,24 @@ namespace Playmode.EnnemyRework
 
         public override void Act()
         {
-            
-            currenDirection= PlayerController.instance.transform.position.x - rootMover.transform.root.position.x > 0
+            currenDirection = PlayerController.instance.transform.position.x - rootMover.transform.root.position.x >0
                 ? 1
                 : -1;
-
             if (currenDirection == 1)
                 spriteRenderer.flipX = false;
             else
             {
                 spriteRenderer.flipX = true;
             }
-            rootMover.WalkToward(currenDirection,speed);
+
+            rootMover.WalkToward(currenDirection, speed);
             int surroundingRange = 1;
-            bool[,] surrounding=new bool[3,3];
+            bool[,] surrounding = new bool[3, 3];
             surrounding = PathFinder.instance.GetSurrounding(surroundingRange, rootMover.transform.position);
-            if (surrounding[currenDirection+surroundingRange, 0+surroundingRange])
+            if (surrounding[currenDirection + surroundingRange, 0 + surroundingRange])
             {
-                if(!rootMover.IsJumping)
-                rootMover.Jump(new Vector2(jumpForce.x*currenDirection,jumpForce.y));
+                if (!rootMover.IsJumping)
+                    rootMover.Jump(new Vector2(jumpForce.x * currenDirection, jumpForce.y));
             }
         }
     }

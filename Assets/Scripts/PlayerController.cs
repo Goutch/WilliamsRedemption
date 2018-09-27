@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Harmony;
 using Light;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public delegate void PlayerDeathEventHandler();
 
@@ -10,13 +13,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
-
+    
     public int NbPlayerLives => nbPlayerLives;
     public static PlayerController instance;
     public event PlayerDeathEventHandler OnPlayerDie;
     private WilliamController williamController;
     private ReaperController reaperController;
     private EntityControlableController currentController;
+
+    public EntityControlableController CurrentController => currentController;
+
     private IPlayerData data = new PlayerData();
 
     private float inputHorizontalMovement;
@@ -26,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private int nbPlayerLivesLeft;
 
+    private int currentLevel;
     public int NbPlayerLivesLeft
     {
         get { return nbPlayerLivesLeft; }
@@ -36,12 +43,14 @@ public class PlayerController : MonoBehaviour
             if (IsPlayerDead())
             {
                 OnPlayerDie?.Invoke();
+                SceneManager.LoadScene("Level"+currentLevel);
             }
         }
     }
 
     private void Awake()
     {
+        currentLevel = 1;
         if (instance == null)
             instance = this;
         else
