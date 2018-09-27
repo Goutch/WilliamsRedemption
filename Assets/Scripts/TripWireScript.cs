@@ -5,31 +5,36 @@ using UnityEngine;
 public class TripWireScript : MonoBehaviour
 {
 
-	[SerializeField] private GameObject door;
+	[SerializeField] private GameObject[] triggerables;
+	[SerializeField] private bool IsOpened;
 
 	private bool isTripped;
 
-	private DoorScript _doorScript;
-
 	void Awake()
 	{
-		_doorScript = door.GetComponent<DoorScript>();
 		isTripped = false;
+
+		if (IsOpened)
+		{
+			foreach (var triggerable in triggerables)
+			{
+				triggerable.GetComponent<ITriggerable>()?.Open();
+				
+			}
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.tag == "Player" && !isTripped)
 		{
-			_doorScript.Close();
-			_doorScript.LockDoor();
+			foreach (var triggerable in triggerables)
+			{
+				triggerable.GetComponent<ITriggerable>()?.Close();
+			}
 		}
 		isTripped = true;
 	}
 
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
