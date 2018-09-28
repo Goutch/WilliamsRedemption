@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Playmode.EnnemyRework;
 using UnityEngine;
-[CreateAssetMenu(fileName = "BatStrategy", menuName = "EnnemyStrategy/BatStrategy", order = 1)]
 
 public class Bat : Enemy
 {
@@ -31,17 +30,21 @@ public class Bat : Enemy
 		direction *= -1;
 	}
 
-	public override void Init(GameObject enemyControllerObject)
+	public void Awake()
 	{
-		rootMover = enemyControllerObject.GetComponent<RootMover>();
+		rootMover = GetComponent<RootMover>();
 		startingPosition = rootMover.transform.position;
-		enemyControllerObject.GetComponent<Rigidbody2D>().isKinematic = true;
 	}
 
-	public override void Act()
+	private void FixedUpdate()
 	{
 		CheckDirection();
 		Move();
+	}
+
+	public override void ReceiveDamage()
+	{
+		GetComponent<Health>().Hit();
 	}
 }
 

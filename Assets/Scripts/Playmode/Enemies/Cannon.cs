@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Playmode.EnnemyRework;
 using UnityEngine;
 
-public class Cannon : EnemyController
+public class Cannon : Enemy
 {
 	[SerializeField] private int rotationCannon;
 	[SerializeField] private GameObject bulletPrefab;
@@ -40,5 +41,10 @@ public class Cannon : EnemyController
 			return true;
 		}
 		return false;
+	}
+
+	public override void ReceiveDamage()
+	{
+		GetComponent<Health>().Hit();
 	}
 }
