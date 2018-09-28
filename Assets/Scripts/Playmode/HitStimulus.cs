@@ -29,5 +29,19 @@ public class HitStimulus : MonoBehaviour
 			gameObject.GetComponentInChildren<HitSensor>().Hit();
 			Destroy(other.gameObject);
 		}
+		if (other.gameObject.GetComponent<PlasmaController>() != null)
+		{ 
+			if (other.tag == "ProjectileEnemy" && gameObject.tag == "ProjectilePlayer" 
+			                                        && other.gameObject.GetComponent<ProjectileController>().CanBeReturned==true)
+			{
+				other.gameObject.GetComponent<PlasmaController>().ChangeDirection();
+			}
+			else if (other.gameObject.GetComponent<PlasmaController>().CanBulletKillHisShooter() == true
+			         && other.tag == "ProjectileEnemy" && gameObject.tag == "Enemy")
+			{
+				gameObject.GetComponentInChildren<HitSensor>().Hit();
+				Destroy(other.gameObject);
+			}
+		}
 	}
 }
