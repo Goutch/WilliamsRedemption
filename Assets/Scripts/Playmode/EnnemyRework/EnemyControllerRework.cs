@@ -8,6 +8,12 @@ namespace Playmode.EnnemyRework
     {
         [SerializeField] private Enemy enemyStrategy;
 
+        private void Awake()
+        {
+            if(enemyStrategy!=null)
+            Init(Instantiate(enemyStrategy));
+        }
+
         public Enemy EnemyStrategy
         {
             get { return enemyStrategy;}
