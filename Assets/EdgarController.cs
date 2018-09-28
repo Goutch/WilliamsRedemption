@@ -8,17 +8,21 @@ namespace Edgar
     {
         [SerializeField] private float cdHorizontaleSwing;
         [SerializeField] private float cdVerticalSwing;
+        [SerializeField] private GameObject groundPlasma;
+
         private float lastVerticalSwing = 0;
         private float lastHorizontaleSwing = 0;
 
         private Animator animator;
         private State currentState;
+        private MaceController maceController;
         public Collider2D Range { get; private set; }
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
             Range = GetComponent<Collider2D>();
+            maceController = GetComponentInChildren<MaceController>();
 
             currentState = new Idle();
             currentState.Init(this);
@@ -72,6 +76,8 @@ namespace Edgar
 
         public void OnVerticalSwingFinish()
         {
+            maceController.AttackWithPlasma();
+
             animator.SetTrigger("Idle");
             currentState = new Idle();
             currentState.Init(this);
