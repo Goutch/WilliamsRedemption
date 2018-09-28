@@ -6,7 +6,6 @@ using Slider = UnityEngine.Experimental.UIElements.Slider;
 
 namespace Playmode.EnnemyRework
 {
-    [CreateAssetMenu(fileName = "WalkToward", menuName = "EnnemyStrategy/WalkToward", order = 1)]
     public abstract class WalkTowardPlayerEnnemy : Enemy
     {
         [SerializeField] private Vector2 jumpForce;
@@ -14,15 +13,17 @@ namespace Playmode.EnnemyRework
         protected SpriteRenderer spriteRenderer;
         protected int currenDirection = 1;
 
-        protected void Awake()
+        protected override void Init()
         {
+            
             spriteRenderer = GetComponent<SpriteRenderer>();
             rootMover = GetComponent<RootMover>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        protected void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
-            currenDirection = PlayerController.instance.transform.position.x - rootMover.transform.root.position.x > 0
+            currenDirection = PlayerController.instance.transform.position.x - transform.root.position.x > 0
                 ? 1
                 : -1;
             if (currenDirection == 1)
@@ -35,7 +36,7 @@ namespace Playmode.EnnemyRework
             rootMover.WalkToward(currenDirection, speed);
             int surroundingRange = 1;
             bool[,] surrounding = new bool[surroundingRange*2+1,surroundingRange*2+1];
-            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, rootMover.transform.position);
+            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
             if (surrounding[currenDirection + surroundingRange, 0 + surroundingRange])
             {
                 if (!rootMover.IsJumping)
