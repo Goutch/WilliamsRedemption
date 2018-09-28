@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     public EntityControlableController CurrentController { get; private set; }
     private EntityControlableController currentController;
 
-
     private LightSensor lightSensor;
     public Rigidbody2D Rigidbody { get; private set; }
 
