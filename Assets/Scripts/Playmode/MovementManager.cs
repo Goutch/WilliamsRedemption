@@ -8,7 +8,6 @@ public class MovementManager : MonoBehaviour
 	private Transform rootTransform;
 
 	[SerializeField] protected float speed;
-	[SerializeField] protected float distanceToGoFromSpawningPoint;
 	
 	public float Speed
 	{
@@ -16,13 +15,7 @@ public class MovementManager : MonoBehaviour
 		private set { speed = value; }
 	}
 
-	public float DistanceFromSpawningPoint
-	{
-		get { return distanceToGoFromSpawningPoint; }
-		private set { distanceToGoFromSpawningPoint = value; }
-	}
-
-	void Awake () {
+	private void Awake () {
 		InitializeComponent();
 	}
 
@@ -31,9 +24,8 @@ public class MovementManager : MonoBehaviour
 		rootTransform = transform.root;
 	}
 
-	public void MoveBat(int direction, ref Vector2 currentPosition)
+	public void MoveBat(int direction)
 	{
-		rootTransform.Translate(new Vector2(speed*Time.deltaTime*direction,0));
-		currentPosition = rootTransform.position;
+		rootTransform.Translate(new Vector2(speed*Time.deltaTime*direction,0));		
 	}
 }
