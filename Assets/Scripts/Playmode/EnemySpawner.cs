@@ -6,15 +6,14 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private Enemy enemyStrategyToSpawn;
     [SerializeField] private int spawnNumber;
     [SerializeField] private float secondsBetweenSpawns;
-    private EnemyControllerRework[] spawnedEnnemies;
+    private GameObject[] spawnedEnnemies;
     private bool spawning = false;
 
     private void Awake()
     {
-        spawnedEnnemies = new EnemyControllerRework[spawnNumber];
+        spawnedEnnemies = new GameObject[spawnNumber];
     }
 
     private void SpawnEnemies()
@@ -35,9 +34,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (spawnedEnnemies[i] == null)
             {
-                spawnedEnnemies[i] = Instantiate(enemyPrefab, transform.position, Quaternion.identity)
-                    .GetComponent<EnemyControllerRework>();
-                spawnedEnnemies[i].Init(Instantiate(enemyStrategyToSpawn));
+                spawnedEnnemies[i] = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
                 yield return new WaitForSeconds(second);
             }
         }
