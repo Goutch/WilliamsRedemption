@@ -1,31 +1,50 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Playmode.EnnemyRework;
 using UnityEngine;
 
-class Bat : EnemyController
+public class Bat : Enemy
 {
-	public void Update ()
-	{
-		CheckDirection();
-		Move();
-	}
+	[SerializeField] private float distanceFromSpawningPoint;
+	private RootMover rootMover;
+	private int direction = 1;
+	private Vector2 startingPosition;
 
 	void Move()
 	{
-		movementManager.MoveBat(direction, ref actualPosition);
+		rootMover.FlyToward(new Vector2(rootMover.transform.position.x+direction*distanceFromSpawningPoint
+			,rootMover.transform.position.y),Speed);
 	}
 
 	void CheckDirection()
 	{
-		if (startingPosition.x - actualPosition.x >= movementManager.DistanceFromSpawningPoint)
+		if(Math.Abs(rootMover.transform.position.x-startingPosition.x)>=distanceFromSpawningPoint)
+		{
 			ChangeDirection();
-		else if (actualPosition.x - startingPosition.x >= movementManager.DistanceFromSpawningPoint)
-			ChangeDirection();
+		}
 	}
 
 	void ChangeDirection()
 	{
 		direction *= -1;
+	}
+
+	public void Awake()
+	{
+		rootMover = GetComponent<RootMover>();
+		startingPosition = rootMover.transform.position;
+	}
+
+	private void FixedUpdate()
+	{
+		CheckDirection();
+		Move();
+	}
+
+	public override void ReceiveDamage()
+	{
+		GetComponent<Health>().Hit();
 	}
 }
 

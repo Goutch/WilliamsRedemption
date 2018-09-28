@@ -27,5 +27,13 @@ public class Health : MonoBehaviour
 	public void Hit()
 	{
 		HealthPoints -= 1;
+		OnHealthChange();
+	}
+	private void OnHealthChange()
+	{
+		if (healthPoints <= 0)
+		{
+			Destroy(this.gameObject);
+		}
 	}
 }
