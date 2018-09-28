@@ -19,14 +19,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4763448015292982}
-  - component: {fileID: 114748954009953580}
   - component: {fileID: 212158841555436298}
   - component: {fileID: 50108462211744504}
   - component: {fileID: 95405655825665094}
   - component: {fileID: 114477125900532212}
   - component: {fileID: 114094149894363724}
   m_Layer: 13
-  m_Name: EnnemyControllerRework
+  m_Name: EnemyBasePrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,18 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ccd79bce0f487eb54d9b4e57cb01fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114748954009953580
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1860179213578738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604efc63480744428a6f8461d2a4d194, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyStrategy: {fileID: 0}
 --- !u!212 &212158841555436298
 SpriteRenderer:
   m_ObjectHideFlags: 1
