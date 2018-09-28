@@ -30,10 +30,10 @@ public class Bat : Enemy
 		direction *= -1;
 	}
 
-	public void Awake()
+	protected override void Init()
 	{
 		rootMover = GetComponent<RootMover>();
-		startingPosition = rootMover.transform.position;
+        		startingPosition = rootMover.transform.position;
 	}
 
 	private void FixedUpdate()

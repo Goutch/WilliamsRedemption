@@ -10,7 +10,7 @@ public class Cannon : Enemy
 	private float timeJustAfterShooting;
 	private const float TIME_BEFORE_SHOOTING_AGAIN=2;
 
-	private void Awake()
+	protected override void Init()
 	{
 		ResetTimeToShoot();
 	}
