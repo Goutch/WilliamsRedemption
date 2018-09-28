@@ -15,17 +15,16 @@ namespace Playmode.EnnemyRework
         private SpriteRenderer spriteRenderer;
         private LightSensor lightSensor;
 
-        public override void Init(GameObject enemyControllerObject)
+        private void Awake()
         {
-            rootMover = enemyControllerObject.GetComponent<RootMover>();
-            collider = enemyControllerObject.GetComponent<BoxCollider2D>();
+            rootMover = GetComponent<RootMover>();
+            collider = GetComponent<BoxCollider2D>();
             collider.isTrigger = true;
-
-            enemyControllerObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            spriteRenderer = enemyControllerObject.GetComponent<SpriteRenderer>();
+            GetComponent<Rigidbody2D>().isKinematic = true;
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public override void Act()
+        private void FixedUpdate()
         {
             if (Vector2.Distance(PlayerController.instance.transform.position, rootMover.transform.position) > range)
             {
@@ -43,12 +42,10 @@ namespace Playmode.EnnemyRework
             }
         }
 
-        private void DestroyEnnemyObject(bool Inlight)
+        public override void ReceiveDamage()
         {
-            if(Inlight)
-            Destroy(rootMover.gameObject);
+            throw new System.NotImplementedException();
         }
-        
     }
     
 }

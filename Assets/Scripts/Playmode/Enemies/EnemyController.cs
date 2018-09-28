@@ -30,9 +30,9 @@ public class EnemyController : MonoBehaviour
 		hitSensor.OnHit += OnHit;
 	}
 
-	private void OnHit(int hitPoints)
+	private void OnHit()
 	{
-		health.Hit(hitPoints);
+		health.Hit();
 		Debug.Log(health.HealthPoints);
 		OnHealthChange(health.HealthPoints);
 	}
