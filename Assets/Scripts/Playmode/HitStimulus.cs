@@ -35,7 +35,7 @@ public class HitStimulus : MonoBehaviour
 			hitSensor = other.gameObject.GetComponent<HitSensor>();
 			if(hitSensor != null)
 			{
-				hitSensor.Hit(hitPoints);
+				hitSensor.Hit();
 			}
 		}
 		else if (other.collider.tag == "ProjectilePlayer" && gameObject.tag == "Enemy")
@@ -48,7 +48,7 @@ public class HitStimulus : MonoBehaviour
 		}
 		if(hitSensor != null)
 		{
-			hitSensor.Hit(hitPoints);
+			hitSensor.Hit();
 		}
 	}
 }
