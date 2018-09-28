@@ -1,39 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Harmony;
 using Light;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public delegate void PlayerDeathEventHandler();
 
 
 public class PlayerController : MonoBehaviour, IPlayerData {
+
+    private Dictionary<string, bool> buttonsPressed;
+    private Dictionary<string, bool> buttonsReleased;
+    private Dictionary<string, bool> buttonsHeld;
+
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
-
+    
     public int NbPlayerLives => nbPlayerLives;
-
+    public static PlayerController instance;
     public event PlayerDeathEventHandler OnPlayerDie;
 
     private WilliamController williamController;
-    public static PlayerController instance;
     private ReaperController reaperController;
+    public EntityControlableController CurrentController { get; private set; }
     private EntityControlableController currentController;
+
+
     private LightSensor lightSensor;
-
-    private Rigidbody2D rb;
-    public Rigidbody2D Rigidbody { get { return rb; } }
-
-    private float inputHorizontalMovement;
-    private float inputVerticalMovement;
-    private bool inputJump;
-    private bool inputBasicAttack;
-
-    private bool inputCapacity1;
+    public Rigidbody2D Rigidbody { get; private set; }
 
     private int nbPlayerLivesLeft;
 
-
+    private int currentLevel;
     private int numbOfLocks = 0;
 
     public int NbPlayerLivesLeft
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
             if (IsPlayerDead())
             {
                 OnPlayerDie?.Invoke();
+                SceneManager.LoadScene("Level"+currentLevel);
             }
         }
     }
@@ -53,20 +55,27 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     public bool IsOnGround { get; set; }
     public bool IsDashing { get; set; }
     public FacingSideUpDown DirectionFacingUpDown { get; set; }
+    public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
 
     private void Awake()
     {
+        buttonsPressed = new Dictionary<string, bool>();
+        buttonsHeld = new Dictionary<string, bool>();
+        buttonsReleased = new Dictionary<string, bool>();
+
+        currentLevel = 1;
         if (instance == null)
             instance = this;
         else
         {
             Destroy(this.gameObject);
         }
-        
-        rb = GetComponent<Rigidbody2D>();
+
+        Rigidbody = GetComponent<Rigidbody2D>();
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
+        GetComponent<HitSensor>().OnHit += DamagePlayer;
 
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
@@ -74,67 +83,74 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         OnLightExpositionChanged(true);    
     }
 
+    public void DamagePlayer()
+    {
+        NbPlayerLivesLeft -= 1;
+    }
+
     private void Update()
     {
-        inputJump = Input.GetButtonDown("Jump");
+        GetInputs();
 
-        inputHorizontalMovement = Input.GetAxis("Horizontal") * speed;
-        if (inputHorizontalMovement > 0)
-            currentController.sprite.flipX = false;
-        else if (inputHorizontalMovement < 0)
-            currentController.sprite.flipX = true;
-
-        inputVerticalMovement = Input.GetAxis("Vertical");
-
-        inputCapacity1 = Input.GetButtonDown("Fire3");
-        inputBasicAttack = Input.GetButtonDown("Fire1");
-
-
-        if(inputVerticalMovement < 0)
+        if (buttonsHeld[InputsName.LEFT] && !buttonsHeld[InputsName.RIGHT])
         {
-            currentController.animator.SetBool("IsLookingDown", true);
-            DirectionFacingUpDown = FacingSideUpDown.Down;
+            DirectionFacingLeftRight = FacingSideLeftRight.Left;
+            CurrentController.animator.SetFloat("Speed", Mathf.Abs(-1 * speed * Time.deltaTime));
+            CurrentController.sprite.flipX = true;
         }
-        else if(inputVerticalMovement > 0)
+        else if (buttonsHeld[InputsName.RIGHT] && !buttonsHeld[InputsName.LEFT])
         {
-            currentController.animator.SetBool("IsLookingUp", true);
+            DirectionFacingLeftRight = FacingSideLeftRight.Right;
+            CurrentController.animator.SetFloat("Speed", Mathf.Abs(1 * speed * Time.deltaTime));
+            CurrentController.sprite.flipX = false;
+        }
+        else
+        {
+            DirectionFacingLeftRight = FacingSideLeftRight.None;
+            CurrentController.animator.SetFloat("Speed", 0);
+        }
+
+        if (buttonsHeld[InputsName.UP] && !buttonsHeld[InputsName.DOWN])
+        {
             DirectionFacingUpDown = FacingSideUpDown.Up;
+            CurrentController.animator.SetInteger("OrientationY", 1);
+        }
+        else if(buttonsHeld[InputsName.DOWN] && !buttonsHeld[InputsName.UP])
+        {
+            DirectionFacingUpDown = FacingSideUpDown.Down;
+            CurrentController.animator.SetInteger("OrientationY", -1);
         }
         else
         {
             DirectionFacingUpDown = FacingSideUpDown.None;
+            CurrentController.animator.SetInteger("OrientationY", 0);
         }
 
-        currentController.animator.SetFloat("Speed", Mathf.Abs(inputHorizontalMovement));
-        currentController.animator.SetBool("IsJumping", rb.velocity.y > 0);
-        currentController.animator.SetBool("IsFalling", !IsOnGround && !IsDashing);
-        currentController.animator.SetBool("IsDashing", IsDashing);
+        CurrentController.animator.SetBool("IsJumping", Rigidbody.velocity.y > 0);
+        CurrentController.animator.SetBool("IsFalling", !IsOnGround && !IsDashing);
+        CurrentController.animator.SetBool("IsDashing", IsDashing);
+
+        if(!CurrentController.Attacking)
+        {
+            CurrentController.animator.SetBool("IsAttacking", false);
+        }
     }
 
     private void FixedUpdate()
     {
-        if(currentController.CanUseBasicAttack(this) && inputBasicAttack)
+        if(CurrentController.CanUseBasicAttack(this) && buttonsHeld[InputsName.ATTACK])
         {
-            currentController.UseBasicAttack(this);
-            currentController.animator.SetBool("IsAttacking", true);
-        }
-        else
-        {
-            currentController.animator.SetBool("IsAttacking", false);
+            CurrentController.UseBasicAttack(this);
+            CurrentController.animator.SetBool("IsAttacking", true);
         }
 
-
-
-        if (rb.velocity.y == 0 && !IsDashing)
+        if(Rigidbody.velocity.y == 0 && !IsDashing)
         {
             IsOnGround = true;
-
-            if (inputJump)
+            if (buttonsPressed[InputsName.JUMP])
             {
-                rb.velocity = new Vector2(0, 0);
-                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-
-                IsOnGround = false;
+                Rigidbody.velocity = new Vector2(0, 0);
+                Rigidbody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
         }
         else
@@ -144,26 +160,23 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         if (!IsDashing)
         {
-            if(Input.GetButton("Gauche"))
-                rb.velocity = new Vector2(-Time.deltaTime * speed, rb.velocity.y);
-            if(Input.GetButton("Droite"))
-                rb.velocity = new Vector2(Time.deltaTime * speed, rb.velocity.y);
+            if(buttonsHeld[InputsName.LEFT])
+                Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
+            if(buttonsHeld[InputsName.RIGHT])
+                Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
 
-            if (Input.GetButtonUp("Gauche"))
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            if (Input.GetButtonUp("Droite"))
-                rb.velocity = new Vector2(0, rb.velocity.y);
-
-
-            //rb.velocity = new Vector2(Input.GetAxis("Horizontal") * Time.deltaTime * speed, rb.velocity.y);
+            if (buttonsReleased[InputsName.LEFT])
+                Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
+            if (buttonsReleased[InputsName.RIGHT])
+                Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
         }
     }
 
     private void LateUpdate()
     {
-        if (currentController.Capacity1Usable(this) && inputCapacity1)
+        if (CurrentController.Capacity1Usable(this) && buttonsPressed[InputsName.SPECIAL_CAPACITY])
         {
-            currentController.UseCapacity1(this);
+            CurrentController.UseCapacity1(this);
         }
     }
 
@@ -184,7 +197,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
             williamController.gameObject.SetActive(true);
             reaperController.gameObject.SetActive(false);
 
-            currentController = williamController;
+            CurrentController = williamController;
         }
     }
 
@@ -195,13 +208,8 @@ public class PlayerController : MonoBehaviour, IPlayerData {
             williamController.gameObject.SetActive(false);
             reaperController.gameObject.SetActive(true);
 
-            currentController = reaperController;
+            CurrentController = reaperController;
         }
-    }
-
-    public void DamagePlayer()
-    {
-        NbPlayerLivesLeft--;
     }
 
 
@@ -232,5 +240,24 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     public IPlayerDataReadOnly Clone()
     {
         return this.MemberwiseClone() as IPlayerDataReadOnly;
+    }
+
+    private void GetInputs()
+    {
+        buttonsPressed.Clear();
+        buttonsHeld.Clear();
+        buttonsReleased.Clear();
+
+        buttonsPressed[InputsName.JUMP] = Input.GetButtonDown(InputsName.JUMP);
+        buttonsPressed[InputsName.SPECIAL_CAPACITY] = Input.GetButtonDown(InputsName.SPECIAL_CAPACITY);
+
+        buttonsHeld[InputsName.UP] = Input.GetButton(InputsName.UP);
+        buttonsHeld[InputsName.DOWN] = Input.GetButton(InputsName.DOWN);
+        buttonsHeld[InputsName.RIGHT] = Input.GetButton(InputsName.RIGHT);
+        buttonsHeld[InputsName.LEFT] = Input.GetButton(InputsName.LEFT);
+        buttonsHeld[InputsName.ATTACK] = Input.GetButton(InputsName.ATTACK);
+
+        buttonsReleased[InputsName.RIGHT] = Input.GetButtonUp(InputsName.RIGHT);
+        buttonsReleased[InputsName.LEFT] = Input.GetButtonUp(InputsName.LEFT);
     }
 }

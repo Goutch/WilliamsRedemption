@@ -5,20 +5,40 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private int spawnNumber;
+    [SerializeField] private float secondsBetweenSpawns;
+    private GameObject[] spawnedEnnemies;
+    private bool spawning = false;
 
-	[SerializeField] private GameObject enemyPrefab;
-	[SerializeField] private Enemy enemyStrategyToSpawn;
-	private EnemyControllerRework spawnedEnnemy;
+    private void Awake()
+    {
+        spawnedEnnemies = new GameObject[spawnNumber];
+    }
 
-	private void SpawnEnemy()
-	{
-		spawnedEnnemy= Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<EnemyControllerRework>();
-		spawnedEnnemy.Init(enemyStrategyToSpawn);
-	}
+    private void SpawnEnemies()
+    {
+        StartCoroutine(SpawnEnemyAfterSecondsRoutine(secondsBetweenSpawns));
+    }
 
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if(spawnedEnnemy==null)
-		SpawnEnemy();
-	}
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(!spawning)
+        SpawnEnemies();
+    }
+
+    private IEnumerator SpawnEnemyAfterSecondsRoutine(float second)
+    {
+        spawning = true;
+        for (int i = 0; i < spawnedEnnemies.Length; i++)
+        {
+            if (spawnedEnnemies[i] == null)
+            {
+                spawnedEnnemies[i] = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+                yield return new WaitForSeconds(second);
+            }
+        }
+
+        spawning = false;
+    }
 }

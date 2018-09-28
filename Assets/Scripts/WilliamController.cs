@@ -6,10 +6,11 @@ public class WilliamController : EntityControlableController
 {
     [SerializeField] private float dashDistance;
     [SerializeField] private float durationOfDash;
-
     [SerializeField] private GameObject projectile;
+    [SerializeField] private float fireRate;
 
-    protected bool capacityUsedOnceInAir = false;
+    private bool capacityUsedOnceInAir = false;
+    private float? lastTimeAttack = null;
 
     public override void UseCapacity1(PlayerController player)
     {
@@ -45,7 +46,15 @@ public class WilliamController : EntityControlableController
 
     public override bool CanUseBasicAttack(IPlayerDataReadOnly playerData)
     {
-        return true;
+        if(lastTimeAttack == null || Time.time - lastTimeAttack > fireRate)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
     public override void UseBasicAttack(IPlayerData playerData)
@@ -55,12 +64,16 @@ public class WilliamController : EntityControlableController
         if (sprite.flipX)
             angle = Quaternion.AngleAxis(180, Vector3.up);
 
-        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down)
+        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down && !playerData.IsOnGround)
             angle = Quaternion.AngleAxis(-90, Vector3.forward);
         else if (playerData.DirectionFacingUpDown == FacingSideUpDown.Up)
             angle = Quaternion.AngleAxis(90, Vector3.forward);
 
         GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
-        projectile.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
+        projectileObject.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
+
+        Attacking = true;
+
+        lastTimeAttack = Time.time;
     }
 }
