@@ -16,7 +16,7 @@ public class MaceController : MonoBehaviour {
 
     public void AttackWithPlasma()
     {
-        Instantiate(plasmaGround, new Vector2(transform.position.x, transform.position.y ), Quaternion.identity);
+        Instantiate(plasmaGround, maceEnd.position, Quaternion.identity);
     }
 
 }
