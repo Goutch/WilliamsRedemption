@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Edgar
 {
-    class Idle : State
+    class IdlePhase1 : State
     {
         private EdgarController edgarController;
 

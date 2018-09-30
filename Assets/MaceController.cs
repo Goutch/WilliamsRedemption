@@ -18,5 +18,4 @@ public class MaceController : MonoBehaviour {
     {
         Instantiate(plasmaGround, maceEnd.position, Quaternion.identity);
     }
-
 }

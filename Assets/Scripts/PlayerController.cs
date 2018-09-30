@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         }
 
         Rigidbody = GetComponent<Rigidbody2D>();
+
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();

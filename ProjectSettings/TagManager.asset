@@ -12,6 +12,8 @@ TagManager:
   - Plateforme
   - William
   - Reaper
+  - LightManager
+  - Light
   layers:
   - Default
   - TransparentFX
