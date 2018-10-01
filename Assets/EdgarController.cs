@@ -8,17 +8,22 @@ namespace Edgar
     {
         [SerializeField] private float cdHorizontaleSwing;
         [SerializeField] public float speed;
-        [SerializeField] private float delayDestructionJumpPlatforms;
+        [SerializeField] private float delayDestructionPlatforms;
         [SerializeField] private float cdVerticalSwing;
         [SerializeField] private float cdJump;
+        [SerializeField] private float cdPlasmaShoot;
+        [SerializeField] private int numbOfPlasmaShoot;
+        [SerializeField] private float delayBetweenEachShoot;
+        [SerializeField] private GameObject bullet;
         [SerializeField] private float jumpForce;
         [SerializeField] private GameObject groundPlasma;
-        private Tilemap plateforms;
         [SerializeField] private Tile spawnTile;
+        private Tilemap plateforms;
 
         private float lastVerticalSwing = 0;
         private float lastHorizontaleSwing = 0;
         private float lastJump = 0;
+        private float lastPlasmaShoot = 0;
 
         private Animator animator;
         private State currentState;
@@ -41,8 +46,9 @@ namespace Edgar
             lastVerticalSwing = Time.time - cdVerticalSwing;
             lastHorizontaleSwing = Time.time - cdHorizontaleSwing;
             lastJump = Time.time - cdJump;
+            lastPlasmaShoot = Time.time - cdPlasmaShoot;
 
-            currentState = new IdlePhase2();
+            currentState = new IdlePhase1();
             currentState.Init(this);
         }
 
@@ -93,6 +99,14 @@ namespace Edgar
                 return false;
         }
 
+        public bool CanShootPlasma()
+        {
+            if (Time.time - lastPlasmaShoot > cdPlasmaShoot)
+                return true;
+            else
+                return false;
+        }
+
         public void OnHorizontaleSwingFinish()
         {
             TransitionToIdlePhase1State();
@@ -100,7 +114,7 @@ namespace Edgar
 
         public void OnVerticalSwingFinish()
         {
-            maceController.AttackWithPlasma();
+            maceController.AttackWithPlasma(delayDestructionPlatforms);
 
             TransitionToIdlePhase1State();
         }
@@ -109,6 +123,11 @@ namespace Edgar
         {
             if (CanHorizontaleSwing())
                 SwingHorizontal();
+        }
+
+        public void OnPlasmaShootFinish()
+        {
+            TransitionToIdlePhase1State();
         }
 
         public void TransitionToIdlePhase1State()
@@ -121,7 +140,6 @@ namespace Edgar
         public void TransitionToIdlePhase2State()
         {
             animator.SetTrigger("IdlePhase2");
-            Debug.Log("Transite to Phase 2");
 
             currentState = new IdlePhase2();
             currentState.Init(this);
@@ -132,9 +150,18 @@ namespace Edgar
         {
             lastJump = Time.time;
 
-            Debug.Log("Transite to Jump");
             animator.SetTrigger("Jump");
-            currentState = new Jump(plateforms, spawnTile, lightController, delayDestructionJumpPlatforms, leftFoot, rightFoot);
+            currentState = new Jump(plateforms, spawnTile, lightController, delayDestructionPlatforms, leftFoot, rightFoot);
+            currentState.Init(this);
+        }
+
+        public void TransitionToPlasmaShoot()
+        {
+            Debug.Log("Yolo");
+            lastPlasmaShoot = Time.time;
+
+            animator.SetTrigger("PlasmaShoot");
+            currentState = new PlasmaShoot(numbOfPlasmaShoot, delayBetweenEachShoot);
             currentState.Init(this);
         }
 
@@ -146,6 +173,11 @@ namespace Edgar
         public void OnJumpFinish()
         {
             TransitionToIdlePhase2State();
+        }
+
+        public void ShootPlasma(Quaternion direction)
+        {
+            Instantiate(bullet, transform.position, direction);
         }
     }
 }

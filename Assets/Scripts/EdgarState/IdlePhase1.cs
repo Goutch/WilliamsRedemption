@@ -17,6 +17,8 @@ namespace Edgar
                 edgarController.SwingVertical();
             else if (PlayerController.instance.CurrentController.Collider.IsTouching(edgarController.Range))
                 edgarController.OnPlayerInRange();
+            else if (edgarController.CanShootPlasma())
+                edgarController.TransitionToPlasmaShoot();
         }
 
         public bool Init(EdgarController edgarController)

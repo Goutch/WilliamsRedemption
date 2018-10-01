@@ -8,10 +8,8 @@ public class PlasmaGroundController : MonoBehaviour {
     [SerializeField] private int yOffSetSpawnPlateform;
     [SerializeField] private Tile spawnTile;
     [SerializeField] private float scaleSpeed;
-
     private Tilemap plateforms;
     private Vector2 explosionSize;
-    private FacingSideLeftRight direction;
     private Rigidbody2D rb;
     private new Collider2D collider;
     private float scale = 1;
@@ -21,6 +19,8 @@ public class PlasmaGroundController : MonoBehaviour {
     private float maxWidth = 5;
     private float rayCastHitWallPenetration = 0.32f;
     private LightController lightController;
+    private float delayBeforeDestructionOfPlatforms;
+    private float directionX;
 
 
     private void Awake()
@@ -35,6 +35,12 @@ public class PlasmaGroundController : MonoBehaviour {
         lightController = GameObject.FindGameObjectWithTag("LightManager").GetComponent<LightController>();
     }
 
+    public void Init(float delayBeforeDestructionOfPlatforms)
+    {
+        this.delayBeforeDestructionOfPlatforms = delayBeforeDestructionOfPlatforms;
+        directionX = Mathf.Sign(transform.position.x - PlayerController.instance.transform.position.x);
+    }
+
     private void Update()
     {
         if (grounded && !hitWall)
@@ -42,12 +48,11 @@ public class PlasmaGroundController : MonoBehaviour {
             goForward();
         }
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.localPosition - new Vector3(scale * (size / 2) - rayCastHitWallPenetration, -0.02f), new Vector2(-1, 0), rayCastHitWallPenetration, 1 << LayerMask.NameToLayer("TransparentFX") | 1 << LayerMask.NameToLayer("Default"));
-        Debug.DrawLine(transform.localPosition - new Vector3(scale * (size / 2) - rayCastHitWallPenetration, -0.02f), transform.localPosition - new Vector3(scale * (size / 2), -0.02f), Color.blue);
+        RaycastHit2D hit = Physics2D.Linecast(transform.localPosition - directionX * new Vector3(scale * (size / 2) - rayCastHitWallPenetration, -0.02f * directionX), transform.localPosition - directionX * new Vector3(scale * (size / 2), -0.02f * directionX), 1 << LayerMask.NameToLayer("TransparentFX") | 1 << LayerMask.NameToLayer("Default"));
+        Debug.DrawLine(transform.localPosition - directionX * new Vector3(scale * (size / 2) - rayCastHitWallPenetration, -0.02f * directionX), transform.localPosition - directionX * new Vector3(scale * (size / 2), -0.02f * directionX), Color.blue);
         if (hit.collider != null)
         {
             OnWallCollision();
-            Debug.Log("Hit");
         }
     }
 
@@ -59,17 +64,17 @@ public class PlasmaGroundController : MonoBehaviour {
             scale += scaleSpeed * Time.deltaTime;
         }
 
-        rb.MovePosition(new Vector3(transform.localPosition.x - scaleSpeed * Time.deltaTime * (size / 2), transform.localPosition.y));
+        rb.MovePosition(new Vector3(transform.localPosition.x - directionX * scaleSpeed * Time.deltaTime * (size / 2), transform.localPosition.y));
         Debug.DrawLine(transform.localPosition, transform.localPosition - new Vector3(0, 1), Color.green);
-        Debug.DrawLine(transform.localPosition - new Vector3(scale * (size / 2), 0), transform.localPosition - new Vector3(scale * (size / 2), 1), Color.red);
+        Debug.DrawLine(transform.localPosition - directionX * new Vector3(scale * (size / 2), 0), transform.localPosition - directionX * new Vector3(scale * (size / 2), 1), Color.red);
     }
 
     private void OnWallCollision()
     {
         hitWall = true;
-        Instantiate(explosion, transform.localPosition - new Vector3(scale * (size / 2) - explosionSize.x/2, -explosionSize.y/2), Quaternion.identity);
+        Instantiate(explosion, transform.localPosition - directionX * new Vector3(scale * (size / 2) - explosionSize.x/2, - directionX * explosionSize.y/2), Quaternion.identity);
 
-        Vector3Int cellPos = plateforms.LocalToCell(transform.localPosition - new Vector3(scale * (size / 2) - explosionSize.x / 2, -explosionSize.y / 2));
+        Vector3Int cellPos = plateforms.LocalToCell(transform.localPosition - directionX * new Vector3(scale * (size / 2) - explosionSize.x / 2, - directionX * explosionSize.y / 2));
         cellPos += new Vector3Int(0, yOffSetSpawnPlateform, 0);
 
         Vector3Int[] platformsPosition = new Vector3Int[] {
@@ -86,7 +91,7 @@ public class PlasmaGroundController : MonoBehaviour {
 
         GameObject plateformsDestroyer = new GameObject();
         TimedPlateformeDestroyer timedPlatformsDestroyer = plateformsDestroyer.AddComponent<TimedPlateformeDestroyer>();
-        timedPlatformsDestroyer.Init(platformsPosition, plateforms, 1, lightController);
+        timedPlatformsDestroyer.Init(platformsPosition, plateforms, delayBeforeDestructionOfPlatforms, lightController);
 
         Destroy(gameObject);
     }

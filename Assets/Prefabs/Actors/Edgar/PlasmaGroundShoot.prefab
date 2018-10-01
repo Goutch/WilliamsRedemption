@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1551881614248408, guid: b2cbea3e7d2f3ea49abdabeabe521c46, type: 2}
-  yOffSetSpawnPlateform: 2
+  yOffSetSpawnPlateform: 3
   spawnTile: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
   scaleSpeed: 10
 --- !u!212 &212812301100346696

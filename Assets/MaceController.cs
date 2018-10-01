@@ -14,8 +14,9 @@ public class MaceController : MonoBehaviour {
         plasmaGroundHeigth = plasmaGround.GetComponent<SpriteRenderer>().size.y;
     }
 
-    public void AttackWithPlasma()
+    public void AttackWithPlasma(float delayBeforeDestructionOfPlatforms)
     {
-        Instantiate(plasmaGround, maceEnd.position, Quaternion.identity);
+        GameObject plasmaGroundObject = Instantiate(plasmaGround, maceEnd.position, Quaternion.identity);
+        plasmaGroundObject.GetComponent<PlasmaGroundController>().Init(delayBeforeDestructionOfPlatforms);
     }
 }
