@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 114453037947686884}
   - component: {fileID: 95540322796970856}
   - component: {fileID: 61441967364475554}
-  m_Layer: 1
+  m_Layer: 11
   m_Name: Reaper
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7060a1bb40e3824a8cd7bc72eaf728c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 250
+  speed: 175
   jumpForce: 4
   nbPlayerLives: 6
 --- !u!114 &114453037947686884
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205f42d22b2d64844a6e0ee8c8713450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportationDistance: 192
+  teleportationDistance: 150
   tpEffect: {fileID: 1755848583395488, guid: 83f64db88aee946448db9a3ae94dd822, type: 2}
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
     type: 2}
@@ -566,6 +566,7 @@ MonoBehaviour:
   dashDistance: 1.28
   durationOfDash: 0.1
   projectile: {fileID: 1689002622773110, guid: 91c6616cb3ccb8d48911555a81756f0b, type: 2}
+  fireRate: 1
 --- !u!114 &114988604156712302
 MonoBehaviour:
   m_ObjectHideFlags: 1

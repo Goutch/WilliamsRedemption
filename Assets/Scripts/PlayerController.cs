@@ -5,12 +5,13 @@ using Light;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
 
 public delegate void PlayerDeathEventHandler();
 
 
-public class PlayerController : MonoBehaviour, IPlayerData {
-
+public class PlayerController : MonoBehaviour, IPlayerData
+{
     private Dictionary<string, bool> buttonsPressed;
     private Dictionary<string, bool> buttonsReleased;
     private Dictionary<string, bool> buttonsHeld;
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
-    
+
     public int NbPlayerLives => nbPlayerLives;
     public static PlayerController instance;
     public event PlayerDeathEventHandler OnPlayerDie;
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     private int nbPlayerLivesLeft;
 
     private int currentLevel;
-    private int numbOfLocks = 0;
+    private int numbOfLocks =0;
 
     public int NbPlayerLivesLeft
     {
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
             if (IsPlayerDead())
             {
                 OnPlayerDie?.Invoke();
-                SceneManager.LoadScene("Level"+currentLevel);
+                SceneManager.LoadScene("Level" + currentLevel);
             }
         }
     }
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
 
-        OnLightExpositionChanged(true);    
+        OnLightExpositionChanged(true);
     }
 
     public void DamagePlayer(int hitpoints)
@@ -90,6 +91,9 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     private void Update()
     {
+        //var gamePadState = GamePad.GetState(PlayerIndex.One);
+        //Input.GetKeyDown(KeyCode.A);
+
         GetInputs();
 
         if (buttonsHeld[InputsName.LEFT] && !buttonsHeld[InputsName.RIGHT])
@@ -115,7 +119,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
             DirectionFacingUpDown = FacingSideUpDown.Up;
             CurrentController.animator.SetInteger("OrientationY", 1);
         }
-        else if(buttonsHeld[InputsName.DOWN] && !buttonsHeld[InputsName.UP])
+        else if (buttonsHeld[InputsName.DOWN] && !buttonsHeld[InputsName.UP])
         {
             DirectionFacingUpDown = FacingSideUpDown.Down;
             CurrentController.animator.SetInteger("OrientationY", -1);
@@ -130,7 +134,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         CurrentController.animator.SetBool("IsFalling", !IsOnGround && !IsDashing);
         CurrentController.animator.SetBool("IsDashing", IsDashing);
 
-        if(!CurrentController.Attacking)
+        if (!CurrentController.Attacking)
         {
             CurrentController.animator.SetBool("IsAttacking", false);
         }
@@ -138,13 +142,13 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     private void FixedUpdate()
     {
-        if(CurrentController.CanUseBasicAttack(this) && buttonsHeld[InputsName.ATTACK])
+        if (CurrentController.CanUseBasicAttack(this) && buttonsHeld[InputsName.ATTACK])
         {
             CurrentController.UseBasicAttack(this);
             CurrentController.animator.SetBool("IsAttacking", true);
         }
 
-        if(Rigidbody.velocity.y == 0 && !IsDashing)
+        if (Rigidbody.velocity.y == 0 && !IsDashing)
         {
             IsOnGround = true;
             if (buttonsPressed[InputsName.JUMP])
@@ -160,9 +164,9 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         if (!IsDashing)
         {
-            if(buttonsHeld[InputsName.LEFT])
+            if (buttonsHeld[InputsName.LEFT])
                 Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
-            if(buttonsHeld[InputsName.RIGHT])
+            if (buttonsHeld[InputsName.RIGHT])
                 Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
 
             if (buttonsReleased[InputsName.LEFT])
@@ -192,7 +196,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     public void OnLightEnter()
     {
-        if(numbOfLocks == 0)
+        if (numbOfLocks == 0)
         {
             williamController.gameObject.SetActive(true);
             reaperController.gameObject.SetActive(false);
@@ -203,7 +207,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     public void OnLightExit()
     {
-        if(numbOfLocks == 0)
+        if (numbOfLocks == 0)
         {
             williamController.gameObject.SetActive(false);
             reaperController.gameObject.SetActive(true);
@@ -230,10 +234,10 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     public void UnlockTransformation()
     {
-        if(numbOfLocks > 0)
+        if (numbOfLocks > 0)
             numbOfLocks -= 1;
 
-        if(numbOfLocks == 0)
+        if (numbOfLocks == 0)
             OnLightExpositionChanged(lightSensor.InLight);
     }
 
@@ -253,11 +257,14 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         buttonsHeld[InputsName.UP] = Input.GetButton(InputsName.UP);
         buttonsHeld[InputsName.DOWN] = Input.GetButton(InputsName.DOWN);
-        buttonsHeld[InputsName.RIGHT] = Input.GetButton(InputsName.RIGHT);
-        buttonsHeld[InputsName.LEFT] = Input.GetButton(InputsName.LEFT);
+        buttonsHeld[InputsName.RIGHT] = Input.GetButton(InputsName.RIGHT) || Input.GetAxis("Horizontal") > 0.5;
+        buttonsHeld[InputsName.LEFT] = Input.GetButton(InputsName.LEFT) || Input.GetAxis("Horizontal") < -0.5;
         buttonsHeld[InputsName.ATTACK] = Input.GetButton(InputsName.ATTACK);
 
-        buttonsReleased[InputsName.RIGHT] = Input.GetButtonUp(InputsName.RIGHT);
-        buttonsReleased[InputsName.LEFT] = Input.GetButtonUp(InputsName.LEFT);
+
+        buttonsReleased[InputsName.RIGHT] =
+            Input.GetButtonUp(InputsName.RIGHT) ; //|| Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+        buttonsReleased[InputsName.LEFT] =
+            Input.GetButtonUp(InputsName.LEFT) ; // || Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
     }
 }
