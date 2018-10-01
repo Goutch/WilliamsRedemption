@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
     private int currentLevel;
     private int numbOfLocks = 0;
+    private bool movementLock = false;
 
     public int NbPlayerLivesLeft
     {
@@ -92,13 +93,15 @@ public class PlayerController : MonoBehaviour, IPlayerData {
     {
         GetInputs();
 
-        if (buttonsHeld[InputsName.LEFT] && !buttonsHeld[InputsName.RIGHT])
+        if (buttonsHeld[InputsName.LEFT] && !buttonsHeld[InputsName.RIGHT] && !movementLock)
         {
+            if (movementLock)
+                Debug.Log("Lock");
             DirectionFacingLeftRight = FacingSideLeftRight.Left;
             CurrentController.animator.SetFloat("Speed", Mathf.Abs(-1 * speed * Time.deltaTime));
             CurrentController.sprite.flipX = true;
         }
-        else if (buttonsHeld[InputsName.RIGHT] && !buttonsHeld[InputsName.LEFT])
+        else if (buttonsHeld[InputsName.RIGHT] && !buttonsHeld[InputsName.LEFT] && !movementLock)
         {
             DirectionFacingLeftRight = FacingSideLeftRight.Right;
             CurrentController.animator.SetFloat("Speed", Mathf.Abs(1 * speed * Time.deltaTime));
@@ -160,9 +163,9 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         if (!IsDashing)
         {
-            if(buttonsHeld[InputsName.LEFT])
+            if(buttonsHeld[InputsName.LEFT] && !movementLock)
                 Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
-            if(buttonsHeld[InputsName.RIGHT])
+            if(buttonsHeld[InputsName.RIGHT] && !movementLock)
                 Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
 
             if (buttonsReleased[InputsName.LEFT])
@@ -259,5 +262,17 @@ public class PlayerController : MonoBehaviour, IPlayerData {
 
         buttonsReleased[InputsName.RIGHT] = Input.GetButtonUp(InputsName.RIGHT);
         buttonsReleased[InputsName.LEFT] = Input.GetButtonUp(InputsName.LEFT);
+    }
+
+    public void LockMovement(float time)
+    {
+        movementLock = true;
+        StartCoroutine(UnlockMovement(time));
+    }
+
+    private IEnumerator UnlockMovement(float time)
+    {
+        yield return new WaitForSeconds(time);
+        movementLock = false;
     }
 }

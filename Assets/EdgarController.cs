@@ -26,6 +26,8 @@ namespace Edgar
         public Collider2D Range { get; private set; }
         public Rigidbody2D rb { get; private set; }
         private LightController lightController;
+        [SerializeField] private GameObject leftFoot;
+        [SerializeField] private GameObject rightFoot;
 
         private void Awake()
         {
@@ -132,7 +134,7 @@ namespace Edgar
 
             Debug.Log("Transite to Jump");
             animator.SetTrigger("Jump");
-            currentState = new Jump(plateforms, spawnTile, lightController, delayDestructionJumpPlatforms);
+            currentState = new Jump(plateforms, spawnTile, lightController, delayDestructionJumpPlatforms, leftFoot, rightFoot);
             currentState.Init(this);
         }
 
@@ -144,8 +146,6 @@ namespace Edgar
         public void OnJumpFinish()
         {
             TransitionToIdlePhase2State();
-
-            PlayerController.instance.Rigidbody.AddForce(new Vector2(-1, 5), ForceMode2D.Impulse);
         }
     }
 }
