@@ -84,9 +84,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
         OnLightExpositionChanged(true);
     }
 
-    public void DamagePlayer(int hitpoints)
+    public void DamagePlayer()
     {
-        NbPlayerLivesLeft -= hitpoints;
+        NbPlayerLivesLeft -= 1;
     }
 
     private void Update()

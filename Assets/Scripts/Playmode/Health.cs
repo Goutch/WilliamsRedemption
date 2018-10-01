@@ -24,8 +24,16 @@ public class Health : MonoBehaviour
 			throw new ArgumentException("HealthPoints can't be lower than 0.");
 	}
 	
-	public void Hit(int hitPoints)
+	public void Hit()
 	{
-		HealthPoints -= hitPoints;
+		HealthPoints -= 1;
+		OnHealthChange();
+	}
+	private void OnHealthChange()
+	{
+		if (healthPoints <= 0)
+		{
+			Destroy(this.gameObject);
+		}
 	}
 }

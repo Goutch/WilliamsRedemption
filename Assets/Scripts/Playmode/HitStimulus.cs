@@ -1,54 +1,47 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class HitStimulus : MonoBehaviour
 {
-
-	[SerializeField] private int hitPoints = 1;
 	private HitSensor hitSensor;
-	
-	public int HitPoints
-	{
-		get { return hitPoints;}
-		set { hitPoints=value; }
-	}
-	
-	private void Awake()
-	{
-		ValidateSerializeFields();
-	
-	}
-	
-	private void ValidateSerializeFields()
-	{
-		if (hitPoints < 0)
-			throw new ArgumentException("Hit points can't be less than 0.");
-	}
-
+		
 	private void OnCollisionEnter2D(Collision2D other)
 	{
 		hitSensor = null;
 		if (other.collider.tag == "Player" && gameObject.tag == "Enemy")
 		{
 			hitSensor = other.gameObject.GetComponent<HitSensor>();
-			if(hitSensor != null)
-			{
-				hitSensor.Hit(hitPoints);
-			}
-		}
-		else if (other.collider.tag == "ProjectilePlayer" && gameObject.tag == "Enemy")
-		{
-			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
-		}
-		else if (other.collider.tag == "ProjectileEnemy" && gameObject.tag == "Player")
-		{
-			hitSensor = gameObject.GetComponentInChildren<HitSensor>();
 		}
 		if(hitSensor != null)
 		{
-			hitSensor.Hit(hitPoints);
+			hitSensor.Hit();
+		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "ProjectilePlayer" && gameObject.tag == "Enemy" 
+		    || other.tag == "ProjectileEnemy" && gameObject.tag == "Player")
+		{
+			gameObject.GetComponentInChildren<HitSensor>().Hit();
+			Destroy(other.gameObject);
+		}
+		if (other.gameObject.GetComponent<PlasmaController>() != null)
+		{ 
+			if (other.tag == "ProjectileEnemy" && gameObject.tag == "ProjectilePlayer" 
+			                                        && other.gameObject.GetComponent<ProjectileController>().CanBeReturned==true)
+			{
+				other.gameObject.GetComponent<PlasmaController>().ChangeDirection();
+			}
+			else if (other.gameObject.GetComponent<PlasmaController>().CanBulletKillHisShooter() == true
+			         && other.tag == "ProjectileEnemy" && gameObject.tag == "Enemy")
+			{
+				gameObject.GetComponentInChildren<HitSensor>().Hit();
+				Destroy(other.gameObject);
+			}
 		}
 	}
 }

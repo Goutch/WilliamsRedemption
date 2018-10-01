@@ -20,12 +20,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4407237342887058}
   - component: {fileID: 212303321489881524}
-  - component: {fileID: 114547147151601884}
   - component: {fileID: 61604760642167842}
-  - component: {fileID: 114756696864806150}
+  - component: {fileID: 114005444594995540}
+  - component: {fileID: 50996597116700366}
+  - component: {fileID: 114650880187502610}
   m_Layer: 11
-  m_Name: Projectile
-  m_TagString: ProjectilePlayer
+  m_Name: ProjectileEnemyPlasma
+  m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,6 +44,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50996597116700366
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689002622773110}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61604760642167842
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -59,7 +80,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.04, y: 0.04}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -68,20 +89,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.129076, y: 0.038467884}
   m_EdgeRadius: 0
---- !u!114 &114547147151601884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689002622773110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f40adbd409a63444daed395e9a0f1f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  delayBeforeDestruction: 5
---- !u!114 &114756696864806150
+--- !u!114 &114005444594995540
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,7 +100,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 1
+--- !u!114 &114650880187502610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689002622773110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6730589359563df4c80e04f5ce69659a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  delayBeforeDestruction: 5
+  canBeReturned: 1
+  delayBeforeBulletCanKillHisShooter: 1
 --- !u!212 &212303321489881524
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -128,8 +150,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d63e7172938675343b6c911254987b8e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 46f2626a104744141b9b3226759a3c30, type: 3}
+  m_Color: {r: 0, g: 0.12855339, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

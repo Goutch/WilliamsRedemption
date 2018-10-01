@@ -3,21 +3,15 @@ using UnityEngine;
 
 namespace Playmode.EnnemyRework
 {
-    public abstract class Enemy : EnemyData, IEnemyStrategy
+    public abstract class Enemy : EnemyData,IEntityData
     {
-        public abstract void Init(GameObject enemyControllerObject);
-        public abstract void Act();
-
-        public virtual void ReactTriggerEnter(Collider2D other)
+        private void Awake()
         {
+            GetComponent<HitSensor>().OnHit += ReceiveDamage;
+            Init();
         }
 
-        public virtual void ReactCollisionEnter(Collision2D other)
-        {
-        }
-
-        public virtual void ReactToColision(Collision2D collision2D)
-        {
-        }
+        protected abstract void Init();
+        public abstract void ReceiveDamage();
     }
 }

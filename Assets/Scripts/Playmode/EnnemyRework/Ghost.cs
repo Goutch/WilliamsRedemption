@@ -15,22 +15,21 @@ namespace Playmode.EnnemyRework
         private SpriteRenderer spriteRenderer;
         private LightSensor lightSensor;
 
-        public override void Init(GameObject enemyControllerObject)
-        {
-            rootMover = enemyControllerObject.GetComponent<RootMover>();
-            collider = enemyControllerObject.GetComponent<BoxCollider2D>();
-            collider.isTrigger = true;
 
-            enemyControllerObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            spriteRenderer = enemyControllerObject.GetComponent<SpriteRenderer>();
+        protected override void Init()
+        {
+            rootMover = GetComponent<RootMover>();
+            collider = GetComponent<BoxCollider2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public override void Act()
+        private void FixedUpdate()
         {
             if (Vector2.Distance(PlayerController.instance.transform.position, rootMover.transform.position) > range)
             {
                 Destroy(rootMover.gameObject);
             }
+
             if (PlayerController.instance.CurrentController.GetComponent<ReaperController>())
             {
                 spriteRenderer.enabled = true;
@@ -43,13 +42,9 @@ namespace Playmode.EnnemyRework
             }
         }
 
-        private void DestroyEnnemyObject(bool Inlight)
+        public override void ReceiveDamage()
         {
-            if(Inlight)
-            Destroy(rootMover.gameObject);
+            throw new System.NotImplementedException();
         }
-        
     }
-    
 }
-

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-	protected Health health;
+	[SerializeField] private float distanceToDetectThePlayer;
+	
+	private Health health;
 	protected MovementManager movementManager;
 	protected static Vector2 startingPosition;
 	protected Vector2 actualPosition;
@@ -27,12 +29,15 @@ public class EnemyController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		hitSensor.OnHit += OnHit;
+		if (hitSensor != null)
+		{
+			hitSensor.OnHit += OnHit;
+		}	
 	}
 
-	private void OnHit(int hitPoints)
+	private void OnHit()
 	{
-		health.Hit(hitPoints);
+		health.Hit();
 		Debug.Log(health.HealthPoints);
 		OnHealthChange(health.HealthPoints);
 	}
@@ -43,5 +48,15 @@ public class EnemyController : MonoBehaviour
 		{
 			Destroy(this.gameObject);
 		}
+	}
+	protected bool CheckIfEnemyIsSeen()
+	{
+		if(GameObject.FindGameObjectWithTag("Player").transform.position.x-gameObject.transform.position.x
+		   <=distanceToDetectThePlayer)
+		{
+			Debug.Log("Enemy spotted!");
+			return true;
+		}
+		return false;
 	}
 }

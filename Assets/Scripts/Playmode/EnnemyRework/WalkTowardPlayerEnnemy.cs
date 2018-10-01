@@ -6,26 +6,24 @@ using Slider = UnityEngine.Experimental.UIElements.Slider;
 
 namespace Playmode.EnnemyRework
 {
-    [CreateAssetMenu(fileName = "WalkToward", menuName = "EnnemyStrategy/WalkToward", order = 1)]
-    public class ZombieStrategy : Enemy
+    public abstract class WalkTowardPlayerEnnemy : Enemy
     {
         [SerializeField] private Vector2 jumpForce;
-        protected Animator animator;
         protected RootMover rootMover;
         protected SpriteRenderer spriteRenderer;
-        protected Rigidbody2D ennemyRigidbody2D;
         protected int currenDirection = 1;
 
-        public override void Init(GameObject enemyControllerObject)
+        protected override void Init()
         {
-            spriteRenderer = enemyControllerObject.GetComponent<SpriteRenderer>();
-            rootMover = enemyControllerObject.GetComponent<RootMover>();
-            ennemyRigidbody2D = enemyControllerObject.GetComponent<Rigidbody2D>();
+            
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            rootMover = GetComponent<RootMover>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public override void Act()
+        protected virtual void FixedUpdate()
         {
-            currenDirection = PlayerController.instance.transform.position.x - rootMover.transform.root.position.x > 0
+            currenDirection = PlayerController.instance.transform.position.x - transform.root.position.x > 0
                 ? 1
                 : -1;
             if (currenDirection == 1)
@@ -37,13 +35,18 @@ namespace Playmode.EnnemyRework
 
             rootMover.WalkToward(currenDirection, speed);
             int surroundingRange = 1;
-            bool[,] surrounding = new bool[3, 3];
-            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, rootMover.transform.position);
+            bool[,] surrounding = new bool[surroundingRange*2+1,surroundingRange*2+1];
+            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
             if (surrounding[currenDirection + surroundingRange, 0 + surroundingRange])
             {
                 if (!rootMover.IsJumping)
                     rootMover.Jump(new Vector2(jumpForce.x * currenDirection, jumpForce.y));
             }
+        }
+
+        public override void ReceiveDamage()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
