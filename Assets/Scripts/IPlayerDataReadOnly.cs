@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface IPlayerDataReadOnly : IEntityData
+public interface IPlayerDataReadOnly 
 {
     bool IsOnGround { get; }
     bool IsDashing { get; }

@@ -35,7 +35,7 @@ public class EnemyController : MonoBehaviour
 		}	
 	}
 
-	private void OnHit()
+	private void OnHit(HitStimulus otherStimulus)
 	{
 		health.Hit();
 		Debug.Log(health.HealthPoints);
@@ -46,6 +46,7 @@ public class EnemyController : MonoBehaviour
 	{
 		if (newHealth <= 0)
 		{
+			
 			Destroy(this.gameObject);
 		}
 	}

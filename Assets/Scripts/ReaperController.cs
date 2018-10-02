@@ -64,8 +64,9 @@ public class ReaperController : EntityControlableController
             angle = Quaternion.AngleAxis(90, Vector3.forward);
 
         GameObject meleeAttackObject = Instantiate(meleeAttack, gameObject.transform.position, angle);
-        meleeAttackObject.GetComponent<MeleeAttackController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
+        meleeAttackObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Reaper);
 
         Attacking = true;
     }
+
 }
