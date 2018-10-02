@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212303321489881524}
   - component: {fileID: 114547147151601884}
   - component: {fileID: 61604760642167842}
-  - component: {fileID: 114756696864806150}
   m_Layer: 11
   m_Name: Projectile
   m_TagString: ProjectilePlayer
@@ -79,20 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40adbd409a63444daed395e9a0f1f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   delayBeforeDestruction: 5
---- !u!114 &114756696864806150
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689002622773110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 1
+  destroyOnCollisionWithTag: Enemy
 --- !u!212 &212303321489881524
 SpriteRenderer:
   m_ObjectHideFlags: 1

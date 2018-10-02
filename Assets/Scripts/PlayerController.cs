@@ -75,8 +75,6 @@ public class PlayerController : MonoBehaviour, IPlayerData {
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
-        GetComponent<HitSensor>().OnHit += DamagePlayer;
-
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
 

@@ -43,8 +43,4 @@ public class Cannon : Enemy
 		return false;
 	}
 
-	public override void ReceiveDamage()
-	{
-		GetComponent<Health>().Hit();
-	}
 }

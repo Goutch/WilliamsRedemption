@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class Obstacle:MonoBehaviour
+    public class Obstacle:MonoBehaviour,IEntityData
     {
         private void OnCollisionEnter2D(Collision2D other)
         {
