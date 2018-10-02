@@ -10,6 +10,7 @@ public class HitSensor : MonoBehaviour
 
 	public void Hit()
 	{
+        Debug.Log("Hit");
 		NotifyHit();
 	}
 

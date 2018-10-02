@@ -14,6 +14,7 @@ TagManager:
   - Reaper
   - LightManager
   - Light
+  - ProjectileEnemy
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Reaper
   - Walls
   - Enemy
-  - 
+  - Range
   - 
   - 
   - 

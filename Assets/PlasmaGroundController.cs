@@ -77,15 +77,25 @@ public class PlasmaGroundController : MonoBehaviour {
         Vector3Int cellPos = plateforms.LocalToCell(transform.localPosition - directionX * new Vector3(scale * (size / 2) - explosionSize.x / 2, - directionX * explosionSize.y / 2));
         cellPos += new Vector3Int(0, yOffSetSpawnPlateform, 0);
 
-        Vector3Int[] platformsPosition = new Vector3Int[] {
-            cellPos,
-            cellPos + new Vector3Int(1, 0, 0),
-            cellPos + new Vector3Int(-1, 0, 0)
-        };
+        List<Vector3Int> platformsPosition = new List<Vector3Int>();
 
-        plateforms.SetTile(platformsPosition[0], spawnTile);
-        plateforms.SetTile(platformsPosition[1], spawnTile);
-        plateforms.SetTile(platformsPosition[2], spawnTile);
+        if (plateforms.GetTile(cellPos) == null)
+        {
+            platformsPosition.Add(cellPos);
+        }
+
+        if (plateforms.GetTile(cellPos + new Vector3Int(1, 0, 0)) == null)
+        {
+            platformsPosition.Add(cellPos + new Vector3Int(1, 0, 0));
+        }
+
+        if (plateforms.GetTile(cellPos + new Vector3Int(-1, 0, 0)) == null)
+        {
+            platformsPosition.Add(cellPos + new Vector3Int(-1, 0, 0));
+        }
+
+        foreach (Vector3Int postionCell in platformsPosition)
+            plateforms.SetTile(postionCell, spawnTile);
 
         lightController.UpdateLightAtEndOfFrame();
 

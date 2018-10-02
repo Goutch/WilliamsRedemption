@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114317678947083722}
   - component: {fileID: 50262979383305772}
   - component: {fileID: 61568311534624344}
+  - component: {fileID: 114290011587648660}
   m_Layer: 0
   m_Name: PlasmaGroundShoot
   m_TagString: Untagged
@@ -88,6 +89,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.04}
   m_EdgeRadius: 0
+--- !u!114 &114290011587648660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1069606443522038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114317678947083722
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,15 +1,16 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 class TimedPlateformeDestroyer : MonoBehaviour 
 {
-    [SerializeField] private Vector3Int[] cellToDestroy;
+    [SerializeField] private List<Vector3Int> cellToDestroy;
     [SerializeField] private float delayBeforeDestruction;
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private LightController lightController;
 
-    public void Init(Vector3Int[] cellToDestroy, Tilemap tilemap, float delayBeforeDestruction, LightController lightController)
+    public void Init(List<Vector3Int> cellToDestroy, Tilemap tilemap, float delayBeforeDestruction, LightController lightController)
     {
         this.cellToDestroy = cellToDestroy;
         this.tilemap = tilemap;

@@ -23,8 +23,15 @@ namespace Edgar
 
         public bool Init(EdgarController edgarController)
         {
+            edgarController.hitSensor.OnHit += HitSensor_OnHit;
+
             this.edgarController = edgarController;
             return true;
+        }
+
+        private void HitSensor_OnHit()
+        {
+            edgarController.Hp -= 1;
         }
     }
 }

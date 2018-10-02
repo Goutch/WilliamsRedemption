@@ -18,8 +18,17 @@ namespace Edgar
         private float delayDestructionJumpPlatforms;
         private GameObject leftFoot;
         private GameObject rightFoot;
+        private float upwardForceOnLandingWhenPlayerIsInAir;
+        private float upwardForceOnLandingWhenPlayerIsOnGround;
 
-        public Jump(Tilemap plateforms, Tile spawnTile, LightController lightController, float delayDestructionJumpPlatforms, GameObject leftFoot, GameObject rightFoot)
+        public Jump(Tilemap plateforms, 
+            Tile spawnTile, 
+            LightController lightController, 
+            float delayDestructionJumpPlatforms, 
+            GameObject leftFoot, 
+            GameObject rightFoot, 
+            float upwardForceOnLandingWhenPlayerIsInAir, 
+            float upwardForceOnLandingWhenPlayerIsOnGround)
         {
             this.plateforms = plateforms;
             this.spawnTile = spawnTile;
@@ -27,6 +36,8 @@ namespace Edgar
             this.delayDestructionJumpPlatforms = delayDestructionJumpPlatforms;
             this.leftFoot = leftFoot;
             this.rightFoot = rightFoot;
+            this.upwardForceOnLandingWhenPlayerIsInAir = upwardForceOnLandingWhenPlayerIsInAir;
+            this.upwardForceOnLandingWhenPlayerIsOnGround = upwardForceOnLandingWhenPlayerIsOnGround;
         }
 
         public void Act()
@@ -39,9 +50,8 @@ namespace Edgar
             }
             else
             {
-                edgarController.transform.Translate(new Vector2(Math.Sign(PlayerController.instance.transform.position.x - edgarController.transform.position.x) * edgarController.speed * Time.deltaTime, 0));
-                if (edgarController.rb.velocity.y < 0)
-                    landOnGround();
+                edgarController.transform.Translate(new Vector2(-edgarController.speed * Time.deltaTime, 0));
+                landOnGround();
             }
         }
 
@@ -53,7 +63,6 @@ namespace Edgar
 
         private void landOnGround()
         {
-
             RaycastHit2D leftFeetSupportOnGound = Physics2D.Raycast(leftFoot.transform.position, new Vector2(0, -1), 0.32f, 1 << LayerMask.NameToLayer("Default"));
             RaycastHit2D rightFeetSupportOnGround = Physics2D.Raycast(leftFoot.transform.position, new Vector2(0, -1), 0.32f, 1 << LayerMask.NameToLayer("Default"));
 
@@ -62,25 +71,36 @@ namespace Edgar
 
             if (leftFeetSupportOnGound.collider != null || rightFeetSupportOnGround.collider != null)
             {
-                Debug.Log("Yolo");
-
                 edgarController.rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
 
                 edgarController.OnJumpFinish();
                 Vector3Int cellPos = plateforms.LocalToCell(edgarController.transform.position);
                 cellPos += new Vector3Int(0, -1, 0);
 
-                Vector3Int[] platformsPosition = new Vector3Int[] {
-                    cellPos + new Vector3Int(3, 1, 0),
-                    cellPos + new Vector3Int(-3, 1, 0),
-                    cellPos + new Vector3Int(2, 0, 0),
-                    cellPos + new Vector3Int(-2, 0, 0)
-                };
+                List<Vector3Int> platformsPosition = new List<Vector3Int>();
 
-                plateforms.SetTile(platformsPosition[0], spawnTile);
-                plateforms.SetTile(platformsPosition[1], spawnTile);
-                plateforms.SetTile(platformsPosition[2], spawnTile);
-                plateforms.SetTile(platformsPosition[3], spawnTile);
+                if(plateforms.GetTile(cellPos + new Vector3Int(2, 1, 0)) == null)
+                {
+                    platformsPosition.Add(cellPos + new Vector3Int(2, 1, 0));
+                }
+
+                if (plateforms.GetTile(cellPos + new Vector3Int(-2, 1, 0)) == null)
+                {
+                    platformsPosition.Add(cellPos + new Vector3Int(-2, 1, 0));
+                }
+
+                if (plateforms.GetTile(cellPos + new Vector3Int(1, 0, 0)) == null)
+                {
+                    platformsPosition.Add(cellPos + new Vector3Int(1, 0, 0));
+                }
+
+                if (plateforms.GetTile(cellPos + new Vector3Int(-1, 0, 0)) == null)
+                {
+                    platformsPosition.Add(cellPos + new Vector3Int(-1, 0, 0));
+                }
+
+                foreach (Vector3Int postionCell in platformsPosition)
+                    plateforms.SetTile(postionCell, spawnTile);
 
                 lightController.UpdateLightAtEndOfFrame();
 
@@ -89,15 +109,11 @@ namespace Edgar
                 timedPlatformsDestroyer.Init(platformsPosition, plateforms, delayDestructionJumpPlatforms, lightController);
 
                 PlayerController.instance.Rigidbody.velocity = new Vector2(0, PlayerController.instance.Rigidbody.velocity.y);
-                //PlayerController.instance.LockMovement(1);
+                float directionX = Math.Sign(PlayerController.instance.transform.position.x - edgarController.transform.position.x);
                 if (PlayerController.instance.IsOnGround)
-                    PlayerController.instance.Rigidbody.AddForce(new Vector2(-1, 5), ForceMode2D.Impulse);
+                    PlayerController.instance.Rigidbody.AddForce(new Vector2(directionX, upwardForceOnLandingWhenPlayerIsOnGround), ForceMode2D.Impulse);
                 else
-                    PlayerController.instance.Rigidbody.AddForce(new Vector2(-1, 1), ForceMode2D.Impulse);
-            }
-            else
-            {
-                Debug.Log("Fail");
+                    PlayerController.instance.Rigidbody.AddForce(new Vector2(directionX, upwardForceOnLandingWhenPlayerIsInAir), ForceMode2D.Impulse);
             }
         }
     }
