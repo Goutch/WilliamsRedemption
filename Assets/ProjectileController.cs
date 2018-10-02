@@ -10,7 +10,6 @@ public class ProjectileController : MonoBehaviour {
     
     protected int direction;
 
-    public IEntityData EntityData { get; set; }
     public bool CanBeReturned
     {
         get { return canBeReturned;}

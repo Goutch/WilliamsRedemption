@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Playmode.EnnemyRework
 {
-    public abstract class Enemy : EnemyData,IEntityData
+    public abstract class Enemy : EnemyData
     {
         private void Awake()
         {
