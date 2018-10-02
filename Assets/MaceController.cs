@@ -18,5 +18,6 @@ public class MaceController : MonoBehaviour {
     {
         GameObject plasmaGroundObject = Instantiate(plasmaGround, maceEnd.position, Quaternion.identity);
         plasmaGroundObject.GetComponent<PlasmaGroundController>().Init(delayBeforeDestructionOfPlatforms);
+        plasmaGroundObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
     }
 }

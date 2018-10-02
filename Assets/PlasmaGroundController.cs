@@ -72,7 +72,8 @@ public class PlasmaGroundController : MonoBehaviour {
     private void OnWallCollision()
     {
         hitWall = true;
-        Instantiate(explosion, transform.localPosition - directionX * new Vector3(scale * (size / 2) - explosionSize.x/2, - directionX * explosionSize.y/2), Quaternion.identity);
+        GameObject explosionObject = Instantiate(explosion, transform.localPosition - directionX * new Vector3(scale * (size / 2) - explosionSize.x/2, - directionX * explosionSize.y/2), Quaternion.identity);
+        explosionObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
 
         Vector3Int cellPos = plateforms.LocalToCell(transform.localPosition - directionX * new Vector3(scale * (size / 2) - explosionSize.x / 2, - directionX * explosionSize.y / 2));
         cellPos += new Vector3Int(0, yOffSetSpawnPlateform, 0);

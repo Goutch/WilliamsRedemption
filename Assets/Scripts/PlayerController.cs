@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
     private int nbPlayerLivesLeft;
 
     private int currentLevel;
-    private int numbOfLocks =0;
+    private int numbOfLocks = 0;
     private bool movementLock = false;
 
     public int NbPlayerLivesLeft
@@ -77,10 +77,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
-        GetComponent<HitSensor>().OnHit += DamagePlayer;
-
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
+        GetComponent<HitSensor>().OnHit += HandleCollision;
 
         OnLightExpositionChanged(true);
     }
@@ -88,6 +87,15 @@ public class PlayerController : MonoBehaviour, IPlayerData
     public void DamagePlayer()
     {
         NbPlayerLivesLeft -= 1;
+    }
+
+    private void HandleCollision(HitStimulus other)
+    {
+        if (other.DamageSource == HitStimulus.DamageSourceType.Ennemy ||
+            other.DamageSource == HitStimulus.DamageSourceType.Obstacle)
+        {
+            DamagePlayer();
+        }
     }
 
     private void Update()
@@ -251,10 +259,6 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     private void GetInputs()
     {
-        buttonsPressed.Clear();
-        buttonsHeld.Clear();
-        buttonsReleased.Clear();
-
         buttonsPressed[InputsName.JUMP] = Input.GetButtonDown(InputsName.JUMP);
         buttonsPressed[InputsName.SPECIAL_CAPACITY] = Input.GetButtonDown(InputsName.SPECIAL_CAPACITY);
 
@@ -266,9 +270,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
 
         buttonsReleased[InputsName.RIGHT] =
-            Input.GetButtonUp(InputsName.RIGHT) ; //|| Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+            Input.GetButtonUp(InputsName.RIGHT); //|| Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
         buttonsReleased[InputsName.LEFT] =
-            Input.GetButtonUp(InputsName.LEFT) ; // || Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+            Input.GetButtonUp(InputsName.LEFT); // || Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
     }
 
     public void LockMovement(float time)

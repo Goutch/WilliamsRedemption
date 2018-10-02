@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114005444594995540}
   - component: {fileID: 50996597116700366}
   - component: {fileID: 114650880187502610}
+  - component: {fileID: 114027778086450518}
   m_Layer: 11
   m_Name: ProjectileEnemyPlasma
   m_TagString: ProjectileEnemy
@@ -98,6 +99,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114027778086450518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689002622773110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114650880187502610

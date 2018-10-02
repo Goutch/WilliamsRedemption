@@ -50,7 +50,7 @@ namespace Edgar
             }
             else
             {
-                edgarController.transform.Translate(new Vector2(-edgarController.speed * Time.deltaTime, 0));
+                edgarController.transform.Translate(new Vector2(-edgarController.Speed * Time.deltaTime, 0));
                 landOnGround();
             }
         }

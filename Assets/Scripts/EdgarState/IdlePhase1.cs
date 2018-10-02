@@ -13,25 +13,18 @@ namespace Edgar
 
         public void Act()
         {
-            if (edgarController.CanVerticalSwing())
+            /*if (edgarController.CanVerticalSwing())
                 edgarController.SwingVertical();
             else if (PlayerController.instance.CurrentController.Collider.IsTouching(edgarController.Range))
                 edgarController.OnPlayerInRange();
             else if (edgarController.CanShootPlasma())
-                edgarController.TransitionToPlasmaShoot();
+                edgarController.TransitionToPlasmaShoot();*/
         }
 
         public bool Init(EdgarController edgarController)
         {
-            edgarController.hitSensor.OnHit += HitSensor_OnHit;
-
             this.edgarController = edgarController;
             return true;
-        }
-
-        private void HitSensor_OnHit()
-        {
-            edgarController.Hp -= 1;
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿using Playmode.EnnemyRework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 namespace Edgar
 {
-    public class EdgarController : MonoBehaviour
+    public class EdgarController : Enemy
     {
         [SerializeField] private float cdHorizontaleSwing;
-        [SerializeField] public float speed;
         [SerializeField] private float delayDestructionPlatforms;
         [SerializeField] private float cdVerticalSwing;
         [SerializeField] private float cdJump;
@@ -20,7 +20,6 @@ namespace Edgar
         [SerializeField] private Tile spawnTile;
         [SerializeField] private float upwardForceOnLandingWhenPlayerIsInAir;
         [SerializeField] private float upwardForceOnLandingWhenPlayerIsOnGround;
-        [SerializeField] private int hp;
         [SerializeField] private GameObject leftFoot;
         [SerializeField] private GameObject rightFoot;
         [SerializeField] private Collider2D range;
@@ -40,6 +39,7 @@ namespace Edgar
         public Collider2D Range { get; set; }
         public Rigidbody2D rb { get; private set; }
 
+        private int hp;
         public int Hp
         {
             get
@@ -50,20 +50,21 @@ namespace Edgar
             set
             {
                 hp = value;
-                if (hp / 100.0f <= percentageForTransition && currentPhase == 1)
+                if (Hp / (float) health.MaxHealth <= percentageForTransition && currentPhase == 1)
                     TransitionToIdlePhase2State();
-                if (hp <= 0)
+                if (Hp <= 0)
                 {
                     door.Open();
-                    Debug.Log(door);
                 }
+                Debug.Log(hp);
             }
         }
         private LightController lightController;
         public HitSensor hitSensor;
 
-        private void Awake()
+        private new void Awake()
         {
+            base.Awake();
             plateforms = GameObject.FindGameObjectWithTag("Plateforme").GetComponent<Tilemap>();
             animator = GetComponent<Animator>();
             Range = range;
@@ -76,6 +77,8 @@ namespace Edgar
             lastHorizontaleSwing = Time.time - cdHorizontaleSwing;
             lastJump = Time.time - cdJump;
             lastPlasmaShoot = Time.time - cdPlasmaShoot;
+
+            hp = health.HealthPoints;
 
             currentState = new IdlePhase1();
             currentState.Init(this);
@@ -231,7 +234,25 @@ namespace Edgar
 
         public void ShootPlasma(Quaternion direction)
         {
-            Instantiate(bullet, transform.position, direction);
+            GameObject projectile = Instantiate(bullet, transform.position, direction);
+            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
+
+        }
+
+        protected override void Init()
+        {
+            health.OnHealthChange += Health_OnHealthChange;
+        }
+
+        private void Health_OnHealthChange()
+        {
+            Hp = health.HealthPoints;
+        }
+
+        protected override void HandleCollision(HitStimulus other)
+        {
+            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper || other.DamageSource == HitStimulus.DamageSourceType.William)
+                health.Hit();
         }
     }
 }
