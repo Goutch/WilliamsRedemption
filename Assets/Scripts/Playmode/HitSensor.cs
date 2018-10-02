@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void HitSensorEventHandler(HitStimulus otherStimulus,IEntityData entityData);
+public delegate void HitSensorEventHandler(HitStimulus otherStimulus);
 
 public class HitSensor : MonoBehaviour
 {
 	public event HitSensorEventHandler OnHit;
 
-	public void Hit(HitStimulus otherStimulus,IEntityData entityData)
+	public void Hit(HitStimulus otherStimulus)
 	{
-		NotifyHit(otherStimulus, entityData);
+		NotifyHit(otherStimulus);
 	}
 
-	private void NotifyHit(HitStimulus otherStimulus,IEntityData entityData)
+	public void NotifyHit(HitStimulus otherStimulus)
 	{
-		OnHit?.Invoke(otherStimulus,entityData);
+		OnHit?.Invoke(otherStimulus);
 	}
 	
 }

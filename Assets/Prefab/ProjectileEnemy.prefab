@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212303321489881524}
   - component: {fileID: 114547147151601884}
   - component: {fileID: 61604760642167842}
+  - component: {fileID: 114723521952318934}
+  - component: {fileID: 114994215859580316}
   m_Layer: 11
   m_Name: ProjectileEnemy
   m_TagString: ProjectileEnemy
@@ -80,7 +82,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   delayBeforeDestruction: 5
-  destroyOnCollisionWithTag: Player
+  canBeReturned: 0
+--- !u!114 &114723521952318934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689002622773110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114994215859580316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689002622773110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212303321489881524
 SpriteRenderer:
   m_ObjectHideFlags: 1

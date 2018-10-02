@@ -24,13 +24,14 @@ namespace Playmode.EnnemyRework
                     knocked = false;
         }
 
-        public override void ReceiveDamage(Collider2D other)
+        public override void HandleCollision(HitStimulus other)
         {
-            if (PlayerController.instance.CurrentController is ReaperController)
+            
+            if (other.DamageSource==HitStimulus.DamageSourceType.Reaper)
             {
-                base.ReceiveDamage(other);
+                base.HandleCollision(other);
             }
-            else if (PlayerController.instance.CurrentController is WilliamController)
+            else if (other.DamageSource==HitStimulus.DamageSourceType.William)
             {
                 int dir;
                 if (other.transform.position.x < this.transform.position.x)
@@ -44,6 +45,10 @@ namespace Playmode.EnnemyRework
                 rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * dir, bulletKnockBackForce.y),
                     ForceMode2D.Impulse);
                 knocked = true;
+            }
+            else
+            {
+                base.HandleCollision(other);
             }
         }
     }

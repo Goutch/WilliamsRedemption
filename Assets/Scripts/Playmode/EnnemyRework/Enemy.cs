@@ -5,39 +5,29 @@ using UnityEngine;
 
 namespace Playmode.EnnemyRework
 {
-
-    public abstract class Enemy : EnemyData,IEntityData
+    public abstract class Enemy : EnemyData, IEntityData
     {
-        
         protected Health health;
 
         private void Awake()
         {
             Init();
-            health=GetComponent<Health>();
+            health = GetComponent<Health>();
+            GetComponent<HitSensor>().OnHit += HandleCollision;
         }
 
         protected abstract void Init();
 
-        public virtual void ReceiveDamage(Collider2D other)
+        public virtual void HandleCollision(HitStimulus other)
         {
-            health.Hit();
-        }
-
-        protected virtual void  OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.tag == "ProjectilePlayer")
+            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper || other.DamageSource == HitStimulus.DamageSourceType.William)
+                health.Hit();
+            
+            if (other.tag == "Player")
             {
-                ReceiveDamage(other);
-            } 
-        }
-
-        protected virtual void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.collider.tag == "Player")
-            {
-                other.collider.Root().GetComponent<PlayerController>().DamagePlayer();
+                other.Root().GetComponent<PlayerController>().DamagePlayer();
             }
         }
+
     }
 }

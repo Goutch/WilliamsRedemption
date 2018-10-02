@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 61346467144762892}
   - component: {fileID: 114399564024743998}
   - component: {fileID: 114684068800591400}
+  - component: {fileID: 114141903021561570}
+  - component: {fileID: 114646087978052440}
   m_Layer: 13
   m_Name: Bat
   m_TagString: Enemy
@@ -109,6 +111,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114141903021561570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596194178111558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114399564024743998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,6 +134,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 1
+--- !u!114 &114646087978052440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596194178111558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114684068800591400
 MonoBehaviour:
   m_ObjectHideFlags: 1

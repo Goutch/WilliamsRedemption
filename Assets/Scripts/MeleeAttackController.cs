@@ -23,5 +23,5 @@ class MeleeAttackController : MonoBehaviour
         yield return new WaitForSecondsRealtime(delayBeforeDestruction);
         Destroy(this.gameObject);
     }
-}
 
+}

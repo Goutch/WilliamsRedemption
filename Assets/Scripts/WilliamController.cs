@@ -70,7 +70,7 @@ public class WilliamController : EntityControlableController
             angle = Quaternion.AngleAxis(90, Vector3.forward);
 
         GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
-        projectileObject.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
+        projectileObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.William);
 
         Attacking = true;
 

@@ -51,11 +51,11 @@ namespace Playmode.EnnemyRework
             Stunned = false;
         }
 
-        public override void ReceiveDamage(Collider2D other)
+        public override void HandleCollision(HitStimulus other)
         {
             if (stuned)
             {
-                base.ReceiveDamage(other);
+                base.HandleCollision(other);
                 Stunned = false;
             }
         }

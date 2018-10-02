@@ -26,7 +26,9 @@ GameObject:
   - component: {fileID: 114653092132304700}
   - component: {fileID: 114216607206163880}
   - component: {fileID: 61713765814383116}
-  m_Layer: 1
+  - component: {fileID: 114854751574253946}
+  - component: {fileID: 114602427331176794}
+  m_Layer: 13
   m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -124,6 +126,17 @@ MonoBehaviour:
   speed: 1
   jumpForce: {x: 0, y: 3}
   bulletKnockBackForce: {x: 1, y: 1}
+--- !u!114 &114602427331176794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1291848360045852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114653092132304700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,6 +158,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7ccd79bce0f487eb54d9b4e57cb01fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114854751574253946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1291848360045852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212403182792352312

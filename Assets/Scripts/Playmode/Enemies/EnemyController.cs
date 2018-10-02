@@ -35,7 +35,7 @@ public class EnemyController : MonoBehaviour
 		}	
 	}
 
-	private void OnHit(HitStimulus otherStimulus,IEntityData entityData)
+	private void OnHit(HitStimulus otherStimulus)
 	{
 		health.Hit();
 		Debug.Log(health.HealthPoints);

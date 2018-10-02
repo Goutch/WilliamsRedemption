@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour {
@@ -20,6 +21,7 @@ public class ProjectileController : MonoBehaviour {
     {
         StartCoroutine(Destroy());
         direction = 1;
+        GetComponent<HitSensor>().OnHit += HandleCollision;
     }
     void FixedUpdate ()
     {
@@ -29,6 +31,18 @@ public class ProjectileController : MonoBehaviour {
     {
         yield return new WaitForSecondsRealtime(delayBeforeDestruction);
         Destroy(this.gameObject);
+    }
+
+    private void HandleCollision(HitStimulus other)
+    {
+        if (other.tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Ennemy)
+        {
+            Destroy(this.gameObject);
+        }
+        if (other.tag=="Enemy"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.William)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 
