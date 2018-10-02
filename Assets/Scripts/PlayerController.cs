@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
     private int nbPlayerLivesLeft;
 
     private int currentLevel;
-    private int numbOfLocks = 0;
+    private int numbOfLocks =0;
 
     public int NbPlayerLivesLeft
     {
@@ -76,10 +76,10 @@ public class PlayerController : MonoBehaviour, IPlayerData
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
+        GetComponent<HitSensor>().OnHit += DamagePlayer;
+
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
-        williamController.GetComponent<HitSensor>().OnHit += HandleCollision;
-        reaperController.GetComponent<HitSensor>().OnHit += HandleCollision;
 
         OnLightExpositionChanged(true);
     }
@@ -87,15 +87,6 @@ public class PlayerController : MonoBehaviour, IPlayerData
     public void DamagePlayer()
     {
         NbPlayerLivesLeft -= 1;
-    }
-
-    private void HandleCollision(HitStimulus other)
-    {
-        if (other.DamageSource == HitStimulus.DamageSourceType.Ennemy ||
-            other.DamageSource == HitStimulus.DamageSourceType.Obstacle)
-        {
-            DamagePlayer();
-        }
     }
 
     private void Update()
@@ -272,8 +263,8 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
 
         buttonsReleased[InputsName.RIGHT] =
-            Input.GetButtonUp(InputsName.RIGHT); //|| Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+            Input.GetButtonUp(InputsName.RIGHT) ; //|| Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
         buttonsReleased[InputsName.LEFT] =
-            Input.GetButtonUp(InputsName.LEFT); // || Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+            Input.GetButtonUp(InputsName.LEFT) ; // || Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
     }
 }

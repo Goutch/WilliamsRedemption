@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
-using Harmony;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour {
@@ -11,6 +9,8 @@ public class ProjectileController : MonoBehaviour {
     [SerializeField] private bool canBeReturned;
     
     protected int direction;
+
+    public IEntityData EntityData { get; set; }
     public bool CanBeReturned
     {
         get { return canBeReturned;}
@@ -21,7 +21,6 @@ public class ProjectileController : MonoBehaviour {
     {
         StartCoroutine(Destroy());
         direction = 1;
-        GetComponent<HitSensor>().OnHit += HandleCollision;
     }
     void FixedUpdate ()
     {
@@ -32,27 +31,4 @@ public class ProjectileController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(delayBeforeDestruction);
         Destroy(this.gameObject);
     }
-
-    protected virtual void HandleCollision(HitStimulus other)
-    {
-        if (CanBeReturned&&other.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.Reaper &&other.GetComponent<MeleeAttackController>() )
-        {
-            this.GetComponent<HitStimulus>().SetDamageSource(other.GetComponent<HitStimulus>().DamageSource);
-            direction *= -1;
-        }
-        else if (other.tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Ennemy)
-        {
-            Destroy(this.gameObject);
-        }
-        else if (other.tag=="Enemy"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.William)
-        {
-            Destroy(this.gameObject);
-        }
-        else if(other.tag=="Enemy"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Reaper)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-
 }

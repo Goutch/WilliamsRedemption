@@ -42,5 +42,9 @@ namespace Playmode.EnnemyRework
             }
         }
 
+        public override void ReceiveDamage()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -42,6 +42,10 @@ public class Bat : Enemy
 		Move();
 	}
 
+	public override void ReceiveDamage()
+	{
+		GetComponent<Health>().Hit();
+	}
 }
 
 

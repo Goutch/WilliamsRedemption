@@ -22,8 +22,7 @@ GameObject:
   - component: {fileID: 212303321489881524}
   - component: {fileID: 114547147151601884}
   - component: {fileID: 61604760642167842}
-  - component: {fileID: 114094918491250200}
-  - component: {fileID: 114399654424563398}
+  - component: {fileID: 114756696864806150}
   m_Layer: 11
   m_Name: Projectile
   m_TagString: ProjectilePlayer
@@ -69,28 +68,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.129076, y: 0.038467884}
   m_EdgeRadius: 0
---- !u!114 &114094918491250200
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689002622773110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114399654424563398
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689002622773110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114547147151601884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,9 +79,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40adbd409a63444daed395e9a0f1f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 1
   delayBeforeDestruction: 5
-  canBeReturned: 0
+--- !u!114 &114756696864806150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689002622773110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 1
 --- !u!212 &212303321489881524
 SpriteRenderer:
   m_ObjectHideFlags: 1
