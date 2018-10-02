@@ -18,16 +18,10 @@ namespace Playmode.EnnemyRework
 
         protected abstract void Init();
 
-        public virtual void HandleCollision(HitStimulus other)
+        protected virtual void HandleCollision(HitStimulus other)
         {
             if (other.DamageSource == HitStimulus.DamageSourceType.Reaper || other.DamageSource == HitStimulus.DamageSourceType.William)
                 health.Hit();
-            
-            if (other.tag == "Player")
-            {
-                other.Root().GetComponent<PlayerController>().DamagePlayer();
-            }
         }
-
     }
 }

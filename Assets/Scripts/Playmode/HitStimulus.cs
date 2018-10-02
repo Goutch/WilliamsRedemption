@@ -14,6 +14,7 @@ public class HitStimulus : MonoBehaviour
         Reaper,
         William,
         Ennemy,
+        Obstacle,
         None,
         
     }
@@ -24,7 +25,7 @@ public class HitStimulus : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        HitSensor hitSensor = other.gameObject.GetComponent<HitSensor>();
+        HitSensor hitSensor = other.collider.GetComponent<HitSensor>();
 
         if (hitSensor != null)
         {
@@ -34,7 +35,6 @@ public class HitStimulus : MonoBehaviour
 
     private void Awake()
     {
-
         if(GetComponent<Enemy>())
         {
             damageSource = DamageSourceType.Ennemy;
@@ -55,7 +55,6 @@ public class HitStimulus : MonoBehaviour
         if (hitSensor != null)
         {
             hitSensor.Hit(this);
-
         }
 
        // if (other.tag == "ProjectilePlayer" && gameObject.tag == "Enemy"

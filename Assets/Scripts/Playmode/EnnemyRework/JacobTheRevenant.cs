@@ -51,7 +51,7 @@ namespace Playmode.EnnemyRework
             Stunned = false;
         }
 
-        public override void HandleCollision(HitStimulus other)
+        protected override void HandleCollision(HitStimulus other)
         {
             if (stuned)
             {
@@ -62,8 +62,6 @@ namespace Playmode.EnnemyRework
 
         protected virtual void FixedUpdate()
         {
-            
-
             if (Stunned)
                 return;
             if (!IsSpawnedZombiesStillAlive())

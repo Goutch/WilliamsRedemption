@@ -24,7 +24,7 @@ namespace Playmode.EnnemyRework
                     knocked = false;
         }
 
-        public override void HandleCollision(HitStimulus other)
+        protected override void HandleCollision(HitStimulus other)
         {
             
             if (other.DamageSource==HitStimulus.DamageSourceType.Reaper)
