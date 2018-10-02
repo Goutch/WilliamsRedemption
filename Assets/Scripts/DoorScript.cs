@@ -6,6 +6,15 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour, ITriggerable
 {
     [SerializeField] private bool IsLocked;
+    [SerializeField] private bool IsOpen;
+
+    void Awake()
+    {
+        if (IsOpen)
+        {
+            Open();
+        }
+    }
     
     public void Open()
     {
@@ -13,6 +22,7 @@ public class DoorScript : MonoBehaviour, ITriggerable
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled =false;
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            IsOpen = true;
         }
     }
 
@@ -20,6 +30,7 @@ public class DoorScript : MonoBehaviour, ITriggerable
     {
         this.gameObject.GetComponent<SpriteRenderer>().enabled =true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled =true;
+        IsOpen = false;
     }
 
     public void LockDoor()
@@ -35,6 +46,11 @@ public class DoorScript : MonoBehaviour, ITriggerable
     public bool CanBeOpened()
     {
         return !IsLocked;
+    }
+
+    public bool IsOpened()
+    {
+        return IsOpen;
     }
     
 
