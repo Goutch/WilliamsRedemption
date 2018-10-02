@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void DeathEventHandler(GameObject enemy);
+
 public class Health : MonoBehaviour
 {
 
 	[SerializeField] private int healthPoints = 100;
 
+	public event DeathEventHandler OnDeath;
+	
 	public int HealthPoints
 	{
 		get { return healthPoints; }
@@ -33,6 +37,7 @@ public class Health : MonoBehaviour
 	{
 		if (healthPoints <= 0)
 		{
+			OnDeath?.Invoke(gameObject);
 			Destroy(this.gameObject);
 		}
 	}
