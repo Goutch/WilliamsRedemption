@@ -16,7 +16,7 @@ namespace Light
         [SerializeField] private bool updateEveryFrame = false;
         [SerializeField] private float movingObstacleUpdateStopCooldown = 1;
         [SerializeField] private bool hasMovingObstaclesInRange = false;
-        private bool isOpen=true;
+        [SerializeField] private bool isOpen;
 
         public bool HasMovingObstaclesInRange
         {
@@ -164,6 +164,7 @@ namespace Light
         {
             isOpen = true;
             DrawMesh();
+            GetComponent<LightStimulu>().enabled = true;
         }
 
         public void Close()
@@ -171,11 +172,17 @@ namespace Light
             isOpen = false;
             mesh.Clear();
             vertices.Clear();
+            GetComponent<LightStimulu>().enabled = false;
         }
 
         public bool CanBeOpened()
         {
-            return true;
+            return !isOpen;
+        }
+
+        public bool IsOpened()
+        {
+            return isOpen;
         }
     }
 }
