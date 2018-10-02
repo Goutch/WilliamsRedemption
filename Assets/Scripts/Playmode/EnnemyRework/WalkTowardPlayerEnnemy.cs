@@ -43,10 +43,5 @@ namespace Playmode.EnnemyRework
                     rootMover.Jump(new Vector2(jumpForce.x * currenDirection, jumpForce.y));
             }
         }
-
-        public override void ReceiveDamage()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
