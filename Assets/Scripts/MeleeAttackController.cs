@@ -11,7 +11,6 @@ class MeleeAttackController : MonoBehaviour
 {
     [SerializeField] private float delayBeforeDestruction;
 
-    public IEntityData EntityData { get; set; }
 
     private void Awake()
     {

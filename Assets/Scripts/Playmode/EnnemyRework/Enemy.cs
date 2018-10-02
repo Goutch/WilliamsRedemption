@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Playmode.EnnemyRework
 {
-    public abstract class Enemy : EnemyData, IEntityData
+    public abstract class Enemy : EnemyData
     {
         protected Health health;
 
