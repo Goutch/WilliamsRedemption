@@ -21,7 +21,7 @@ public class Sorcerer : Enemy
 		timeJustAfterSpawningBats = 0;
 	}
 
-	public override void ReceiveDamage()
+	protected override void HandleCollision(HitStimulus other)
 	{
 		GetComponent<Health>().Hit();
 	}
