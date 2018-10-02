@@ -1,17 +1,27 @@
-﻿using DefaultNamespace.Playmode;
+﻿using System.Security.AccessControl;
+using DefaultNamespace.Playmode;
+using Harmony;
 using UnityEngine;
 
 namespace Playmode.EnnemyRework
 {
     public abstract class Enemy : EnemyData
     {
+        protected Health health;
+
         private void Awake()
         {
-            GetComponent<HitSensor>().OnHit += ReceiveDamage;
             Init();
+            health = GetComponent<Health>();
+            GetComponent<HitSensor>().OnHit += HandleCollision;
         }
 
         protected abstract void Init();
-        public abstract void ReceiveDamage();
+
+        protected virtual void HandleCollision(HitStimulus other)
+        {
+            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper || other.DamageSource == HitStimulus.DamageSourceType.William)
+                health.Hit();
+        }
     }
 }

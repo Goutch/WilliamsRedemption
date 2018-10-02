@@ -25,7 +25,8 @@ public class Cannon : Enemy
 
 	private void Shoot()
 	{
-		Instantiate(bulletPrefab,transform.position,Quaternion.AngleAxis(rotationCannon,Vector3.back));	
+		GameObject projectile=Instantiate(bulletPrefab,transform.position,Quaternion.AngleAxis(rotationCannon,Vector3.back));	
+		projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
 	}
 
 	private void ResetTimeToShoot()
@@ -43,8 +44,4 @@ public class Cannon : Enemy
 		return false;
 	}
 
-	public override void ReceiveDamage()
-	{
-		GetComponent<Health>().Hit();
-	}
 }
