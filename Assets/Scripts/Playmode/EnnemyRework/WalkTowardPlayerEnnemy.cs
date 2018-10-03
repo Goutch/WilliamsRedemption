@@ -9,13 +9,15 @@ namespace Playmode.EnnemyRework
     public abstract class WalkTowardPlayerEnnemy : Enemy
     {
         [SerializeField] private Vector2 jumpForce;
+        [SerializeField] private bool IsDumbEnoughToFall;
+
         protected RootMover rootMover;
         protected SpriteRenderer spriteRenderer;
         protected int currenDirection = 1;
+        private const int SURROUNDING_RANGE = 1;
 
         protected override void Init()
         {
-            
             spriteRenderer = GetComponent<SpriteRenderer>();
             rootMover = GetComponent<RootMover>();
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -34,14 +36,31 @@ namespace Playmode.EnnemyRework
             }
 
             rootMover.WalkToward(currenDirection, speed);
-            int surroundingRange = 1;
-            bool[,] surrounding = new bool[surroundingRange*2+1,surroundingRange*2+1];
-            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
-            if (surrounding[currenDirection + surroundingRange, 0 + surroundingRange])
+
+            bool[,] surrounding = new bool[SURROUNDING_RANGE * 2 + 1, SURROUNDING_RANGE * 2 + 1];
+            surrounding = PathFinder.instance.GetSurrounding(SURROUNDING_RANGE, transform.position);
+            if (surrounding[currenDirection + SURROUNDING_RANGE, SURROUNDING_RANGE])
             {
                 if (!rootMover.IsJumping)
                     rootMover.Jump(new Vector2(jumpForce.x * currenDirection, jumpForce.y));
             }
+
+            if (IsDumbEnoughToFall == false && IsThereAHole(surrounding))
+            {
+                
+            }
+        }
+
+        private bool IsThereAHole(bool[,] surrounding)
+        {
+            for (int i = 0; i < SURROUNDING_RANGE; ++i)
+            {
+                if (surrounding[currenDirection + SURROUNDING_RANGE, SURROUNDING_RANGE+i])
+                {                   
+                    return false;
+                }
+            } 
+            return true;
         }
     }
 }
