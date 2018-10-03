@@ -25,7 +25,7 @@ GameObject:
   m_Layer: 0
   m_Name: MeleeAttack
   m_TagString: ProjectilePlayer
-  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296230141094148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 26.346533, y: 0.5794128, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,11 +66,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.3005476, y: 0.13439131}
+    - - {x: 0.4177208, y: 0.050126255}
       - {x: -0.008889198, y: 0.2982943}
       - {x: 0.1567831, y: 0.03341174}
       - {x: 0.0752306, y: -0.22791171}
-      - {x: 0.30155373, y: -0.077677965}
+      - {x: 0.3758831, y: -0.20313835}
 --- !u!114 &114605237879513318
 MonoBehaviour:
   m_ObjectHideFlags: 1

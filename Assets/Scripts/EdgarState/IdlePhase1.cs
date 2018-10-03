@@ -13,12 +13,12 @@ namespace Edgar
 
         public void Act()
         {
-            /*if (edgarController.CanVerticalSwing())
+            if (edgarController.CanVerticalSwing())
                 edgarController.SwingVertical();
-            else if (PlayerController.instance.CurrentController.Collider.IsTouching(edgarController.Range))
+            else if (edgarController.PlayerIsInMeleeAttackRange)
                 edgarController.OnPlayerInRange();
             else if (edgarController.CanShootPlasma())
-                edgarController.TransitionToPlasmaShoot();*/
+                edgarController.TransitionToPlasmaShoot();
         }
 
         public bool Init(EdgarController edgarController)

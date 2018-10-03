@@ -26,14 +26,13 @@ TagManager:
   - 
   - Player
   - Obstacles
-  - LightSensor
+  - NoProjectileColision
   - Reaper
   - Walls
   - Enemy
   - Range
   - Darkness
-  - 
-  - 
+  - Projectile
   - 
   - 
   - 
