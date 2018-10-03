@@ -270,9 +270,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
 
         buttonsReleased[InputsName.RIGHT] =
-            Input.GetButtonUp(InputsName.RIGHT); //|| Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+            Input.GetButtonUp(InputsName.RIGHT);
         buttonsReleased[InputsName.LEFT] =
-            Input.GetButtonUp(InputsName.LEFT); // || Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+            Input.GetButtonUp(InputsName.LEFT); 
     }
 
     public void LockMovement(float time)
