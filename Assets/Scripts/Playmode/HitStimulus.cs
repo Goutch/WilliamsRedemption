@@ -16,7 +16,6 @@ public class HitStimulus : MonoBehaviour
         Ennemy,
         Obstacle,
         None,
-        
     }
 
     private DamageSourceType damageSource;
