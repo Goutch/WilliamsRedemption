@@ -57,9 +57,10 @@ public class Sorcerer : Enemy
 		return false;
 	}
 
-	private void StartTimerForRespawn(GameObject bat)
+	private void StartTimerForRespawn()
 	{
-		bats.Remove(bat);
+		bats.RemoveAll(it => it == null);
+
 		if (IsNoBatRemaining())
 		{
 			timeJustAfterSpawningBats = Time.time;
