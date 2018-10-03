@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 95079503281858334}
   - component: {fileID: 50093997941747372}
   - component: {fileID: 114574790893146740}
+  - component: {fileID: 114193670709896262}
   m_Layer: 13
   m_Name: Edgar
   m_TagString: Enemy
@@ -175,6 +176,7 @@ GameObject:
   - component: {fileID: 61224846102605960}
   - component: {fileID: 114454711985788584}
   - component: {fileID: 114192427824754954}
+  - component: {fileID: 114254512078453204}
   m_Layer: 13
   m_Name: Mace
   m_TagString: Untagged
@@ -261,7 +263,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1511836811120254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 95.64, y: 1.2795173, z: 0}
+  m_LocalPosition: {x: 96.58, y: 1.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4799075570844208}
@@ -622,6 +624,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plasmaGround: {fileID: 1069606443522038, guid: 04151c29bf70ee147835b47973820360,
     type: 2}
+--- !u!114 &114193670709896262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1511836811120254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+--- !u!114 &114254512078453204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1577556530763556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114365518745997488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -666,9 +691,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5f0a2f117bd034280cdcba84d743b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cdHorizontaleSwing: 1
+  healthPoint: 0
   speed: 1
-  delayDestructionPlatforms: 1
+  cdHorizontaleSwing: 1
+  delayDestructionPlatforms: 7
   cdVerticalSwing: 10
   cdJump: 3
   cdPlasmaShoot: 5
@@ -676,16 +702,13 @@ MonoBehaviour:
   delayBetweenEachShoot: 0.3
   bullet: {fileID: 1689002622773110, guid: d7cb82c9e5cce9842b0119c0e11adcbf, type: 2}
   jumpForce: 7
-  groundPlasma: {fileID: 1069606443522038, guid: 04151c29bf70ee147835b47973820360,
-    type: 2}
   spawnTile: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
   upwardForceOnLandingWhenPlayerIsInAir: 1
   upwardForceOnLandingWhenPlayerIsOnGround: 5
-  hp: 5
   leftFoot: {fileID: 1969310748051056}
   rightFoot: {fileID: 1119647006576228}
   range: {fileID: 58725433783451702}
-  hitSensor: {fileID: 0}
+  percentageForTransition: 0
 --- !u!114 &114799627129650334
 MonoBehaviour:
   m_ObjectHideFlags: 1

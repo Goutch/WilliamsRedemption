@@ -22,6 +22,7 @@ namespace Playmode.EnnemyRework
         [SerializeField] private float timeBetweenSpawns;
 
         [SerializeField] private float distanceFromPlayerTeleport;
+        private bool Spawning = false;
         protected RootMover rootMover;
         protected SpriteRenderer spriteRenderer;
         protected int currenDirection = 1;
@@ -47,8 +48,13 @@ namespace Playmode.EnnemyRework
             rootMover = GetComponent<RootMover>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             rigidbody2d = GetComponent<Rigidbody2D>();
-            StartCoroutine(SpawnWaveRoutine());
+           
             Stunned = false;
+        }
+
+        private void OnEnable()
+        {
+            StartCoroutine(SpawnWaveRoutine());
         }
 
         protected override void HandleCollision(HitStimulus other)
@@ -64,7 +70,7 @@ namespace Playmode.EnnemyRework
         {
             if (Stunned)
                 return;
-            if (!IsSpawnedZombiesStillAlive())
+            if (!Spawning&&!IsSpawnedZombiesStillAlive())
             {
                 StartCoroutine(StunnedRoutine());
             }
@@ -86,7 +92,7 @@ namespace Playmode.EnnemyRework
                 currenDirection = 1;
             }
         }
-        
+
         private void Teleport(bool forceTeleport)
         {
             for (int i = 0; i < teleportPoints.Length; i++)
@@ -120,26 +126,31 @@ namespace Playmode.EnnemyRework
 
         IEnumerator StunnedRoutine()
         {
-            Stunned = true;
-            yield return new WaitForSeconds(StunTimeInSecond);
-            Stunned = false;
-            if (!IsSpawnedZombiesStillAlive())
+            if (!Spawning)
             {
-                StartCoroutine(SpawnWaveRoutine());
+                Stunned = true;
+                yield return new WaitForSeconds(StunTimeInSecond);
+                Stunned = false;
+                if (!IsSpawnedZombiesStillAlive())
+                {
+                    StartCoroutine(SpawnWaveRoutine());
+                }
             }
         }
 
         IEnumerator SpawnWaveRoutine()
         {
+            Spawning = true;
             for (int i = 0; i < numberEnemiesPerWave; i++)
             {
+                yield return new WaitForSeconds(timeBetweenSpawns);
                 Teleport(true);
                 UpdateDirection();
                 GameObject zombie = Instantiate(zombiePrefab,
                     transform.position + Vector3.right * currenDirection * .16f, Quaternion.identity);
-                spawnedZombies.Add(zombie);
-                yield return new WaitForSeconds(timeBetweenSpawns);
+                spawnedZombies.Add(zombie);  
             }
+            Spawning = false;
         }
     }
 }

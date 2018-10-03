@@ -34,7 +34,6 @@ public class Health : MonoBehaviour
 	public void Hit()
 	{
 		HealthPoints -= 1;
-		OnHealthChange();
 	}
 
 	public void Kill()

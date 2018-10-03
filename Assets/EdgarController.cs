@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.Tilemaps;
 namespace Edgar
 {
@@ -16,18 +17,16 @@ namespace Edgar
         [SerializeField] private float delayBetweenEachShoot;
         [SerializeField] private GameObject bullet;
         [SerializeField] private float jumpForce;
-        [SerializeField] private GameObject groundPlasma;
         [SerializeField] private Tile spawnTile;
         [SerializeField] private float upwardForceOnLandingWhenPlayerIsInAir;
         [SerializeField] private float upwardForceOnLandingWhenPlayerIsOnGround;
         [SerializeField] private GameObject leftFoot;
         [SerializeField] private GameObject rightFoot;
-        [SerializeField] private Collider2D range;
         [SerializeField] float percentageForTransition;
-        [SerializeField] private DoorScript door;
+        [SerializeField] private float meleeAttackRange;
         private int currentPhase = 1;
         private Tilemap plateforms;
-
+    
         private float lastVerticalSwing = 0;
         private float lastHorizontaleSwing = 0;
         private float lastJump = 0;
@@ -36,8 +35,10 @@ namespace Edgar
         private Animator animator;
         private State currentState;
         private MaceController maceController;
-        public Collider2D Range { get; set; }
         public Rigidbody2D rb { get; private set; }
+        public bool PlayerIsInMeleeAttackRange=>Vector2.Distance(transform.position,PlayerController.instance.transform.position)<meleeAttackRange;
+
+        public Tilemap Plateforms => plateforms;
 
         private int hp;
         public int Hp
@@ -52,26 +53,19 @@ namespace Edgar
                 hp = value;
                 if (Hp / (float) health.MaxHealth <= percentageForTransition && currentPhase == 1)
                     TransitionToIdlePhase2State();
-                if (Hp <= 0)
-                {
-                    door.Open();
-                }
                 Debug.Log(hp);
             }
         }
         private LightController lightController;
-        public HitSensor hitSensor;
 
         private new void Awake()
         {
             base.Awake();
             plateforms = GameObject.FindGameObjectWithTag("Plateforme").GetComponent<Tilemap>();
             animator = GetComponent<Animator>();
-            Range = range;
             rb = GetComponent<Rigidbody2D>();
             maceController = GetComponentInChildren<MaceController>();
             lightController = GameObject.FindGameObjectWithTag("LightManager").GetComponent<LightController>();
-            hitSensor = GetComponent<HitSensor>();
 
             lastVerticalSwing = Time.time - cdVerticalSwing;
             lastHorizontaleSwing = Time.time - cdHorizontaleSwing;
@@ -251,7 +245,7 @@ namespace Edgar
 
         protected override void HandleCollision(HitStimulus other)
         {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper || other.DamageSource == HitStimulus.DamageSourceType.William)
+            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
                 health.Hit();
         }
     }
