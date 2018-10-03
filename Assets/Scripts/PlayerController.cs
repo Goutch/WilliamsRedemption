@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour, IPlayerData
     public EntityControlableController CurrentController { get; private set; }
     private EntityControlableController currentController;
 
-
     private LightSensor lightSensor;
     public Rigidbody2D Rigidbody { get; private set; }
 
@@ -37,6 +36,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     private int currentLevel;
     private int numbOfLocks = 0;
+    private bool movementLock = false;
 
     public int NbPlayerLivesLeft
     {
@@ -73,13 +73,13 @@ public class PlayerController : MonoBehaviour, IPlayerData
         }
 
         Rigidbody = GetComponent<Rigidbody2D>();
+
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
-        williamController.GetComponent<HitSensor>().OnHit += HandleCollision;
-        reaperController.GetComponent<HitSensor>().OnHit += HandleCollision;
+        GetComponent<HitSensor>().OnHit += HandleCollision;
 
         OnLightExpositionChanged(true);
     }
@@ -105,13 +105,15 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
         GetInputs();
 
-        if (buttonsHeld[InputsName.LEFT] && !buttonsHeld[InputsName.RIGHT])
+        if (buttonsHeld[InputsName.LEFT] && !buttonsHeld[InputsName.RIGHT] && !movementLock)
         {
+            if (movementLock)
+                Debug.Log("Lock");
             DirectionFacingLeftRight = FacingSideLeftRight.Left;
             CurrentController.animator.SetFloat("Speed", Mathf.Abs(-1 * speed * Time.deltaTime));
             CurrentController.sprite.flipX = true;
         }
-        else if (buttonsHeld[InputsName.RIGHT] && !buttonsHeld[InputsName.LEFT])
+        else if (buttonsHeld[InputsName.RIGHT] && !buttonsHeld[InputsName.LEFT] && !movementLock)
         {
             DirectionFacingLeftRight = FacingSideLeftRight.Right;
             CurrentController.animator.SetFloat("Speed", Mathf.Abs(1 * speed * Time.deltaTime));
@@ -173,9 +175,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
         if (!IsDashing)
         {
-            if (buttonsHeld[InputsName.LEFT])
+            if(buttonsHeld[InputsName.LEFT] && !movementLock)
                 Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
-            if (buttonsHeld[InputsName.RIGHT])
+            if(buttonsHeld[InputsName.RIGHT] && !movementLock)
                 Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
 
             if (buttonsReleased[InputsName.LEFT])
@@ -257,10 +259,6 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     private void GetInputs()
     {
-        buttonsPressed.Clear();
-        buttonsHeld.Clear();
-        buttonsReleased.Clear();
-
         buttonsPressed[InputsName.JUMP] = Input.GetButtonDown(InputsName.JUMP);
         buttonsPressed[InputsName.SPECIAL_CAPACITY] = Input.GetButtonDown(InputsName.SPECIAL_CAPACITY);
 
@@ -275,5 +273,17 @@ public class PlayerController : MonoBehaviour, IPlayerData
             Input.GetButtonUp(InputsName.RIGHT); //|| Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
         buttonsReleased[InputsName.LEFT] =
             Input.GetButtonUp(InputsName.LEFT); // || Mathf.Abs(Input.GetAxis("Horizontal")) < 0.5
+    }
+
+    public void LockMovement(float time)
+    {
+        movementLock = true;
+        StartCoroutine(UnlockMovement(time));
+    }
+
+    private IEnumerator UnlockMovement(float time)
+    {
+        yield return new WaitForSeconds(time);
+        movementLock = false;
     }
 }

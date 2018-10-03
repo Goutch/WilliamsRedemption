@@ -9,11 +9,11 @@ namespace Playmode.EnnemyRework
     {
         protected Health health;
 
-        private void Awake()
+        protected void Awake()
         {
-            Init();
             health = GetComponent<Health>();
             GetComponent<HitSensor>().OnHit += HandleCollision;
+            Init();
         }
 
         protected abstract void Init();

@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EntityControlableController : MonoBehaviour{
 
     public Animator animator { get; private set; }
+    public Collider2D Collider { get; private set; }
     public SpriteRenderer sprite { get; private set; }
     public bool Attacking { get; protected set; }
 
@@ -12,6 +13,7 @@ public abstract class EntityControlableController : MonoBehaviour{
     {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        Collider = GetComponent<Collider2D>();
     }
 
     public abstract void UseCapacity1(PlayerController player);
