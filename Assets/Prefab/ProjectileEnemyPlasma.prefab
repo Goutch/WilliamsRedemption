@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  delayBeforeDestruction: 5
+  delayBeforeDestruction: 7
   canBeReturned: 1
   delayBeforeBulletCanKillHisShooter: 1
 --- !u!212 &212303321489881524

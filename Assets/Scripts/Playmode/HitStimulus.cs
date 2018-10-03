@@ -16,7 +16,6 @@ public class HitStimulus : MonoBehaviour
         Ennemy,
         Obstacle,
         None,
-        
     }
 
     private DamageSourceType damageSource;
@@ -25,11 +24,14 @@ public class HitStimulus : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        HitSensor hitSensor = other.collider.GetComponent<HitSensor>();
-
-        if (hitSensor != null)
+        if (other.collider.GetComponent<IgnoreStimulus>() == null)
         {
-            hitSensor.Hit(this);
+            HitSensor hitSensor = other.collider.Root().GetComponent<HitSensor>();
+
+            if (hitSensor != null)
+            {
+                hitSensor.Hit(this);
+            }
         }
     }
 
@@ -51,10 +53,13 @@ public class HitStimulus : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        HitSensor hitSensor = other.GetComponent<HitSensor>();
-        if (hitSensor != null)
+        if(other.GetComponent<IgnoreStimulus>() == null)
         {
-            hitSensor.Hit(this);
+            HitSensor hitSensor = other.Root().GetComponent<HitSensor>();
+            if (hitSensor != null)
+            {
+                hitSensor.Hit(this);
+            }
         }
 
        // if (other.tag == "ProjectilePlayer" && gameObject.tag == "Enemy"

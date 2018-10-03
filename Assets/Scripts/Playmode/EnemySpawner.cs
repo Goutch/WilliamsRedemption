@@ -27,6 +27,8 @@ public class EnemySpawner : MonoBehaviour
         SpawnEnemies();
     }
 
+
+
     private IEnumerator SpawnEnemyAfterSecondsRoutine(float second)
     {
         spawning = true;

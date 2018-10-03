@@ -17,7 +17,7 @@ public class InfiniteHole : MonoBehaviour
         }
         if (other.Root().tag == "Enemy")
         {
-            Destroy(other.Root());
+            other.GetComponent<Health>().Kill();
         }
     }
 }
