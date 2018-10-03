@@ -27,11 +27,7 @@ public class EnemySpawner : MonoBehaviour
         SpawnEnemies();
     }
 
-    private void OnSpawnedEenemyDeath()
-    {
-        
-    }
-    
+
 
     private IEnumerator SpawnEnemyAfterSecondsRoutine(float second)
     {
@@ -41,7 +37,6 @@ public class EnemySpawner : MonoBehaviour
             if (spawnedEnnemies[i] == null)
             {
                 spawnedEnnemies[i] = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-                spawnedEnnemies[i].GetComponent<Health>().OnDeath += OnSpawnedEenemyDeath;
                 yield return new WaitForSeconds(second);
             }
         }
