@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114802261952464798}
   - component: {fileID: 114654910887033698}
   - component: {fileID: 331281465660467604}
-  - component: {fileID: 114067392021303912}
+  - component: {fileID: 114202914198825776}
   m_Layer: 1
   m_Name: Player
   m_TagString: Player
@@ -312,7 +312,7 @@ MonoBehaviour:
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
     type: 2}
   timeBeforeTpEffectVanish: 0.5
---- !u!114 &114067392021303912
+--- !u!114 &114202914198825776
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
