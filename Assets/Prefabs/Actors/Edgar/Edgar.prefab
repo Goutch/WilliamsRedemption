@@ -263,7 +263,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1511836811120254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96.58, y: 1.38, z: 0}
+  m_LocalPosition: {x: 96.382484, y: 1.291238, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4799075570844208}
@@ -707,8 +707,8 @@ MonoBehaviour:
   upwardForceOnLandingWhenPlayerIsOnGround: 5
   leftFoot: {fileID: 1969310748051056}
   rightFoot: {fileID: 1119647006576228}
-  range: {fileID: 58725433783451702}
   percentageForTransition: 0
+  meleeAttackRange: 0
 --- !u!114 &114799627129650334
 MonoBehaviour:
   m_ObjectHideFlags: 1
