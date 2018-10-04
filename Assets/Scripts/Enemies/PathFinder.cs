@@ -21,9 +21,9 @@ namespace DefaultNamespace
         {
             bool[,] surrounding=new bool[range*2+1,range*2+1];
             Vector3Int StartPos=obstacles.WorldToCell(myPosition);
-            for (int x = range; x <= +range; x++)
+            for (int x = -range; x <= range; x++)
             {
-                for (int y = -range; y <= +range; y++)
+                for (int y = -range; y <= range; y++)
                 {
                     if (x == 0 && y == 0)
                     {
