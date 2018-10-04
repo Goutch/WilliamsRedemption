@@ -18,17 +18,15 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
-    [SerializeField] private int nbPlayerLives;
     [SerializeField] private float invincibilitySeconds;
-    public int NbPlayerLives => nbPlayerLives;
+    private Health health;
     public static PlayerController instance;
-    public event PlayerDeathEventHandler OnPlayerDie;
 
     private WilliamController williamController;
     private ReaperController reaperController;
     public EntityControlableController CurrentController { get; private set; }
     private EntityControlableController currentController;
-
+    
     private LightSensor lightSensor;
     public Rigidbody2D Rigidbody { get; private set; }
 
@@ -38,21 +36,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
     private int numbOfLocks = 0;
     private bool movementLock = false;
 
-    public int NbPlayerLivesLeft
-    {
-        get { return nbPlayerLivesLeft; }
-        set
-        {
-            nbPlayerLivesLeft = value;
-            LifePointsUI.instance.UpdateLP();
-            if (IsPlayerDead())
-            {
-                OnPlayerDie?.Invoke();
-                SceneManager.LoadScene("Level" + currentLevel);
-            }
-        }
-    }
-
+    
     public bool IsOnGround { get; set; }
     public bool IsDashing { get; set; }
     private bool IsInvincible = false;
@@ -75,8 +59,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
         }
 
         Rigidbody = GetComponent<Rigidbody2D>();
-
-        nbPlayerLivesLeft = nbPlayerLives;
+        health = GetComponent<Health>();
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
         lightSensor = GetComponent<LightSensor>();
@@ -90,7 +73,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
     {
         if (!IsInvincible)
         {
-            NbPlayerLivesLeft -= 1;
+            health.Hit();
             StartCoroutine(InvincibleRoutine());
         }
     }
@@ -238,17 +221,6 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
             CurrentController = reaperController;
         }
-    }
-
-
-    private bool IsPlayerDead()
-    {
-        if (NbPlayerLivesLeft <= 0)
-        {
-            return true;
-        }
-
-        return false;
     }
 
     public void LockTransformation()
