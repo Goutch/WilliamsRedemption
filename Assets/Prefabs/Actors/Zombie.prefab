@@ -126,6 +126,7 @@ MonoBehaviour:
   speed: 1
   jumpForce: {x: 0, y: 3}
   bulletKnockBackForce: {x: 1, y: 1}
+  playerKnockBackForce: {x: 2, y: 1}
 --- !u!114 &114602427331176794
 MonoBehaviour:
   m_ObjectHideFlags: 1

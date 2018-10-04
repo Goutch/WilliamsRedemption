@@ -9,7 +9,7 @@ public class LifePointsUI : MonoBehaviour
     private GameObject[] lifePointsImages;
     private PlayerController playerController;
 
-    private void Awake()
+    private void Start()
     {
         if (instance == null)
             instance = this;
@@ -17,7 +17,8 @@ public class LifePointsUI : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        playerController = transform.root.GetComponent<PlayerController>();
+
+        playerController = PlayerController.instance;
         lifePointsImages = new GameObject[playerController.NbPlayerLives];
         for (int i = 0; i <lifePointsImages.Length; i++)
         {
