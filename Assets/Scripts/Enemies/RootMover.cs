@@ -24,7 +24,14 @@ namespace Playmode.EnnemyRework
 
         public void WalkToward(int direction, float speed)
         {
-            rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
+            if (direction != 0)
+            {
+                rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
+            }
+            else
+            {
+                rootRigidBody.velocity = Vector2.zero;
+            }
         }
 
         public void FlyToward(Vector2 targetPosition, float speed)
