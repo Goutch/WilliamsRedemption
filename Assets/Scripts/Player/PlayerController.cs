@@ -18,17 +18,15 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
-    [SerializeField] private int nbPlayerLives;
-
-    public int NbPlayerLives => nbPlayerLives;
+    [SerializeField] private float invincibilitySeconds;
+    private Health health;
     public static PlayerController instance;
-    public event PlayerDeathEventHandler OnPlayerDie;
 
     private WilliamController williamController;
     private ReaperController reaperController;
     public EntityControlableController CurrentController { get; private set; }
     private EntityControlableController currentController;
-
+    
     private LightSensor lightSensor;
     public Rigidbody2D Rigidbody { get; private set; }
 
@@ -38,23 +36,11 @@ public class PlayerController : MonoBehaviour, IPlayerData
     private int numbOfLocks = 0;
     private bool movementLock = false;
 
-    public int NbPlayerLivesLeft
-    {
-        get { return nbPlayerLivesLeft; }
-        set
-        {
-            nbPlayerLivesLeft = value;
-            LifePointsUI.instance.UpdateLP();
-            if (IsPlayerDead())
-            {
-                OnPlayerDie?.Invoke();
-                SceneManager.LoadScene("Level" + currentLevel);
-            }
-        }
-    }
-
+    
     public bool IsOnGround { get; set; }
     public bool IsDashing { get; set; }
+    private bool IsInvincible = false;
+
     public FacingSideUpDown DirectionFacingUpDown { get; set; }
     public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
 
@@ -73,8 +59,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
         }
 
         Rigidbody = GetComponent<Rigidbody2D>();
-
-        nbPlayerLivesLeft = nbPlayerLives;
+        health = GetComponent<Health>();
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
         lightSensor = GetComponent<LightSensor>();
@@ -86,7 +71,18 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     public void DamagePlayer()
     {
-        NbPlayerLivesLeft -= 1;
+        if (!IsInvincible)
+        {
+            health.Hit();
+            StartCoroutine(InvincibleRoutine());
+        }
+    }
+
+    private IEnumerator InvincibleRoutine()
+    {
+        IsInvincible = true;
+        yield return new WaitForSeconds(invincibilitySeconds);
+        IsInvincible = false;
     }
 
     private void HandleCollision(HitStimulus other)
@@ -175,9 +171,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
         if (!IsDashing)
         {
-            if(buttonsHeld[InputsName.LEFT] && !movementLock)
+            if (buttonsHeld[InputsName.LEFT] && !movementLock)
                 Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
-            if(buttonsHeld[InputsName.RIGHT] && !movementLock)
+            if (buttonsHeld[InputsName.RIGHT] && !movementLock)
                 Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
 
             if (buttonsReleased[InputsName.LEFT])
@@ -227,17 +223,6 @@ public class PlayerController : MonoBehaviour, IPlayerData
         }
     }
 
-
-    private bool IsPlayerDead()
-    {
-        if (NbPlayerLivesLeft <= 0)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
     public void LockTransformation()
     {
         numbOfLocks += 1;
@@ -272,7 +257,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
         buttonsReleased[InputsName.RIGHT] =
             Input.GetButtonUp(InputsName.RIGHT);
         buttonsReleased[InputsName.LEFT] =
-            Input.GetButtonUp(InputsName.LEFT); 
+            Input.GetButtonUp(InputsName.LEFT);
     }
 
     public void LockMovement(float time)
