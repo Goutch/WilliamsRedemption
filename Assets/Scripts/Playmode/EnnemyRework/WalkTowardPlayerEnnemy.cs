@@ -9,12 +9,12 @@ namespace Playmode.EnnemyRework
     public abstract class WalkTowardPlayerEnnemy : Enemy
     {
         [SerializeField] private Vector2 jumpForce;
-        [SerializeField] private bool IsDumbEnoughToFall;
+        [SerializeField] private bool isDumbEnoughToFall;
+        [SerializeField] private int surroundingRange;
 
         protected RootMover rootMover;
         protected SpriteRenderer spriteRenderer;
-        protected int currenDirection = 1;
-        private const int SURROUNDING_RANGE = 1;
+        protected int currenDirection = 1;      
 
         protected override void Init()
         {
@@ -34,28 +34,32 @@ namespace Playmode.EnnemyRework
             {
                 spriteRenderer.flipX = true;
             }
+          
+            bool[,] surrounding = new bool[surroundingRange * 2 + 1, surroundingRange * 2 + 1];
+            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
+            
+            if (isDumbEnoughToFall==false && IsThereAHole(surrounding)==false || isDumbEnoughToFall)
+            {
+                rootMover.WalkToward(currenDirection, speed);
+            }
 
-            rootMover.WalkToward(currenDirection, speed);
-
-            bool[,] surrounding = new bool[SURROUNDING_RANGE * 2 + 1, SURROUNDING_RANGE * 2 + 1];
-            surrounding = PathFinder.instance.GetSurrounding(SURROUNDING_RANGE, transform.position);
-            if (surrounding[currenDirection + SURROUNDING_RANGE, SURROUNDING_RANGE])
+            if (isDumbEnoughToFall == false && IsThereAHole(surrounding))
+            {
+                Debug.Log("Trou");
+                rootMover.WalkToward(0, speed);
+            }
+            if (surrounding[currenDirection + surroundingRange, surroundingRange])
             {
                 if (!rootMover.IsJumping)
                     rootMover.Jump(new Vector2(jumpForce.x * currenDirection, jumpForce.y));
-            }
-
-            if (IsDumbEnoughToFall == false && IsThereAHole(surrounding))
-            {
-                
-            }
+            }           
         }
 
         private bool IsThereAHole(bool[,] surrounding)
         {
-            for (int i = 0; i < SURROUNDING_RANGE; ++i)
+            for (int i = 0; i <= surroundingRange; ++i)
             {
-                if (surrounding[currenDirection + SURROUNDING_RANGE, SURROUNDING_RANGE+i])
+                if (surrounding[currenDirection*surroundingRange + surroundingRange, surroundingRange-i])
                 {                   
                     return false;
                 }

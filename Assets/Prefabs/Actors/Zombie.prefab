@@ -125,7 +125,8 @@ MonoBehaviour:
   healthPoint: 0
   speed: 1
   jumpForce: {x: 0, y: 3}
-  IsDumbEnoughToFall: 1
+  isDumbEnoughToFall: 1
+  surroundingRange: 1
   bulletKnockBackForce: {x: 1, y: 1}
 --- !u!114 &114602427331176794
 MonoBehaviour:
