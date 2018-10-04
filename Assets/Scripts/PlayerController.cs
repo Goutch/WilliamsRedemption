@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
-
+    [SerializeField] private float invincibilitySeconds;
     public int NbPlayerLives => nbPlayerLives;
     public static PlayerController instance;
     public event PlayerDeathEventHandler OnPlayerDie;
@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     public bool IsOnGround { get; set; }
     public bool IsDashing { get; set; }
+    private bool IsInvincible = false;
+
     public FacingSideUpDown DirectionFacingUpDown { get; set; }
     public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
 
@@ -86,7 +88,18 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     public void DamagePlayer()
     {
-        NbPlayerLivesLeft -= 1;
+        if (!IsInvincible)
+        {
+            NbPlayerLivesLeft -= 1;
+            StartCoroutine(InvincibleRoutine());
+        }
+    }
+
+    private IEnumerator InvincibleRoutine()
+    {
+        IsInvincible = true;
+        yield return new WaitForSeconds(invincibilitySeconds);
+        IsInvincible = false;
     }
 
     private void HandleCollision(HitStimulus other)
@@ -175,9 +188,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
         if (!IsDashing)
         {
-            if(buttonsHeld[InputsName.LEFT] && !movementLock)
+            if (buttonsHeld[InputsName.LEFT] && !movementLock)
                 Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
-            if(buttonsHeld[InputsName.RIGHT] && !movementLock)
+            if (buttonsHeld[InputsName.RIGHT] && !movementLock)
                 Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
 
             if (buttonsReleased[InputsName.LEFT])
@@ -272,7 +285,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
         buttonsReleased[InputsName.RIGHT] =
             Input.GetButtonUp(InputsName.RIGHT);
         buttonsReleased[InputsName.LEFT] =
-            Input.GetButtonUp(InputsName.LEFT); 
+            Input.GetButtonUp(InputsName.LEFT);
     }
 
     public void LockMovement(float time)
