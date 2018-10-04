@@ -24,7 +24,7 @@ public class HitStimulus : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.GetComponent<IgnoreStimulus>() == null)
+        if (!other.collider.GetComponent<IgnoreStimulus>())
         {
             HitSensor hitSensor = other.collider.Root().GetComponent<HitSensor>();
 

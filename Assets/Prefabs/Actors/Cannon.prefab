@@ -24,11 +24,10 @@ GameObject:
   - component: {fileID: 95282687280973698}
   - component: {fileID: 114368617762908210}
   - component: {fileID: 114490631617192564}
-  - component: {fileID: 114912537708778070}
   - component: {fileID: 114894377200128018}
   - component: {fileID: 114147624021394204}
   - component: {fileID: 61112384378853714}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: Cannon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -160,18 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 1
---- !u!114 &114912537708778070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1880867653476736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  maxHealth: 1
 --- !u!212 &212378400851822464
 SpriteRenderer:
   m_ObjectHideFlags: 1
