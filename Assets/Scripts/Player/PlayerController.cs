@@ -39,7 +39,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
     
     public bool IsOnGround { get; set; }
     public bool IsDashing { get; set; }
-    private bool IsInvincible = false;
+    private bool isInvincible = false;
+
+    public bool IsInvincible => isInvincible;
 
     public FacingSideUpDown DirectionFacingUpDown { get; set; }
     public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     public void DamagePlayer()
     {
-        if (!IsInvincible)
+        if (!isInvincible)
         {
             health.Hit();
             StartCoroutine(InvincibleRoutine());
@@ -80,9 +82,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
     private IEnumerator InvincibleRoutine()
     {
-        IsInvincible = true;
+        isInvincible = true;
         yield return new WaitForSeconds(invincibilitySeconds);
-        IsInvincible = false;
+        isInvincible = false;
     }
 
     private void HandleCollision(HitStimulus other)
