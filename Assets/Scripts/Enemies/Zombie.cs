@@ -6,6 +6,7 @@ namespace Playmode.EnnemyRework
     public class Zombie : WalkTowardPlayerEnnemy
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
+        [SerializeField] private Vector2 playerKnockBackForce;
         private Rigidbody2D rigidbody;
         private bool knocked = false;
 
@@ -48,6 +49,8 @@ namespace Playmode.EnnemyRework
             }
             else
             {
+                if(other.tag=="Player")
+                    other.GetComponent<Rigidbody2D>().AddForce(new Vector2(playerKnockBackForce.x*currenDirection,playerKnockBackForce.y),ForceMode2D.Impulse);
                 base.HandleCollision(other);
             }
         }
