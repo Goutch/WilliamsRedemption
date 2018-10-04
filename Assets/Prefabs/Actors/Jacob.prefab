@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 95885218286110312}
   - component: {fileID: 61673304583961992}
   - component: {fileID: 50171258356620358}
-  - component: {fileID: 114311850560632918}
   - component: {fileID: 114097311533731910}
   m_Layer: 13
   m_Name: Jacob
@@ -33,7 +32,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1549546730561648
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045724362137516}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.278, y: -0.592, z: 1.8417969}
+  m_LocalPosition: {x: 27.09, y: -0.045, z: 1.8417969}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4812056545576872}
@@ -162,18 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 4
---- !u!114 &114311850560632918
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1045724362137516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  maxHealth: 4
 --- !u!114 &114873814352886290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,8 +185,8 @@ MonoBehaviour:
   StunTimeInSecond: 2
   stunSprite: {fileID: 212819629602822640}
   numberEnemiesPerWave: 4
-  timeBetweenSpawns: 1.5
-  distanceFromPlayerTeleport: 2.5
+  timeBetweenSpawns: 0.7
+  distanceFromPlayerTeleport: 2
 --- !u!212 &212819629602822640
 SpriteRenderer:
   m_ObjectHideFlags: 1

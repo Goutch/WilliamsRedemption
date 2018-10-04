@@ -49,7 +49,7 @@ namespace Light
             triangles = new List<int>();
         }
 
-        protected void DrawMesh()
+        public void DrawMesh()
         {
             Scan();
             mesh.Clear();
