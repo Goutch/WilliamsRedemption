@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  delayBeforeDestruction: 15
+  delayBeforeDestruction: 5
   canBeReturned: 0
 --- !u!212 &212303321489881524
 SpriteRenderer:
