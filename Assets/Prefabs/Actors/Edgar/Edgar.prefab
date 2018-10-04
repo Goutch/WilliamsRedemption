@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4462482446128620}
   - component: {fileID: 212716457954026732}
   - component: {fileID: 61753559154025802}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: LeftLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4871682543863350}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4592596512752198}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: RightFeet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 4918418148907896}
   - component: {fileID: 212256613658509482}
   - component: {fileID: 61562478579304802}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4856699196772794}
   - component: {fileID: 212719068482897192}
   - component: {fileID: 61307960958533994}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4062197441655636}
   - component: {fileID: 212014676111477656}
   - component: {fileID: 61391177363540138}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4945415899085508}
   - component: {fileID: 212257238561878820}
   - component: {fileID: 61102524145656670}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: RightLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 50093997941747372}
   - component: {fileID: 114574790893146740}
   - component: {fileID: 114193670709896262}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: Edgar
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4799075570844208}
   - component: {fileID: 58725433783451702}
-  m_Layer: 14
+  m_Layer: 1
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 114454711985788584}
   - component: {fileID: 114192427824754954}
   - component: {fileID: 114254512078453204}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: Mace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 4675628166993364}
   - component: {fileID: 212636793089681384}
   - component: {fileID: 61271693131008632}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4164797064552076}
-  m_Layer: 13
+  m_Layer: 1
   m_Name: LeftFeet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,8 +707,8 @@ MonoBehaviour:
   upwardForceOnLandingWhenPlayerIsOnGround: 5
   leftFoot: {fileID: 1969310748051056}
   rightFoot: {fileID: 1119647006576228}
-  range: {fileID: 58725433783451702}
   percentageForTransition: 0
+  meleeAttackRange: 0
 --- !u!114 &114799627129650334
 MonoBehaviour:
   m_ObjectHideFlags: 1
