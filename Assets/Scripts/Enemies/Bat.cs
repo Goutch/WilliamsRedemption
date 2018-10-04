@@ -14,7 +14,7 @@ public class Bat : Enemy
 	void Move()
 	{
 		rootMover.FlyToward(new Vector2(rootMover.transform.position.x+direction*distanceFromSpawningPoint
-			,rootMover.transform.position.y),Speed);
+			,rootMover.transform.position.y));
 	}
 
 	void CheckDirection()

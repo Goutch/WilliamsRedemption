@@ -5,6 +5,8 @@ namespace Playmode.EnnemyRework
 {
     public class RootMover : MonoBehaviour
     {
+        [SerializeField] float jumpForce;
+        [SerializeField] float speed;
         private bool isJumping = false;
 
         public bool IsJumping => isJumping;
@@ -22,21 +24,21 @@ namespace Playmode.EnnemyRework
                 this.isJumping = false;
         }
 
-        public void WalkToward(int direction, float speed)
+        public void WalkToward(int direction)
         {
             rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
         }
 
-        public void FlyToward(Vector2 targetPosition, float speed)
+        public void FlyToward(Vector2 targetPosition)
         {
             this.transform.root.position = Vector3.MoveTowards(this.transform.root.position, (Vector3) targetPosition,
                 speed * Time.deltaTime);
         }
 
-        public void Jump(Vector2 jumpForce)
+        public void Jump()
         {
             this.isJumping = true;
-            this.rootRigidBody.AddForce(jumpForce, ForceMode2D.Impulse);
+            this.rootRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 }

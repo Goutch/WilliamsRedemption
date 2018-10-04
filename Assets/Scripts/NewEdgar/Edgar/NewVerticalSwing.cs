@@ -9,13 +9,18 @@ using UnityEngine;
 
 namespace Edgar
 {
-    class NewHorizontalSwing : Capacity
+    class NewVerticalSwing : Capacity
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.HorizontalSwing + "' ")]
+        [Header("Config")]
+        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.VerticalSwing + "' ")]
         [SerializeField] private Animator animator;
-        [SerializeField] private float range;
         [SerializeField] private float cd;
         [SerializeField] private bool capacityUsableAtStart;
+
+        [Header("Projectile")]
+        [SerializeField] private GameObject projectile;
+        [SerializeField] private GameObject projectileSpawnPoint;
+
         private float lastTimeUsed;
 
         private new void Awake()
@@ -25,19 +30,14 @@ namespace Edgar
                 lastTimeUsed = -cd;
         }
 
-        public void HorizontalSwingFinish()
-        {
-            Finish();
-        }
-
         public override void Act()
         {
-
+            
         }
 
         public override bool CanTransit()
         {
-            if (Time.time - lastTimeUsed > cd && Vector2.Distance(PlayerController.instance.transform.position, transform.position) < range)
+            if (Time.time - lastTimeUsed > cd)
                 return true;
             else
                 return false;
@@ -46,8 +46,19 @@ namespace Edgar
         public override void Transit()
         {
             base.Transit();
-            animator.SetTrigger(R.S.AnimatorParameter.HorizontalSwing);
+            animator.SetTrigger(R.S.AnimatorParameter.VerticalSwing);
             lastTimeUsed = Time.time;
+        }
+
+        public void OnVerticalSwingFinish()
+        {
+            ShootProjectile();
+            base.Finish();
+        }
+
+        public void ShootProjectile()
+        {
+            GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.transform.position, Quaternion.identity);
         }
     }
 }

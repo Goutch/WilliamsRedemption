@@ -33,7 +33,7 @@ namespace Playmode.EnnemyRework
             if (PlayerController.instance.CurrentController.GetComponent<ReaperController>())
             {
                 spriteRenderer.enabled = true;
-                rootMover.FlyToward(PlayerController.instance.transform.position, Speed);
+                rootMover.FlyToward(PlayerController.instance.transform.position);
             }
             else
             {

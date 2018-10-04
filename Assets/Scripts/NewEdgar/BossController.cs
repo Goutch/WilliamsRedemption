@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Playmode.EnnemyRework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
 namespace Boss
 {
-    public class BossController : MonoBehaviour
+    public class BossController : Enemy
     {
         [SerializeField] private Phase[] phases;
         private int currentPhaseIndex;
@@ -13,14 +14,6 @@ namespace Boss
         {
             if (phases.Length <= 0)
                 throw new System.NullReferenceException("No phase attributed");
-        }
-
-        private void Awake()
-        {
-            ValidateSerilizeFiled();
-
-            currentPhaseIndex = 0;
-            phases[currentPhaseIndex].Transit();
         }
 
         public void Update()
@@ -32,6 +25,14 @@ namespace Boss
             }
 
             phases[currentPhaseIndex].Act();
+        }
+
+        protected override void Init()
+        {
+            ValidateSerilizeFiled();
+
+            currentPhaseIndex = 0;
+            phases[currentPhaseIndex].Transit();
         }
     }
 }
