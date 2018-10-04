@@ -101,6 +101,23 @@ namespace Harmony
         }
 
         /// <summary>
+        /// Effectue la rotation d'un point avec des angles en degrés.
+        /// </summary>
+        /// <param name="point">Point ayant à subir la rotation.</param>
+        /// <param name="pivot">Pivot de rotation.</param>
+        /// <param name="angle">Angle de rotation en degrés sur l'axe des X.</param>
+        /// <returns>Nouveau point avec la rotation souhaité.</returns>
+        public static Vector2 Rotate(this Vector2 point, float angle) {
+            angle = Mathf.Deg2Rad * angle;
+            
+            float angleCos = Mathf.Cos(angle);
+            float angleSin = Mathf.Sin(angle);
+            
+            return new Vector2(point.x * angleCos - point.y * angleSin,
+                               point.x * angleSin + point.y * angleCos);
+        }
+        
+        /// <summary>
         /// Effectue la rotation d'un point autour d'un pivot avec des angles en degrés.
         /// </summary>
         /// <param name="point">Point ayant à subir la rotation.</param>
@@ -109,16 +126,7 @@ namespace Harmony
         /// <returns>Nouveau point avec la rotation souhaité.</returns>
         public static Vector2 RotateAround(this Vector2 point, Vector2 pivot, float angle)
         {
-            Vector2 pointToRotate = point - pivot;
-            angle = Mathf.Deg2Rad * angle;
-
-            float angleCos = Mathf.Cos(angle);
-            float angleSin = Mathf.Sin(angle);
-            
-            pointToRotate = new Vector2(pointToRotate.x * angleCos - pointToRotate.y * angleSin,
-                                        pointToRotate.x * angleSin + pointToRotate.y * angleCos);
-            
-            return pointToRotate + pivot;
+            return (point - pivot).Rotate(angle) + pivot;
         }
     }
 }

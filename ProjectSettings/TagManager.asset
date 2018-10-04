@@ -7,6 +7,14 @@ TagManager:
   - GlobalComponents
   - Track
   - Ai
+  - Enemy
+  - ProjectilePlayer
+  - Plateforme
+  - William
+  - Reaper
+  - LightManager
+  - Light
+  - ProjectileEnemy
   layers:
   - Default
   - TransparentFX
@@ -16,15 +24,15 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Obstacles
+  - NoProjectileColision
+  - Reaper
+  - Walls
+  - Enemy
+  - Range
+  - Darkness
+  - Projectile
   - 
   - 
   - 
