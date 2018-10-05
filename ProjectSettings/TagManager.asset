@@ -12,6 +12,9 @@ TagManager:
   - Plateforme
   - William
   - Reaper
+  - LightManager
+  - Light
+  - ProjectileEnemy
   layers:
   - Default
   - TransparentFX
@@ -23,13 +26,13 @@ TagManager:
   - 
   - Player
   - Obstacles
-  - LightSensor
+  - NoProjectileColision
   - Reaper
   - Walls
   - Enemy
+  - Range
   - Darkness
-  - 
-  - 
+  - Projectile
   - 
   - 
   - 
@@ -54,4 +57,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1638623689
+    locked: 0
+  - name: Enemy
+    uniqueID: 4133429097
     locked: 0
