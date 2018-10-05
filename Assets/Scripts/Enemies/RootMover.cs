@@ -8,18 +8,23 @@ namespace Playmode.EnnemyRework
         private bool isJumping = false;
 
         public bool IsJumping => isJumping;
-
+        private Animator animator;
         private Rigidbody2D rootRigidBody;
 
         private void Awake()
         {
             this.rootRigidBody = this.transform.root.GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
         }
 
         private void FixedUpdate()
         {
-            if (this.isJumping &&this.rootRigidBody.velocity.y == 0.0)
+            if (this.isJumping && this.rootRigidBody.velocity.y == 0.0)
+            {
                 this.isJumping = false;
+                animator.SetTrigger("JumpEnd");
+            }
+                
         }
 
         public void WalkToward(int direction, float speed)
@@ -44,6 +49,7 @@ namespace Playmode.EnnemyRework
         {
             this.isJumping = true;
             this.rootRigidBody.AddForce(jumpForce, ForceMode2D.Impulse);
+            animator.SetTrigger("Jump");
         }
     }
 }

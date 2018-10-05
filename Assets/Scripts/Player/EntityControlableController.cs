@@ -16,14 +16,15 @@ public abstract class EntityControlableController : MonoBehaviour{
         Collider = GetComponent<Collider2D>();
     }
 
-    public abstract void UseCapacity1(PlayerController player);
-    public abstract bool Capacity1Usable(IPlayerDataReadOnly playerData);
+    public abstract void UseCapacity(PlayerController player ,Vector2 direction);
+    public abstract bool CapacityUsable(PlayerController player);
 
-    public abstract bool CanUseBasicAttack(IPlayerDataReadOnly playerData);
-    public abstract void UseBasicAttack(IPlayerData playerData);
+    public abstract bool CanUseBasicAttack(PlayerController player);
+    public abstract void UseBasicAttack(PlayerController player ,Vector2 direction);
 
     public void OnAttackFinish()
     {
         Attacking = false;
+        transform.parent.GetComponent<PlayerController>().CurrentController.animator.SetTrigger("AttackEnd");
     }
 }

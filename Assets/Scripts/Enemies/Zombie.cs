@@ -7,6 +7,7 @@ namespace Playmode.EnnemyRework
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
+
         private Rigidbody2D rigidbody;
         private bool knocked = false;
 
@@ -14,6 +15,8 @@ namespace Playmode.EnnemyRework
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
+
+
         }
 
         private void FixedUpdate()
