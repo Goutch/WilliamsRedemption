@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public delegate void ScoreEventHandler();
 public class GameController : MonoBehaviour
 {
 	private int score=0;
-
 	private float time = 0;
+	public event ScoreEventHandler OnScoreChange;
 
-	// Use this for initialization
-	void Start ()
+	public int Score => score;
+
+	private void Start ()
 	{
 		PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
 	}
 
-	private void AddScore(int score)
+	public void AddScore(int score)
 	{
 		this.score += score;
+		OnScoreChange?.Invoke();
 	}
 	private void OnPlayerDie()
 	{
