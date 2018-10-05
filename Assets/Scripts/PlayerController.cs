@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game;
 using Harmony;
 using Light;
 using UnityEditor;
@@ -10,7 +11,7 @@ using XInputDotNetPure;
 public delegate void PlayerDeathEventHandler();
 
 
-public class PlayerController : MonoBehaviour, IPlayerData
+public class PlayerController : MonoBehaviour
 {
     private Dictionary<string, bool> buttonsPressed;
     private Dictionary<string, bool> buttonsReleased;
@@ -19,6 +20,10 @@ public class PlayerController : MonoBehaviour, IPlayerData
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private int nbPlayerLives;
+    [SerializeField] [Tooltip("Layers William collides with.")]
+    private LayerMask williamLayerMask;
+    [SerializeField] [Tooltip("Layers Reaper collides with.")]
+    private LayerMask reaperLayerMask;
 
     public int NbPlayerLives => nbPlayerLives;
     public static PlayerController instance;
@@ -31,12 +36,27 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
 
     private LightSensor lightSensor;
-    public Rigidbody2D Rigidbody { get; private set; }
+    //public Rigidbody2D Rigidbody { get; private set; }
+    public KinematicRigidbody2D kRigidBody { get; private set; }
+    private LayerMask layerMask;
+    
 
     private int nbPlayerLivesLeft;
 
     private int currentLevel;
     private int numbOfLocks =0;
+    
+    public LayerMask WilliamLayerMask
+    {
+        get { return williamLayerMask; }
+        set { williamLayerMask = value; }
+    }
+    
+    public LayerMask ReaperLayerMask
+    {
+        get { return reaperLayerMask; }
+        set { reaperLayerMask = value; }
+    }
 
     public int NbPlayerLivesLeft
     {
@@ -53,7 +73,8 @@ public class PlayerController : MonoBehaviour, IPlayerData
         }
     }
 
-    public bool IsOnGround { get; set; }
+    public bool IsOnGround => kRigidBody.IsGrounded;
+    
     public bool IsDashing { get; set; }
     public FacingSideUpDown DirectionFacingUpDown { get; set; }
     public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
@@ -72,7 +93,10 @@ public class PlayerController : MonoBehaviour, IPlayerData
             Destroy(this.gameObject);
         }
 
-        Rigidbody = GetComponent<Rigidbody2D>();
+        //Rigidbody = GetComponent<Rigidbody2D>();
+        kRigidBody = GetComponent<KinematicRigidbody2D>();
+        layerMask = kRigidBody.LayerMask;
+
         nbPlayerLivesLeft = nbPlayerLives;
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
@@ -93,16 +117,17 @@ public class PlayerController : MonoBehaviour, IPlayerData
     {
         //var gamePadState = GamePad.GetState(PlayerIndex.One);
         //Input.GetKeyDown(KeyCode.A);
+        
 
-        GetInputs();
+        //GetInputs();
 
-        if (buttonsHeld[InputsName.LEFT] && !buttonsHeld[InputsName.RIGHT])
+      /**  if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
             DirectionFacingLeftRight = FacingSideLeftRight.Left;
             CurrentController.animator.SetFloat("Speed", Mathf.Abs(-1 * speed * Time.deltaTime));
             CurrentController.sprite.flipX = true;
         }
-        else if (buttonsHeld[InputsName.RIGHT] && !buttonsHeld[InputsName.LEFT])
+        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             DirectionFacingLeftRight = FacingSideLeftRight.Right;
             CurrentController.animator.SetFloat("Speed", Mathf.Abs(1 * speed * Time.deltaTime));
@@ -114,12 +139,12 @@ public class PlayerController : MonoBehaviour, IPlayerData
             CurrentController.animator.SetFloat("Speed", 0);
         }
 
-        if (buttonsHeld[InputsName.UP] && !buttonsHeld[InputsName.DOWN])
+        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
             DirectionFacingUpDown = FacingSideUpDown.Up;
             CurrentController.animator.SetInteger("OrientationY", 1);
         }
-        else if (buttonsHeld[InputsName.DOWN] && !buttonsHeld[InputsName.UP])
+        else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
         {
             DirectionFacingUpDown = FacingSideUpDown.Down;
             CurrentController.animator.SetInteger("OrientationY", -1);
@@ -137,12 +162,12 @@ public class PlayerController : MonoBehaviour, IPlayerData
         if (!CurrentController.Attacking)
         {
             CurrentController.animator.SetBool("IsAttacking", false);
-        }
+        } **/
     }
 
     private void FixedUpdate()
     {
-        if (CurrentController.CanUseBasicAttack(this) && buttonsHeld[InputsName.ATTACK])
+       /** if (CurrentController.CanUseBasicAttack(this) && Input.GetKey(KeyCode.Return))
         {
             CurrentController.UseBasicAttack(this);
             CurrentController.animator.SetBool("IsAttacking", true);
@@ -151,7 +176,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
         if (Rigidbody.velocity.y == 0 && !IsDashing)
         {
             IsOnGround = true;
-            if (buttonsPressed[InputsName.JUMP])
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 Rigidbody.velocity = new Vector2(0, 0);
                 Rigidbody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
@@ -164,24 +189,25 @@ public class PlayerController : MonoBehaviour, IPlayerData
 
         if (!IsDashing)
         {
-            if (buttonsHeld[InputsName.LEFT])
-                Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
-            if (buttonsHeld[InputsName.RIGHT])
+            if (Input.GetKey(KeyCode.A))
+                //Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
+                Rigidbody.Translate(new Vector2(Vector2.left.x *speed*Time.deltaTime, Rigidbody.position.normalized.y ));
+            if (Input.GetKey(KeyCode.D))
                 Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
 
-            if (buttonsReleased[InputsName.LEFT])
+            if (Input.GetKeyUp(KeyCode.A))
                 Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
-            if (buttonsReleased[InputsName.RIGHT])
+            if (Input.GetKeyUp(KeyCode.D))
                 Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
-        }
+        } **/
     }
 
     private void LateUpdate()
     {
-        if (CurrentController.Capacity1Usable(this) && buttonsPressed[InputsName.SPECIAL_CAPACITY])
-        {
-            CurrentController.UseCapacity1(this);
-        }
+        //if (CurrentController.Capacity1Usable(this) && Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+          //  CurrentController.UseCapacity1(this);
+        //}
     }
 
     private void OnLightExpositionChanged(bool exposed)
@@ -199,7 +225,9 @@ public class PlayerController : MonoBehaviour, IPlayerData
         if (numbOfLocks == 0)
         {
             williamController.gameObject.SetActive(true);
+            
             reaperController.gameObject.SetActive(false);
+            kRigidBody.LayerMask = williamLayerMask;
 
             CurrentController = williamController;
         }
@@ -211,7 +239,7 @@ public class PlayerController : MonoBehaviour, IPlayerData
         {
             williamController.gameObject.SetActive(false);
             reaperController.gameObject.SetActive(true);
-
+            kRigidBody.LayerMask = reaperLayerMask;
             CurrentController = reaperController;
         }
     }

@@ -4,47 +4,90 @@ using UnityEngine;
 
 public class WilliamController : EntityControlableController
 {
+    [Tooltip("Distance travelled by the player during a dash.")]
     [SerializeField] private float dashDistance;
-    [SerializeField] private float durationOfDash;
+    
+    [Tooltip("Speed at witch the player dashes.")]
+    [SerializeField] private float dashSpeed;
+    
     [SerializeField] private GameObject projectile;
+    
+    [Tooltip("Amount of time between bullets.")]
     [SerializeField] private float fireRate;
+    
+    [Tooltip("Amount of time between dashes.")]
+    [SerializeField] private float DashCoolDown;
 
-    private bool capacityUsedOnceInAir = false;
+    private bool capacityCanBeUsed = false;
     private float? lastTimeAttack = null;
+    private float timerStartTime;
 
-    public override void UseCapacity1(PlayerController player)
+    private void Start()
     {
-        StartCoroutine(Dash(player));
-        capacityUsedOnceInAir = true;
+        timerStartTime = 0;
+        capacityCanBeUsed = true;
     }
 
-    public override bool Capacity1Usable(IPlayerDataReadOnly data)
+    public override void UseCapacity(PlayerController player , Vector2 direction)
     {
-        if (data.IsOnGround)
-            capacityUsedOnceInAir = false;
+        StartCoroutine(Dash(player , direction));
+        capacityCanBeUsed = false;
+        timerStartTime = Time.time;
+        
+    }
 
-        if (capacityUsedOnceInAir)
-            return false;
-        else
+    public override bool CapacityUsable(PlayerController player)
+    {
+        if (capacityCanBeUsed)
+        {
             return true;
+        }
+        if (!capacityCanBeUsed && (Time.time - timerStartTime) >= DashCoolDown)
+        {
+            capacityCanBeUsed = true;
+            return true;
+        }
+        return false;
     }
 
-    IEnumerator Dash(PlayerController player)
+    IEnumerator Dash(PlayerController player , Vector2 direction)
     {
+        Debug.Log("IsCalled");
         player.LockTransformation();
         player.IsDashing = true;
+        
+        Transform root = transform.parent;
+        
+        RaycastHit2D hit =
+            Physics2D.Raycast(
+                root.position,
+                direction, dashDistance,
+                player.WilliamLayerMask);
+        Debug.DrawLine(root.position ,new Vector3(root.position.x + dashDistance*direction.x ,root.position.y, root.position.z), Color.yellow,10);
+             
+        if (hit.collider == null)
+        {     
+            hit.point= new Vector2(dashDistance*direction.x + transform.position.x , transform.position.y);
+        }
 
-        Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
-        player.Rigidbody.velocity = new Vector2(direction.x * (dashDistance / durationOfDash), player.Rigidbody.velocity.y);
+        float distance = Vector2.Distance(hit.point, transform.position);
+        float duration = distance/dashSpeed;
 
-        yield return new WaitForSeconds(durationOfDash);
+        float time=0;
 
-        player.Rigidbody.velocity = new Vector2(0, player.Rigidbody.velocity.y);
+       
+        while(duration > time) 
+        {
+            time += Time.deltaTime;
+            player.kRigidBody.Velocity = Vector2.right * direction.x * dashSpeed; //set our rigidbody velocity to a custom velocity every frame.
+            yield return 0;
+        }
+      
         player.IsDashing = false;
         player.UnlockTransformation();
     }
 
-    public override bool CanUseBasicAttack(IPlayerDataReadOnly playerData)
+    public override bool CanUseBasicAttack(PlayerController player)
     {
         if(lastTimeAttack == null || Time.time - lastTimeAttack > fireRate)
         {
@@ -57,20 +100,21 @@ public class WilliamController : EntityControlableController
 
     }
 
-    public override void UseBasicAttack(IPlayerData playerData)
+    public override void UseBasicAttack(PlayerController player ,Vector2 direction)
     {
+
         Quaternion angle = Quaternion.identity;
 
-        if (sprite.flipX)
+        if (direction == Vector2.left)
             angle = Quaternion.AngleAxis(180, Vector3.up);
 
-        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down && !playerData.IsOnGround)
+        if (direction == Vector2.down && !player.IsOnGround)
             angle = Quaternion.AngleAxis(-90, Vector3.forward);
-        else if (playerData.DirectionFacingUpDown == FacingSideUpDown.Up)
+        else if (direction == Vector2.up)
             angle = Quaternion.AngleAxis(90, Vector3.forward);
 
         GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
-        projectileObject.GetComponent<ProjectileController>().EntityData = (playerData as IPlayerDataReadOnly).Clone();
+        projectileObject.GetComponent<ProjectileController>().EntityData = (player).Clone();
 
         Attacking = true;
 
