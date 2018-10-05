@@ -17,15 +17,11 @@ public class PlayerController : MonoBehaviour
     private Dictionary<string, bool> buttonsReleased;
     private Dictionary<string, bool> buttonsHeld;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private int nbPlayerLives;
     [SerializeField] [Tooltip("Layers William collides with.")]
     private LayerMask williamLayerMask;
     [SerializeField] [Tooltip("Layers Reaper collides with.")]
     private LayerMask reaperLayerMask;
 
-    public int NbPlayerLives => nbPlayerLives;
     [SerializeField] private float invincibilitySeconds;
     private Health health;
     public static PlayerController instance;
@@ -60,8 +56,8 @@ public class PlayerController : MonoBehaviour
         set { reaperLayerMask = value; }
     }
 
-    
-    public bool IsOnGround { get; set; }
+
+    public bool IsOnGround => kRigidBody.IsGrounded;
     public bool IsDashing { get; set; }
     private bool isInvincible = false;
 
@@ -72,9 +68,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        buttonsPressed = new Dictionary<string, bool>();
-        buttonsHeld = new Dictionary<string, bool>();
-        buttonsReleased = new Dictionary<string, bool>();
 
         currentLevel = 1;
         if (instance == null)
@@ -84,16 +77,15 @@ public class PlayerController : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        //Rigidbody = GetComponent<Rigidbody2D>();
         kRigidBody = GetComponent<KinematicRigidbody2D>();
         layerMask = kRigidBody.LayerMask;
 
-        nbPlayerLivesLeft = nbPlayerLives;
+        
         
         health = GetComponent<Health>();
         williamController = GetComponentInChildren<WilliamController>();
         reaperController = GetComponentInChildren<ReaperController>();
-        GetComponent<HitSensor>().OnHit += DamagePlayer;
+        GetComponent<HitSensor>().OnHit += HandleCollision;
 
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
@@ -276,33 +268,22 @@ public class PlayerController : MonoBehaviour
         return this.MemberwiseClone() as IPlayerDataReadOnly;
     }
 
-    private void GetInputs()
-    {
-        buttonsPressed[InputsName.JUMP] = Input.GetButtonDown(InputsName.JUMP);
-        buttonsPressed[InputsName.SPECIAL_CAPACITY] = Input.GetButtonDown(InputsName.SPECIAL_CAPACITY);
+//    private void GetInputs()
+//    {
+//        buttonsPressed[InputsName.JUMP] = Input.GetButtonDown(InputsName.JUMP);
+//        buttonsPressed[InputsName.SPECIAL_CAPACITY] = Input.GetButtonDown(InputsName.SPECIAL_CAPACITY);
+//
+//        buttonsHeld[InputsName.UP] = Input.GetButton(InputsName.UP);
+//        buttonsHeld[InputsName.DOWN] = Input.GetButton(InputsName.DOWN);
+//        buttonsHeld[InputsName.RIGHT] = Input.GetButton(InputsName.RIGHT) || Input.GetAxis("Horizontal") > 0.5;
+//        buttonsHeld[InputsName.LEFT] = Input.GetButton(InputsName.LEFT) || Input.GetAxis("Horizontal") < -0.5;
+//        buttonsHeld[InputsName.ATTACK] = Input.GetButton(InputsName.ATTACK);
+//
+//
+//        buttonsReleased[InputsName.RIGHT] =
+//            Input.GetButtonUp(InputsName.RIGHT);
+//        buttonsReleased[InputsName.LEFT] =
+//            Input.GetButtonUp(InputsName.LEFT);
+//    }
 
-        buttonsHeld[InputsName.UP] = Input.GetButton(InputsName.UP);
-        buttonsHeld[InputsName.DOWN] = Input.GetButton(InputsName.DOWN);
-        buttonsHeld[InputsName.RIGHT] = Input.GetButton(InputsName.RIGHT) || Input.GetAxis("Horizontal") > 0.5;
-        buttonsHeld[InputsName.LEFT] = Input.GetButton(InputsName.LEFT) || Input.GetAxis("Horizontal") < -0.5;
-        buttonsHeld[InputsName.ATTACK] = Input.GetButton(InputsName.ATTACK);
-
-
-        buttonsReleased[InputsName.RIGHT] =
-            Input.GetButtonUp(InputsName.RIGHT);
-        buttonsReleased[InputsName.LEFT] =
-            Input.GetButtonUp(InputsName.LEFT);
-    }
-
-    public void LockMovement(float time)
-    {
-        movementLock = true;
-        StartCoroutine(UnlockMovement(time));
-    }
-
-    private IEnumerator UnlockMovement(float time)
-    {
-        yield return new WaitForSeconds(time);
-        movementLock = false;
-    }
 }

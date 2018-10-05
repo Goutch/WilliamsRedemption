@@ -61,7 +61,10 @@ public class ReaperController : EntityControlableController
         if (!capacityCanBeUsed && (Time.time - timerStartTime) >= TeleportationCoolDown)
         {
             capacityCanBeUsed = true;
-            return true;
+            if (player.IsOnGround)
+            {
+                return true;
+            }    
         }
         return false;
     }
@@ -92,7 +95,7 @@ public class ReaperController : EntityControlableController
             angle = Quaternion.AngleAxis(90, Vector3.forward);
 
         GameObject meleeAttackObject = Instantiate(meleeAttack, gameObject.transform.position, angle);
-        meleeAttackObject.GetComponent<MeleeAttackController>().EntityData = (player).Clone();
+        meleeAttackObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Reaper);
 
         Attacking = true;
     }

@@ -108,12 +108,12 @@ namespace Edgar
                 TimedPlateformeDestroyer timedPlatformsDestroyer = plateformsDestroyer.AddComponent<TimedPlateformeDestroyer>();
                 timedPlatformsDestroyer.Init(platformsPosition, plateforms, delayDestructionJumpPlatforms, lightController);
 
-                PlayerController.instance.Rigidbody.velocity = new Vector2(0, PlayerController.instance.Rigidbody.velocity.y);
+                PlayerController.instance.kRigidBody.Velocity = new Vector2(0, PlayerController.instance.kRigidBody.Velocity.y);
                 float directionX = Math.Sign(PlayerController.instance.transform.position.x - edgarController.transform.position.x);
-                if (PlayerController.instance.IsOnGround)
-                    PlayerController.instance.Rigidbody.AddForce(new Vector2(directionX, upwardForceOnLandingWhenPlayerIsOnGround), ForceMode2D.Impulse);
-                else
-                    PlayerController.instance.Rigidbody.AddForce(new Vector2(directionX, upwardForceOnLandingWhenPlayerIsInAir), ForceMode2D.Impulse);
+               // if (PlayerController.instance.IsOnGround)
+                    //PlayerController.instance.kRigidBody.AddForce(new Vector2(directionX, upwardForceOnLandingWhenPlayerIsOnGround), ForceMode2D.Impulse);
+                //else
+                    //PlayerController.instance.kRigidBody.AddForce(new Vector2(directionX, upwardForceOnLandingWhenPlayerIsInAir), ForceMode2D.Impulse);
             }
         }
     }
