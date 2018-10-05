@@ -14,7 +14,9 @@ namespace Harmony
         /// <param name="translation">Translation à appliquer.</param>
         public static void Translate(this Rigidbody2D rigidbody2D, Vector2 translation)
         {
+            var velocity = rigidbody2D.velocity;
             rigidbody2D.MovePosition(rigidbody2D.position + translation.Rotate(rigidbody2D.rotation));
+            rigidbody2D.velocity = velocity;
         }
 
         /// <summary>

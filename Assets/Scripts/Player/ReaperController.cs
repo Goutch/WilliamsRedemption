@@ -1,24 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ReaperController : EntityControlableController
 {
+    [Tooltip("Distance travelled by the player when teleporting.")]
     [SerializeField] private float teleportationDistance;
     [SerializeField] private GameObject tpEffect;
     [SerializeField] private GameObject meleeAttack;
+    [Tooltip("Amount of time before the teleportation visual effect vanishes.")]
     [SerializeField] private float timeBeforeTpEffectVanish;
+    
+    [Tooltip("Amount of time between teleportations.")]
+    [SerializeField] private float TeleportationCoolDown;
 
-    public override void UseCapacity1(PlayerController player)
+    private bool capacityCanBeUsed;
+    private float timerStartTime;
+
+    private void Start()
+    {
+        capacityCanBeUsed = true;
+        timerStartTime = 0;
+    }
+
+    public override void UseCapacity(PlayerController player , Vector2 direction)
     {
         Transform root = transform.parent;
-        Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
+        GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
+        StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
+        
+        //Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
 
         RaycastHit2D hit =
                     Physics2D.Raycast(
                         root.position,
                         direction, teleportationDistance * Time.deltaTime,
-                        1);
+                        player.ReaperLayerMask);
 
         if (hit.collider == null)
         {
@@ -28,14 +47,26 @@ public class ReaperController : EntityControlableController
         {
             root.Translate(direction* hit.distance * Time.deltaTime);
         }
-
-        GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
-        StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
+   
+        capacityCanBeUsed = false;
+        timerStartTime = Time.time;
     }
 
-    public override bool Capacity1Usable(IPlayerDataReadOnly data)
+    public override bool CapacityUsable(PlayerController player)
     { 
-        return data.IsOnGround;
+        if (capacityCanBeUsed && player.IsOnGround)
+        {
+            return true;
+        }
+        if (!capacityCanBeUsed && (Time.time - timerStartTime) >= TeleportationCoolDown)
+        {
+            capacityCanBeUsed = true;
+            if (player.IsOnGround)
+            {
+                return true;
+            }    
+        }
+        return false;
     }
 
     IEnumerator TeleportEffectRemove(GameObject tpEffect, PlayerController player)
@@ -46,21 +77,21 @@ public class ReaperController : EntityControlableController
         player.UnlockTransformation();
     }
 
-    public override bool CanUseBasicAttack(IPlayerDataReadOnly playerData)
+    public override bool CanUseBasicAttack(PlayerController playerData)
     {
         return true;
     }
 
-    public override void UseBasicAttack(IPlayerData playerData)
+    public override void UseBasicAttack(PlayerController player , Vector2 direction)
     {
         Quaternion angle = Quaternion.identity;
 
-        if (sprite.flipX)
+        if (direction == Vector2.left)
             angle = Quaternion.AngleAxis(180, Vector3.up);
 
-        if (playerData.DirectionFacingUpDown == FacingSideUpDown.Down)
+        if (direction == Vector2.down && !player.IsOnGround)
             angle = Quaternion.AngleAxis(-90, Vector3.forward);
-        else if (playerData.DirectionFacingUpDown == FacingSideUpDown.Up)
+        else if (direction == Vector2.up)
             angle = Quaternion.AngleAxis(90, Vector3.forward);
 
         GameObject meleeAttackObject = Instantiate(meleeAttack, gameObject.transform.position, angle);
@@ -69,4 +100,5 @@ public class ReaperController : EntityControlableController
         Attacking = true;
     }
 
+    
 }
