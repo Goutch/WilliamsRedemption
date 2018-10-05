@@ -25,5 +25,6 @@ public abstract class EntityControlableController : MonoBehaviour{
     public void OnAttackFinish()
     {
         Attacking = false;
+        transform.parent.GetComponent<PlayerController>().CurrentController.animator.SetTrigger("AttackEnd");
     }
 }
