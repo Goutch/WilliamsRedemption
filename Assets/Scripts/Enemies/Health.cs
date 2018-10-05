@@ -7,6 +7,7 @@ public delegate void HealthEventHandler();
 public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
+	private bool isKilledByPlayer = true;
     public int MaxHealth => maxHealth;
 	private int healthPoints;
 	public event HealthEventHandler OnDeath;
@@ -38,6 +39,7 @@ public class Health : MonoBehaviour
 
 	public void Kill()
 	{
+		isKilledByPlayer = false;
 		HealthPoints = 0;
 	}
 }
