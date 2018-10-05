@@ -5,35 +5,62 @@ using UnityEngine;
 
 public class Shooter : WalkTowardPlayerEnnemy {
 
-	[SerializeField] private GameObject bulletPrefab;
+	[Header("Data only for Shooter")][SerializeField] private GameObject bulletPrefab;
+	[SerializeField] private int distanceLimitBetweenPlayerAndShooter;
+	[SerializeField] private int timeBeforeShootingAgain;
+	
 	private float timeJustAfterShooting;
-	private const float TIME_BEFORE_SHOOTING_AGAIN=2;
+	private float distanceBetweenShooterAndPlayer;
 	
 	protected override void FixedUpdate()
+	{
+		UpdateShoot();
+		UpdateMovement();	
+	}
+
+	private void UpdateShoot()
 	{
 		if(CanShoot())
 		{
 			Shoot();
 		}
-		base.FixedUpdate();
 	}
+
+	private void UpdateMovement()
+	{
+		distanceBetweenShooterAndPlayer = Mathf.Abs(PlayerController.instance.transform.position.x - transform.position.x);
+		if (distanceBetweenShooterAndPlayer >= distanceLimitBetweenPlayerAndShooter)
+		{
+			base.FixedUpdate();
+		}
+		else
+		{
+			rootMover.WalkToward(0,speed);
+		}
+	}
+	
 	private bool CanShoot()
 	{
-		if (Time.time-timeJustAfterShooting>TIME_BEFORE_SHOOTING_AGAIN)
-		{
-			timeJustAfterShooting = Time.time;
+		if (Time.time-timeJustAfterShooting>timeBeforeShootingAgain)
+		{		
 			return true;
 		}
 		return false;
 	}
+	
 	private void Shoot()
 	{
-		int temporarydirection=ChooseAngleToShoot();
-		
-		GameObject projectile=Instantiate(bulletPrefab,transform.position,Quaternion.AngleAxis(temporarydirection,Vector3.back));
+		int directionToShoot=ChooseAngleToShoot();	
+		GameObject projectile=Instantiate(bulletPrefab,transform.position,Quaternion.AngleAxis(directionToShoot,Vector3.back));
 		projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
+		UpdateTimerToShoot();
 	}
 
+	private void UpdateTimerToShoot()
+	{
+		timeJustAfterShooting = Time.time;
+	}
+	
 	private int ChooseAngleToShoot()
 	{
 		if (currenDirection == -1)
