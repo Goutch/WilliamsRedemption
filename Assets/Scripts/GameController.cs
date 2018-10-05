@@ -14,12 +14,11 @@ public class GameController : MonoBehaviour
 	{
 		PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+	private void AddScore(int score)
+	{
+		this.score += score;
+	}
 	private void OnPlayerDie()
 	{
 		SceneManager.LoadScene("Level" + 1);

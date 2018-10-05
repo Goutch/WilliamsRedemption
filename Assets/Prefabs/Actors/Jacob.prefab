@@ -32,7 +32,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1549546730561648
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4812056545576872}
   - component: {fileID: 212819629602822640}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Stun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045724362137516}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.09, y: -0.045, z: 1.8417969}
+  m_LocalPosition: {x: -7.45666, y: 3.077058, z: 1.8417969}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4812056545576872}
@@ -105,7 +105,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.014487928, y: 0.012676746}
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoint: 0
   speed: 1
+  scoreValue: 0
   teleportPoints:
   - {fileID: 0}
   - {fileID: 0}
