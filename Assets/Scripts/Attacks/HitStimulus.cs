@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using Harmony;
+﻿using Harmony;
 using Playmode.EnnemyRework;
-using UnityEditor;
 using UnityEngine;
 
 public class HitStimulus : MonoBehaviour
@@ -53,7 +48,7 @@ public class HitStimulus : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.GetComponent<IgnoreStimulus>() == null)
+        if(!other.GetComponent<IgnoreStimulus>())
         {
             HitSensor hitSensor = other.Root().GetComponent<HitSensor>();
             if (hitSensor != null)
