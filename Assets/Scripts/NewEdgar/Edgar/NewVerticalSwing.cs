@@ -14,7 +14,7 @@ namespace Edgar
         [Header("Config")]
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.VerticalSwing + "' ")]
         [SerializeField] private Animator animator;
-        [SerializeField] private float cd;
+        [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
 
         [Header("Projectile")]
@@ -27,7 +27,7 @@ namespace Edgar
         {
             base.Awake();
             if (capacityUsableAtStart)
-                lastTimeUsed = -cd;
+                lastTimeUsed = -cooldown;
         }
 
         public override void Act()
@@ -37,28 +37,28 @@ namespace Edgar
 
         public override bool CanTransit()
         {
-            if (Time.time - lastTimeUsed > cd)
+            if (Time.time - lastTimeUsed > cooldown)
                 return true;
             else
                 return false;
         }
 
-        public override void Transit()
+        public override void Transite()
         {
-            base.Transit();
+            base.Transite();
             animator.SetTrigger(R.S.AnimatorParameter.VerticalSwing);
             lastTimeUsed = Time.time;
         }
 
         public void OnVerticalSwingFinish()
         {
-            ShootProjectile();
+            ShootProjectileAfterVerticalSwing();
             base.Finish();
         }
 
-        public void ShootProjectile()
+        public void ShootProjectileAfterVerticalSwing()
         {
-            GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.transform.position, Quaternion.identity);
+            GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.transform.position, transform.rotation);
         }
     }
 }

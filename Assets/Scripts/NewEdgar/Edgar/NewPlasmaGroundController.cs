@@ -34,13 +34,13 @@ namespace Edgar
         private float originHeight = 0.02f;
         private Vector2 explosionEffectSize;
 
-        private Vector2 direction;
+        private int flipFactor;
         private bool grounded = false;
         private float scale = 1;
 
         private void Awake()
         {
-            if (numberOfTilesToSpawn % 2 != 1)
+            if (numberOfTilesToSpawn % 2 != 1 || numberOfTilesToSpawn == 0)
             {
                 Debug.LogError("Stop playing, error found. - Only odd number of tiles is permitted");
                 UnityEditor.EditorApplication.isPlaying = false;
@@ -58,10 +58,10 @@ namespace Edgar
 
         private void OnEnable()
         {
-            direction.x = Mathf.Sign(transform.position.x - PlayerController.instance.transform.position.x);
+            flipFactor = transform.rotation.y == -1 ? 1 : -1;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (grounded)
             {
@@ -69,10 +69,14 @@ namespace Edgar
                 MoveForward();
 
                 RaycastHit2D hit = Physics2D.Linecast(
-                    transform.localPosition -
-                    direction.x * new Vector3(scale * (originSize.x / 2) - raycastLength, -originSize.y * direction.x),
-                    transform.localPosition - direction.x * new Vector3(scale * (originSize.x / 2), -originSize.y * direction.x),
+                    rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - raycastLength, flipFactor * originSize.y),
+                    rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale, flipFactor * originSize.y),
                     1 << LayerMask.NameToLayer(R.S.Layer.TransparentFX) | 1 << LayerMask.NameToLayer(R.S.Layer.Default));
+
+                Debug.DrawLine(
+                    rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - raycastLength, flipFactor * originSize.y),
+                    rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale, flipFactor * originSize.y),
+                    Color.blue);
 
                 if (hit.collider != null)
                 {
@@ -83,20 +87,18 @@ namespace Edgar
 
         private void MoveForward()
         {
-            Scale();
-
-            rigidbody.MovePosition(new Vector3(transform.localPosition.x - direction.x * speed * Time.deltaTime * (originSize.x / 2),
-                transform.localPosition.y));
+            rigidbody.Translate(new Vector3(flipFactor * speed * Time.deltaTime * (originSize.x / 2),
+                0));
         }
 
         private void Scale()
         {
             if (transform.localScale.x * originSize.x < maxWidth)
             {
-                transform.localScale = new Vector3(transform.localScale.x + (speed / 2 * Time.deltaTime),
+                transform.localScale = new Vector3(transform.localScale.x + (speed * Time.deltaTime),
                     transform.localScale.y);
 
-                scale += speed / 2 * Time.deltaTime;
+                scale += speed * Time.deltaTime;
             }
         }
 
@@ -117,8 +119,7 @@ namespace Edgar
 
         private void OnWallCollision()
         {
-            GameObject explosionObject = Instantiate(explosionEffect, transform.localPosition - direction.x * new Vector3(scale * (originSize.x / 2) - explosionEffectSize.x / 2,
-                    -direction.x * explosionEffectSize.y / 2), Quaternion.identity);
+            GameObject explosionObject = Instantiate(explosionEffect, rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - explosionEffectSize.x/2, - explosionEffectSize.y/2), Quaternion.identity);
             explosionObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
 
             SpawnTiles();
@@ -128,9 +129,7 @@ namespace Edgar
 
         private void SpawnTiles()
         {
-            Vector3Int cellPos = platforms.LocalToCell(
-                transform.localPosition - direction.x * new Vector3(scale * (originSize.x / 2) - explosionEffectSize.x / 2,
-                -direction.x * explosionEffectSize.y / 2));
+            Vector3Int cellPos = platforms.LocalToCell(rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - explosionEffectSize.x / 2, -explosionEffectSize.y / 2));
 
             cellPos.y += yOffSetTileToSpawn;
 

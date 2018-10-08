@@ -20,8 +20,8 @@ namespace Boss
         {
             if(phases[currentPhaseIndex].IsFinish())
             {
-                Debug.Log(currentPhaseIndex);
                 ++currentPhaseIndex;
+                phases[currentPhaseIndex].Transite();
             }
 
             phases[currentPhaseIndex].Act();
@@ -32,7 +32,7 @@ namespace Boss
             ValidateSerilizeFiled();
 
             currentPhaseIndex = 0;
-            phases[currentPhaseIndex].Transit();
+            phases[currentPhaseIndex].Transite();
         }
     }
 }

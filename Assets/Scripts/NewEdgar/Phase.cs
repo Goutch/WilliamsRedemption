@@ -6,9 +6,9 @@ namespace Boss
 {
     public abstract class Phase : State
     {
-        [SerializeField] protected Capacity[] subStates;
+        [SerializeField] protected State[] subStates;
 
-        private bool IsIdling = true;
+        private bool IsIdling = false;
 
         private State currentState;
         protected State CurrentState
@@ -20,11 +20,11 @@ namespace Boss
             set
             {
                 currentState = value;
-                currentState.Transit();
+                currentState?.Transite();
             }
         }
 
-        public override void Transit()
+        public virtual void OnLeftSubState()
         {
             IsIdling = true;
         }
@@ -37,7 +37,7 @@ namespace Boss
             {
                 if(!IsIdling)
                 {
-                    Transit();
+                    OnLeftSubState();
                 }
 
                 ChangeStateIfAvailable();
@@ -56,7 +56,7 @@ namespace Boss
 
         private void ChangeStateIfAvailable()
         {
-            foreach (Capacity subState in subStates)
+            foreach (State subState in subStates)
             {
                 if (subState.CanTransit())
                 {

@@ -13,7 +13,7 @@ namespace Boss
         public abstract void Act();
         public abstract bool CanTransit();
 
-        public virtual void Transit()
+        public virtual void Transite()
         {
             isFinish = false;
         }

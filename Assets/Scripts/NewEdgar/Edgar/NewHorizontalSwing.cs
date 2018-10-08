@@ -14,7 +14,7 @@ namespace Edgar
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.HorizontalSwing + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private float range;
-        [SerializeField] private float cd;
+        [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
         private float lastTimeUsed;
 
@@ -22,7 +22,7 @@ namespace Edgar
         {
             base.Awake();
             if (capacityUsableAtStart)
-                lastTimeUsed = -cd;
+                lastTimeUsed = -cooldown;
         }
 
         public void HorizontalSwingFinish()
@@ -37,15 +37,15 @@ namespace Edgar
 
         public override bool CanTransit()
         {
-            if (Time.time - lastTimeUsed > cd && Vector2.Distance(PlayerController.instance.transform.position, transform.position) < range)
+            if (Time.time - lastTimeUsed > cooldown && Vector2.Distance(PlayerController.instance.transform.position, transform.position) < range)
                 return true;
             else
                 return false;
         }
 
-        public override void Transit()
+        public override void Transite()
         {
-            base.Transit();
+            base.Transite();
             animator.SetTrigger(R.S.AnimatorParameter.HorizontalSwing);
             lastTimeUsed = Time.time;
         }
