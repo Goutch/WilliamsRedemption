@@ -31,20 +31,12 @@ namespace Edgar
             Debug.Log(this);
         }
 
-        public override bool CanTransit()
+        public override bool CanEnter()
         {
             if (Time.time - lastTimeCapacityUsed > cooldown)
                 return true;
             else
                 return false;
-        }
-
-        public override void Transite()
-        {
-            base.Transite();
-            lastTimeCapacityUsed = Time.time;
-
-            ShootProjectile();
         }
 
         public void ShootProjectile()
@@ -62,6 +54,13 @@ namespace Edgar
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion direction = Quaternion.AngleAxis(angle, Vector3.forward);
             return direction;
+        }
+
+        protected override void Initialise()
+        {
+            lastTimeCapacityUsed = Time.time;
+
+            ShootProjectile();
         }
     }
 }

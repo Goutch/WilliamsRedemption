@@ -19,7 +19,7 @@ namespace Edgar
         private float lastTimeUsed;
         private int numberProjectileShooted = 0;
 
-        public override bool CanTransit()
+        public override bool CanEnter()
         {
             if (Time.time - lastTimeUsed > cooldown)
                 return true;
@@ -27,42 +27,25 @@ namespace Edgar
                 return false;
         }
 
-        public override void Finish()
+        protected override void CurrentState_OnStateFinish(Boss.State state)
         {
-            base.Finish();
-        }
+            base.CurrentState_OnStateFinish(state);
+            ++numberProjectileShooted;
 
-        protected override void Idle()
-        {
-
-        }
-
-        public override void Act()
-        {
-            base.Act();
-
-            if (numberProjectileShooted >= numberOfShoots && CurrentState.IsFinish())
+            if (numberProjectileShooted >= numberOfShoots)
             {
                 Finish();
             }
         }
 
-        public override void Transite()
+        protected override void EnterIdle()
         {
-            base.Transite();
             animator.SetTrigger(R.S.AnimatorParameter.PlasmaShoot);
-
-            Init();
         }
 
-        public override void OnLeftSubState()
-        {
-            base.OnLeftSubState();
+        protected override void Idle() { }
 
-            ++numberProjectileShooted;
-        }
-
-        private void Init()
+        protected override void Initialise()
         {
             numberProjectileShooted = 0;
             lastTimeUsed = Time.time;

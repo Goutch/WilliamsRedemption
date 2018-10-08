@@ -14,26 +14,25 @@ namespace Edgar
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase2 + "' ")]
         [SerializeField] private Animator animator;
 
-        public override bool CanTransit()
+        public override bool CanEnter()
         {
             return false;
         }
 
+        protected override void EnterIdle()
+        {
+            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase2);
+        }
+
         protected override void Idle()
         {
-
+            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
+            if (directionX > 0)
+                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
+            else
+                transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
         }
 
-        public override void Transite()
-        {
-            base.Transite();
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase2);
-        }
-
-        public override void OnLeftSubState()
-        {
-            base.OnLeftSubState();
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase2);
-        }
+        protected override void Initialise() { }
     }
 }

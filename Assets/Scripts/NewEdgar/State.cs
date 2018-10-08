@@ -4,29 +4,29 @@ using UnityEngine;
 
 namespace Boss
 {
+    public delegate void OnStateFinish(State state);
+
     [RequireComponent(typeof(BossController))]
     public abstract class State : MonoBehaviour
     {
-        private bool isFinish;
+        public event OnStateFinish OnStateFinish;
         protected BossController bossController;
 
         public abstract void Act();
-        public abstract bool CanTransit();
+        public abstract bool CanEnter();
 
-        public virtual void Transite()
+        public virtual void Enter()
         {
-            isFinish = false;
+            Initialise();
+            Debug.Log(this);
         }
 
         public virtual void Finish()
         {
-            isFinish = true;
+            OnStateFinish?.Invoke(this);
         }
 
-        public virtual bool IsFinish()
-        {
-            return isFinish;
-        }
+        protected abstract void Initialise();
 
         protected void Awake()
         {

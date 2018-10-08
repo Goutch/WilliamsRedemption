@@ -35,7 +35,7 @@ namespace Edgar
 
         }
 
-        public override bool CanTransit()
+        public override bool CanEnter()
         {
             if (Time.time - lastTimeUsed > cooldown && Vector2.Distance(PlayerController.instance.transform.position, transform.position) < range)
                 return true;
@@ -43,9 +43,8 @@ namespace Edgar
                 return false;
         }
 
-        public override void Transite()
+        protected override void Initialise()
         {
-            base.Transite();
             animator.SetTrigger(R.S.AnimatorParameter.HorizontalSwing);
             lastTimeUsed = Time.time;
         }

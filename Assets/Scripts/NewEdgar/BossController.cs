@@ -14,16 +14,20 @@ namespace Boss
         {
             if (phases.Length <= 0)
                 throw new System.NullReferenceException("No phase attributed");
+
+            phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
+        }
+
+        private void BossController_OnStateFinish(State state)
+        {
+            phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
+            
+            ++currentPhaseIndex;
+            phases[currentPhaseIndex].Enter();
         }
 
         public void Update()
         {
-            if(phases[currentPhaseIndex].IsFinish())
-            {
-                ++currentPhaseIndex;
-                phases[currentPhaseIndex].Transite();
-            }
-
             phases[currentPhaseIndex].Act();
         }
 
@@ -32,7 +36,7 @@ namespace Boss
             ValidateSerilizeFiled();
 
             currentPhaseIndex = 0;
-            phases[currentPhaseIndex].Transite();
+            phases[currentPhaseIndex].Enter();
         }
     }
 }

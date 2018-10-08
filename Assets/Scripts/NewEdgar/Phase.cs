@@ -20,52 +20,59 @@ namespace Boss
             set
             {
                 currentState = value;
-                currentState?.Transite();
+                currentState.OnStateFinish += CurrentState_OnStateFinish;
+                currentState.Enter();
             }
         }
 
-        public virtual void OnLeftSubState()
+        public override void Finish()
         {
-            IsIdling = true;
+            currentState = null;
+            base.Finish();
+        }
+
+        protected virtual void CurrentState_OnStateFinish(State state)
+        {
+            state.OnStateFinish -= CurrentState_OnStateFinish;
+            currentState = null;
         }
 
         protected abstract void Idle();
 
+        protected abstract void EnterIdle();
+
         public override void Act()
         {
-            if(currentState != null && currentState.IsFinish())
+            State nextState;
+            if (currentState != null)
             {
-                if(!IsIdling)
+                currentState.Act();
+            }
+            else if(nextState = GetAvailableState())
+            {
+                CurrentState = nextState;
+                IsIdling = false;
+            }
+            else
+            {
+                if (!IsIdling)
                 {
-                    OnLeftSubState();
+                    EnterIdle();
+                    IsIdling = true;
                 }
 
-                ChangeStateIfAvailable();
-            }
-            else if(currentState == null)
-            {
-                ChangeStateIfAvailable();
-            }
-
-            if (currentState != null && !currentState.IsFinish())
-                currentState.Act();
-            else
                 Idle();
-
+            }
         }
 
-        private void ChangeStateIfAvailable()
+        private State GetAvailableState()
         {
             foreach (State subState in subStates)
             {
-                if (subState.CanTransit())
-                {
-                    CurrentState = subState;
-                    IsIdling = false;
-                    return;
-                }
+                if (subState.CanEnter())
+                    return subState;
             }
-            IsIdling = true;
+            return null;
         }
     }
 }

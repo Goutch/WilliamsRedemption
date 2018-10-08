@@ -23,31 +23,25 @@ namespace Edgar
 
         private float lastTimeUsed;
 
+        private SpawnedTilesManager spawnedTilesManager;
+
         private new void Awake()
         {
             base.Awake();
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;
+
+            spawnedTilesManager = GetComponent<SpawnedTilesManager>();
         }
 
-        public override void Act()
-        {
-            
-        }
+        public override void Act() { }
 
-        public override bool CanTransit()
+        public override bool CanEnter()
         {
             if (Time.time - lastTimeUsed > cooldown)
                 return true;
             else
                 return false;
-        }
-
-        public override void Transite()
-        {
-            base.Transite();
-            animator.SetTrigger(R.S.AnimatorParameter.VerticalSwing);
-            lastTimeUsed = Time.time;
         }
 
         public void OnVerticalSwingFinish()
@@ -59,6 +53,14 @@ namespace Edgar
         public void ShootProjectileAfterVerticalSwing()
         {
             GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.transform.position, transform.rotation);
+
+            projectileObject.GetComponent<NewPlasmaGroundController>()?.Init(spawnedTilesManager);
+        }
+
+        protected override void Initialise()
+        {
+            animator.SetTrigger(R.S.AnimatorParameter.VerticalSwing);
+            lastTimeUsed = Time.time;
         }
     }
 }

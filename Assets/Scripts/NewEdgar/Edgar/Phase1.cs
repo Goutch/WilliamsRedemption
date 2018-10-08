@@ -29,7 +29,7 @@ namespace Edgar
                 Finish();
         }
 
-        public override bool CanTransit()
+        public override bool CanEnter()
         {
             return true;
         }
@@ -43,15 +43,10 @@ namespace Edgar
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
         }
 
-        public override void Transite()
-        {
-            base.Transite();
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
-        }
+        protected override void Initialise() { }
 
-        public override void OnLeftSubState()
+        protected override void EnterIdle()
         {
-            base.OnLeftSubState();
             animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
         }
     }

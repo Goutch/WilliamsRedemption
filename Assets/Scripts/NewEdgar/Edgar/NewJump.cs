@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using UnityEngine.Tilemaps;
 
 namespace Edgar
 {
+    [RequireComponent(typeof(RootMover), typeof(Rigidbody2D), typeof(SpawnedTilesManager))]
     class NewJump : Capacity
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.Jump + "' ")]
@@ -25,8 +27,7 @@ namespace Edgar
 
         private RootMover rootMover;
         private Rigidbody2D rb;
-        private Tilemap platforms;
-        private LightController lightController;
+        private SpawnedTilesManager spawnedTilesManager;
         private Vector3Int[] spawnedTileRelativePositions = new Vector3Int[] {
             new Vector3Int(2, 1 ,0),
             new Vector3Int(-2, 1, 0),
@@ -36,8 +37,7 @@ namespace Edgar
         private new void Awake()
         {
             base.Awake();
-            platforms = GameObject.FindGameObjectWithTag(R.S.Tag.Plateforme).GetComponent<Tilemap>();
-            lightController = GameObject.FindGameObjectWithTag(R.S.Tag.LightManager).GetComponent<LightController>();
+            spawnedTilesManager = GetComponent<SpawnedTilesManager>();
 
             rootMover = GetComponent<RootMover>();
             rb = GetComponent<Rigidbody2D>();
@@ -52,7 +52,7 @@ namespace Edgar
                 Finish();
         }
 
-        public override bool CanTransit()
+        public override bool CanEnter()
         {
             if (Time.time - lastTimeCapacityUsed > cooldown)
                 return true;
@@ -60,39 +60,26 @@ namespace Edgar
                 return false;
         }
 
-        public override void Transite()
-        {
-            base.Transite();
-            animator.SetTrigger(R.S.AnimatorParameter.Jump);
-            lastTimeCapacityUsed = Time.time;
-            rootMover.Jump();
-        }
-
         public override void Finish()
         {
-            base.Finish();
-
             SpawnTiles();
+
+            base.Finish();
         }
 
         private void SpawnTiles()
         {
-            Vector3Int cellPos = platforms.LocalToCell(transform.position);
+            Vector3Int cellPos = spawnedTilesManager.ConvertLocalToCell(transform.position);
             cellPos.y += yOffSetTileToSpawn;
 
-            List<Vector3Int> platformsPosition = new List<Vector3Int>();
+            spawnedTilesManager.SpawnTiles(cellPos, spawnedTileRelativePositions.ToList<Vector3Int>(), tileToSpawn);
+        }
 
-            for (int i = 0; i < spawnedTileRelativePositions.Length; ++i)
-            {
-                Vector3Int tilePosition = new Vector3Int(cellPos.x + spawnedTileRelativePositions[i].x, cellPos.y + spawnedTileRelativePositions[i].y, 0);
-                if (platforms.GetTile(tilePosition) == null)
-                {
-                    platforms.SetTile(tilePosition, tileToSpawn);
-                    platformsPosition.Add(tilePosition);
-                }
-            }
-
-            lightController.UpdateLightAtEndOfFrame();
+        protected override void Initialise()
+        {
+            animator.SetTrigger(R.S.AnimatorParameter.Jump);
+            lastTimeCapacityUsed = Time.time;
+            rootMover.Jump();
         }
     }
 }
