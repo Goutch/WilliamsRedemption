@@ -16,7 +16,9 @@ public class ProjectileController : MonoBehaviour {
         get { return canBeReturned;}
         private set { canBeReturned=value; }
     }
-    
+
+    public float Speed { get { return speed; } set { speed = value; } }
+
     protected virtual void Awake()
     {
         StartCoroutine(Destroy());
@@ -25,7 +27,7 @@ public class ProjectileController : MonoBehaviour {
     }
     void FixedUpdate ()
     {
-        transform.Translate(speed*Time.deltaTime*direction,0,0);
+        transform.Translate(Speed*Time.deltaTime*direction,0,0);
 	}
     private IEnumerator Destroy()
     {
