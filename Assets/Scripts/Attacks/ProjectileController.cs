@@ -42,7 +42,7 @@ public class ProjectileController : MonoBehaviour {
             this.GetComponent<HitStimulus>().SetDamageSource(other.GetComponent<HitStimulus>().DamageSource);
             direction *= -1;
         }
-        else if (other.tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Ennemy)
+        else if (other.tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Enemy)
         {
             Destroy(this.gameObject);
         }

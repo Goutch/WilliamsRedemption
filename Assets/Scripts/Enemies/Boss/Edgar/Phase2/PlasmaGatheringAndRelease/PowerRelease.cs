@@ -6,11 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using System.Collections;
+using Harmony;
 
 namespace Edgar
 {
     class PowerRelease : Capacity
     {
+        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaRelease + "' ")]
+        [SerializeField] private Animator animator;
         [SerializeField] private GameObject laserSpawnPointsZone;
         [SerializeField] private GameObject lasePrefab;
         [SerializeField] private float delayBetweenEachLaser;
@@ -46,6 +49,7 @@ namespace Edgar
 
         protected override void Initialise()
         {
+            animator.SetTrigger(R.S.AnimatorParameter.PlasmaRelease);
             numberOfLaserFinish = 0;
             StartCoroutine(SpawnLaser());
         }

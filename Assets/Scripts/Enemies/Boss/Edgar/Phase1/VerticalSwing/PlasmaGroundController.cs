@@ -115,7 +115,7 @@ namespace Edgar
         private void OnWallCollision()
         {
             GameObject explosionObject = Instantiate(explosionEffect, rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - explosionEffectSize.x/2, - explosionEffectSize.y/2), Quaternion.identity);
-            explosionObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
+            explosionObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
 
             SpawnTiles();
 

@@ -4,11 +4,14 @@ using UnityEngine;
 using Boss;
 using Playmode.EnnemyRework;
 using UnityEditor;
+using Harmony;
 
 namespace Edgar
 {
     public class ConcentrationOfPower : Capacity
     {
+        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaConcentration + "' ")]
+        [SerializeField] private Animator animator;
         [SerializeField] private int numberOfParticules;
         [SerializeField] private GameObject particulesPrefab;
         [SerializeField] private Vector2 sizeParticulesSpawn;
@@ -18,7 +21,7 @@ namespace Edgar
         [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private float delayBetweenEachParticuleSpawn;
 
-        private float distanceEqualitySensibility = 0.1f;
+        private float distanceEqualitySensibility = 1f;
         private float lastTimeUsed;
         private GameObject[] particules;
         private bool allParticulesSpawned;
@@ -83,6 +86,7 @@ namespace Edgar
         protected override void Initialise()
         {
             StartCoroutine(CreateParticules());
+            animator.SetTrigger(R.S.AnimatorParameter.PlasmaConcentration);
 
             allParticulesSpawned = false;
             lastTimeUsed = Time.time;
@@ -106,7 +110,7 @@ namespace Edgar
                 } while (Vector2.Distance(position, transform.position) < rangeWhereParticulesDoNotSpawn);
 
                 particules[i] = Instantiate(particulesPrefab, position, BossDirection(position));
-                particules[i].GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
+                particules[i].GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
                 particules[i].GetComponent<PlasmaController>().Speed = particulesSpeed;
 
                 yield return new WaitForSeconds(delayBetweenEachParticuleSpawn);

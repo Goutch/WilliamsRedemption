@@ -43,7 +43,7 @@ namespace Edgar
         {
             Quaternion direction = PlayerDirection();
             GameObject projectile = Instantiate(bullet, transform.position, direction);
-            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
+            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
 
             Finish();
         }

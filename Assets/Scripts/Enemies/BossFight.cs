@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Harmony;
+using UnityEngine;
 
 public class BossFight: MonoBehaviour
 {
@@ -7,10 +8,16 @@ public class BossFight: MonoBehaviour
     [SerializeField] private DoorScript doorToCloseOnBossFightBegin;
     [SerializeField] private DoorScript doorToOpenOnBossDeath;
 
+    private Collider2D bossArea;
+    private CameraController cameraController;
+
     private void Awake()
     {
         boss.SetActive(false);
-        boss.GetComponent<Health>().OnDeath += OpendWinDoor;
+        boss.GetComponent<Health>().OnDeath += OnBossDead;
+        bossArea = GetComponent<Collider2D>();
+
+        cameraController = GameObject.FindGameObjectWithTag(R.S.Tag.MainCamera).GetComponent<CameraController>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -18,11 +25,15 @@ public class BossFight: MonoBehaviour
         boss.SetActive(true);
         doorToCloseOnBossFightBegin?.Close();
         doorToOpenOnBossDeath?.Close();
+
+        cameraController.FixePoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
+
         Destroy(GetComponent<BoxCollider2D>());
     }
 
-    private void OpendWinDoor()
+    private void OnBossDead()
     {
         doorToOpenOnBossDeath?.Open();
+        cameraController.ResumeFollow();
     }
 }
