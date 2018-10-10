@@ -21,15 +21,20 @@ public class WilliamController : EntityControlableController
     private bool capacityCanBeUsed = false;
     private float? lastTimeAttack = null;
     private float timerStartTime;
+    private Animator animator;
+
 
     private void Start()
     {
         timerStartTime = 0;
         capacityCanBeUsed = true;
+        animator = GetComponent<Animator>();
+
     }
 
     public override void UseCapacity(PlayerController player , Vector2 direction)
     {
+        
         StartCoroutine(Dash(player , direction));
         capacityCanBeUsed = false;
         timerStartTime = Time.time;
@@ -52,7 +57,7 @@ public class WilliamController : EntityControlableController
 
     IEnumerator Dash(PlayerController player , Vector2 direction)
     {
-        Debug.Log("IsCalled");
+        animator.SetTrigger("Dash");
         player.LockTransformation();
         player.IsDashing = true;
         
@@ -85,6 +90,7 @@ public class WilliamController : EntityControlableController
       
         player.IsDashing = false;
         player.UnlockTransformation();
+        animator.SetTrigger("DashEnd");
     }
 
     public override bool CanUseBasicAttack(PlayerController player)
@@ -102,7 +108,7 @@ public class WilliamController : EntityControlableController
 
     public override void UseBasicAttack(PlayerController player ,Vector2 direction)
     {
-
+        animator.SetTrigger("Attack");
         Quaternion angle = Quaternion.identity;
 
         if (direction == Vector2.left)
