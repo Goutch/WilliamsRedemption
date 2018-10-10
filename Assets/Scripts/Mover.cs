@@ -39,14 +39,7 @@ namespace Game
 		private void Update()
 		{
 			controllerState = GamePad.GetState(controllerNumber);
-			if (controllerState.Buttons.A == ButtonState.Released)
-			{
-				jumpButtonPressed = false;
-			}
-		}
-
-		private void FixedUpdate()
-		{
+			
 			if (controllerState.IsConnected)
 			{
 				ManageControllerInputs();
@@ -55,6 +48,11 @@ namespace Game
 			{
 				ManageKeyBoardInputs();
 			}
+		}
+
+		private void FixedUpdate()
+		{
+			
 		}
 
 		private void ManageKeyBoardInputs()
@@ -127,6 +125,10 @@ namespace Game
 				verticalVelocity = Vector2.up;
 				player.CurrentController.animator.SetTrigger("Jump");
 				jumpButtonPressed = true;
+			}
+			if (controllerState.Buttons.A == ButtonState.Released)
+			{
+				jumpButtonPressed = false;
 			}
 
 			if (controllerState.ThumbSticks.Left.X <= -0.5)

@@ -18,7 +18,7 @@ public class WilliamController : EntityControlableController
     [Tooltip("Amount of time between dashes.")]
     [SerializeField] private float DashCoolDown;
 
-    private bool capacityCanBeUsed = false;
+    private bool capacityCanBeUsed;
     private float? lastTimeAttack = null;
     private float timerStartTime;
     private Animator animator;
@@ -29,6 +29,7 @@ public class WilliamController : EntityControlableController
         timerStartTime = 0;
         capacityCanBeUsed = true;
         animator = GetComponent<Animator>();
+        capacityCanBeUsed = true;
 
     }
 
