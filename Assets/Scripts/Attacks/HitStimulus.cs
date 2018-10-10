@@ -6,6 +6,7 @@ using Harmony;
 using Playmode.EnnemyRework;
 using UnityEditor;
 using UnityEngine;
+using Edgar;
 
 public class HitStimulus : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class HitStimulus : MonoBehaviour
         if(other.GetComponent<IgnoreStimulus>() == null)
         {
             HitSensor hitSensor = other.Root().GetComponent<HitSensor>();
+
             if (hitSensor != null)
             {
                 hitSensor.Hit(this);

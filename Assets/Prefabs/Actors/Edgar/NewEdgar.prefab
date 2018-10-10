@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212837627287051278}
   - component: {fileID: 61008279788754550}
   - component: {fileID: 114384555864270284}
-  m_Layer: 1
+  m_Layer: 10
   m_Name: Mace
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 114440824747874104}
   m_Layer: 1
   m_Name: NewEdgar
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -616,7 +616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95395829336313276}
-  cooldown: 7
+  cooldown: 8
   capacityUsableAtStart: 1
   yOffSetTileToSpawn: -2
   tileToSpawn: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
@@ -646,7 +646,7 @@ MonoBehaviour:
   subStates:
   - {fileID: 114848836985378804}
   animator: {fileID: 95395829336313276}
-  numberOfShoots: 3
+  numberOfShoots: 2
   cooldown: 3
 --- !u!114 &114252740251941318
 MonoBehaviour:
@@ -709,7 +709,7 @@ MonoBehaviour:
   - {fileID: 114254634824265624}
   - {fileID: 114249678001657846}
   animator: {fileID: 95395829336313276}
-  percentageHealthTransitionCondition: 0.99
+  percentageHealthTransitionCondition: 0.6
 --- !u!114 &114379991829354728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -766,6 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSource: 2
 --- !u!114 &114412290214006220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -790,7 +791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95395829336313276}
   laserSpawnPointsZone: {fileID: 0}
-  lasePrefab: {fileID: 1177077598846702, guid: 14d030e11acd8ce4d9ee7a5cf68c6912, type: 2}
+  lasePrefab: {fileID: 1497215997032464, guid: 1e37a0040bed28c49a1b0cee4062f188, type: 2}
   delayBetweenEachLaser: 0.2
   numberOfLasersToSpawn: 100
 --- !u!114 &114629671254898088
@@ -845,7 +846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49d91de8db41773478205c0e2f5d5f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.2
+  cooldown: 0.5
   capacityUsableAtStart: 1
   bullet: {fileID: 1689002622773110, guid: d7cb82c9e5cce9842b0119c0e11adcbf, type: 2}
 --- !u!114 &114889107845127718

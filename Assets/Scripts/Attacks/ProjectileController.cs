@@ -56,5 +56,15 @@ public class ProjectileController : MonoBehaviour {
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag(R.S.Tag.Plateforme))
+            Destroy(gameObject);
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(R.S.Tag.Plateforme))
+            Destroy(gameObject);
+    }
 }
