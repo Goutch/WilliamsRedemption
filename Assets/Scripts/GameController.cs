@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 		
 	}
 
-	private void OnPlayerDie()
+	private void OnPlayerDie(GameObject gameObject)
 	{
 		SceneManager.LoadScene("Level" + 1);
 	}

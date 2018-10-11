@@ -26,7 +26,7 @@ namespace Boss
             spawnedTilesPosition = new List<Vector3Int>();
         }
 
-        private void Health_OnDeath()
+        private void Health_OnDeath(GameObject gameObject)
         {
             DestroyTiles(new List<Vector3Int>(spawnedTilesPosition));
         }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void HealthEventHandler();
+public delegate void HealthEventHandler(GameObject gameObject);
 public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
@@ -17,11 +17,11 @@ public class Health : MonoBehaviour
 		set
         {
             healthPoints = value;
-            OnHealthChange?.Invoke();
+            OnHealthChange?.Invoke(gameObject);
 
             if (healthPoints <= 0)
             {
-                OnDeath?.Invoke();
+                OnDeath?.Invoke(gameObject);
             }
         }
 	}

@@ -17,7 +17,7 @@ namespace Playmode.EnnemyRework
             Init();
         }
 
-        private void Health_OnDeath()
+        private void Health_OnDeath(GameObject gameObject)
         {
             Destroy(this.gameObject);
         }

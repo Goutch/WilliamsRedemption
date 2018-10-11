@@ -23,7 +23,7 @@ namespace Edgar
             health.OnHealthChange += Health_OnHealthChange;
         }
 
-        private void Health_OnHealthChange()
+        private void Health_OnHealthChange(GameObject gameObject)
         {
             if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
                 Finish();

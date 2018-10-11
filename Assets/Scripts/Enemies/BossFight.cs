@@ -31,7 +31,7 @@ public class BossFight: MonoBehaviour
         Destroy(GetComponent<BoxCollider2D>());
     }
 
-    private void OnBossDead()
+    private void OnBossDead(GameObject gameObject)
     {
         doorToOpenOnBossDeath?.Open();
         cameraController.ResumeFollow();

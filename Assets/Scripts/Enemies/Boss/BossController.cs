@@ -18,7 +18,7 @@ namespace Boss
             phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
         }
 
-        private void BossController_OnStateFinish(State state)
+        private void BossController_OnStateFinish(State state, State nextState)
         {
             phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
             

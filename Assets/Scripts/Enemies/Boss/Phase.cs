@@ -20,8 +20,11 @@ namespace Boss
             set
             {
                 currentState = value;
-                currentState.OnStateFinish += CurrentState_OnStateFinish;
-                currentState.Enter();
+                if(value != null)
+                {
+                    currentState.OnStateFinish += CurrentState_OnStateFinish;
+                    currentState.Enter();
+                }
             }
         }
 
@@ -31,10 +34,14 @@ namespace Boss
             base.Finish();
         }
 
-        protected virtual void CurrentState_OnStateFinish(State state)
+        protected virtual void CurrentState_OnStateFinish(State state, State nextState)
         {
             state.OnStateFinish -= CurrentState_OnStateFinish;
-            currentState = null;
+
+            if (nextState != null)
+                CurrentState = nextState;
+            else
+                currentState = null;
         }
 
         protected abstract void Idle();

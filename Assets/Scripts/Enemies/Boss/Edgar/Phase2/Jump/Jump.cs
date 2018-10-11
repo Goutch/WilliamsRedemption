@@ -23,6 +23,7 @@ namespace Edgar
         [SerializeField] private int yOffSetTileToSpawn;
         [SerializeField] private Tile tileToSpawn;
         [SerializeField] private float jumpDuration;
+        [SerializeField] private State stateAfterJump;
 
         private float lastTimeCapacityUsed;
         private float speed;
@@ -53,7 +54,7 @@ namespace Edgar
             rootMover.MoveOnXAxis();
             if (rb.velocity.y == 0)
             {
-                Finish();
+                Finish(stateAfterJump);
                 rb.velocity = new Vector2();
             }
         }
@@ -66,11 +67,11 @@ namespace Edgar
                 return false;
         }
 
-        public override void Finish()
+        public override void Finish(State nextState)
         {
             SpawnTiles();
 
-            base.Finish();
+            base.Finish(nextState);
         }
 
         private void SpawnTiles()

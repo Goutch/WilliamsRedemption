@@ -20,6 +20,7 @@ namespace Edgar
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private float delayBetweenEachParticuleSpawn;
+        [SerializeField] private State PowerReleaseState;
 
         private float distanceEqualitySensibility = 1f;
         private float lastTimeUsed;
@@ -72,7 +73,7 @@ namespace Edgar
             }
 
             if (numberOfParticulesLeft == 0 && allParticulesSpawned)
-                Finish();
+                Finish(PowerReleaseState);
         }
 
         public override bool CanEnter()

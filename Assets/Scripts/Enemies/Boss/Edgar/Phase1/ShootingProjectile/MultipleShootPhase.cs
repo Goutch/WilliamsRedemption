@@ -27,9 +27,9 @@ namespace Edgar
                 return false;
         }
 
-        protected override void CurrentState_OnStateFinish(Boss.State state)
+        protected override void CurrentState_OnStateFinish(Boss.State state, State nextState)
         {
-            base.CurrentState_OnStateFinish(state);
+            base.CurrentState_OnStateFinish(state, nextState);
             ++numberProjectileShooted;
 
             if (numberProjectileShooted >= numberOfShoots)

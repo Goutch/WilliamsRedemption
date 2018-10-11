@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Boss
 {
-    public delegate void OnStateFinish(State state);
+    public delegate void OnStateFinish(State state, State nextState);
 
     [RequireComponent(typeof(BossController))]
     public abstract class State : MonoBehaviour
@@ -21,9 +21,14 @@ namespace Boss
             Debug.Log(this);
         }
 
+        public virtual void Finish(State nextState)
+        {
+            OnStateFinish?.Invoke(this, nextState);
+        }
+
         public virtual void Finish()
         {
-            OnStateFinish?.Invoke(this);
+            OnStateFinish?.Invoke(this, null);
         }
 
         protected abstract void Initialise();
