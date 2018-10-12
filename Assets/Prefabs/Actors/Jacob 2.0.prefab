@@ -36,7 +36,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1767266681285584
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  scoreValue: 0
   phases:
   - {fileID: 114665657003816676}
 --- !u!114 &114253204107131226
@@ -197,7 +198,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  cooldown: 2
+  cooldown: 1
 --- !u!114 &114386250798373468
 MonoBehaviour:
   m_ObjectHideFlags: 1

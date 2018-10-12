@@ -119,7 +119,7 @@ MonoBehaviour:
   tileToSpawn: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
   numberOfTilesToSpawn: 3
   yOffSetTileToSpawn: 3
-  tilesDuration: 7
+  tilesDuration: 6
 --- !u!212 &212557740011739950
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -74,6 +74,11 @@ namespace Boss
             StartCoroutine(DestroyTiles(platformPositions, tilesLifeTime));
         }
 
+        public void DestroyAllTiles()
+        {
+            DestroyTiles(new List<Vector3Int>(spawnedTilesPosition));
+        }
+
         private IEnumerator DestroyTiles(List<Vector3Int> cellToDestroy, float delayBeforeDestruction)
         {
             yield return new WaitForSeconds(delayBeforeDestruction);

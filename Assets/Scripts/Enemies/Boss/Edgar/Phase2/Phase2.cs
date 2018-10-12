@@ -13,6 +13,13 @@ namespace Edgar
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase2 + "' ")]
         [SerializeField] private Animator animator;
+        private SpawnedTilesManager spawnedTilesManager;
+
+        private new void Awake()
+        {
+            base.Awake();
+            spawnedTilesManager = GetComponent<SpawnedTilesManager>();
+        }
 
         public override bool CanEnter()
         {
@@ -33,6 +40,9 @@ namespace Edgar
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
         }
 
-        protected override void Initialise() { }
+        protected override void Initialise()
+        {
+            spawnedTilesManager.DestroyAllTiles();
+        }
     }
 }

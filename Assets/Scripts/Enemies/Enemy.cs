@@ -7,12 +7,14 @@ namespace Playmode.EnnemyRework
 {
     public abstract class Enemy : EnemyData
     {
+        [SerializeField] private int scoreValue=0;
         protected Health health;
+        
 
         protected void Awake()
         {
             health = GetComponent<Health>();
-            GetComponent<HitSensor>().OnHit += HandleCollision;
+            GetComponentInChildren<HitSensor>().OnHit  += HandleCollision;
             health.OnDeath += Health_OnDeath;
             Init();
         }

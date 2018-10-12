@@ -40,10 +40,12 @@ namespace Jacob
 
         private void Teleport()
         {
+            Vector2 oldPosition = transform.position;
             do
             {
                 transform.position = teleportPoints[UnityEngine.Random.Range(0, teleportPoints.Length)].position;
-            } while (Vector2.Distance(PlayerController.instance.transform.position, transform.position) < distanceFromPlayerTeleport);
+            } while (Vector2.Distance(PlayerController.instance.transform.position, transform.position) < distanceFromPlayerTeleport 
+            || Vector2.Distance(oldPosition, transform.position) < 0.2f);
         }
     }
 }
