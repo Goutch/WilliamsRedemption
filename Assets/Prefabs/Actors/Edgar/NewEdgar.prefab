@@ -146,7 +146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1594887413588562
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95395829336313276}
   numberOfParticules: 25
-  particulesPrefab: {fileID: 1689002622773110, guid: d7cb82c9e5cce9842b0119c0e11adcbf,
+  particulesPrefab: {fileID: 1143166288725240, guid: d7cb82c9e5cce9842b0119c0e11adcbf,
     type: 2}
   sizeParticulesSpawn: {x: 10, y: 10}
   rangeWhereParticulesDoNotSpawn: 5
@@ -820,7 +820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0.5
   capacityUsableAtStart: 1
-  bullet: {fileID: 1689002622773110, guid: d7cb82c9e5cce9842b0119c0e11adcbf, type: 2}
+  bullet: {fileID: 1143166288725240, guid: d7cb82c9e5cce9842b0119c0e11adcbf, type: 2}
 --- !u!114 &114889107845127718
 MonoBehaviour:
   m_ObjectHideFlags: 1
