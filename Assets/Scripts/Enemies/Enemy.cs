@@ -15,7 +15,13 @@ namespace Playmode.EnnemyRework
         {
             health = GetComponent<Health>();
             GetComponentInChildren<HitSensor>().OnHit  += HandleCollision;
+            health.OnDeath += Health_OnDeath;
             Init();
+        }
+
+        private void Health_OnDeath(GameObject gameObject)
+        {
+            Destroy(this.gameObject);
         }
 
         protected abstract void Init();

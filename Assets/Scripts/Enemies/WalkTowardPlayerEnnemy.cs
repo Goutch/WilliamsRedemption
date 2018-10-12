@@ -33,14 +33,14 @@ namespace Playmode.EnnemyRework
                 spriteRenderer.flipX = true;
             }
 
-            rootMover.WalkToward(currenDirection, speed);
+            rootMover.WalkToward(currenDirection);
             int surroundingRange = 1;
             bool[,] surrounding = new bool[surroundingRange*2+1,surroundingRange*2+1];
             surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
             if (surrounding[currenDirection + surroundingRange, 0 + surroundingRange])
             {
                 if (!rootMover.IsJumping)
-                    rootMover.Jump(new Vector2(jumpForce.x * currenDirection, jumpForce.y));
+                    rootMover.Jump();
             }
         }
     }

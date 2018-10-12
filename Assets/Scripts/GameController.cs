@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 	{
 		this.score += score;
 	}
-	private void OnPlayerDie()
+	private void OnPlayerDie(GameObject gameObject)
 	{
 		SceneManager.LoadScene("Level" + 1);
 	}
