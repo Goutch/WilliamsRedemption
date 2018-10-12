@@ -136,10 +136,8 @@ GameObject:
   - component: {fileID: 114109857756450516}
   - component: {fileID: 114725212148069990}
   - component: {fileID: 114830030037052890}
-  - component: {fileID: 114291202265425706}
   - component: {fileID: 114113245451544756}
   - component: {fileID: 114905592222218656}
-  - component: {fileID: 114629671254898088}
   - component: {fileID: 114396785622553214}
   - component: {fileID: 114440824747874104}
   m_Layer: 1
@@ -601,8 +599,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114725212148069990}
-  - {fileID: 114629671254898088}
-  - {fileID: 114291202265425706}
+  - {fileID: 114396785622553214}
+  - {fileID: 114113245451544756}
   animator: {fileID: 95395829336313276}
 --- !u!114 &114113245451544756
 MonoBehaviour:
@@ -621,6 +619,7 @@ MonoBehaviour:
   yOffSetTileToSpawn: -2
   tileToSpawn: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
   jumpDuration: 1.2
+  stateAfterJump: {fileID: 114905592222218656}
 --- !u!114 &114149202955879126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -679,20 +678,6 @@ MonoBehaviour:
   capacityUsableAtStart: 0
   projectile: {fileID: 1240407763256522, guid: 6a85a6846f2824c4086d02c104cf135e, type: 2}
   projectileSpawnPoint: {fileID: 1282088556014402}
---- !u!114 &114291202265425706
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1495303630612842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47dc5816a4d47046aa169f051ac9dd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subStates:
-  - {fileID: 114113245451544756}
-  - {fileID: 114905592222218656}
 --- !u!114 &114355167586666278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -755,6 +740,7 @@ MonoBehaviour:
   cooldown: 50
   capacityUsableAtStart: 1
   delayBetweenEachParticuleSpawn: 0.2
+  PowerReleaseState: {fileID: 114440824747874104}
 --- !u!114 &114408198202256926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -794,20 +780,6 @@ MonoBehaviour:
   lasePrefab: {fileID: 1497215997032464, guid: 1e37a0040bed28c49a1b0cee4062f188, type: 2}
   delayBetweenEachLaser: 0.2
   numberOfLasersToSpawn: 100
---- !u!114 &114629671254898088
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1495303630612842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c830968cbcf4e3e44b115b4739f96aa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subStates:
-  - {fileID: 114396785622553214}
-  - {fileID: 114440824747874104}
 --- !u!114 &114725212148069990
 MonoBehaviour:
   m_ObjectHideFlags: 1
