@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4535770611312634}
   - component: {fileID: 114066026119764172}
   - component: {fileID: 61865944849602234}
+  - component: {fileID: 210622591955205686}
   m_Layer: 2
   m_Name: EdgarFight
   m_TagString: Untagged
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385939460755374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 3.28, z: 0}
+  m_LocalPosition: {x: -0.03, y: 2.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4535770611312634}
@@ -95,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1619909527582634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96.69, y: 2.74, z: -50.126953}
+  m_LocalPosition: {x: 96.69, y: 2.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4238448424067888}
@@ -205,6 +206,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsLocked: 0
   IsOpen: 0
+--- !u!210 &210622591955205686
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1619909527582634}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -2
 --- !u!212 &212533896217302658
 SpriteRenderer:
   m_ObjectHideFlags: 1

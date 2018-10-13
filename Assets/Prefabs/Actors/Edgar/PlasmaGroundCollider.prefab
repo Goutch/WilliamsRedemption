@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114103142741446698}
   - component: {fileID: 114636462351633552}
   m_Layer: 0
-  m_Name: NewPlasmaGroundCollider
+  m_Name: PlasmaGroundCollider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 07ce171fec1a175489f2ab0ff3d28282, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
