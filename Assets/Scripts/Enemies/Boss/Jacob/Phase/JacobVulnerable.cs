@@ -1,17 +1,14 @@
-﻿using Edgar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Boss;
+using UnityEngine;
 
 namespace Jacob
 {
+    [RequireComponent(typeof(Health))]
     class JacobVulnerable : Vulnerable
     {
         private Health health;
 
-        private new void Awake()
+        private void Awake()
         {
             health = GetComponent<Health>();
         }
@@ -26,7 +23,7 @@ namespace Jacob
             health.OnHealthChange -= Health_OnHealthChange;
         }
 
-        private void Health_OnHealthChange(UnityEngine.GameObject gameObject)
+        private void Health_OnHealthChange(GameObject gameObject)
         {
             Finish();
         }

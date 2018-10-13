@@ -204,7 +204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1495303630612842}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 96.71101, y: 1.2700825, z: 0}
+  m_LocalPosition: {x: 96.43, y: 1.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4292606003568960}
@@ -599,8 +599,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114725212148069990}
-  - {fileID: 114396785622553214}
   - {fileID: 114113245451544756}
+  - {fileID: 114396785622553214}
   animator: {fileID: 95395829336313276}
 --- !u!114 &114113245451544756
 MonoBehaviour:
@@ -694,7 +694,7 @@ MonoBehaviour:
   - {fileID: 114254634824265624}
   - {fileID: 114249678001657846}
   animator: {fileID: 95395829336313276}
-  percentageHealthTransitionCondition: 0.6
+  percentageHealthTransitionCondition: 0.99
 --- !u!114 &114379991829354728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -832,7 +832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d166c8656b6e24f80103ab06134757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   scoreValue: 0
   phases:
   - {fileID: 114355167586666278}

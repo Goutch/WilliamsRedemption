@@ -19,9 +19,8 @@ namespace Edgar
 
         private float lastTimeCapacityUsed;
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             if (capacityUsableAtStart)
                 lastTimeCapacityUsed = -cooldown;
         }
@@ -56,8 +55,10 @@ namespace Edgar
             return direction;
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             lastTimeCapacityUsed = Time.time;
 
             ShootProjectile();

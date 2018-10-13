@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245355046879918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.84, y: 1.38, z: 0}
+  m_LocalPosition: {x: 27.827824, y: 1.3478901, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4518804034141932}
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boss: {fileID: 0}
   doorToCloseOnBossFightBegin: {fileID: 114378006494093518}
-  doorToOpenOnBossDeath: {fileID: 114660104782414932}
+  doorToOpenOnBossDeath: {fileID: 0}
 --- !u!114 &114378006494093518
 MonoBehaviour:
   m_ObjectHideFlags: 1

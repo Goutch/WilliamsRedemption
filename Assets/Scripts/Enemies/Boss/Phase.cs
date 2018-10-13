@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Boss
 {
@@ -28,24 +26,14 @@ namespace Boss
             }
         }
 
-        public override void Finish()
+        protected virtual void Idle()
         {
-            currentState = null;
-            base.Finish();
+            if (!IsIdling)
+            {
+                EnterIdle();
+                IsIdling = true;
+            }
         }
-
-        protected virtual void CurrentState_OnStateFinish(State state, State nextState)
-        {
-            state.OnStateFinish -= CurrentState_OnStateFinish;
-
-            if (nextState != null)
-                CurrentState = nextState;
-            else
-                currentState = null;
-        }
-
-        protected abstract void Idle();
-
         protected abstract void EnterIdle();
 
         public override void Act()
@@ -62,14 +50,23 @@ namespace Boss
             }
             else
             {
-                if (!IsIdling)
-                {
-                    EnterIdle();
-                    IsIdling = true;
-                }
-
                 Idle();
             }
+        }
+
+        public override void Finish()
+        {
+            currentState = null;
+            base.Finish();
+        }
+        protected virtual void CurrentState_OnStateFinish(State state, State nextState)
+        {
+            state.OnStateFinish -= CurrentState_OnStateFinish;
+
+            if (nextState != null)
+                CurrentState = nextState;
+            else
+                currentState = null;
         }
 
         private State GetAvailableState()
@@ -79,6 +76,7 @@ namespace Boss
                 if (subState.CanEnter())
                     return subState;
             }
+
             return null;
         }
     }

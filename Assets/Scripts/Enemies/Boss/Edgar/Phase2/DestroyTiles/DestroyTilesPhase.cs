@@ -16,15 +16,14 @@ namespace Edgar
 
         private SpawnedTilesManager spawnedTilesManager;
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
         }
 
         public override bool CanEnter()
         {
-            if (spawnedTilesManager.IsAnyTilesSpawned())
+            if (spawnedTilesManager.IsAnySpawnedTiles())
                 return true;
             else
                 return false;
@@ -32,20 +31,10 @@ namespace Edgar
 
         protected override void EnterIdle()
         {
-            if (!spawnedTilesManager.IsAnyTilesSpawned())
+            if (!spawnedTilesManager.IsAnySpawnedTiles())
                 Finish();
 
             animator.SetTrigger(R.S.AnimatorParameter.IdlePhase2);
-        }
-
-        protected override void Idle()
-        {
-            
-        }
-
-        protected override void Initialise()
-        {
-            
         }
     }
 }

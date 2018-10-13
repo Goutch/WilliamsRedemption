@@ -22,9 +22,8 @@ namespace Edgar
         private float directionX;
         private float lastTimeCapacityUsed;
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
         }
 
@@ -35,47 +34,44 @@ namespace Edgar
 
         public void HeavySwingFinish()
         {
-            Vector3Int cellPlayerPosition = spawnedTilesManager.ConvertLocalToCell(PlayerController.instance.transform.position);
-            Vector3Int cellBossPosition = spawnedTilesManager.ConvertLocalToCell(transform.position);
-
-            if (directionX < 0)
-                spawnedTilesManager.DestroyAllTilesToTheLeft(cellBossPosition);
-            else if (directionX > 0)
-                spawnedTilesManager.DestroyAllTilesToTheRight(cellBossPosition);
+            spawnedTilesManager.DestroyAllTilesInFront();
 
             Finish();
         }
 
         public override bool CanEnter()
         {
-            if (Time.time - lastTimeCapacityUsed > cooldown && spawnedTilesManager.IsAnyTilesSpawned())
+            if (Time.time - lastTimeCapacityUsed > cooldown && spawnedTilesManager.IsAnySpawnedTiles())
                 return true;
             else
                 return false;
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             animator.SetTrigger(R.S.AnimatorParameter.HeavySwing);
             lastTimeCapacityUsed = Time.time;
 
             directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? -1 : 1;
             Vector3Int cellBossPosition = spawnedTilesManager.ConvertLocalToCell(transform.position);
 
-            if (directionX < 0 && spawnedTilesManager.IsAnySpawnedTilesToLeftOfPosition(cellBossPosition))
+
+            if (directionX < 0 && spawnedTilesManager.IsAnySpawnedTiles(position => position.x < cellBossPosition.x))
             {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
             }
-            else if (directionX < 0 && !spawnedTilesManager.IsAnySpawnedTilesToLeftOfPosition(cellBossPosition))
+            else if (directionX < 0 && !spawnedTilesManager.IsAnySpawnedTiles(position => position.x < cellBossPosition.x))
             {
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
                 directionX = 1;
             }
-            else if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTilesToRightOfPosition(cellBossPosition))
+            else if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTiles(position => position.x > cellBossPosition.x))
             {
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             }
-            else if (directionX > 0 && !spawnedTilesManager.IsAnySpawnedTilesToRightOfPosition(cellBossPosition))
+            else if (directionX > 0 && !spawnedTilesManager.IsAnySpawnedTiles(position => position.x > cellBossPosition.x))
             {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
                 directionX = -1;

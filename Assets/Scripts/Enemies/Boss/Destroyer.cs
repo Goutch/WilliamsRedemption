@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Boss
 {
-    public class Destroyer : MonoBehaviour
+    class Destroyer : MonoBehaviour
     {
-        public void Destroy()
+        private void Destroy()
         {
             Destroy(gameObject);
         }
     }
 }
-
-

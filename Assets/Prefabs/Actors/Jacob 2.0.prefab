@@ -177,7 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0c6a1963be45444aea770100521efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   scoreValue: 0
   phases:
   - {fileID: 114665657003816676}
@@ -215,7 +214,7 @@ MonoBehaviour:
   zombiePrefab: {fileID: 1291848360045852, guid: 82bace9fd06070f4e8259879ebe97c17,
     type: 2}
   cooldown: 1
-  stunState: {fileID: 114915048040240046}
+  stateAfterAllZombieDied: {fileID: 114915048040240046}
 --- !u!114 &114665657003816676
 MonoBehaviour:
   m_ObjectHideFlags: 1

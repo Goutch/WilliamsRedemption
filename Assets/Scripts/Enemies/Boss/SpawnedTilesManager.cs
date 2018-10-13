@@ -1,4 +1,5 @@
 ﻿using Harmony;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace Boss
             platforms = GameObject.FindGameObjectWithTag(R.S.Tag.Plateforme).GetComponent<Tilemap>();
             health = GetComponent<Health>();
 
-            health.OnDeath += Health_OnDeath;
+            if(health != null)
+                health.OnDeath += Health_OnDeath;
 
             spawnedTilesPosition = new List<Vector3Int>();
         }
@@ -36,26 +38,18 @@ namespace Boss
             return platforms.LocalToCell(position);
         }
 
-        public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn)
-        {
-            List<Vector3Int> platformPositions = new List<Vector3Int>();
-
-            foreach (Vector3Int relativePosition in tilesPositionRelative)
-            {
-                if (platforms.GetTile(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y, 0)) == null)
-                {
-                    platforms.SetTile(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y, 0), tileToSpawn);
-                    platformPositions.Add(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y, 0));
-                }
-            }
-
-            lightController.UpdateLightAtEndOfFrame();
-
-            spawnedTilesPosition.AddRange(platformPositions);
-        }
-
         public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn, float tilesLifeTime)
         {
+            List<Vector3Int> platformPositions = _SpawnTiles(center, tilesPositionRelative, tileToSpawn);
+
+            StartCoroutine(DestroyTiles(platformPositions, tilesLifeTime));
+        }
+        public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn)
+        {
+            _SpawnTiles(center, tilesPositionRelative, tileToSpawn);
+        }
+        private List<Vector3Int> _SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn)
+        {
             List<Vector3Int> platformPositions = new List<Vector3Int>();
 
             foreach (Vector3Int relativePosition in tilesPositionRelative)
@@ -71,21 +65,19 @@ namespace Boss
 
             spawnedTilesPosition.AddRange(platformPositions);
 
-            StartCoroutine(DestroyTiles(platformPositions, tilesLifeTime));
+            return platformPositions;
         }
 
         public void DestroyAllTiles()
         {
             DestroyTiles(new List<Vector3Int>(spawnedTilesPosition));
         }
-
         private IEnumerator DestroyTiles(List<Vector3Int> cellToDestroy, float delayBeforeDestruction)
         {
             yield return new WaitForSeconds(delayBeforeDestruction);
 
             DestroyTiles(cellToDestroy);
         }
-
         private void DestroyTiles(List<Vector3Int> cellToDestroy)
         {
             foreach (Vector3Int cellPos in cellToDestroy)
@@ -99,57 +91,32 @@ namespace Boss
                 spawnedTilesPosition.Remove(position);
         }
 
-        public bool IsAnySpawnedTilesToLeftOfPosition(Vector3Int position)
+        public bool IsAnySpawnedTiles(Func<Vector3Int, bool> condition)
         {
-            foreach(Vector3Int tilesPosition in spawnedTilesPosition)
-            {
-                if(tilesPosition.x < position.x)
-                {
-                    return true;
-                }
-            }
-            return false;
+            var tiles = spawnedTilesPosition.Where(condition);
+            if (tiles.Count() > 0)
+                return true;
+            else
+                return false;
         }
-
-        public bool IsAnySpawnedTilesToRightOfPosition(Vector3Int position)
-        {
-            foreach (Vector3Int tilesPosition in spawnedTilesPosition)
-            {
-                if (tilesPosition.x > position.x)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool IsAnyTilesSpawned()
+        public bool IsAnySpawnedTiles()
         {
             return spawnedTilesPosition.Count > 0;
         }
 
-        public void DestroyAllTilesToTheRight(Vector3Int position)
+        public void DestroyAllTilesInFront()
         {
             List<Vector3Int> positonTilesToDestroy = new List<Vector3Int>();
+            Vector3Int positionInCell = ConvertLocalToCell(transform.position);
+            int directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? -1 : 1;
 
             foreach (Vector3Int tilesPosition in spawnedTilesPosition)
             {
-                if (tilesPosition.x >= position.x)
+                if(directionX > 0 && tilesPosition.x >= positionInCell.x)
                 {
                     positonTilesToDestroy.Add(tilesPosition);
-                }
-            }
-
-            DestroyTiles(positonTilesToDestroy);
-        }
-
-        public void DestroyAllTilesToTheLeft(Vector3Int position)
-        {
-            List<Vector3Int> positonTilesToDestroy = new List<Vector3Int>();
-
-            foreach (Vector3Int tilesPosition in spawnedTilesPosition)
-            {
-                if (tilesPosition.x <= position.x)
+                } 
+                else if(directionX < 0 && tilesPosition.x <= positionInCell.x)
                 {
                     positonTilesToDestroy.Add(tilesPosition);
                 }

@@ -25,9 +25,8 @@ namespace Edgar
 
         private SpawnedTilesManager spawnedTilesManager;
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;
 
@@ -57,8 +56,10 @@ namespace Edgar
             projectileObject.GetComponent<PlasmaGroundController>()?.Init(spawnedTilesManager);
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             animator.SetTrigger(R.S.AnimatorParameter.VerticalSwing);
             lastTimeUsed = Time.time;
         }

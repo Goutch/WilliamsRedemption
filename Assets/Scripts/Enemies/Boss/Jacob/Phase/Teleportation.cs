@@ -1,15 +1,12 @@
 ﻿using Boss;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Jacob
 {
     class Teleportation : Capacity
     {
+        private const float EQUALITY_POSITION_SENSIBILITY = 0.2f;
+
         [SerializeField] private float distanceFromPlayerTeleport;
         [SerializeField] private Transform[] teleportPoints;
         [SerializeField] private float cooldown;
@@ -28,8 +25,7 @@ namespace Jacob
             else
                 return false;
         }
-
-        protected override void Initialise()
+        public override void Enter()
         {
             Teleport();
 
@@ -41,11 +37,14 @@ namespace Jacob
         private void Teleport()
         {
             Vector2 oldPosition = transform.position;
+
             do
             {
-                transform.position = teleportPoints[UnityEngine.Random.Range(0, teleportPoints.Length)].position;
+
+                transform.position = teleportPoints[Random.Range(0, teleportPoints.Length)].position;
+
             } while (Vector2.Distance(PlayerController.instance.transform.position, transform.position) < distanceFromPlayerTeleport 
-            || Vector2.Distance(oldPosition, transform.position) < 0.2f);
+            || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
         }
     }
 }

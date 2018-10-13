@@ -17,7 +17,7 @@ namespace Edgar
         [SerializeField] private float percentageHealthTransitionCondition;
         private Health health;
 
-        private new void Awake()
+        private void Awake()
         {
             health = GetComponent<Health>();
             health.OnHealthChange += Health_OnHealthChange;
@@ -36,14 +36,14 @@ namespace Edgar
 
         protected override void Idle()
         {
+            base.Idle();
+
             float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
             if (directionX > 0)
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             else
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
         }
-
-        protected override void Initialise() { }
 
         protected override void EnterIdle()
         {

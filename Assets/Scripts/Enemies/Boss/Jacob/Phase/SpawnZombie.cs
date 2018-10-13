@@ -1,10 +1,5 @@
 ﻿using Boss;
 using Harmony;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Jacob
@@ -14,9 +9,10 @@ namespace Jacob
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase1 + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private int numberOfZombiesToSpawn;
+        [Tooltip("Require health component")]
         [SerializeField] private GameObject zombiePrefab;
         [SerializeField] private float cooldown;
-        [SerializeField] private State stunState;
+        [SerializeField] private State stateAfterAllZombieDied;
 
         private float lastTimeUsed;
         private int zombieSpawned = 0;
@@ -24,8 +20,8 @@ namespace Jacob
         private bool isAllZombieSpawned = false;
 
         public override void Act()
-        {
-            
+        {    
+
         }
 
         public override bool CanEnter()
@@ -35,9 +31,10 @@ namespace Jacob
             else
                 return false;
         }
-
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             lastTimeUsed = Time.time;
             animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
 
@@ -55,7 +52,6 @@ namespace Jacob
             if (zombieSpawned == numberOfZombiesToSpawn)
                 isAllZombieSpawned = true;
         }
-
         private void SpawnZombie_OnDeath(GameObject gameObject)
         {
             gameObject.GetComponent<Health>().OnDeath -= SpawnZombie_OnDeath;
@@ -64,11 +60,17 @@ namespace Jacob
 
             if(isAllZombieSpawned && zombieAlive == 0)
             {
-                Finish(stunState);
-                isAllZombieSpawned = false;
-                zombieSpawned = 0;
-                zombieAlive = 0;
+                Finish(stateAfterAllZombieDied);
+
+                Reinitialize();
             }
+        }
+
+        private void Reinitialize()
+        {
+            isAllZombieSpawned = false;
+            zombieSpawned = 0;
+            zombieAlive = 0;
         }
     }
 }

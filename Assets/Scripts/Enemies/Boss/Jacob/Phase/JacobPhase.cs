@@ -1,11 +1,5 @@
 ﻿using Boss;
-using Edgar;
 using Harmony;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Jacob
@@ -21,31 +15,27 @@ namespace Jacob
         {
             return true;
         }
+        public override void Enter()
+        {
+            base.Enter();
+            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
+        }
 
         protected override void EnterIdle()
         {
             animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
         }
 
-        protected override void Idle()
-        {
-
-        }
-
-        protected override void Initialise()
-        {
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
-        }
-
         public override void Act()
         {
-            if(passiveCapacity.CanEnter() && !(CurrentState is Vulnerable))
+            if((passiveCapacity?.CanEnter() ?? false) && !(CurrentState is Vulnerable))
             {
                 saveState = CurrentState;
                 CurrentState = passiveCapacity;
 
                 passiveCapacity.OnStateFinish += PassiveCapacity_OnStateFinish;
             }
+
             base.Act();
         }
 

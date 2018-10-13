@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
-namespace Edgar
+namespace Boss
 {
-    class Vulnerable : Boss.State
+    class Vulnerable : State
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.Vulnerable + "' ")]
         [SerializeField] private Animator animator;
@@ -26,9 +21,10 @@ namespace Edgar
         {
             return true;
         }
-
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             timeEntered = Time.time;
             animator.SetTrigger(R.S.AnimatorParameter.Vulnerable);
         }

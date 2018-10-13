@@ -18,9 +18,8 @@ namespace Edgar
         [SerializeField] private bool capacityUsableAtStart;
         private float lastTimeUsed;
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;
         }
@@ -43,8 +42,10 @@ namespace Edgar
                 return false;
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             animator.SetTrigger(R.S.AnimatorParameter.HorizontalSwing);
             lastTimeUsed = Time.time;
         }

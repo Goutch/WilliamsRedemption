@@ -24,9 +24,8 @@ namespace Edgar
         private float rangeLaserSpawnRightBorder;
         private float laserSpawnPointPositionY;
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             Vector2 size = laserSpawnPointsZone.GetComponent<Collider2D>().bounds.size;
             Vector2 center = laserSpawnPointsZone.GetComponent<Collider2D>().bounds.center;
 
@@ -47,8 +46,10 @@ namespace Edgar
             return true;
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             animator.SetTrigger(R.S.AnimatorParameter.PlasmaRelease);
             numberOfLaserFinish = 0;
             StartCoroutine(SpawnLaser());

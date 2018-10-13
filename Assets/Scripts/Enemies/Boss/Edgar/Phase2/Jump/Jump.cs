@@ -37,9 +37,8 @@ namespace Edgar
             new Vector3Int(1, 0, 0),
             new Vector3Int(-1, 0, 0) };
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
 
             rootMover = GetComponent<RootMover>();
@@ -82,8 +81,10 @@ namespace Edgar
             spawnedTilesManager.SpawnTiles(cellPos, spawnedTileRelativePositions.ToList<Vector3Int>(), tileToSpawn);
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             animator.SetTrigger(R.S.AnimatorParameter.Jump);
             lastTimeCapacityUsed = Time.time;
 

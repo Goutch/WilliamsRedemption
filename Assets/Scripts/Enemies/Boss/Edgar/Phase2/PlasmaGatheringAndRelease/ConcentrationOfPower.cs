@@ -28,16 +28,15 @@ namespace Edgar
         private bool allParticulesSpawned;
 
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;
 
 #if UNITY_EDITOR
             if (Vector2.Distance(transform.position, (Vector2)transform.position + sizeParticulesSpawn / 2) < rangeWhereParticulesDoNotSpawn)
             {
-                Debug.LogError("No particules will be able to spawn. Editor stopped. Modify the range where particules cannot spawn or the size of zone where particlues can spawn.");
+                Debug.LogError("No particules will be able to spawn. Editor stopped. Modify the range where particules cannot spawn or the size of zone where particules can spawn.");
                 
                 if (EditorApplication.isPlaying)
                 {
@@ -84,8 +83,10 @@ namespace Edgar
                 return false;
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
+
             StartCoroutine(CreateParticules());
             animator.SetTrigger(R.S.AnimatorParameter.PlasmaConcentration);
 

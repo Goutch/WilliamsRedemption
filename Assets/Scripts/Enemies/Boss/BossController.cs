@@ -1,6 +1,4 @@
 ﻿using Playmode.EnnemyRework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
  
 namespace Boss
@@ -10,19 +8,11 @@ namespace Boss
         [SerializeField] private Phase[] phases;
         private int currentPhaseIndex;
 
-        private void ValidateSerilizeFiled()
+        protected override void Init()
         {
-            if (phases.Length <= 0)
-                throw new System.NullReferenceException("No phase attributed");
-
             phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
-        }
 
-        private void BossController_OnStateFinish(State state, State nextState)
-        {
-            phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
-            
-            ++currentPhaseIndex;
+            currentPhaseIndex = 0;
             phases[currentPhaseIndex].Enter();
         }
 
@@ -31,11 +21,11 @@ namespace Boss
             phases[currentPhaseIndex].Act();
         }
 
-        protected override void Init()
+        private void BossController_OnStateFinish(State state, State nextState)
         {
-            ValidateSerilizeFiled();
+            phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
 
-            currentPhaseIndex = 0;
+            ++currentPhaseIndex;
             phases[currentPhaseIndex].Enter();
         }
     }

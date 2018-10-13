@@ -43,10 +43,9 @@ namespace Edgar
             animator.SetTrigger(R.S.AnimatorParameter.PlasmaShoot);
         }
 
-        protected override void Idle() { }
-
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
             numberProjectileShooted = 0;
             lastTimeUsed = Time.time;
         }

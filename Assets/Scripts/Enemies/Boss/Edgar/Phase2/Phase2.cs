@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boss;
+﻿using Boss;
 using Harmony;
 using UnityEngine;
 
@@ -15,9 +10,8 @@ namespace Edgar
         [SerializeField] private Animator animator;
         private SpawnedTilesManager spawnedTilesManager;
 
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
         }
 
@@ -33,6 +27,8 @@ namespace Edgar
 
         protected override void Idle()
         {
+            base.Idle();
+
             float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
             if (directionX > 0)
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
@@ -40,8 +36,9 @@ namespace Edgar
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
         }
 
-        protected override void Initialise()
+        public override void Enter()
         {
+            base.Enter();
             spawnedTilesManager.DestroyAllTiles();
         }
     }
