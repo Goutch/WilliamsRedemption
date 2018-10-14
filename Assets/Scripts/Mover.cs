@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
 using XInputDotNetPure;
@@ -73,6 +74,7 @@ namespace Game
 				player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
 				player.DirectionFacingUpDown = FacingSideUpDown.None;
 				player.CurrentController.sprite.flipX = true;
+				transform.parent = null;
 			}
 			else if (Input.GetKey(KeyCode.D))
 			{
@@ -81,6 +83,7 @@ namespace Game
 				player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
 				player.DirectionFacingUpDown = FacingSideUpDown.None;
 				player.CurrentController.sprite.flipX = false;
+				transform.parent = null;
 			}
 
 			if (Input.GetKey(KeyCode.W ))

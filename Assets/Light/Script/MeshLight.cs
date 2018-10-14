@@ -148,10 +148,10 @@ namespace Light
 
         protected float VectorToDegree(Vector2 dir)
         {
-            float AngleRad = Mathf.Atan2(dir.x, dir.y);
-            float AngleDeg = (180 / Mathf.PI) * AngleRad;
+            float AngleRad = Mathf.Atan2(dir.y, dir.x); // jai inverser Y et X
+            float AngleDeg = (180* AngleRad/Mathf.PI );
 
-            return ClampDegree0To360(AngleDeg + 90);
+            return ClampDegree0To360(AngleDeg); // jai supprimer le +90
         }
 
         protected IEnumerator StartUpdateCooldownRoutine(float cooldown)

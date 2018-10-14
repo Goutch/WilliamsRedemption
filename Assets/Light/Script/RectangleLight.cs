@@ -6,8 +6,8 @@ namespace Light
 {
     public class RectangleLight : MeshLight
     {
-        [SerializeField] private float width = 30;
-        [SerializeField] private float range = 20;
+        [SerializeField] private float width;
+        [SerializeField] private float range;
         [Range(0.01f, 1)] [SerializeField] private float raycastPrecision = 0.1f;
 
         public float Width
@@ -104,15 +104,18 @@ namespace Light
 
         public override LightSensor IsWithinLightLimits(Vector2 position)
         {
-            Vector2 startPos = (position * Vector2.right) + (transform.position * Vector2.up);
-            RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range);
-
-            if (hit.collider != null)
+            if (!(position.x < transform.position.x - width/2 || position.x > transform.position.x + width/2))
             {
-                Debug.DrawLine(startPos, hit.point, Color.green);
-                return hit.collider.Root().GetComponent<LightSensor>();
-            }
+                Vector2 startPos = (position * Vector2.right) + (transform.position * Vector2.up);
+                RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range);
 
+                if (hit.collider != null)
+                {
+                    Debug.DrawLine(startPos, hit.point, Color.green);
+                    return hit.collider.Root().GetComponent<LightSensor>();
+                }
+  
+            }
             return null;
         }
     }
