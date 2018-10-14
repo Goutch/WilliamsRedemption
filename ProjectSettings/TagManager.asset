@@ -61,3 +61,6 @@ TagManager:
   - name: Enemy
     uniqueID: 4133429097
     locked: 0
+  - name: Edgar
+    uniqueID: 4250622967
+    locked: 0

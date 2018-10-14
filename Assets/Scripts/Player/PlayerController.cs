@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCollision(HitStimulus other)
     {
-        if (other.DamageSource == HitStimulus.DamageSourceType.Ennemy ||
+        if (other.DamageSource == HitStimulus.DamageSourceType.Enemy ||
             other.DamageSource == HitStimulus.DamageSourceType.Obstacle)
         {
             DamagePlayer();

@@ -16,7 +16,9 @@ public class ProjectileController : MonoBehaviour {
         get { return canBeReturned;}
         private set { canBeReturned=value; }
     }
-    
+
+    public float Speed { get { return speed; } set { speed = value; } }
+
     protected virtual void Awake()
     {
         StartCoroutine(Destroy());
@@ -25,7 +27,7 @@ public class ProjectileController : MonoBehaviour {
     }
     void FixedUpdate ()
     {
-        transform.Translate(speed*Time.deltaTime*direction,0,0);
+        transform.Translate(Speed*Time.deltaTime*direction,0,0);
 	}
     private IEnumerator Destroy()
     {
@@ -40,7 +42,7 @@ public class ProjectileController : MonoBehaviour {
             this.GetComponent<HitStimulus>().SetDamageSource(other.GetComponent<HitStimulus>().DamageSource);
             direction *= -1;
         }
-        else if (other.tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Ennemy)
+        else if (other.tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Enemy)
         {
             Destroy(this.gameObject);
         }
@@ -54,5 +56,15 @@ public class ProjectileController : MonoBehaviour {
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag(R.S.Tag.Plateforme))
+            Destroy(gameObject);
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(R.S.Tag.Plateforme))
+            Destroy(gameObject);
+    }
 }
