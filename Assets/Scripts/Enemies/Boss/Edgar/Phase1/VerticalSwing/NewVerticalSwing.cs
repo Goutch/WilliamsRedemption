@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boss;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
+    [RequireComponent(typeof(SpawnedTilesManager))]
     class NewVerticalSwing : Capacity
     {
         [Header("Config")]
@@ -42,26 +37,24 @@ namespace Edgar
             else
                 return false;
         }
-
-        public void OnVerticalSwingFinish()
-        {
-            ShootProjectileAfterVerticalSwing();
-            base.Finish();
-        }
-
-        public void ShootProjectileAfterVerticalSwing()
-        {
-            GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.transform.position, transform.rotation);
-
-            projectileObject.GetComponent<PlasmaGroundController>()?.Init(spawnedTilesManager);
-        }
-
         public override void Enter()
         {
             base.Enter();
 
             animator.SetTrigger(R.S.AnimatorParameter.VerticalSwing);
             lastTimeUsed = Time.time;
+        }
+
+        public void OnVerticalSwingFinish()
+        {
+            ShootProjectile();
+            base.Finish();
+        }
+        public void ShootProjectile()
+        {
+            GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
+
+            projectileObject.GetComponent<PlasmaGroundController>().Init(spawnedTilesManager);
         }
     }
 }

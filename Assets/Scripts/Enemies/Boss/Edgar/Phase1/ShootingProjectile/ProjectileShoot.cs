@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boss;
-using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
     class ProjectileShoot : Capacity
     {
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
-
-        [Header("Multiple projectile config")]
         [SerializeField] private GameObject bullet;
 
         private float lastTimeCapacityUsed;
@@ -27,7 +18,7 @@ namespace Edgar
 
         public override void Act()
         {
-            Debug.Log(this);
+
         }
 
         public override bool CanEnter()
@@ -37,14 +28,21 @@ namespace Edgar
             else
                 return false;
         }
-
-        public void ShootProjectile()
+        public override void Enter()
         {
-            Quaternion direction = PlayerDirection();
-            GameObject projectile = Instantiate(bullet, transform.position, direction);
-            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
+            base.Enter();
+
+            lastTimeCapacityUsed = Time.time;
+
+            ShootProjectile(PlayerDirection());
 
             Finish();
+        }
+
+        public void ShootProjectile(Quaternion direction)
+        {
+            GameObject projectile = Instantiate(bullet, transform.position, direction);
+            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
         }
 
         private Quaternion PlayerDirection()
@@ -53,15 +51,6 @@ namespace Edgar
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion direction = Quaternion.AngleAxis(angle, Vector3.forward);
             return direction;
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
-
-            lastTimeCapacityUsed = Time.time;
-
-            ShootProjectile();
         }
     }
 }

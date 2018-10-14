@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boss;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
+    [RequireComponent(typeof(RootMover))]
     class MultipleShootPhase : Phase
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaShoot + "' ")]
@@ -16,8 +11,22 @@ namespace Edgar
         [SerializeField] private int numberOfShoots;
         [SerializeField] private float cooldown;
 
+        private RootMover rootMover;
+
         private float lastTimeUsed;
         private int numberProjectileShooted = 0;
+
+        private void Awake()
+        {
+            rootMover = GetComponent<RootMover>();
+        }
+
+        public override void Act()
+        {
+            rootMover.LookAtPlayer();
+
+            base.Act();
+        }
 
         public override bool CanEnter()
         {
@@ -25,6 +34,16 @@ namespace Edgar
                 return true;
             else
                 return false;
+        }
+        public override void Enter()
+        {
+            base.Enter();
+            numberProjectileShooted = 0;
+            lastTimeUsed = Time.time;
+        }
+        protected override void EnterIdle()
+        {
+            animator.SetTrigger(R.S.AnimatorParameter.PlasmaShoot);
         }
 
         protected override void CurrentState_OnStateFinish(Boss.State state, State nextState)
@@ -38,16 +57,5 @@ namespace Edgar
             }
         }
 
-        protected override void EnterIdle()
-        {
-            animator.SetTrigger(R.S.AnimatorParameter.PlasmaShoot);
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
-            numberProjectileShooted = 0;
-            lastTimeUsed = Time.time;
-        }
     }
 }

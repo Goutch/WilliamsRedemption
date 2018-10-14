@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Boss
+namespace Playmode.EnnemyRework.Boss
 {
     public abstract class Phase : State
     {

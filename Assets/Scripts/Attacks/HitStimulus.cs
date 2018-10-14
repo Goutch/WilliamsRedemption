@@ -1,7 +1,6 @@
 ﻿using Harmony;
 using Playmode.EnnemyRework;
 using UnityEngine;
-using Edgar;
 
 public class HitStimulus : MonoBehaviour
 {

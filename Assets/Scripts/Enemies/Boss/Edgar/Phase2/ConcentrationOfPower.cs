@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Boss;
-using Playmode.EnnemyRework;
 using UnityEditor;
 using Harmony;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
+    [RequireComponent(typeof(RootMover))]
     public class ConcentrationOfPower : Capacity
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaConcentration + "' ")]
@@ -20,18 +18,22 @@ namespace Edgar
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private float delayBetweenEachParticuleSpawn;
-        [SerializeField] private State PowerReleaseState;
+        [SerializeField] private State powerReleaseState;
 
-        private float distanceEqualitySensibility = 1f;
+        private const float EQUALITY_DISTANCE_SENSIBILITY = 1f;
+
+        private RootMover rootMover;
+
         private float lastTimeUsed;
         private GameObject[] particules;
         private bool allParticulesSpawned;
-
 
         private void Awake()
         {
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;
+
+            rootMover = GetComponent<RootMover>();
 
 #if UNITY_EDITOR
             if (Vector2.Distance(transform.position, (Vector2)transform.position + sizeParticulesSpawn / 2) < rangeWhereParticulesDoNotSpawn)
@@ -48,19 +50,20 @@ namespace Edgar
 
         public override void Act()
         {
-            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
-            if (directionX > 0)
-                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
-            else
-                transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
+            rootMover.LookAtPlayer();
 
+            UpdateParticulesState();
+        }
+
+        private void UpdateParticulesState()
+        {
             int numberOfParticulesLeft = 0;
 
-            for(int i = 0; i < particules.Length; ++i)
+            for (int i = 0; i < particules.Length; ++i)
             {
-                if(particules[i] != null)
+                if (particules[i] != null)
                 {
-                    if (Vector2.Distance(particules[i].transform.position, transform.position) < distanceEqualitySensibility)
+                    if (Vector2.Distance(particules[i].transform.position, transform.position) < EQUALITY_DISTANCE_SENSIBILITY)
                     {
                         Destroy(particules[i].gameObject);
                     }
@@ -72,7 +75,7 @@ namespace Edgar
             }
 
             if (numberOfParticulesLeft == 0 && allParticulesSpawned)
-                Finish(PowerReleaseState);
+                Finish(powerReleaseState);
         }
 
         public override bool CanEnter()
@@ -82,7 +85,6 @@ namespace Edgar
             else
                 return false;
         }
-
         public override void Enter()
         {
             base.Enter();
@@ -100,16 +102,7 @@ namespace Edgar
 
             for (int i = 0; i < numberOfParticules; ++i)
             {
-                float particulePositionX;
-                float particulePositionY;
-                Vector3 position;
-
-                do
-                {
-                    particulePositionX = Random.Range(-sizeParticulesSpawn.x / 2, sizeParticulesSpawn.x / 2) + transform.position.x;
-                    particulePositionY = Random.Range(-sizeParticulesSpawn.y / 2, sizeParticulesSpawn.y / 2) + transform.position.y;
-                    position = new Vector3(particulePositionX, particulePositionY, 0);
-                } while (Vector2.Distance(position, transform.position) < rangeWhereParticulesDoNotSpawn);
+                Vector3 position = GetParticulePosition();
 
                 particules[i] = Instantiate(particulesPrefab, position, BossDirection(position));
                 particules[i].GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
@@ -119,6 +112,21 @@ namespace Edgar
             }
 
             allParticulesSpawned = true;
+        }
+
+        private Vector3 GetParticulePosition()
+        {
+            Vector3 position;
+            do
+            {
+                float particulePositionX = Random.Range(-sizeParticulesSpawn.x / 2, sizeParticulesSpawn.x / 2) + transform.position.x;
+                float particulePositionY = Random.Range(-sizeParticulesSpawn.y / 2, sizeParticulesSpawn.y / 2) + transform.position.y;
+
+                position = new Vector3(particulePositionX, particulePositionY, 0);
+
+            } while (Vector2.Distance(position, transform.position) < rangeWhereParticulesDoNotSpawn);
+
+            return position;
         }
 
         private Quaternion BossDirection(Vector3 objectPosition)

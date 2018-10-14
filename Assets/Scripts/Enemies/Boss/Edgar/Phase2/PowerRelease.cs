@@ -1,40 +1,34 @@
-﻿using Boss;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using Harmony;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
     class PowerRelease : Capacity
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaRelease + "' ")]
         [SerializeField] private Animator animator;
-        [SerializeField] private GameObject laserSpawnPointsZone;
+        [SerializeField] private Collider2D laserSpawnPointsZone;
         [SerializeField] private GameObject lasePrefab;
         [SerializeField] private float delayBetweenEachLaser;
         [SerializeField] private int numberOfLasersToSpawn;
+
         private int numberOfLaserFinish;
 
-        private float rangeLaserSpawnLeftBorder;
-        private float rangeLaserSpawnRightBorder;
-        private float laserSpawnPointPositionY;
+        private float leftBorderSpawnLaser;
+        private float rightBorderSpawnLaser;
+        private float positionYLaser;
 
         private void Awake()
         {
-            Vector2 size = laserSpawnPointsZone.GetComponent<Collider2D>().bounds.size;
-            Vector2 center = laserSpawnPointsZone.GetComponent<Collider2D>().bounds.center;
+            Vector2 size = laserSpawnPointsZone.bounds.size;
+            Vector2 center = laserSpawnPointsZone.bounds.center;
 
-            rangeLaserSpawnLeftBorder = -size.x/2 + center.x;
-            rangeLaserSpawnRightBorder = size.x/2 + center.x;
+            leftBorderSpawnLaser = -size.x/2 + center.x;
+            rightBorderSpawnLaser = size.x/2 + center.x;
 
-            laserSpawnPointPositionY = center.y;
+            positionYLaser = center.y;
         }
-
 
         public override void Act()
         {
@@ -45,7 +39,6 @@ namespace Edgar
         {
             return true;
         }
-
         public override void Enter()
         {
             base.Enter();
@@ -54,13 +47,13 @@ namespace Edgar
             numberOfLaserFinish = 0;
             StartCoroutine(SpawnLaser());
         }
-
         private IEnumerator SpawnLaser()
         {
             for(int numberSpawnerLaser = 0; numberSpawnerLaser < numberOfLasersToSpawn; ++numberSpawnerLaser)
             {
                 yield return new WaitForSeconds(delayBetweenEachLaser);
-                GameObject laser = Instantiate(lasePrefab, new Vector2(UnityEngine.Random.Range(rangeLaserSpawnLeftBorder, rangeLaserSpawnRightBorder), laserSpawnPointPositionY), Quaternion.identity);
+
+                GameObject laser = Instantiate(lasePrefab, new Vector2(Random.Range(leftBorderSpawnLaser, rightBorderSpawnLaser), positionYLaser), Quaternion.identity);
                 laser.GetComponent<PlasmaLaserController>().OnLaserFinish += LaserFinish;
             }
         }

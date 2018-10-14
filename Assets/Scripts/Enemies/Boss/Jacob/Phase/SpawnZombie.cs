@@ -1,8 +1,7 @@
-﻿using Boss;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
-namespace Jacob
+namespace Playmode.EnnemyRework.Boss.Jacob
 {
     class SpawnZombie : Capacity
     {

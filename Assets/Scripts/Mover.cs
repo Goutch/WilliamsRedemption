@@ -178,6 +178,7 @@ namespace Game
 			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
 			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
 		}
-		
+	
+
 	}
 }

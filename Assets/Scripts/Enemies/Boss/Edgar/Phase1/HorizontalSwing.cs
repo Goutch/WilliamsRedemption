@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boss;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
+    [RequireComponent(typeof(RootMover))]
     class HorizontalSwing : Capacity
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.HorizontalSwing + "' ")]
@@ -16,10 +11,15 @@ namespace Edgar
         [SerializeField] private float range;
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
+
+        private RootMover rootMover;
+
         private float lastTimeUsed;
 
         private void Awake()
         {
+            rootMover = GetComponent<RootMover>();
+
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;
         }
@@ -41,10 +41,11 @@ namespace Edgar
             else
                 return false;
         }
-
         public override void Enter()
         {
             base.Enter();
+
+            rootMover.LookAtPlayer();
 
             animator.SetTrigger(R.S.AnimatorParameter.HorizontalSwing);
             lastTimeUsed = Time.time;

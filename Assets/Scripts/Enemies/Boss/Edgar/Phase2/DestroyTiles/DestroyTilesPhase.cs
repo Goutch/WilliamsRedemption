@@ -1,14 +1,9 @@
-﻿using Boss;
-using Harmony;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Harmony;
 using UnityEngine;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
+    [RequireComponent(typeof(SpawnedTilesManager))]
     class DestroyTilesPhase : Phase
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase2 + "' ")]

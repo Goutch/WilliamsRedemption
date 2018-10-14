@@ -1,7 +1,6 @@
-﻿using Boss;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Jacob
+namespace Playmode.EnnemyRework.Boss.Jacob
 {
     class Teleportation : Capacity
     {

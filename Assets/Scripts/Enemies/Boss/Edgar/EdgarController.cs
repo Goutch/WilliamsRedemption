@@ -1,6 +1,6 @@
-﻿using Boss;
+﻿
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
     public class EdgarController : BossController
     {

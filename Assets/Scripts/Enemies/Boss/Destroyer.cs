@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Boss
+namespace Playmode.EnnemyRework.Boss
 {
     class Destroyer : MonoBehaviour
     {

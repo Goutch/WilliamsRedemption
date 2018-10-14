@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boss;
-using Harmony;
+﻿using Harmony;
+using System;
 using UnityEngine;
 
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
     [RequireComponent(typeof(SpawnedTilesManager))]
     class HeavySwing : Capacity
@@ -19,7 +14,7 @@ namespace Edgar
         [SerializeField] private float cooldown;
 
         private SpawnedTilesManager spawnedTilesManager;
-        private float directionX;
+
         private float lastTimeCapacityUsed;
 
         private void Awake()
@@ -46,7 +41,6 @@ namespace Edgar
             else
                 return false;
         }
-
         public override void Enter()
         {
             base.Enter();
@@ -54,24 +48,30 @@ namespace Edgar
             animator.SetTrigger(R.S.AnimatorParameter.HeavySwing);
             lastTimeCapacityUsed = Time.time;
 
-            directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? -1 : 1;
+            ChangeDirection();
+        }
+        private void ChangeDirection()
+        {
             Vector3Int cellBossPosition = spawnedTilesManager.ConvertLocalToCell(transform.position);
+            Func<Vector3Int, bool> positionsToTheLeftOfBoss = position => position.x < cellBossPosition.x;
+            Func<Vector3Int, bool> positionsToTheRightOfBoss = position => position.x > cellBossPosition.x;
 
+            float directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? -1 : 1;
 
-            if (directionX < 0 && spawnedTilesManager.IsAnySpawnedTiles(position => position.x < cellBossPosition.x))
+            if (directionX < 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheLeftOfBoss))
             {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
             }
-            else if (directionX < 0 && !spawnedTilesManager.IsAnySpawnedTiles(position => position.x < cellBossPosition.x))
+            else if (directionX < 0 && !spawnedTilesManager.IsAnySpawnedTiles(positionsToTheLeftOfBoss))
             {
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
                 directionX = 1;
             }
-            else if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTiles(position => position.x > cellBossPosition.x))
+            else if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheRightOfBoss))
             {
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             }
-            else if (directionX > 0 && !spawnedTilesManager.IsAnySpawnedTiles(position => position.x > cellBossPosition.x))
+            else if (directionX > 0 && !spawnedTilesManager.IsAnySpawnedTiles(positionsToTheRightOfBoss))
             {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
                 directionX = -1;

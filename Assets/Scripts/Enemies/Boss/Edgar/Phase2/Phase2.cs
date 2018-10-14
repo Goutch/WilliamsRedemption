@@ -1,23 +1,26 @@
-﻿using Boss;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
+    [RequireComponent(typeof(SpawnedTilesManager), typeof(RootMover))]
     class Phase2 : Phase
     {
         [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase2 + "' ")]
         [SerializeField] private Animator animator;
+
         private SpawnedTilesManager spawnedTilesManager;
+        private RootMover mover;
 
         private void Awake()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
+            mover = GetComponent<RootMover>();
         }
 
         public override bool CanEnter()
         {
-            return false;
+            return true;
         }
 
         protected override void EnterIdle()
@@ -29,11 +32,7 @@ namespace Edgar
         {
             base.Idle();
 
-            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
-            if (directionX > 0)
-                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
-            else
-                transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
+            mover.LookAtPlayer();
         }
 
         public override void Enter()

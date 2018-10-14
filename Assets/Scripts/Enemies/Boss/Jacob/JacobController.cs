@@ -1,6 +1,6 @@
-﻿using Boss;
+﻿
 
-namespace Jacob
+namespace Playmode.EnnemyRework.Boss.Jacob
 {
     class JacobController : BossController
     {

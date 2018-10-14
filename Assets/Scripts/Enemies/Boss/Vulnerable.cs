@@ -1,7 +1,7 @@
 ﻿using Harmony;
 using UnityEngine;
 
-namespace Boss
+namespace Playmode.EnnemyRework.Boss
 {
     class Vulnerable : State
     {

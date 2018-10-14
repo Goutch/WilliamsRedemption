@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Boss
+namespace Playmode.EnnemyRework.Boss
 {
     public class SpawnedTilesManager : MonoBehaviour
     {

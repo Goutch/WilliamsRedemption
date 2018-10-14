@@ -70,5 +70,14 @@ namespace Playmode.EnnemyRework
             this.rootRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             animator.SetTrigger("Jump");
         }
+
+        public void LookAtPlayer()
+        {
+            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
+            if (directionX > 0)
+                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
+            else
+                transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
+        }
     }
 }

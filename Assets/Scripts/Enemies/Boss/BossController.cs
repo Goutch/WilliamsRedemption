@@ -1,7 +1,6 @@
-﻿using Playmode.EnnemyRework;
-using UnityEngine;
+﻿using UnityEngine;
  
-namespace Boss
+namespace Playmode.EnnemyRework.Boss
 {
     public class BossController : Enemy
     {
@@ -15,7 +14,7 @@ namespace Boss
             currentPhaseIndex = 0;
             phases[currentPhaseIndex].Enter();
         }
-
+        
         public void Update()
         {
             phases[currentPhaseIndex].Act();

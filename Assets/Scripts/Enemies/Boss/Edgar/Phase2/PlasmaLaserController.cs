@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace Edgar
+namespace Playmode.EnnemyRework.Boss.Edgar
 {
     public delegate void LaserEventHandler(PlasmaLaserController controller);
 
