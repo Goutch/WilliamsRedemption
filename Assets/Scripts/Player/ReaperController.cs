@@ -96,7 +96,7 @@ public class ReaperController : EntityControlableController
 
         GameObject meleeAttackObject = Instantiate(meleeAttack, gameObject.transform.position, angle);
         meleeAttackObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Reaper);
-
+        animator.SetTrigger("Attack");
         Attacking = true;
     }
 
