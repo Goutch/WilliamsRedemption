@@ -1,21 +1,25 @@
 ﻿using System.Security.AccessControl;
-using DefaultNamespace.Playmode;
 using Harmony;
 using UnityEngine;
 
 namespace Playmode.EnnemyRework
 {
-    public abstract class Enemy : EnemyData
+    public abstract class Enemy : MonoBehaviour
     {
-        [SerializeField] private int scoreValue=0;
+        [SerializeField] private int scoreValue = 0;
         protected Health health;
-        
 
         protected void Awake()
         {
             health = GetComponent<Health>();
             GetComponentInChildren<HitSensor>().OnHit  += HandleCollision;
+            health.OnDeath += Health_OnDeath;
             Init();
+        }
+
+        private void Health_OnDeath(GameObject gameObject)
+        {
+            Destroy(this.gameObject);
         }
 
         protected abstract void Init();

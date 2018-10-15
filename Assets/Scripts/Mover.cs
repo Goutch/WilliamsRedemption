@@ -178,6 +178,7 @@ namespace Game
 			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
 			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 		}
-		
+	
+
 	}
 }
