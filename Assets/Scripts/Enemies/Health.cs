@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Playmode.EnnemyRework;
 using UnityEngine;
 
 public delegate void HealthEventHandler(GameObject gameObject);
@@ -20,10 +21,14 @@ public class Health : MonoBehaviour
             healthPoints = value;
             OnHealthChange?.Invoke(gameObject);
 
-            if (healthPoints <= 0)
-            {
-                OnDeath?.Invoke(gameObject);
-            }
+	        if (IsDead())
+	        {
+		        if (isKilledByPlayer && IsAnEnemy())
+		        {
+			        AddEnemyScoreToGameScore();
+		        }
+		        OnDeath?.Invoke(gameObject);
+	        }
         }
 	}
 
@@ -40,5 +45,20 @@ public class Health : MonoBehaviour
 	{
 		isKilledByPlayer = false;
 		HealthPoints = 0;
+	}
+	private bool IsDead()
+	{
+		return healthPoints <= 0;
+	}
+
+	private void AddEnemyScoreToGameScore()
+	{
+		int score = GetComponent<Enemy>().ScoreValue;
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddScore(score);
+	}
+
+	private bool IsAnEnemy()
+	{
+		return GetComponent<Enemy>() != null;
 	}
 }
