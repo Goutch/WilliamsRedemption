@@ -63,7 +63,6 @@ namespace Game
 			if (Input.GetKeyDown(KeyCode.Space)  && kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay)
 			{
 				verticalVelocity = Vector2.up;
-				player.CurrentController.animator.SetTrigger("Jump");
 			}
 				
 			if (Input.GetKey(KeyCode.A))
@@ -112,6 +111,7 @@ namespace Game
 			lastPositionY = this.transform.position.y;
 			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
 			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 		}
 
 		private void ManageControllerInputs()
@@ -123,7 +123,6 @@ namespace Game
 			if (controllerState.Buttons.A == ButtonState.Pressed && kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && !jumpButtonPressed)
 			{
 				verticalVelocity = Vector2.up;
-				player.CurrentController.animator.SetTrigger("Jump");
 				jumpButtonPressed = true;
 			}
 			if (controllerState.Buttons.A == ButtonState.Released)
@@ -177,6 +176,7 @@ namespace Game
 			lastPositionY = this.transform.position.y;
 			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
 			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 		}
 	
 
