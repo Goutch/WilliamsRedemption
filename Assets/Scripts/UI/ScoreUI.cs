@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class ScoreUI : MonoBehaviour
 {
-
-	public static ScoreUI instance;
 	private GameController gameController;
-	public Text scoreText;
+	private Text scoreText;
 	private int score;
 
 	private void Start()
 	{
 		gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 		gameController.OnScoreChange += OnScoreChange;
+		scoreText = GameObject.Find("GameController/Canvas/ScoreText").GetComponent<Text>();
 		score = gameController.Score;
 		UpdateScoreText();
 	}
