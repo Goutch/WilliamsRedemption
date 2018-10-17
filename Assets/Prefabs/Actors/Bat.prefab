@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 4078413858316776}
   - component: {fileID: 58481491657108698}
   - component: {fileID: 114490137174134684}
+  - component: {fileID: 114814020256808238}
   m_Layer: 14
   m_Name: AttackTrigger
   m_TagString: Untagged
@@ -72,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1596194178111558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.1647525, y: 3.334358, z: 0}
+  m_LocalPosition: {x: 18.061, y: 6.994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4078413858316776}
@@ -113,7 +114,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.06
+  m_Radius: 0.03
 --- !u!58 &58481491657108698
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -128,7 +129,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.94
+  m_Radius: 2.9
 --- !u!95 &95941254871980142
 Animator:
   serializedVersion: 3
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSource: 0
 --- !u!114 &114490137174134684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,11 +205,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0985c2f3165042d4393b6ea988e0d5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint: 1
-  speed: 4
   scoreValue: 0
   exponentialFonction: {x: 0, y: 0}
-  fonctionYOffSet: 0.32
+  fonctionYOffSet: -0.35
+  distanceFromSpawningPoint: 0
+--- !u!114 &114814020256808238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1998968827020002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114981646875737574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,6 +231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ccd79bce0f487eb54d9b4e57cb01fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 0
+  speed: 3.5
 --- !u!212 &212454532887208040
 SpriteRenderer:
   m_ObjectHideFlags: 1

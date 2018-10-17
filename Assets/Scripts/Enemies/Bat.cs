@@ -41,9 +41,9 @@ public class Bat : Enemy
                 ? 1
                 : -1;
             if (direction == 1)
-                spriteRenderer.flipX = true;
-            else
                 spriteRenderer.flipX = false;
+            else
+                spriteRenderer.flipX = true;
         }
     }
 
