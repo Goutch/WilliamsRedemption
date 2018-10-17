@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Playmode.EnnemyRework.Boss.Jacob
 {
-    public class JacobPhase : Phase
+    public class JacobPhase : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase1 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase1 + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private Capacity passiveCapacity;
         private State saveState;
@@ -17,12 +17,12 @@ namespace Playmode.EnnemyRework.Boss.Jacob
         public override void Enter()
         {
             base.Enter();
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
+            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase1);
         }
 
         protected override void EnterIdle()
         {
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
+            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase1);
         }
 
         public override void Act()
@@ -38,7 +38,7 @@ namespace Playmode.EnnemyRework.Boss.Jacob
             base.Act();
         }
 
-        private void PassiveCapacity_OnStateFinish(State state, State nextState)
+        private void PassiveCapacity_OnStateFinish(State state)
         {
             passiveCapacity.OnStateFinish -= PassiveCapacity_OnStateFinish;
             CurrentState = saveState;

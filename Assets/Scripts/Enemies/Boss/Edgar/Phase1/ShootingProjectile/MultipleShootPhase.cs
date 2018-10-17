@@ -1,12 +1,11 @@
-﻿using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Playmode.EnnemyRework.Boss.Edgar
 {
     [RequireComponent(typeof(RootMover))]
-    class MultipleShootPhase : Phase
+    class MultipleShootPhase : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaShoot + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private int numberOfShoots;
         [SerializeField] private float cooldown;
@@ -43,12 +42,12 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         }
         protected override void EnterIdle()
         {
-            animator.SetTrigger(R.S.AnimatorParameter.PlasmaShoot);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
         }
 
-        protected override void CurrentState_OnStateFinish(Boss.State state, State nextState)
+        protected override void CurrentState_OnStateFinish(Boss.State state)
         {
-            base.CurrentState_OnStateFinish(state, nextState);
+            base.CurrentState_OnStateFinish(state);
             ++numberProjectileShooted;
 
             if (numberProjectileShooted >= numberOfShoots)

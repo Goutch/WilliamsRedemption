@@ -5,18 +5,20 @@ namespace Playmode.EnnemyRework.Boss.Jacob
 {
     class SpawnZombie : Capacity
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase1 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase1 + "' ")]
         [SerializeField] private Animator animator;
-        [SerializeField] private int numberOfZombiesToSpawn;
         [Tooltip("Require health component")]
         [SerializeField] private GameObject zombiePrefab;
         [SerializeField] private float cooldown;
-        [SerializeField] private State stateAfterAllZombieDied;
 
         private float lastTimeUsed;
-        private int zombieSpawned = 0;
-        private int zombieAlive = 0;
-        private bool isAllZombieSpawned = false;
+
+        private SpawnedEnemyManager spawnedEnemyManager;
+
+        private void Awake()
+        {
+            spawnedEnemyManager = GetComponent<SpawnedEnemyManager>();
+        }
 
         public override void Act()
         {    
@@ -25,7 +27,7 @@ namespace Playmode.EnnemyRework.Boss.Jacob
 
         public override bool CanEnter()
         {
-            if (Time.time - lastTimeUsed > cooldown && !isAllZombieSpawned)
+            if (Time.time - lastTimeUsed > cooldown && !spawnedEnemyManager.IsAllEnemySpawned())
                 return true;
             else
                 return false;
@@ -35,41 +37,14 @@ namespace Playmode.EnnemyRework.Boss.Jacob
             base.Enter();
 
             lastTimeUsed = Time.time;
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
+            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase1);
 
             SpawnAZombie();
         }
 
         private void SpawnAZombie()
         {
-            GameObject zombie = Instantiate(zombiePrefab, transform.position, Quaternion.identity);
-            zombie.GetComponent<Health>().OnDeath += SpawnZombie_OnDeath;
-
-            ++zombieSpawned;
-            ++zombieAlive;
-
-            if (zombieSpawned == numberOfZombiesToSpawn)
-                isAllZombieSpawned = true;
-        }
-        private void SpawnZombie_OnDeath(GameObject gameObject)
-        {
-            gameObject.GetComponent<Health>().OnDeath -= SpawnZombie_OnDeath;
-
-            --zombieAlive;
-
-            if(isAllZombieSpawned && zombieAlive == 0)
-            {
-                Finish(stateAfterAllZombieDied);
-
-                Reinitialize();
-            }
-        }
-
-        private void Reinitialize()
-        {
-            isAllZombieSpawned = false;
-            zombieSpawned = 0;
-            zombieAlive = 0;
+            spawnedEnemyManager.SpawnEnemies(zombiePrefab, transform.position, Quaternion.identity);
         }
     }
 }

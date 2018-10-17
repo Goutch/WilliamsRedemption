@@ -17,7 +17,7 @@ public class BossFight: MonoBehaviour
         boss.GetComponent<Health>().OnDeath += OnBossDead;
         bossArea = GetComponent<Collider2D>();
 
-        cameraController = GameObject.FindGameObjectWithTag(R.S.Tag.MainCamera).GetComponent<CameraController>();
+        cameraController = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera).GetComponent<CameraController>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

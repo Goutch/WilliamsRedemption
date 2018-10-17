@@ -5,7 +5,7 @@ namespace Playmode.EnnemyRework.Boss
 {
     class Vulnerable : State
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.Vulnerable + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.Vulnerable + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private float duration;
 
@@ -26,7 +26,7 @@ namespace Playmode.EnnemyRework.Boss
             base.Enter();
 
             timeEntered = Time.time;
-            animator.SetTrigger(R.S.AnimatorParameter.Vulnerable);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.Vulnerable);
         }
     }
 }

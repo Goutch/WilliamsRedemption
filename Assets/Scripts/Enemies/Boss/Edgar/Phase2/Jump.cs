@@ -8,7 +8,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
     [RequireComponent(typeof(RootMover), typeof(Rigidbody2D), typeof(SpawnedTilesManager))]
     class Jump : Capacity
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.Jump + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.Jump + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
@@ -16,7 +16,6 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         [SerializeField] private int yOffSetTileToSpawn;
         [SerializeField] private Tile tileToSpawn;
         [SerializeField] private float jumpDuration;
-        [SerializeField] private State stateAfterJump;
 
         private Vector3Int[] spawnedTileRelativePositions = new Vector3Int[] {
             new Vector3Int(2, 1 ,0),
@@ -48,7 +47,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
             if (rb.velocity.y == 0)
             {
-                Finish(stateAfterJump);
+                Finish();
                 rb.velocity = new Vector2();
             }
         }
@@ -64,7 +63,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         {
             base.Enter();
 
-            animator.SetTrigger(R.S.AnimatorParameter.Jump);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.Jump);
             lastTimeCapacityUsed = Time.time;
 
             SetNewSpeed(PlayerController.instance.transform.position, jumpDuration);
@@ -78,11 +77,11 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             rootMover.Speed = speed;
         }
 
-        public override void Finish(State nextState)
+        public override void Finish()
         {
             SpawnTiles();
 
-            base.Finish(nextState);
+            base.Finish();
         }
         private void SpawnTiles()
         {

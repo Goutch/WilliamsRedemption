@@ -1,12 +1,11 @@
-﻿using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Playmode.EnnemyRework.Boss.Edgar
 {
     [RequireComponent(typeof(SpawnedTilesManager), typeof(RootMover))]
-    class Phase2 : Phase
+    class Phase2 : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase2 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase2 + "' ")]
         [SerializeField] private Animator animator;
 
         private SpawnedTilesManager spawnedTilesManager;
@@ -25,7 +24,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
         protected override void EnterIdle()
         {
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase2);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.IdlePhase2);
         }
 
         protected override void Idle()

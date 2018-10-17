@@ -2,7 +2,7 @@
 
 namespace Playmode.EnnemyRework.Boss
 {
-    public abstract class Phase : State
+    public abstract class NonSequentialPhase : State
     {
         [SerializeField] protected State[] subStates;
 
@@ -59,14 +59,12 @@ namespace Playmode.EnnemyRework.Boss
             currentState = null;
             base.Finish();
         }
-        protected virtual void CurrentState_OnStateFinish(State state, State nextState)
+
+        protected virtual void CurrentState_OnStateFinish(State state)
         {
             state.OnStateFinish -= CurrentState_OnStateFinish;
 
-            if (nextState != null)
-                CurrentState = nextState;
-            else
-                currentState = null;
+            currentState = null;
         }
 
         private State GetAvailableState()

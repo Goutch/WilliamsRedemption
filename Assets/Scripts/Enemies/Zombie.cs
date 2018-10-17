@@ -28,11 +28,11 @@ namespace Playmode.EnnemyRework
                     knocked = false;
         }
 
-        protected override void HandleCollision(HitStimulus other)
+        protected override void OnHit(HitStimulus other)
         {
             if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
             {
-                base.HandleCollision(other);
+                base.OnHit(other);
             }
             else if (other.DamageSource == HitStimulus.DamageSourceType.William)
             {
@@ -56,7 +56,7 @@ namespace Playmode.EnnemyRework
                         other.GetComponent<Rigidbody2D>()
                             .AddForce(new Vector2(playerKnockBackForce.x * currenDirection, playerKnockBackForce.y),
                                 ForceMode2D.Impulse);
-                base.HandleCollision(other);
+                base.OnHit(other);
             }
         }
     }

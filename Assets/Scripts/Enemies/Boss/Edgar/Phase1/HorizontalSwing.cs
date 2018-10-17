@@ -1,12 +1,11 @@
-﻿using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Playmode.EnnemyRework.Boss.Edgar
 {
     [RequireComponent(typeof(RootMover))]
     class HorizontalSwing : Capacity
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.HorizontalSwing + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.HorizontalSwing + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private float range;
         [SerializeField] private float cooldown;
@@ -47,7 +46,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
             rootMover.LookAtPlayer();
 
-            animator.SetTrigger(R.S.AnimatorParameter.HorizontalSwing);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.HorizontalSwing);
             lastTimeUsed = Time.time;
         }
     }

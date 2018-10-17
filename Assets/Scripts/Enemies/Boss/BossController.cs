@@ -4,14 +4,14 @@ namespace Playmode.EnnemyRework.Boss
 {
     public class BossController : Enemy
     {
-        [SerializeField] private Phase[] phases;
+        [SerializeField] private NonSequentialPhase[] phases;
         private int currentPhaseIndex;
 
         protected override void Init()
         {
-            phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
-
             currentPhaseIndex = 0;
+
+            phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
             phases[currentPhaseIndex].Enter();
         }
         
@@ -20,12 +20,13 @@ namespace Playmode.EnnemyRework.Boss
             phases[currentPhaseIndex].Act();
         }
 
-        private void BossController_OnStateFinish(State state, State nextState)
+        private void BossController_OnStateFinish(State state)
         {
             phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
 
             ++currentPhaseIndex;
             phases[currentPhaseIndex].Enter();
+            //TODO : Register to next state
         }
     }
 }

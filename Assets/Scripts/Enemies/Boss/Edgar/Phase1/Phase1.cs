@@ -1,12 +1,11 @@
-﻿using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Playmode.EnnemyRework.Boss.Edgar
 {
     [RequireComponent(typeof(Health), typeof(RootMover))]
-    class Phase1 : Phase
+    class Phase1 : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase1 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private float percentageHealthTransitionCondition;
 
@@ -35,7 +34,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
         protected override void EnterIdle()
         {
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase1);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.IdlePhase1);
         }
         protected override void Idle()
         {

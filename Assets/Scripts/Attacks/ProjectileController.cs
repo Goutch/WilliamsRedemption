@@ -1,7 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
-using Harmony;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour {
@@ -58,13 +55,13 @@ public class ProjectileController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(R.S.Tag.Plateforme))
+        if (collision.collider.CompareTag(Values.Tags.Plateforme))
             Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(R.S.Tag.Plateforme))
+        if (collision.CompareTag(Values.Tags.Plateforme))
             Destroy(gameObject);
     }
 }

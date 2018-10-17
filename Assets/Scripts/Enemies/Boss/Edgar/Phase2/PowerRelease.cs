@@ -6,7 +6,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 {
     class PowerRelease : Capacity
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaRelease + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaConcentration + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private Collider2D laserSpawnPointsZone;
         [SerializeField] private GameObject lasePrefab;
@@ -43,7 +43,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         {
             base.Enter();
 
-            animator.SetTrigger(R.S.AnimatorParameter.PlasmaRelease);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaConcentration);
             numberOfLaserFinish = 0;
             StartCoroutine(SpawnLaser());
         }

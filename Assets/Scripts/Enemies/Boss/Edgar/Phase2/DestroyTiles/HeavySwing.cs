@@ -5,21 +5,24 @@ using UnityEngine;
 
 namespace Playmode.EnnemyRework.Boss.Edgar
 {
-    [RequireComponent(typeof(SpawnedTilesManager))]
+    [RequireComponent(typeof(SpawnedTilesManager), typeof(RootMover))]
     class HeavySwing : Capacity
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.HeavySwing + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.HeavySwing + "' ")]
         [SerializeField] private Animator animator;
+        [SerializeField] private bool[] test;
 
         [SerializeField] private float cooldown;
 
         private SpawnedTilesManager spawnedTilesManager;
+        private RootMover mover;
 
         private float lastTimeCapacityUsed;
 
         private void Awake()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
+            mover = GetComponent<RootMover>();
         }
 
         public override void Act()
@@ -45,7 +48,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         {
             base.Enter();
 
-            animator.SetTrigger(R.S.AnimatorParameter.HeavySwing);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.HeavySwing);
             lastTimeCapacityUsed = Time.time;
 
             ChangeDirection();
@@ -55,6 +58,8 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             Vector3Int cellBossPosition = spawnedTilesManager.ConvertLocalToCell(transform.position);
             Func<Vector3Int, bool> positionsToTheLeftOfBoss = position => position.x < cellBossPosition.x;
             Func<Vector3Int, bool> positionsToTheRightOfBoss = position => position.x > cellBossPosition.x;
+
+            mover.LookAtPlayer();
 
             float directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? -1 : 1;
 

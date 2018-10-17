@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Playmode.EnnemyRework.Boss.Edgar
 {
     [RequireComponent(typeof(SpawnedTilesManager))]
-    class DestroyTilesPhase : Phase
+    class DestroyTilesPhase : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.IdlePhase2 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase2 + "' ")]
         [SerializeField] private Animator animator;
 
         private SpawnedTilesManager spawnedTilesManager;
@@ -29,7 +29,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             if (!spawnedTilesManager.IsAnySpawnedTiles())
                 Finish();
 
-            animator.SetTrigger(R.S.AnimatorParameter.IdlePhase2);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.IdlePhase2);
         }
     }
 }

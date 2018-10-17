@@ -8,7 +8,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
     [RequireComponent(typeof(RootMover))]
     public class ConcentrationOfPower : Capacity
     {
-        [Tooltip("Use Trigger '" + R.S.AnimatorParameter.PlasmaConcentration + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaConcentration + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private int numberOfParticules;
         [SerializeField] private GameObject particulesPrefab;
@@ -18,7 +18,6 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private float delayBetweenEachParticuleSpawn;
-        [SerializeField] private State powerReleaseState;
 
         private const float EQUALITY_DISTANCE_SENSIBILITY = 1f;
 
@@ -75,7 +74,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             }
 
             if (numberOfParticulesLeft == 0 && allParticulesSpawned)
-                Finish(powerReleaseState);
+                Finish();
         }
 
         public override bool CanEnter()
@@ -90,7 +89,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             base.Enter();
 
             StartCoroutine(CreateParticules());
-            animator.SetTrigger(R.S.AnimatorParameter.PlasmaConcentration);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaConcentration);
 
             allParticulesSpawned = false;
             lastTimeUsed = Time.time;

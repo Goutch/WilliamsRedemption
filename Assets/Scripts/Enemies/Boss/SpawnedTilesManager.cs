@@ -18,8 +18,8 @@ namespace Playmode.EnnemyRework.Boss
 
         private void Awake()
         {
-            lightController = GameObject.FindGameObjectWithTag(R.S.Tag.LightManager).GetComponent<LightController>();
-            platforms = GameObject.FindGameObjectWithTag(R.S.Tag.Plateforme).GetComponent<Tilemap>();
+            lightController = GameObject.FindGameObjectWithTag(Values.Tags.LightManager).GetComponent<LightController>();
+            platforms = GameObject.FindGameObjectWithTag(Values.Tags.Plateforme).GetComponent<Tilemap>();
             health = GetComponent<Health>();
 
             if(health != null)
@@ -38,17 +38,7 @@ namespace Playmode.EnnemyRework.Boss
             return platforms.LocalToCell(position);
         }
 
-        public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn, float tilesLifeTime)
-        {
-            List<Vector3Int> platformPositions = _SpawnTiles(center, tilesPositionRelative, tileToSpawn);
-
-            StartCoroutine(DestroyTiles(platformPositions, tilesLifeTime));
-        }
-        public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn)
-        {
-            _SpawnTiles(center, tilesPositionRelative, tileToSpawn);
-        }
-        private List<Vector3Int> _SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn)
+        public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn, float? tilesLifeTime = null)
         {
             List<Vector3Int> platformPositions = new List<Vector3Int>();
 
@@ -65,7 +55,8 @@ namespace Playmode.EnnemyRework.Boss
 
             spawnedTilesPosition.AddRange(platformPositions);
 
-            return platformPositions;
+            if (tilesLifeTime != null)
+                StartCoroutine(DestroyTiles(platformPositions, tilesLifeTime.Value));
         }
 
         public void DestroyAllTiles()

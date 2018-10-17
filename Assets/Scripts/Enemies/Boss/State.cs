@@ -2,7 +2,7 @@
 
 namespace Playmode.EnnemyRework.Boss
 {
-    public delegate void OnStateFinish(State state, State nextState);
+    public delegate void OnStateFinish(State state);
 
     public abstract class State : MonoBehaviour
     {
@@ -16,13 +16,9 @@ namespace Playmode.EnnemyRework.Boss
             Debug.Log(this);
         }
 
-        public virtual void Finish(State nextState)
-        {
-            OnStateFinish?.Invoke(this, nextState);
-        }
         public virtual void Finish()
         {
-            OnStateFinish?.Invoke(this, null);
+            OnStateFinish?.Invoke(this);
         }
     }
 }

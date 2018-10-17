@@ -85,7 +85,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             RaycastHit2D hit = Physics2D.Linecast(
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale, flipFactor * originSize.y),
-                1 << LayerMask.NameToLayer(R.S.Layer.TransparentFX) | 1 << LayerMask.NameToLayer(R.S.Layer.Default));
+                1 << LayerMask.NameToLayer(Values.Layers.TransparentFX) | 1 << LayerMask.NameToLayer(Values.Layers.Default));
 
             Debug.DrawLine(
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
@@ -129,7 +129,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(R.S.Tag.Plateforme))
+            if (collision.CompareTag(Values.Tags.Plateforme))
             {
                 if (!grounded)
                     OnFloorCollision();
