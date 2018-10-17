@@ -10,6 +10,8 @@ namespace Playmode.EnnemyRework
 
         protected Health health;
 
+        public int ScoreValue => scoreValue;
+
         protected void Awake()
         {
             health = GetComponent<Health>();

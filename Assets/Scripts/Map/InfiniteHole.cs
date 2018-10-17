@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class InfiniteHole : MonoBehaviour
 {
-    // Use this for initialization
     [SerializeField] private Transform respawnPoint;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.Root().tag == "Player")
+        if (other.Root().CompareTag("Player"))
         {
             other.Root().transform.position = respawnPoint.position;
             other.transform.root.GetComponent<PlayerController>().DamagePlayer();
         }
-        if (other.Root().tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Health>().Kill();
         }
