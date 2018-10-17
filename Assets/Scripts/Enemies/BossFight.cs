@@ -1,27 +1,39 @@
-﻿using UnityEngine;
-    public class BossFight: MonoBehaviour
+﻿using Harmony;
+using UnityEngine;
+
+public class BossFight: MonoBehaviour
+{
+    [SerializeField] private GameObject boss;
+
+    [SerializeField] private DoorScript doorToCloseOnBossFightBegin;
+    [SerializeField] private DoorScript doorToOpenOnBossDeath;
+
+    private Collider2D bossArea;
+    private CameraController cameraController;
+
+    private void Awake()
     {
-        [SerializeField] private GameObject boss;
+        boss.SetActive(false);
+        boss.GetComponent<Health>().OnDeath += OnBossDead;
+        bossArea = GetComponent<Collider2D>();
 
-        [SerializeField] private DoorScript doorToCloseOnBossFightBegin;
-        [SerializeField] private DoorScript doorToOpenOnBossDeath;
-
-        private void Awake()
-        {
-            boss.SetActive(false);
-            boss.GetComponent<Health>().OnDeath += OpendWinDoor;
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            boss.SetActive(true);
-            doorToCloseOnBossFightBegin?.Close();
-            doorToOpenOnBossDeath?.Close();
-            Destroy(GetComponent<BoxCollider2D>());
-        }
-
-        private void OpendWinDoor()
-        {
-            doorToOpenOnBossDeath?.Open();
-        }
+        cameraController = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera).GetComponent<CameraController>();
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        boss.SetActive(true);
+        doorToCloseOnBossFightBegin?.Close();
+        doorToOpenOnBossDeath?.Close();
+
+        cameraController.FixePoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
+
+        Destroy(GetComponent<BoxCollider2D>());
+    }
+
+    private void OnBossDead(GameObject gameObject)
+    {
+        doorToOpenOnBossDeath?.Open();
+        cameraController.ResumeFollow();
+    }
+}

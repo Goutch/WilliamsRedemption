@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using Harmony;
+﻿using Harmony;
 using Playmode.EnnemyRework;
-using UnityEditor;
 using UnityEngine;
 
 public class HitStimulus : MonoBehaviour
@@ -13,12 +8,12 @@ public class HitStimulus : MonoBehaviour
     {
         Reaper,
         William,
-        Ennemy,
+        Enemy,
         Obstacle,
         None,
     }
 
-    private DamageSourceType damageSource;
+    [SerializeField] private DamageSourceType damageSource;
 
     public DamageSourceType DamageSource => damageSource;
 
@@ -39,11 +34,7 @@ public class HitStimulus : MonoBehaviour
     {
         if(GetComponent<Enemy>())
         {
-            damageSource = DamageSourceType.Ennemy;
-        }
-        else
-        {
-            damageSource= DamageSourceType.None;
+            damageSource = DamageSourceType.Enemy;
         }
     }
 
@@ -51,11 +42,13 @@ public class HitStimulus : MonoBehaviour
     {
         damageSource = newType;
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.GetComponent<IgnoreStimulus>() == null)
+        if(!other.GetComponent<IgnoreStimulus>())
         {
             HitSensor hitSensor = other.Root().GetComponent<HitSensor>();
+
             if (hitSensor != null)
             {
                 hitSensor.Hit(this);

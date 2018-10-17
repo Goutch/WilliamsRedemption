@@ -29,7 +29,7 @@ public class LifePointsUI : MonoBehaviour
 
     }
 
-    public void OnHealthChange()
+    public void OnHealthChange(GameObject gameObject)
     {
         if (playerHealth.HealthPoints >= 0)
         {

@@ -31,7 +31,7 @@ public class Shooter : WalkTowardPlayerEnnemy {
 		int temporarydirection=ChooseAngleToShoot();
 		
 		GameObject projectile=Instantiate(bulletPrefab,transform.position,Quaternion.AngleAxis(temporarydirection,Vector3.back));
-		projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Ennemy);
+		projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
 	}
 
 	private int ChooseAngleToShoot()

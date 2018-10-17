@@ -21,7 +21,7 @@ public class Sorcerer : Enemy
 		timeJustAfterSpawningBats = 0;
 	}
 
-	protected override void HandleCollision(HitStimulus other)
+	protected override void OnHit(HitStimulus other)
 	{
 		GetComponent<Health>().Hit();
 	}
@@ -57,7 +57,7 @@ public class Sorcerer : Enemy
 		return false;
 	}
 
-	private void StartTimerForRespawn()
+	private void StartTimerForRespawn(GameObject gameObject)
 	{
 		bats.RemoveAll(it => it == null);
 

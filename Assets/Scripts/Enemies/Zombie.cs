@@ -7,6 +7,7 @@ namespace Playmode.EnnemyRework
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
+
         private Rigidbody2D rigidbody;
         private bool knocked = false;
 
@@ -14,6 +15,8 @@ namespace Playmode.EnnemyRework
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
+
+
         }
 
         private void FixedUpdate()
@@ -25,11 +28,11 @@ namespace Playmode.EnnemyRework
                     knocked = false;
         }
 
-        protected override void HandleCollision(HitStimulus other)
+        protected override void OnHit(HitStimulus other)
         {
             if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
             {
-                base.HandleCollision(other);
+                base.OnHit(other);
             }
             else if (other.DamageSource == HitStimulus.DamageSourceType.William)
             {
@@ -53,7 +56,7 @@ namespace Playmode.EnnemyRework
                         other.GetComponent<Rigidbody2D>()
                             .AddForce(new Vector2(playerKnockBackForce.x * currenDirection, playerKnockBackForce.y),
                                 ForceMode2D.Impulse);
-                base.HandleCollision(other);
+                base.OnHit(other);
             }
         }
     }

@@ -8,13 +8,17 @@ namespace Playmode.EnnemyRework
 {
     public abstract class WalkTowardPlayerEnnemy : Enemy
     {
-        [SerializeField] private Vector2 jumpForce;
         [SerializeField] private bool isDumbEnoughToFall;
         [SerializeField] private int surroundingRange;
 
         protected RootMover rootMover;
         protected SpriteRenderer spriteRenderer;
-        protected int currenDirection = 1;      
+        protected int currenDirection = 1;
+
+        private void OnEnable()
+        {
+            
+        }
 
         protected override void Init()
         {
@@ -34,24 +38,24 @@ namespace Playmode.EnnemyRework
             {
                 spriteRenderer.flipX = true;
             }
-          
-            bool[,] surrounding = new bool[surroundingRange * 2 + 1, surroundingRange * 2 + 1];
-            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
+
+            rootMover.WalkToward(currenDirection);
+            bool[,] surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
             
             if (isDumbEnoughToFall==false && IsThereAHole(surrounding)==false || isDumbEnoughToFall)
             {
-                rootMover.WalkToward(currenDirection, speed);
+                rootMover.WalkToward(currenDirection);
             }
 
             if (isDumbEnoughToFall == false && IsThereAHole(surrounding))
             {
                 Debug.Log("Trou");
-                rootMover.WalkToward(0, speed);
+                rootMover.WalkToward(0);
             }
             if (surrounding[currenDirection + surroundingRange, surroundingRange])
             {
                 if (!rootMover.IsJumping)
-                    rootMover.Jump(new Vector2(jumpForce.x * currenDirection, jumpForce.y));
+                    rootMover.Jump();
             }           
         }
 

@@ -6,42 +6,59 @@ using UnityEngine;
 
 public class Bat : Enemy
 {
-	[SerializeField] private float distanceFromSpawningPoint;
-	private RootMover rootMover;
-	private int direction = 1;
-	private Vector2 startingPosition;
+    private RootMover rootMover;
+    private int direction = 1;
+    private Animator animator;
+    private bool isTriggered;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private Vector2 exponentialFonction;
+    [SerializeField] private float fonctionYOffSet = .32f;
+    [SerializeField] private float distanceFromSpawningPoint;
 
-	void Move()
+
+    void Move()
 	{
 		rootMover.FlyToward(new Vector2(rootMover.transform.position.x+direction*distanceFromSpawningPoint
-			,rootMover.transform.position.y),Speed);
+			,rootMover.transform.position.y));
 	}
+    protected void Fly()
+    {
+        exponentialFonction.x += 1 * Time.deltaTime;
+        exponentialFonction.y = Mathf.Pow(exponentialFonction.x, 2) + fonctionYOffSet;
+        rootMover.FlyToward(
+            new Vector2(exponentialFonction.x * direction + transform.position.x,
+                exponentialFonction.y + transform.position.y));
+    }
 
-	void CheckDirection()
-	{
-		if(Math.Abs(rootMover.transform.position.x-startingPosition.x)>=distanceFromSpawningPoint)
-		{
-			ChangeDirection();
-		}
-	}
+    public void OnTriggered()
+    {
+        if (!isTriggered)
+        {
+            isTriggered = true;
+            animator.SetTrigger("Fly");
+            Destroy(this.gameObject, 10);
+            direction = PlayerController.instance.transform.position.x - transform.root.position.x > 0
+                ? 1
+                : -1;
+            if (direction == 1)
+                spriteRenderer.flipX = false;
+            else
+                spriteRenderer.flipX = true;
+        }
+    }
 
-	void ChangeDirection()
-	{
-		direction *= -1;
-	}
+    protected override void Init()
+    {
+        rootMover = GetComponent<RootMover>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
-	protected override void Init()
-	{
-		rootMover = GetComponent<RootMover>();
-        		startingPosition = rootMover.transform.position;
-	}
-
-	private void FixedUpdate()
-	{
-		CheckDirection();
-		Move();
-	}
-
+    private void FixedUpdate()
+    {
+        if (isTriggered)
+        {
+            Fly();
+        }
+    }
 }
-
-
