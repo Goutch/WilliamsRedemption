@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
 	private int healthPoints;
 	public event HealthEventHandler OnDeath;
     public event HealthEventHandler OnHealthChange;
+
 	public int HealthPoints
 	{
 		get { return healthPoints; }
