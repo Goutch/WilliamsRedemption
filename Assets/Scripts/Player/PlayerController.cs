@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsOnGround => kRigidBody.IsGrounded;
     public bool IsDashing { get; set; }
+    public bool IsMoving { get; set; }
     private bool isInvincible = false;
 
     public bool IsInvincible => isInvincible;
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
 
         lightSensor = GetComponent<LightSensor>();
         lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
+        IsMoving = false;
 
         OnLightExpositionChanged(true);
     }

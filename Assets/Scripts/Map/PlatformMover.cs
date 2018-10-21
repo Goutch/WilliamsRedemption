@@ -22,12 +22,25 @@ public class PlatformMover : MonoBehaviour
 	[SerializeField] private bool isHeadingRight;
 	[Tooltip("True when heading up. (Checking this will make the platform head upwards first.")]
 	[SerializeField] private bool isHeadingUpwards;
+	[Header("Quadratic function options:")]
+	[Tooltip("True when checked. Enables the platform to follow a curving path.")]
+	[SerializeField] private bool isUsingQuadraticCurve;
+	[Tooltip("Quadratic function coefficient. Affects steepness and narrowness of the curve.")]
+	[SerializeField] private float quadraticA;
+	[Tooltip("Quadratic function coefficient. Is added to Y everytime the value of X is increased by one. ")]
+	[SerializeField] private float quadraticB;
+	[Tooltip("Quadratic function coefficient. Value of Y ")]
+	[SerializeField] private float quadraticC;
 
 	private float initialPositionX;
 	private float initialPositionY;
+	private float quadraticX;
 	private Rigidbody2D rb;
 	private Vector2 horizontalDirection;
 	private Vector2 verticalDirection;
+	private float quadraticFucntion;
+	private float posX;
+	
 	
 	
 	// Use this for initialization
@@ -36,30 +49,52 @@ public class PlatformMover : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		initialPositionX = rb.position.x;
 		initialPositionY = rb.position.y;
+		posX = initialPositionX;		
+		quadraticX = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
 		CheckHorizontalDirection();
 		checkVertialDirection();
-		//rb.velocity.Set(horizontalDirection.x*HorizontalSpeed ,verticalDirection.y*VerticalSpeed);
-		//rb.velocity = new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed);
 	}
 	
 	
 
 	private void FixedUpdate()
 	{
-		rb.velocity = new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed);
+		if (!isUsingQuadraticCurve)
+		{
+			rb.velocity = new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed);
+		}
+		else
+		{
+			quadraticX = rb.position.x-initialPositionX;
+			posX += HorizontalSpeed * horizontalDirection.x*Time.fixedDeltaTime;
+			quadraticFucntion =(quadraticA *(quadraticX*quadraticX) +quadraticB*(quadraticX)+ quadraticC);		
+			Vector2 curve = new Vector2(posX ,quadraticFucntion +initialPositionY);			
+			rb.MovePosition(curve);
+
+		}
+		
 	}
 
 	private void OnCollisionStay2D(Collision2D other)
 	{
 		if (other.collider.CompareTag("Player"))
 		{
-			other.transform.parent = gameObject.transform;
+			if (!other.gameObject.GetComponent<PlayerController>().IsMoving)
+			{
+				other.transform.parent = gameObject.transform;
+			}
+			else
+			{
+				other.transform.parent = null;
+			}
+			
 		}
+		
 	}
 
 	private void OnCollisionExit2D(Collision2D other)
@@ -123,6 +158,24 @@ public class PlatformMover : MonoBehaviour
 			}
 		}
 	}
+
+	private void curve()
+	{
+		// Y = ax2 + bX + C
+		// C value of y for evry value of X
+		// b increases the value of y by b every time x increses by one
+		// a steepness and narrowness of the curve.
+		// y = 0.2x2
+
+		float a;
+		float b;
+		float c;
+		float x;
+
+		//Vector2 curve = (x ,a(x*x) + b*x + c);
+	}
+	
+	
 	
 	
 }

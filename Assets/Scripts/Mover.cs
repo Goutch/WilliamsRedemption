@@ -65,6 +65,8 @@ namespace Game
 			{
 				verticalVelocity = Vector2.up;
 				player.CurrentController.animator.SetTrigger("Jump");
+				player.IsMoving = true;
+
 			}
 				
 			if (Input.GetKey(KeyCode.A))
@@ -74,7 +76,7 @@ namespace Game
 				player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
 				player.DirectionFacingUpDown = FacingSideUpDown.None;
 				player.CurrentController.sprite.flipX = true;
-				transform.parent = null;
+				player.IsMoving = true;
 			}
 			else if (Input.GetKey(KeyCode.D))
 			{
@@ -83,7 +85,11 @@ namespace Game
 				player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
 				player.DirectionFacingUpDown = FacingSideUpDown.None;
 				player.CurrentController.sprite.flipX = false;
-				transform.parent = null;
+				player.IsMoving = true;
+			}
+			else
+			{
+				player.IsMoving = false;
 			}
 
 			if (Input.GetKey(KeyCode.W ))
@@ -128,10 +134,12 @@ namespace Game
 				verticalVelocity = Vector2.up;
 				player.CurrentController.animator.SetTrigger("Jump");
 				jumpButtonPressed = true;
+				player.IsMoving = true;
 			}
 			if (controllerState.Buttons.A == ButtonState.Released)
 			{
 				jumpButtonPressed = false;
+				player.IsMoving = false;
 			}
 
 			if (controllerState.ThumbSticks.Left.X <= -0.5)
@@ -141,6 +149,7 @@ namespace Game
 				player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
 				player.DirectionFacingUpDown = FacingSideUpDown.None;
 				player.CurrentController.sprite.flipX = true;
+				player.IsMoving = true;
 			}
 			else if (controllerState.ThumbSticks.Left.X >=0.5)
 			{
@@ -149,6 +158,11 @@ namespace Game
 				player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
 				player.DirectionFacingUpDown = FacingSideUpDown.None;
 				player.CurrentController.sprite.flipX = false;
+				player.IsMoving = true;
+			}
+			else
+			{
+				player.IsMoving = false;
 			}
 
 			if (controllerState.ThumbSticks.Left.Y >=0.5)
