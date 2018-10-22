@@ -11,19 +11,21 @@ namespace Light
         private List<MovingLightObstacle> movingLightObstaclesInRange;
         private MeshLight meshLight;
 
+
         private void Start()
         {
             lightSensorsInRange = new List<LightSensor>();
             movingLightObstaclesInRange = new List<MovingLightObstacle>();
 
-            meshLight =GetComponent<MeshLight>();
+            meshLight = GetComponent<MeshLight>();
         }
 
         private void Update()
         {
             foreach (LightSensor lightSensor in lightSensorsInRange)
             {
-                meshLight.IsWithinLightLimits(lightSensor.transform.position)?.Exposed();
+                if (lightSensor != null)
+                    meshLight.IsWithinLightLimits(lightSensor.transform.position)?.Exposed();
             }
         }
 
