@@ -39,7 +39,7 @@ public class PlatformMover : MonoBehaviour
 	private Vector2 horizontalDirection;
 	private Vector2 verticalDirection;
 	private float quadraticFucntion;
-	private float posX;
+	private float positionX;
 	
 	
 	
@@ -49,7 +49,7 @@ public class PlatformMover : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		initialPositionX = rb.position.x;
 		initialPositionY = rb.position.y;
-		posX = initialPositionX;		
+		positionX = initialPositionX;		
 		quadraticX = 0;
 	}
 	
@@ -70,12 +70,7 @@ public class PlatformMover : MonoBehaviour
 		}
 		else
 		{
-			quadraticX = rb.position.x-initialPositionX;
-			posX += HorizontalSpeed * horizontalDirection.x*Time.fixedDeltaTime;
-			quadraticFucntion =(quadraticA *(quadraticX*quadraticX) +quadraticB*(quadraticX)+ quadraticC);		
-			Vector2 curve = new Vector2(posX ,quadraticFucntion +initialPositionY);			
-			rb.MovePosition(curve);
-
+			useQuadraticCurve();
 		}
 		
 	}
@@ -159,20 +154,13 @@ public class PlatformMover : MonoBehaviour
 		}
 	}
 
-	private void curve()
+	private void useQuadraticCurve()
 	{
-		// Y = ax2 + bX + C
-		// C value of y for evry value of X
-		// b increases the value of y by b every time x increses by one
-		// a steepness and narrowness of the curve.
-		// y = 0.2x2
-
-		float a;
-		float b;
-		float c;
-		float x;
-
-		//Vector2 curve = (x ,a(x*x) + b*x + c);
+		quadraticX = rb.position.x-initialPositionX;
+		positionX += HorizontalSpeed * horizontalDirection.x*Time.fixedDeltaTime;
+		quadraticFucntion =(quadraticA *(quadraticX*quadraticX) +quadraticB*(quadraticX)+ quadraticC);		
+		Vector2 curve = new Vector2(positionX ,quadraticFucntion +initialPositionY);			
+		rb.MovePosition(curve);
 	}
 	
 	
