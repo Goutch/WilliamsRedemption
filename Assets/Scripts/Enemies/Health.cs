@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Playmode.EnnemyRework;
 using UnityEngine;
 
-public delegate void HealthEventHandler();
+public delegate void HealthEventHandler(GameObject gameObject);
 public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
@@ -12,17 +13,22 @@ public class Health : MonoBehaviour
 	private int healthPoints;
 	public event HealthEventHandler OnDeath;
     public event HealthEventHandler OnHealthChange;
+
 	public int HealthPoints
 	{
 		get { return healthPoints; }
-		set
+		private set
         {
             healthPoints = value;
-            OnHealthChange?.Invoke();
+            OnHealthChange?.Invoke(gameObject);
 
-            if (healthPoints <= 0)
+            if (IsDead())
             {
-                OnDeath?.Invoke();
+                OnDeath?.Invoke(gameObject);
+	            if (isKilledByPlayer && IsAnEnemy())
+	            {
+		            AddEnemyScoreToGameScore();
+	            }
                 Destroy(this.transform.root.gameObject);
             }
         }
@@ -41,5 +47,21 @@ public class Health : MonoBehaviour
 	{
 		isKilledByPlayer = false;
 		HealthPoints = 0;
+	}
+
+	private bool IsDead()
+	{
+		return healthPoints <= 0;
+	}
+
+	private void AddEnemyScoreToGameScore()
+	{
+		int score = GetComponent<Enemy>().ScoreValue;
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddScore(score);
+	}
+
+	private bool IsAnEnemy()
+	{
+		return GetComponent<Enemy>() != null;
 	}
 }

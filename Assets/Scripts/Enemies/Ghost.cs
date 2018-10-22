@@ -5,7 +5,6 @@ using UnityEngine.SocialPlatforms;
 
 namespace Playmode.EnnemyRework
 {
-    [CreateAssetMenu(fileName = "Ghost", menuName = "EnnemyStrategy/Ghost", order = 1)]
     public class Ghost : Enemy
     {
         [SerializeField] private int range;
@@ -33,7 +32,7 @@ namespace Playmode.EnnemyRework
             if (PlayerController.instance.CurrentController.GetComponent<ReaperController>())
             {
                 spriteRenderer.enabled = true;
-                rootMover.FlyToward(PlayerController.instance.transform.position, Speed);
+                rootMover.FlyToward(PlayerController.instance.transform.position);
             }
             else
             {

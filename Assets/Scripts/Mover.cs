@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
 using XInputDotNetPure;
@@ -121,6 +120,7 @@ namespace Game
 			lastPositionY = this.transform.position.y;
 			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
 			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 		}
 
 		private void ManageControllerInputs()
@@ -132,7 +132,6 @@ namespace Game
 			if (controllerState.Buttons.A == ButtonState.Pressed && kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && !jumpButtonPressed)
 			{
 				verticalVelocity = Vector2.up;
-				player.CurrentController.animator.SetTrigger("Jump");
 				jumpButtonPressed = true;
 				player.IsMoving = true;
 			}
@@ -194,6 +193,7 @@ namespace Game
 			lastPositionY = this.transform.position.y;
 			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
 			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 		}
 		
 	}
