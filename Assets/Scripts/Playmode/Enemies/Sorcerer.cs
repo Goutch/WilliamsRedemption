@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Sorcerer : Enemy
 {
-
 	[SerializeField] private int numberOfBatsToSummon;
 	[SerializeField] private GameObject batPrefab;
 	

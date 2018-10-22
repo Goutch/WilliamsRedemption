@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour {
 
     private void Update()
     {
-        if(follow)
+        if(follow&&followPoint!=null)
         {
             Camera.main.transform.position = new Vector3(followPoint.position.x, followPoint.position.y, positionZ);
         }

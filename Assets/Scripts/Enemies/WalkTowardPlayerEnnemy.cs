@@ -12,53 +12,65 @@ namespace Playmode.EnnemyRework
         [SerializeField] private int surroundingRange;
 
         protected RootMover rootMover;
-        protected SpriteRenderer spriteRenderer;
-        protected int currenDirection = 1;
-
-        private void OnEnable()
-        {
-            
-        }
+        private SpriteRenderer spriteRenderer;
+        protected int currenDirection = 1;      
 
         protected override void Init()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             rootMover = GetComponent<RootMover>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         protected virtual void FixedUpdate()
         {
+            UpdateDirection();
+            UpdateSpriteDirection();
+          
+            bool[,] surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);  
+            UpdateMovement(surrounding);         
+            UpdateJump(surrounding);                
+        }
+
+        private void UpdateDirection()
+        {
             currenDirection = PlayerController.instance.transform.position.x - transform.root.position.x > 0
                 ? 1
                 : -1;
+        }
+        
+        private void UpdateSpriteDirection()
+        {
             if (currenDirection == 1)
+            {
                 spriteRenderer.flipX = false;
+            }       
             else
             {
                 spriteRenderer.flipX = true;
             }
-
-            rootMover.WalkToward(currenDirection);
-            bool[,] surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
-            
-            if (isDumbEnoughToFall==false && IsThereAHole(surrounding)==false || isDumbEnoughToFall)
+        }
+        
+        private void UpdateMovement(bool[,] surrounding)
+        {
+            if (IsThereAHole(surrounding)==false || isDumbEnoughToFall)
             {
                 rootMover.WalkToward(currenDirection);
             }
-
-            if (isDumbEnoughToFall == false && IsThereAHole(surrounding))
+            else if (IsThereAHole(surrounding))
             {
-                Debug.Log("Trou");
                 rootMover.WalkToward(0);
             }
+        }
+
+        private void UpdateJump(bool[,] surrounding)
+        {
             if (surrounding[currenDirection + surroundingRange, surroundingRange])
             {
                 if (!rootMover.IsJumping)
                     rootMover.Jump();
-            }           
+            }
         }
-
+        
         private bool IsThereAHole(bool[,] surrounding)
         {
             for (int i = 0; i <= surroundingRange; ++i)
