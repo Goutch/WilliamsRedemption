@@ -11,7 +11,7 @@ namespace DefaultNamespace.Collectable
         {
             if (other.tag == R.S.Tag.Player)
             {
-                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddScore(scoreValue);
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddCollectable(scoreValue);
                 Destroy(this.gameObject);
             }
         }

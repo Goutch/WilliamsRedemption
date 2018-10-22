@@ -165,7 +165,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485973637437590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.06, y: 7.33, z: 0}
+  m_LocalPosition: {x: 24.09, y: 6.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4302502636305752}
@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205f42d22b2d64844a6e0ee8c8713450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackCooldown: 0.6
   teleportationDistance: 150
   tpEffect: {fileID: 1755848583395488, guid: 83f64db88aee946448db9a3ae94dd822, type: 2}
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
@@ -378,6 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbe8cb0d5144164a9f978aa62518cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackCooldown: 0.6
   dashDistance: 1.28
   dashSpeed: 12.8
   projectile: {fileID: 1689002622773110, guid: 91c6616cb3ccb8d48911555a81756f0b, type: 2}

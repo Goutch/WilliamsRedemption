@@ -37,9 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 224855294679860726}
   - component: {fileID: 114678188865561280}
-  - component: {fileID: 114850632314185834}
   m_Layer: 1
-  m_Name: GridLayout
+  m_Name: GridLayoutCollectables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +180,8 @@ GameObject:
   - component: {fileID: 114719073262682004}
   - component: {fileID: 114249420003778732}
   - component: {fileID: 114914983009432734}
-  - component: {fileID: 114263360685871316}
+  - component: {fileID: 114836458128920006}
+  - component: {fileID: 114380876273433772}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -467,19 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29870863fc23f7418985eeb02aae002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114263360685871316
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1453289080750168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20359ca965c7443d9f97a7a98c1e51da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectableUIElementPrefab: {fileID: 0}
-  gridLayout: {fileID: 0}
 --- !u!114 &114322430788022926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -513,6 +500,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114380876273433772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1453289080750168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20359ca965c7443d9f97a7a98c1e51da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectableUIElementPrefab: {fileID: 1078148053815752}
+  gridLayout: {fileID: 224161412022112034, guid: 5298dd39f38c93a49bcd2e746c07e968,
+    type: 2}
 --- !u!114 &114381623581450794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -804,19 +805,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114850632314185834
+--- !u!114 &114836458128920006
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1078148053815752}
+  m_GameObject: {fileID: 1453289080750168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd092593a3541b4806c71319a27cc1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 144a01da7066ce6408f93fd948aff0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifePointPrefab: {fileID: 1421074921898348, guid: b50311ea8a28fa84ea738ea06694c2f5,
-    type: 2}
 --- !u!114 &114879709919848224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1252,7 +1251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.2998047, y: -2.0999756}
+  m_AnchoredPosition: {x: -4.2998047, y: -52.82}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224885126063260800
