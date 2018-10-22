@@ -94,19 +94,6 @@ public class WilliamController : EntityControlableController
         animator.SetTrigger("DashEnd");
     }
 
-    public override bool CanUseBasicAttack(PlayerController player)
-    {
-        if(lastTimeAttack == null || Time.time - lastTimeAttack > fireRate)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    }
-
     public override void UseBasicAttack(PlayerController player ,Vector2 direction)
     {
         animator.SetTrigger("Attack");
