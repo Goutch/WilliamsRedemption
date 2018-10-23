@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using XInputDotNetPure;
 
-namespace Game
-{
+
 	public class Mover : MonoBehaviour
 	{
 		[Tooltip("Player mouvement speed")]
@@ -25,6 +24,8 @@ namespace Game
 		private bool jumpButtonPressed;
 		private float lastPositionY;
 		private float velocityY = 0;
+		private Vector2 horizontalVelocity;
+		private Vector2 verticalVelocity;
 		
 		private void Awake()
 		{
@@ -34,167 +35,78 @@ namespace Game
 			controllerNumber = PlayerIndex.One;
 			controllerState = GamePad.GetState(controllerNumber);
 			jumpButtonPressed = false;
+			horizontalVelocity = Vector2.zero;
+			verticalVelocity = Vector2.zero;
 		}
 
 		private void Update()
 		{
-			controllerState = GamePad.GetState(controllerNumber);
 			
-			if (controllerState.IsConnected)
-			{
-				ManageControllerInputs();
-			}
-			else
-			{
-				ManageKeyBoardInputs();
-			}
-		}
-
-		private void FixedUpdate()
-		{
+			kinematicRigidbody2D.Velocity = horizontalVelocity * speed +verticalVelocity * jumpSpeed;
+			velocityY = this.transform.position.y - lastPositionY;
+			velocityY = velocityY / Time.fixedDeltaTime;
+			lastPositionY = this.transform.position.y;
+			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
+			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
+			horizontalVelocity = Vector2.zero;
+			verticalVelocity = Vector2.zero;
 			
 		}
 
-		private void ManageKeyBoardInputs()
+		public void Attack()
 		{
-			var horizontalVelocity = Vector2.zero;
-			var verticalVelocity = Vector2.zero;
+			player.CurrentController.UseBasicAttack(player, direction);
+		}
 
-			if (Input.GetKeyDown(KeyCode.Space)  && kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay)
+		public void MoveRight()
+		{	
+			horizontalVelocity += Vector2.right;
+			direction = Vector2.right;
+			player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
+			player.DirectionFacingUpDown = FacingSideUpDown.None;
+			player.CurrentController.sprite.flipX = false;
+			player.IsMoving = true;
+			
+		}
+
+		public void MoveLeft()
+		{
+			horizontalVelocity += Vector2.left;
+			direction = Vector2.left;
+			player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
+			player.DirectionFacingUpDown = FacingSideUpDown.None;
+			player.CurrentController.sprite.flipX = true;
+			player.IsMoving = true;
+		}
+
+		public void Jump()
+		{
+			if (kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay)
 			{
 				verticalVelocity = Vector2.up;
 				player.CurrentController.animator.SetTrigger("Jump");
 				player.IsMoving = true;
-
 			}
-				
-			if (Input.GetKey(KeyCode.A))
-			{
-				horizontalVelocity += Vector2.left;
-				direction = Vector2.left;
-				player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
-				player.DirectionFacingUpDown = FacingSideUpDown.None;
-				player.CurrentController.sprite.flipX = true;
-				player.IsMoving = true;
-			}
-			else if (Input.GetKey(KeyCode.D))
-			{
-				horizontalVelocity += Vector2.right;
-				direction = Vector2.right;
-				player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
-				player.DirectionFacingUpDown = FacingSideUpDown.None;
-				player.CurrentController.sprite.flipX = false;
-				player.IsMoving = true;
-			}
-			else
-			{
-				player.IsMoving = false;
-			}
-
-			if (Input.GetKey(KeyCode.W ))
-			{
-				player.DirectionFacingUpDown = FacingSideUpDown.Up;
-				direction = Vector2.up;
-			}
-
-			if (Input.GetKey(KeyCode.S))
-			{
-				player.DirectionFacingUpDown = FacingSideUpDown.Down;
-				direction = Vector2.down;
-			}
-			
-			if (Input.GetKeyDown(KeyCode.LeftShift))
-			{
-				if(player.CurrentController.CapacityUsable(player))
-					player.CurrentController.UseCapacity(player,direction);
-			}
-
-			if (Input.GetKey(KeyCode.Return))
-			{
-				player.CurrentController.UseBasicAttack(player ,direction);
-			}
-			
-			kinematicRigidbody2D.Velocity = horizontalVelocity * speed +verticalVelocity * jumpSpeed;
-			velocityY = this.transform.position.y - lastPositionY;
-			velocityY = velocityY / Time.fixedDeltaTime;
-			lastPositionY = this.transform.position.y;
-			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
-			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
-			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 		}
 
-		private void ManageControllerInputs()
+		public void AimUp()
 		{
-			controllerState = GamePad.GetState(controllerNumber);
-			var horizontalVelocity = Vector2.zero;
-			var verticalVelocity = Vector2.zero;
-			
-			if (controllerState.Buttons.A == ButtonState.Pressed && kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && !jumpButtonPressed)
-			{
-				verticalVelocity = Vector2.up;
-				jumpButtonPressed = true;
-				player.IsMoving = true;
-			}
-			if (controllerState.Buttons.A == ButtonState.Released)
-			{
-				jumpButtonPressed = false;
-				player.IsMoving = false;
-			}
-
-			if (controllerState.ThumbSticks.Left.X <= -0.5)
-			{
-				horizontalVelocity += Vector2.left;
-				direction = Vector2.left;
-				player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
-				player.DirectionFacingUpDown = FacingSideUpDown.None;
-				player.CurrentController.sprite.flipX = true;
-				player.IsMoving = true;
-			}
-			else if (controllerState.ThumbSticks.Left.X >=0.5)
-			{
-				horizontalVelocity += Vector2.right;
-				direction = Vector2.right;
-				player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
-				player.DirectionFacingUpDown = FacingSideUpDown.None;
-				player.CurrentController.sprite.flipX = false;
-				player.IsMoving = true;
-			}
-			else
-			{
-				player.IsMoving = false;
-			}
-
-			if (controllerState.ThumbSticks.Left.Y >=0.5)
-			{
-				player.DirectionFacingUpDown = FacingSideUpDown.Up;
-				direction = Vector2.up;
-			}
-
-			if (controllerState.ThumbSticks.Left.Y <= -0.5)
-			{
-				player.DirectionFacingUpDown = FacingSideUpDown.Down;
-				direction = Vector2.down;
-			}
-			
-			if (controllerState.Buttons.X == ButtonState.Pressed)
-			{
-				if(player.CurrentController.CapacityUsable(player))
-					player.CurrentController.UseCapacity(player,direction);
-			}
-
-			if (controllerState.Buttons.B == ButtonState.Pressed)
-			{
-				player.CurrentController.UseBasicAttack(player ,direction);
-			}
-				
-			kinematicRigidbody2D.Velocity = horizontalVelocity * speed +verticalVelocity * jumpSpeed;
-			velocityY = this.transform.position.y - lastPositionY;
-			velocityY = velocityY / Time.fixedDeltaTime;
-			lastPositionY = this.transform.position.y;
-			player.CurrentController.animator.SetFloat("VelocityY", velocityY);
-			player.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
-			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
+			player.DirectionFacingUpDown = FacingSideUpDown.Up;
+			direction = Vector2.up;
 		}
-		
+
+		public void AimDown()
+		{
+			player.DirectionFacingUpDown = FacingSideUpDown.Down;
+			direction = Vector2.down;
+		}
+
+		public void UseCapacity()
+		{
+			if (player.CurrentController.CapacityUsable(player))
+				player.CurrentController.UseCapacity(player, direction);
+		}
+	
 	}
-}
+

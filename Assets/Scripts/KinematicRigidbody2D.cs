@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game
-{
+
     [RequireComponent(typeof(Rigidbody2D))]
     public class KinematicRigidbody2D : MonoBehaviour
     {
@@ -199,4 +198,3 @@ namespace Game
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
         }
     }
-}
