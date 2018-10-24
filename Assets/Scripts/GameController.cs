@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class GameController : MonoBehaviour
 	public event TimeEventHandler OnTimeChange;
 	private PauseUI pauseUI;
 	private Text deathText;
+	private CollectablesUI collectableUI;
 	private const string deathTextString = "Game Over";
 	public int Score => score;
 	public float Time => time;
@@ -26,6 +28,7 @@ public class GameController : MonoBehaviour
 		PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
 		startTime = UnityEngine.Time.time;
 		pauseUI = GetComponent<PauseUI>();
+		collectableUI = GetComponent<CollectablesUI>();
 	}
 
 	private void Update()
@@ -49,6 +52,12 @@ public class GameController : MonoBehaviour
 		OnTimeChange?.Invoke();
 	}
 
+	public void AddCollectable(int scoreValue)
+	{
+		AddScore(scoreValue);
+		collectableUI.AddCollectable();
+		
+	}
 	private void UpdatePause()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
