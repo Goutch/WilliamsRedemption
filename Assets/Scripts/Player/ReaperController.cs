@@ -77,10 +77,6 @@ public class ReaperController : EntityControlableController
         player.UnlockTransformation();
     }
 
-    public override bool CanUseBasicAttack(PlayerController playerData)
-    {
-        return true;
-    }
 
     public override void UseBasicAttack(PlayerController player , Vector2 direction)
     {
@@ -99,6 +95,7 @@ public class ReaperController : EntityControlableController
         animator.SetTrigger("Attack");
         Attacking = true;
     }
+    
 
     
 }

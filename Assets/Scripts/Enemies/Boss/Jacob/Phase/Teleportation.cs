@@ -39,9 +39,7 @@ namespace Playmode.EnnemyRework.Boss.Jacob
 
             do
             {
-
                 transform.position = teleportPoints[Random.Range(0, teleportPoints.Length)].position;
-
             } while (Vector2.Distance(PlayerController.instance.transform.position, transform.position) < distanceFromPlayerTeleport 
             || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
         }
