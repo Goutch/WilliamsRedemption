@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 95185587434919710}
   - component: {fileID: 114020826468222716}
   - component: {fileID: 114221476663662368}
+  - component: {fileID: 114122550704324356}
   - component: {fileID: 114665657003816676}
   - component: {fileID: 114253204107131226}
   - component: {fileID: 114386250798373468}
@@ -166,6 +167,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
+--- !u!114 &114122550704324356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1187563034871314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0c0f31d44efac4e904f7ea63166046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfEnemySpawnAllowed: 2
 --- !u!114 &114221476663662368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,11 +223,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95185587434919710}
-  numberOfZombiesToSpawn: 2
   zombiePrefab: {fileID: 1291848360045852, guid: 82bace9fd06070f4e8259879ebe97c17,
     type: 2}
   cooldown: 1
-  stateAfterAllZombieDied: {fileID: 114915048040240046}
 --- !u!114 &114665657003816676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -228,6 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114386250798373468}
+  - {fileID: 114915048040240046}
   animator: {fileID: 95185587434919710}
   passiveCapacity: {fileID: 114253204107131226}
 --- !u!114 &114915048040240046
