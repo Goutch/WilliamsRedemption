@@ -23,16 +23,21 @@ public class Health : MonoBehaviour
             healthPoints = value;
             OnHealthChange?.Invoke(gameObject);
 
-            if (IsDead() && !isSupposedToBeDead)
+	        /*if (IsAnEnemy() && IsDead())
+	        {
+		        Debug.Log(Time.time);
+	        }*/
+            if (IsDead() /*&& !isSupposedToBeDead*/)
             {
-                OnDeath?.Invoke(gameObject);
+	            Debug.Log(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().Score);
 	            if (isKilledByPlayer && IsAnEnemy())
 	            {
 		            AddEnemyScoreToGameScore();
 	            }
 
 	            isSupposedToBeDead = true;
-                Destroy(this.transform.root.gameObject);
+	            OnDeath?.Invoke(transform.root.gameObject);
+                //Destroy(this.transform.root.gameObject);
             }
         }
 	}

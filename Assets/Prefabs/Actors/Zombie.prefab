@@ -177,9 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05693a4d9f2421e9be915ca0107cb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  scoreValue: 0
-  jumpForce: {x: 0, y: 3}
+  scoreValue: 10
   isDumbEnoughToFall: 1
   surroundingRange: 1
   bulletKnockBackForce: {x: 1, y: 1}
