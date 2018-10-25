@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int spawnNumber;
     [SerializeField] private float secondsBetweenSpawns;
+    [SerializeField] private bool spawnOneTime=true;
     private GameObject[] spawnedEnnemies;
     private bool spawning = false;
 
@@ -42,5 +43,9 @@ public class EnemySpawner : MonoBehaviour
         }
 
         spawning = false;
+        if (spawnOneTime)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
