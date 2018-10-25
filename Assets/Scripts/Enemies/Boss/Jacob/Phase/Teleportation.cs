@@ -38,7 +38,7 @@ namespace Playmode.EnnemyRework.Boss.Jacob
         private void Teleport()
         {
             Vector2 oldPosition = transform.position;
-            Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity);
+            Destroy(Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity),3);
             do
             {
                 transform.position = teleportPoints[Random.Range(0, teleportPoints.Length)].position;
@@ -46,5 +46,6 @@ namespace Playmode.EnnemyRework.Boss.Jacob
                      distanceFromPlayerTeleport
                      || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
         }
+        
     }
 }

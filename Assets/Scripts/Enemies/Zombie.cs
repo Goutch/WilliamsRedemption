@@ -16,8 +16,6 @@ namespace Playmode.EnnemyRework
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
-
-
         }
 
         private void FixedUpdate()
