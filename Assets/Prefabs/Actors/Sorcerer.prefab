@@ -140,7 +140,7 @@ MonoBehaviour:
   surroundingRange: 2
   projectilePrefab: {fileID: 1689002622773110, guid: 9f9b92c56ac471a4e98c7bb616735709,
     type: 2}
-  sightRange: 1.5
+  sightRange: 2
   attackCooldown: 2
 --- !u!114 &114799244635330762
 MonoBehaviour:

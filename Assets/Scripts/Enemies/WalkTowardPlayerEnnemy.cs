@@ -35,7 +35,11 @@ namespace Playmode.EnnemyRework
 
         protected void UpdateDirection()
         {
-            currenDirection = PlayerController.instance.transform.position.x - transform.root.position.x > 0
+            float dist = PlayerController.instance.transform.position.x - transform.root.position.x;
+            if (dist > -0.1 && dist < 0.01)
+                currenDirection = 0;
+            else
+            currenDirection = dist > 0
                 ? 1
                 : -1;
         }

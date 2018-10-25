@@ -12,14 +12,8 @@ public class Bat : Enemy
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2 exponentialFonction;
     [SerializeField] private float fonctionYOffSet = .32f;
-    [SerializeField] private float distanceFromSpawningPoint;
 
 
-    void Move()
-	{
-		rootMover.FlyToward(new Vector2(rootMover.transform.position.x+direction*distanceFromSpawningPoint
-			,rootMover.transform.position.y));
-	}
     protected void Fly()
     {
         exponentialFonction.x += 1 * Time.deltaTime;
