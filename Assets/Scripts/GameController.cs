@@ -74,3 +74,4 @@ public class GameController : MonoBehaviour
 		deathText.text = deathTextString;
 	}
 }
+

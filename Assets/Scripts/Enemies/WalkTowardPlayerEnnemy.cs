@@ -11,9 +11,11 @@ namespace Playmode.EnnemyRework
         [SerializeField] private bool isDumbEnoughToFall;
         [SerializeField] private int surroundingRange;
 
+        public bool[,] surrounding;
+
         protected RootMover rootMover;
         private SpriteRenderer spriteRenderer;
-        protected int currenDirection = 1;      
+        protected int currenDirection = 1;
 
         protected override void Init()
         {
@@ -25,40 +27,40 @@ namespace Playmode.EnnemyRework
         {
             UpdateDirection();
             UpdateSpriteDirection();
-          
-            bool[,] surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);  
-            UpdateMovement(surrounding);         
-            UpdateJump(surrounding);                
+
+            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
+            UpdateMovement(surrounding);
+            UpdateJump(surrounding);
         }
 
-        private void UpdateDirection()
+        protected void UpdateDirection()
         {
             currenDirection = PlayerController.instance.transform.position.x - transform.root.position.x > 0
                 ? 1
                 : -1;
         }
-        
+
         private void UpdateSpriteDirection()
         {
             if (currenDirection == 1)
             {
                 spriteRenderer.flipX = false;
-            }       
+            }
             else
             {
                 spriteRenderer.flipX = true;
             }
         }
-        
+
         private void UpdateMovement(bool[,] surrounding)
         {
-            if (IsThereAHole(surrounding)==false || isDumbEnoughToFall)
-            {
-                rootMover.WalkToward(currenDirection);
-            }
-            else if (IsThereAHole(surrounding))
+            if (!isDumbEnoughToFall && IsThereAHole(surrounding))
             {
                 rootMover.WalkToward(0);
+            }
+            else
+            {
+                rootMover.WalkToward(currenDirection);
             }
         }
 
@@ -70,17 +72,30 @@ namespace Playmode.EnnemyRework
                     rootMover.Jump();
             }
         }
-        
+
         private bool IsThereAHole(bool[,] surrounding)
         {
-            for (int i = 0; i <= surroundingRange; ++i)
+            if (!surrounding[currenDirection + surroundingRange, surroundingRange-1]&&!surrounding[currenDirection + surroundingRange, surroundingRange-2])
             {
-                if (surrounding[currenDirection*surroundingRange + surroundingRange, surroundingRange-i])
-                {                   
-                    return false;
+                return true;
+            }
+            return false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            for (int x = -surroundingRange; x < surroundingRange+1; x++)
+            {
+                for (int y = -surroundingRange; y < surroundingRange+1; y++)
+                {
+                    if (surrounding[x+surroundingRange, y+surroundingRange] == true)
+                        Gizmos.DrawCube(new Vector3(transform.position.x + (x*.32f), transform.position.y + (y*.32f), 0),Vector3.one*.16f);
+                    else
+                    {
+                        Gizmos.DrawSphere(new Vector3(transform.position.x + (x*.32f), transform.position.y + (y*.32f), 0), .16f);
+                    }
                 }
-            } 
-            return true;
+            }
         }
     }
 }
