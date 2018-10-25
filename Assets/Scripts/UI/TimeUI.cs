@@ -6,19 +6,20 @@ using UnityEngine;
 public class TimeUI : MonoBehaviour
 {
 
+	[SerializeField] private int startingTime;
 	public static TimeUI instance;
 	private GameController gameController;
 	private Text timeText;
-	private double time;
-	private const double STARTING_TIME = 300;
-	private double remainingTime;
+	private int time;
+	private int remainingTime;
+	private const string remainingTimeText = "Remaining Time : ";
 
 	private void Start()
 	{
-		gameController = GameObject.FindGameObjectWithTag(/*R.S.GameObject.GameController*/"GameController").GetComponent<GameController>();
-		timeText = GameObject.Find("GameController/Canvas/TimeText").GetComponent<Text>();
+		gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GAME_CONTROLLER).GetComponent<GameController>();
+		timeText = GameObject.Find(Values.GameObject.TIME_TEXT).GetComponent<Text>();
 		gameController.OnTimeChange += OnTimeChange;
-		remainingTime = STARTING_TIME;
+		remainingTime = startingTime;
 		OnTimeChange();
 	}
 
@@ -30,12 +31,15 @@ public class TimeUI : MonoBehaviour
 
 	private void UpdateTimeValue()
 	{
-		time = System.Math.Round(gameController.Time,2);
-		remainingTime = STARTING_TIME - time;
+		if (!IsRemainingTimeOver())
+		{
+			time = Mathf.RoundToInt(gameController.Time);
+			remainingTime = startingTime - time;
+		}	
 	}
 	private void UpdateTimeText()
 	{
-		timeText.text = "Remaining Time : " + remainingTime.ToString();
+		timeText.text = remainingTimeText + remainingTime.ToString();
 	}
 
 	public bool IsRemainingTimeOver()

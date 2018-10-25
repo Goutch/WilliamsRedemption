@@ -57,7 +57,7 @@ public class Health : MonoBehaviour
 	private void AddEnemyScoreToGameScore()
 	{
 		int score = GetComponent<Enemy>().ScoreValue;
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddScore(score);
+		GameObject.FindGameObjectWithTag(Values.GameObject.GAME_CONTROLLER).GetComponent<GameController>().AddScore(score);
 	}
 
 	private bool IsAnEnemy()
