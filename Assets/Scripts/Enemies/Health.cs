@@ -13,7 +13,6 @@ public class Health : MonoBehaviour
 	private int healthPoints;
 	public event HealthEventHandler OnDeath;
     public event HealthEventHandler OnHealthChange;
-	private bool isSupposedToBeDead = false;
 
 	public int HealthPoints
 	{
@@ -22,22 +21,13 @@ public class Health : MonoBehaviour
         {
             healthPoints = value;
             OnHealthChange?.Invoke(gameObject);
-
-	        /*if (IsAnEnemy() && IsDead())
-	        {
-		        Debug.Log(Time.time);
-	        }*/
-            if (IsDead() /*&& !isSupposedToBeDead*/)
+            if (IsDead())
             {
-	            Debug.Log(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().Score);
 	            if (isKilledByPlayer && IsAnEnemy())
 	            {
 		            AddEnemyScoreToGameScore();
 	            }
-
-	            isSupposedToBeDead = true;
 	            OnDeath?.Invoke(transform.root.gameObject);
-                //Destroy(this.transform.root.gameObject);
             }
         }
 	}
