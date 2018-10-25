@@ -62,6 +62,7 @@ namespace Playmode.EnnemyRework
 
         private void OnDrawGizmos()
         {
+            if(surrounding!=null)
             for (int x = -surroundingRange; x < surroundingRange+1; x++)
             {
                 for (int y = -surroundingRange; y < surroundingRange+1; y++)
