@@ -14,46 +14,20 @@ namespace Playmode.EnnemyRework
         public bool[,] surrounding;
 
         protected RootMover rootMover;
-        private SpriteRenderer spriteRenderer;
         protected int currenDirection = 1;
 
         protected override void Init()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
             rootMover = GetComponent<RootMover>();
         }
 
         protected virtual void FixedUpdate()
         {
-            UpdateDirection();
-            UpdateSpriteDirection();
+            currenDirection= UpdateDirection();
 
             surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
             UpdateMovement(surrounding);
             UpdateJump(surrounding);
-        }
-
-        protected void UpdateDirection()
-        {
-            float dist = PlayerController.instance.transform.position.x - transform.root.position.x;
-            if (dist > -0.1 && dist < 0.01)
-                currenDirection = 0;
-            else
-            currenDirection = dist > 0
-                ? 1
-                : -1;
-        }
-
-        private void UpdateSpriteDirection()
-        {
-            if (currenDirection == 1)
-            {
-                spriteRenderer.flipX = false;
-            }
-            else
-            {
-                spriteRenderer.flipX = true;
-            }
         }
 
         private void UpdateMovement(bool[,] surrounding)

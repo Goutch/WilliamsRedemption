@@ -9,7 +9,6 @@ public class Bat : Enemy
     private RootMover rootMover;
     private int direction = 1;
     private bool isTriggered;
-    private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2 exponentialFonction;
     [SerializeField] private float fonctionYOffSet = .32f;
 
