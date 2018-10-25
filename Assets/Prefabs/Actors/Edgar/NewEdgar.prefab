@@ -177,18 +177,20 @@ GameObject:
   - component: {fileID: 114408198202256926}
   - component: {fileID: 114072906846381546}
   - component: {fileID: 114379991829354728}
-  - component: {fileID: 114889107845127718}
   - component: {fileID: 114412290214006220}
+  - component: {fileID: 114889107845127718}
   - component: {fileID: 114355167586666278}
-  - component: {fileID: 114249678001657846}
-  - component: {fileID: 114848836985378804}
-  - component: {fileID: 114252740251941318}
-  - component: {fileID: 114254634824265624}
   - component: {fileID: 114109857756450516}
+  - component: {fileID: 114249678001657846}
   - component: {fileID: 114725212148069990}
+  - component: {fileID: 114252740251941318}
+  - component: {fileID: 114848836985378804}
+  - component: {fileID: 114254634824265624}
   - component: {fileID: 114830030037052890}
+  - component: {fileID: 114995267599695128}
   - component: {fileID: 114113245451544756}
   - component: {fileID: 114905592222218656}
+  - component: {fileID: 114502754607216742}
   - component: {fileID: 114009837430279748}
   - component: {fileID: 114145931860855702}
   m_Layer: 1
@@ -932,7 +934,6 @@ MonoBehaviour:
   cooldown: 40
   capacityUsableAtStart: 1
   delayBetweenEachParticuleSpawn: 0.1
-  powerReleaseState: {fileID: 114145931860855702}
 --- !u!114 &114072906846381546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -958,8 +959,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114725212148069990}
-  - {fileID: 114009837430279748}
-  - {fileID: 114113245451544756}
+  - {fileID: 114502754607216742}
+  - {fileID: 114995267599695128}
   animator: {fileID: 95395829336313276}
 --- !u!114 &114113245451544756
 MonoBehaviour:
@@ -978,7 +979,6 @@ MonoBehaviour:
   yOffSetTileToSpawn: 3
   tileToSpawn: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
   jumpDuration: 1.2
-  stateAfterJump: {fileID: 114905592222218656}
 --- !u!114 &114145931860855702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1117,6 +1117,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f91b0d8ccf72c4dadc69c570d7170b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114502754607216742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495303630612842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1bd114ef79cbb94fa60c5c5dd1b558c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subState:
+  - {fileID: 114009837430279748}
+  - {fileID: 114145931860855702}
 --- !u!114 &114725212148069990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1143,6 +1157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95395829336313276}
+  test: 
   cooldown: 0.5
 --- !u!114 &114848836985378804
 MonoBehaviour:
@@ -1186,6 +1201,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95395829336313276}
   duration: 3
+--- !u!114 &114995267599695128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495303630612842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1bd114ef79cbb94fa60c5c5dd1b558c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subState:
+  - {fileID: 114113245451544756}
+  - {fileID: 114905592222218656}
 --- !u!212 &212090779038278720
 SpriteRenderer:
   m_ObjectHideFlags: 1

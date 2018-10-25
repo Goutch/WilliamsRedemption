@@ -11,6 +11,7 @@ namespace Playmode.EnnemyRework.Boss.Jacob
         [SerializeField] private GameObject zombiePrefab;
         [SerializeField] private float cooldown;
 
+
         private float lastTimeUsed;
 
         private SpawnedEnemyManager spawnedEnemyManager;
@@ -45,6 +46,7 @@ namespace Playmode.EnnemyRework.Boss.Jacob
         private void SpawnAZombie()
         {
             spawnedEnemyManager.SpawnEnemies(zombiePrefab, transform.position, Quaternion.identity);
+
         }
     }
 }
