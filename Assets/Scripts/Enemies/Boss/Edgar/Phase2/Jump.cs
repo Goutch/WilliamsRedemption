@@ -68,6 +68,8 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
             SetNewSpeed(PlayerController.instance.transform.position, jumpDuration);
 
+            rootMover.LookAtPlayer();
+
             rootMover.Jump();
         }
         private void SetNewSpeed(Vector2 targetPoint, float duration)

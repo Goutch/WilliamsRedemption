@@ -9,7 +9,7 @@ namespace DefaultNamespace.Collectable
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == R.S.Tag.Player)
+            if (other.tag == Values.Tags.Player)
             {
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddCollectable(scoreValue);
                 Destroy(this.gameObject);

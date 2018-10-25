@@ -5,7 +5,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
     [RequireComponent(typeof(SpawnedTilesManager), typeof(RootMover))]
     class Phase2 : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase2 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")]
         [SerializeField] private Animator animator;
 
         private SpawnedTilesManager spawnedTilesManager;
@@ -24,7 +24,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
         protected override void EnterIdle()
         {
-            animator.SetTrigger(Values.AnimationParameters.Edgar.IdlePhase2);
+            animator.SetTrigger(Values.AnimationParameters.Edgar.IdlePhase1);
         }
 
         protected override void Idle()
