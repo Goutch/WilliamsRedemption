@@ -7,9 +7,9 @@ namespace Playmode.EnnemyRework
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField] private int scoreValue = 0;
-
-        protected Health health;
         
+        protected Health health;
+        protected Animator animator;
         public int ScoreValue => scoreValue;
 
         protected void Awake()
@@ -17,7 +17,7 @@ namespace Playmode.EnnemyRework
             health = GetComponent<Health>();
             GetComponentInChildren<HitSensor>().OnHit  += OnHit;
             health.OnDeath += OnDeath;
-
+            animator = GetComponent<Animator>();
             Init();
         }
 

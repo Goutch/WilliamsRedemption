@@ -24,13 +24,7 @@ namespace DefaultNamespace
             for (int x = -range; x <= range; x++)
             {
                 for (int y = -range; y <= range; y++)
-                {
-                    if (x == 0 && y == 0)
-                    {
-                        surrounding[x, y] = true;
-                        continue;
-                    }
-                    
+                {               
                     int cellPosX = StartPos.x + x;
                     int cellPosY = StartPos.y + y;
                     surrounding[x+range,y+range]=obstacles.GetTile(new Vector3Int(cellPosX,cellPosY,0));

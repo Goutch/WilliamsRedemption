@@ -8,7 +8,6 @@ public class Bat : Enemy
 {
     private RootMover rootMover;
     private int direction = 1;
-    private Animator animator;
     private bool isTriggered;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2 exponentialFonction;
@@ -50,7 +49,6 @@ public class Bat : Enemy
     protected override void Init()
     {
         rootMover = GetComponent<RootMover>();
-        animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
