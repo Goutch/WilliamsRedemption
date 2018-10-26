@@ -1,7 +1,7 @@
 ﻿using Harmony;
 using UnityEngine;
 
-public class BossFight: MonoBehaviour
+public class BossFight : MonoBehaviour
 {
     [SerializeField] private GameObject boss;
 
@@ -22,13 +22,16 @@ public class BossFight: MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        boss.SetActive(true);
-        doorToCloseOnBossFightBegin?.Close();
-        doorToOpenOnBossDeath?.Close();
+        if (other.CompareTag(Values.Tags.Player))
+        {
+            boss.SetActive(true);
+            doorToCloseOnBossFightBegin?.Close();
+            doorToOpenOnBossDeath?.Close();
 
-        cameraController.FixePoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
+            cameraController.FixePoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
 
-        Destroy(GetComponent<BoxCollider2D>());
+            Destroy(GetComponent<BoxCollider2D>());
+        }
     }
 
     private void OnBossDead(GameObject gameObject)

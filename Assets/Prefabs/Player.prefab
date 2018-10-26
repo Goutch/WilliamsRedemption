@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 114802261952464798}
   - component: {fileID: 331281465660467604}
   - component: {fileID: 114202914198825776}
+  - component: {fileID: 114802316432215884}
   - component: {fileID: 50817793017110226}
   - component: {fileID: 114913052588184466}
   - component: {fileID: 114043392105808680}
@@ -213,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485973637437590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.87, y: 7.56, z: 0}
+  m_LocalPosition: {x: 51.43, y: 1.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4302502636305752}
@@ -416,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 30
 --- !u!114 &114729406392851916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,6 +446,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114802316432215884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485973637437590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageSource: 4
 --- !u!114 &114913052588184466
 MonoBehaviour:
   m_ObjectHideFlags: 1

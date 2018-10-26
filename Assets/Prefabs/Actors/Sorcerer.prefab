@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114866177961309394}
   - component: {fileID: 114689533996660742}
   - component: {fileID: 61871927213290918}
+  - component: {fileID: 114437278911515354}
   m_Layer: 13
   m_Name: Sorcerer
   m_TagString: Enemy
@@ -41,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1545161308005982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.24, y: 5.02, z: 0}
+  m_LocalPosition: {x: 40.03, y: 3.69, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,6 +111,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114437278911515354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545161308005982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageSource: 4
 --- !u!114 &114666089055966140
 MonoBehaviour:
   m_ObjectHideFlags: 1
