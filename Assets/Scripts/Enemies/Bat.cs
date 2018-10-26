@@ -8,19 +8,11 @@ public class Bat : Enemy
 {
     private RootMover rootMover;
     private int direction = 1;
-    private Animator animator;
     private bool isTriggered;
-    private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2 exponentialFonction;
     [SerializeField] private float fonctionYOffSet = .32f;
-    [SerializeField] private float distanceFromSpawningPoint;
 
 
-    void Move()
-	{
-		rootMover.FlyToward(new Vector2(rootMover.transform.position.x+direction*distanceFromSpawningPoint
-			,rootMover.transform.position.y));
-	}
     protected void Fly()
     {
         exponentialFonction.x += 1 * Time.deltaTime;
@@ -50,7 +42,6 @@ public class Bat : Enemy
     protected override void Init()
     {
         rootMover = GetComponent<RootMover>();
-        animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

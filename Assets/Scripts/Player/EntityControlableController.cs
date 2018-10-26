@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public abstract class EntityControlableController : MonoBehaviour
@@ -10,7 +11,7 @@ public abstract class EntityControlableController : MonoBehaviour
     public Collider2D Collider { get; private set; }
     public SpriteRenderer sprite { get; private set; }
     public bool Attacking { get; protected set; }
-
+    
 
     private void Awake()
     {
@@ -24,19 +25,20 @@ public abstract class EntityControlableController : MonoBehaviour
 
     public bool CanUseBasicAttack(PlayerController player)
     {
-        if (Time.time - timeSinceLastAttack > attackCooldown)
+        if (Attacking==false&&Time.time - timeSinceLastAttack > attackCooldown)
         {
-            timeSinceLastAttack = Time.time;
+            Attacking = true;
             return true;
         }
-
         return false;
     }
 
     public abstract void UseBasicAttack(PlayerController player, Vector2 direction);
-
+    
+    [UsedImplicitly]
     public void OnAttackFinish()
     {
         Attacking = false;
+        timeSinceLastAttack = Time.time;
     }
 }
