@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4973207178121200}
   - component: {fileID: 61030294389625766}
+  - component: {fileID: 114294219723639196}
   m_Layer: 17
   m_Name: AttackTrigger
   m_TagString: ProjectileEnemy
@@ -182,6 +183,17 @@ MonoBehaviour:
   surroundingRange: 1
   bulletKnockBackForce: {x: 1, y: 1}
   playerKnockBackForce: {x: 2, y: 1}
+--- !u!114 &114294219723639196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241562989883340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114602427331176794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 4
   speed: 1
+  jumpBoost: 0
 --- !u!114 &114854751574253946
 MonoBehaviour:
   m_ObjectHideFlags: 1
