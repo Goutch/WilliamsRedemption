@@ -21,15 +21,13 @@ public class Health : MonoBehaviour
         {
             healthPoints = value;
             OnHealthChange?.Invoke(gameObject);
-
             if (IsDead())
             {
-                OnDeath?.Invoke(gameObject);
 	            if (isKilledByPlayer && IsAnEnemy())
 	            {
 		            AddEnemyScoreToGameScore();
 	            }
-                Destroy(this.transform.root.gameObject);
+	            OnDeath?.Invoke(transform.root.gameObject);
             }
         }
 	}

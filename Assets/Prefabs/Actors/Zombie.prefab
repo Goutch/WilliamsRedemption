@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4973207178121200}
   - component: {fileID: 61030294389625766}
-  m_Layer: 1
+  m_Layer: 17
   m_Name: AttackTrigger
-  m_TagString: Untagged
+  m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

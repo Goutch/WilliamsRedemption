@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 60878567254945878}
   - component: {fileID: 114605237879513318}
   - component: {fileID: 114986324099716190}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: MeleeAttack
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
