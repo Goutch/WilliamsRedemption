@@ -18,15 +18,13 @@ public class Health : MonoBehaviour
         {
             healthPoints = value;
             OnHealthChange?.Invoke(gameObject);
-
             if (IsDead())
             {
-                OnDeath?.Invoke(gameObject);
 	            if (isKilledByPlayer && IsAnEnemy())
 	            {
 		            AddEnemyScoreToGameScore();
 	            }
-                Destroy(this.transform.root.gameObject);
+	            OnDeath?.Invoke(transform.root.gameObject);
             }
         }
 	}
@@ -54,7 +52,7 @@ public class Health : MonoBehaviour
 	private void AddEnemyScoreToGameScore()
 	{
 		int score = GetComponent<Enemy>().ScoreValue;
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddScore(score);
+		GameObject.FindGameObjectWithTag(Values.GameObject.GAME_CONTROLLER).GetComponent<GameController>().AddScore(score);
 	}
 
 	private bool IsAnEnemy()

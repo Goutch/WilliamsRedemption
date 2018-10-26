@@ -8,7 +8,8 @@ public class MenuManager : MonoBehaviour {
 
 	public void LoadLevel1()
 	{
-		SceneManager.LoadScene(/*R.S.Scene.Level1*/"Scenes/Level1");
+		SceneManager.LoadScene(Values.GameObject.LEVEL1);
+		Time.timeScale = 1.0f;
 	}
 
 	public void ExitGame()
@@ -18,7 +19,7 @@ public class MenuManager : MonoBehaviour {
 
 	public void ReturnToMenu()
 	{
-		SceneManager.LoadScene(/*R.S.Scene.Menu*/"Scenes/Menu");
+		SceneManager.LoadScene(Values.GameObject.MENU);
 		Time.timeScale = 1.0f;
 	}
 }

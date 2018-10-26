@@ -7,6 +7,8 @@ namespace Playmode.EnnemyRework
     {
         [SerializeField] private float jumpForce;
         [SerializeField] private float speed;
+        [SerializeField] private float jumpBoost;
+        private int currentDir;
         private bool isJumping = false;
 
         public bool IsJumping => isJumping;
@@ -47,11 +49,15 @@ namespace Playmode.EnnemyRework
             if (direction != 0)
             {
                 rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
+                animator.SetBool("Walking",true);
             }
             else
             {
-                rootRigidBody.velocity = Vector2.zero;
+                animator.SetBool("Walking",false);
+                rootRigidBody.velocity*=Vector2.up;
             }
+
+            currentDir = direction;
         }
 
         public void FlyToward(Vector2 targetPosition)
@@ -73,7 +79,7 @@ namespace Playmode.EnnemyRework
         public void Jump()
         {
             this.isJumping = true;
-            this.rootRigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            this.rootRigidBody.AddForce(new Vector2(currentDir*jumpBoost,jumpForce) , ForceMode2D.Impulse);
             animator.SetTrigger("Jump");
         }
 

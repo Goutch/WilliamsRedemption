@@ -10,9 +10,9 @@ public class ScoreUI : MonoBehaviour
 
 	private void Start()
 	{
-		gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+		gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GAME_CONTROLLER).GetComponent<GameController>();
 		gameController.OnScoreChange += OnScoreChange;
-		scoreText = GameObject.Find("GameController/Canvas/ScoreText").GetComponent<Text>();
+		scoreText = GameObject.Find(Values.GameObject.SCORE_TEXT).GetComponent<Text>();
 		score = gameController.Score;
 		UpdateScoreText();
 	}

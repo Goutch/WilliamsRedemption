@@ -1,4 +1,5 @@
 ﻿using System.CodeDom;
+using Game;
 using UnityEngine;
 
 namespace Playmode.EnnemyRework
@@ -15,8 +16,6 @@ namespace Playmode.EnnemyRework
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
-
-
         }
 
         private void FixedUpdate()
@@ -53,9 +52,7 @@ namespace Playmode.EnnemyRework
             else
             {
                 if (other.tag == "Player")
-                        other.GetComponent<Rigidbody2D>()
-                            .AddForce(new Vector2(playerKnockBackForce.x * currenDirection, playerKnockBackForce.y),
-                                ForceMode2D.Impulse);
+                    other.GetComponent<KinematicRigidbody2D>().Velocity += new Vector2(playerKnockBackForce.x*currenDirection,playerKnockBackForce.y);
                 base.OnHit(other);
             }
         }

@@ -90,7 +90,8 @@ public class ReaperController : EntityControlableController
         else if (direction == Vector2.up)
             angle = Quaternion.AngleAxis(90, Vector3.forward);
 
-        GameObject meleeAttackObject = Instantiate(meleeAttack, gameObject.transform.position, angle);
+        GameObject meleeAttackObject = Instantiate(meleeAttack, transform);
+        meleeAttackObject.transform.localRotation= angle;
         meleeAttackObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Reaper);
         animator.SetTrigger("Attack");
         Attacking = true;
