@@ -15,13 +15,13 @@ public class PauseUI : MonoBehaviour
 		{
 			isGamePaused = false;
 			Time.timeScale = 1.0f;
-			GameObject.Find(/*R.S.GameObject.PanelPause*/"GameController/Canvas/PanelPause").SetActive(false);
+			GameObject.Find(Values.GameObject.PANEL_PAUSE).SetActive(false);
 		}
 		else
 		{
 			isGamePaused = true;
 			Time.timeScale = 0f;
-			GameObject.Find(/*R.S.GameObject.PanelPause*/"GameController/Canvas/PanelPause").SetActive(true);
+			GameObject.Find(Values.GameObject.PANEL_PAUSE).SetActive(true);
 		}	
 	}
 }

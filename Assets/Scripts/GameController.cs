@@ -68,9 +68,9 @@ public class GameController : MonoBehaviour
 
 	private void ShowDeathMenu()
 	{
-		GameObject.Find(/*R.S.GameObject.PanelPause*/"GameController/Canvas/PanelPause").SetActive(true);
-		GameObject.Find(/*R.S.GameObject.ButtonRestartGame*/"GameController/Canvas/PanelPause/ButtonRestartGame").SetActive(true);
-		deathText = GameObject.Find("GameController/Canvas/PanelPause/Text").GetComponent<Text>();
+		pauseUI.OnPressKeyPause();
+		GameObject.Find(Values.GameObject.BUTTON_RESTART_GAME_IN_PAUSE).SetActive(true);
+		deathText = GameObject.Find(Values.GameObject.TEXT_PAUSE).GetComponent<Text>();
 		deathText.text = deathTextString;
 	}
 }
