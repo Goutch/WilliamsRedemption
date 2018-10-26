@@ -20,7 +20,7 @@ class MeleeAttackController : MonoBehaviour
     private IEnumerator Destroy()
     {
         yield return new WaitForSecondsRealtime(delayBeforeDestruction);
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 
 }
