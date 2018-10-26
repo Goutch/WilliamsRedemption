@@ -26,7 +26,6 @@ namespace Enemies
             RaycastHit2D hit2D = new RaycastHit2D();
             Vector2 dir = PlayerController.instance.transform.position - transform.position;
             hit2D = Physics2D.Raycast(transform.position, dir, sightRange);
-            Debug.DrawLine(transform.position, transform.position + (Vector3) dir, Color.blue);
             if (hit2D.collider != null && hit2D.collider.tag == "Player")
             {
                 UpdateDirection();
