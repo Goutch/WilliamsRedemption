@@ -42,7 +42,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         }
         protected override void EnterIdle()
         {
-            animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
+
         }
 
         protected override void CurrentState_OnStateFinish(Boss.State state)

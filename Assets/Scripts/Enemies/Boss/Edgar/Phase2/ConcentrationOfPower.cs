@@ -12,8 +12,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         [SerializeField] private Animator animator;
         [SerializeField] private int numberOfParticules;
         [SerializeField] private GameObject particulesPrefab;
-        [SerializeField] private Vector2 sizeParticulesSpawn;
-        [SerializeField] private float rangeWhereParticulesDoNotSpawn;
+        [SerializeField] private float radiusOfRingWhereParticulesSpawn;
         [SerializeField] private float particulesSpeed;
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
@@ -33,18 +32,6 @@ namespace Playmode.EnnemyRework.Boss.Edgar
                 lastTimeUsed = -cooldown;
 
             rootMover = GetComponent<RootMover>();
-
-#if UNITY_EDITOR
-            if (Vector2.Distance(transform.position, (Vector2)transform.position + sizeParticulesSpawn / 2) < rangeWhereParticulesDoNotSpawn)
-            {
-                Debug.LogError("No particules will be able to spawn. Editor stopped. Modify the range where particules cannot spawn or the size of zone where particules can spawn.");
-                
-                if (EditorApplication.isPlaying)
-                {
-                    UnityEditor.EditorApplication.isPlaying = false;
-                } 
-            }
-#endif
         }
 
         public override void Act()
@@ -105,7 +92,10 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
                 particules[i] = Instantiate(particulesPrefab, position, BossDirection(position));
                 particules[i].GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
-                particules[i].GetComponent<PlasmaController>().Speed = particulesSpeed;
+
+                ProjectileController projectileController = particules[i].GetComponent<ProjectileController>();
+                projectileController.Speed = particulesSpeed;
+                projectileController.DestroyOnPlatformsCollision = false;
 
                 yield return new WaitForSeconds(delayBetweenEachParticuleSpawn);
             }
@@ -115,15 +105,9 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
         private Vector3 GetParticulePosition()
         {
-            Vector3 position;
-            do
-            {
-                float particulePositionX = Random.Range(-sizeParticulesSpawn.x / 2, sizeParticulesSpawn.x / 2) + transform.position.x;
-                float particulePositionY = Random.Range(-sizeParticulesSpawn.y / 2, sizeParticulesSpawn.y / 2) + transform.position.y;
-
-                position = new Vector3(particulePositionX, particulePositionY, 0);
-
-            } while (Vector2.Distance(position, transform.position) < rangeWhereParticulesDoNotSpawn);
+            float randomAngle = Random.Range(0,360);
+            Vector2 randomAngleVector = new Vector2(Mathf.Cos(randomAngle) * radiusOfRingWhereParticulesSpawn, Mathf.Sin(randomAngle) * radiusOfRingWhereParticulesSpawn);
+            Vector3 position = transform.position + new Vector3(randomAngleVector.x, randomAngleVector.y);
 
             return position;
         }

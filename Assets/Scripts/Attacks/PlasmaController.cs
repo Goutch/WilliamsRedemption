@@ -8,7 +8,7 @@ public class PlasmaController : ProjectileController
 
     private float bulletShotAt;
 
-    protected void Awake()
+    protected new void Awake()
     {
         base.Awake();
         bulletShotAt = Time.time;
@@ -18,5 +18,4 @@ public class PlasmaController : ProjectileController
     {
         return Time.time - bulletShotAt > delayBeforeBulletCanKillHisShooter;
     }
-    //commit bug 
 }

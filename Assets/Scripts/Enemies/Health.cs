@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Playmode.EnnemyRework;
+﻿using Playmode.EnnemyRework;
 using UnityEngine;
 
 public delegate void HealthEventHandler(GameObject gameObject);
@@ -33,7 +30,7 @@ public class Health : MonoBehaviour
 	}
 
 	void Awake () {
-        HealthPoints = MaxHealth;
+        healthPoints = MaxHealth;
 	}
 	
 	public void Hit()

@@ -19,6 +19,7 @@ namespace Playmode.EnnemyRework.Boss
         public virtual void Finish()
         {
             OnStateFinish?.Invoke(this);
+            Debug.Log("Finish: " + this);
         }
     }
 }
