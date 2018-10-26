@@ -6,6 +6,7 @@ public class ProjectileController : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float delayBeforeDestruction;
     [SerializeField] private bool canBeReturned;
+    [SerializeField] private bool destroyOnPlatformsCollision = true;
     
     protected int direction;
     public bool CanBeReturned
@@ -15,6 +16,19 @@ public class ProjectileController : MonoBehaviour {
     }
 
     public float Speed { get { return speed; } set { speed = value; } }
+
+    public bool DestroyOnPlatformsCollision
+    {
+        get
+        {
+            return destroyOnPlatformsCollision;
+        }
+
+        set
+        {
+            destroyOnPlatformsCollision = value;
+        }
+    }
 
     protected virtual void Awake()
     {
@@ -55,13 +69,13 @@ public class ProjectileController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(Values.Tags.Plateforme))
+        if (collision.collider.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
             Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(Values.Tags.Plateforme))
+        if (collision.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
             Destroy(gameObject);
     }
 }
