@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Harmony;
+using System;
+using Random = UnityEngine.Random;
 
 namespace Playmode.EnnemyRework.Boss.Edgar
 {
@@ -19,8 +21,11 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         private float rightBorderSpawnLaser;
         private float positionYLaser;
 
+        private SpawnedTilesManager spawnedTilesManager;
         private void Awake()
         {
+            spawnedTilesManager = GetComponent<SpawnedTilesManager>();
+
             Vector2 size = laserSpawnPointsZone.bounds.size;
             Vector2 center = laserSpawnPointsZone.bounds.center;
 
@@ -54,18 +59,18 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             {
                 yield return new WaitForSeconds(delayBetweenEachLaser);
 
-                GameObject laser = Instantiate(lasePrefab, new Vector2(Random.Range(leftBorderSpawnLaser, rightBorderSpawnLaser), positionYLaser), Quaternion.identity);
-                laser.GetComponent<PlasmaLaserController>().OnLaserFinish += LaserFinish;
+                float positionX;
+                do
+                {
+                    positionX = Random.Range(leftBorderSpawnLaser, rightBorderSpawnLaser);
+                } while (spawnedTilesManager.IsAnySpawnedTiles(position => 
+                spawnedTilesManager.ConvertLocalToCell(new Vector2(positionX, 0)).x == position.x));
+
+
+                Instantiate(lasePrefab, new Vector2(positionX, positionYLaser), Quaternion.identity);
             }
         }
 
-        public void LaserFinish(PlasmaLaserController controller)
-        {
-            controller.OnLaserFinish -= LaserFinish;
-
-            numberOfLaserFinish++;
-            /*if (numberOfLaserFinish == numberOfLasersToSpawn)
-                Finish();*/
-        }
+        
     }
 }
