@@ -4,7 +4,7 @@ namespace Playmode.EnnemyRework.Boss
 {
     public class BossController : Enemy
     {
-        [SerializeField] private NonSequentialPhase[] phases;
+        [SerializeField] private State[] phases;
         private int currentPhaseIndex;
 
         protected override void Init()
