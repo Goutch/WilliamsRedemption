@@ -90,7 +90,7 @@ using XInputDotNetPure;
 				player.CurrentController.animator.SetTrigger("Jump");
 				player.IsMoving = true;
 			}
-			else if (jumpCount<=amountOfAdditionalJumps)
+			else if (jumpCount<amountOfAdditionalJumps)
 			{
 				verticalVelocity = Vector2.up;
 				player.CurrentController.animator.SetTrigger("Jump");
