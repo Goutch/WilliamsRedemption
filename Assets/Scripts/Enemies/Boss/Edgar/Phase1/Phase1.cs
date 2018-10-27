@@ -22,9 +22,11 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
         private void Health_OnHealthChange(GameObject gameObject)
         {
-            health.OnHealthChange -= Health_OnHealthChange;
             if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
+            {
+                health.OnHealthChange -= Health_OnHealthChange;
                 Finish();
+            }
         }
 
         public override bool CanEnter()

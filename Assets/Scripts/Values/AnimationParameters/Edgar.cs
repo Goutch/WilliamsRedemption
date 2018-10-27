@@ -13,5 +13,6 @@ namespace Values.AnimationParameters
         public const string Jump = "Jump";
         public const string PlasmaRelease = "PlasmaRelease";
         public const string Vulnerable = "Vulnerable";
+        public const string Hurt = "Hurt";
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 
     [RequireComponent(typeof(Rigidbody2D))]
@@ -8,13 +9,13 @@
 
         [Header("Physics")] [SerializeField] [Tooltip("Gravity force.")]
         private Vector2 gravity = new Vector2(0, -9.81f);
-        
+
         [SerializeField] [Tooltip("How much gravity affects this object.")]
         private float gravityMultiplier = 1f;
 
         [SerializeField] [Tooltip("Layers player collides with.")]
         private LayerMask layerMask;
-        
+
         [SerializeField] [Tooltip("Arctan value of the maximum slope angle considered as ground.")]
         private float maxGroundSlopeAngleArctan = 1 - 0.65f; //About 33°.
 
@@ -147,50 +148,61 @@
 
             if (deltaMagnitude > sleepVelocity)
             {
-                var nbCollidersDetected = rigidbody.Cast(deltaPosition,
-                                                         contactFilter,
-                                                         preallocaRaycastHits,
-                                                         deltaMagnitude + deltaPrecision);
+                var attachedColliderCount = rigidbody.attachedColliderCount;
+                var allColliders = new Collider2D[attachedColliderCount];
+                rigidbody.GetAttachedColliders(allColliders);
 
-                for (int i = 0; i < nbCollidersDetected; i++)
+                // ReSharper disable once LocalVariableHidesMember
+                foreach (var collider in allColliders.Where(it => !it.isTrigger))
                 {
-                    var collider = preallocaRaycastHits[i];
-                    var colliderNormal = collider.normal;
+                    var nbCollidersDetected = collider.Cast(deltaPosition,
+                        contactFilter,
+                        preallocaRaycastHits,
+                        deltaMagnitude + deltaPrecision);
 
-                    //If this a useable ground ?
-                    if (colliderNormal.y > 1 - maxGroundSlopeAngleArctan)
+                    for (int i = 0; i < nbCollidersDetected; i++)
                     {
-                        isGrounded = true;
-                        lastGroundedTime = Time.time;
-                        if (isVerticalDelta)
+                        var raycastHit = preallocaRaycastHits[i];
+                        var colliderNormal = raycastHit.normal;
+
+                        //If this a useable ground ?
+                        if (colliderNormal.y > 1 - maxGroundSlopeAngleArctan)
                         {
-                            groundNormal = colliderNormal;
-                            colliderNormal.x = 0;
-#if UNITY_EDITOR
-                            if (showDebugInformation)
+                            isGrounded = true;
+                            lastGroundedTime = Time.time;
+                            if (isVerticalDelta)
                             {
-                                Debug.DrawLine(collider.point, collider.point + colliderNormal, Color.green);
-                                Debug.DrawLine(collider.point, collider.point + GetGroundMovementVector(), Color.yellow);
-                            }
+                                groundNormal = colliderNormal;
+                                colliderNormal.x = 0;
+#if UNITY_EDITOR
+                                if (showDebugInformation)
+                                {
+                                    Debug.DrawLine(raycastHit.point, raycastHit.point + colliderNormal, Color.green);
+                                    Debug.DrawLine(raycastHit.point, raycastHit.point + GetGroundMovementVector(),
+                                        Color.yellow);
+                                }
 #endif
+                            }
                         }
-                    }
-                    
-                    //How much this collider should affect the velocity. The more the velocity vector
-                    //and the collider normal vector are opposed, the more the collider should absorb the velocity
-                    //
-                    //Using the Dot product, we know how much theses two vectors are opposed (if they are).
-                    //Negative number means vectors are opposed.
-                    var velocityNegationForce = Vector2.Dot(velocity, colliderNormal);
-                    if (velocityNegationForce < 0)
-                    {
-                        velocity -= velocityNegationForce * colliderNormal;
-                    }
 
-                    //Snap object to collider bound if distance between the object and the collider is less than
-                    //the delta precison. This prevent the object from going though the collider.
-                    var snappedDeltaMagnitude = collider.distance - deltaPrecision;
-                    deltaMagnitude = snappedDeltaMagnitude < deltaMagnitude ? snappedDeltaMagnitude : deltaMagnitude;
+                        //How much this collider should affect the velocity. The more the velocity vector
+                        //and the collider normal vector are opposed, the more the collider should absorb the velocity
+                        //
+                        //Using the Dot product, we know how much theses two vectors are opposed (if they are).
+                        //Negative number means vectors are opposed.
+                        var velocityNegationForce = Vector2.Dot(velocity, colliderNormal);
+                        if (velocityNegationForce < 0)
+                        {
+                            velocity -= velocityNegationForce * colliderNormal;
+                        }
+
+                        //Snap object to collider bound if distance between the object and the collider is less than
+                        //the delta precison. This prevent the object from going though the collider.
+                        var snappedDeltaMagnitude = raycastHit.distance - deltaPrecision;
+                        deltaMagnitude = snappedDeltaMagnitude < deltaMagnitude
+                            ? snappedDeltaMagnitude
+                            : deltaMagnitude;
+                    }
                 }
             }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Harmony;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour {
@@ -6,6 +7,7 @@ public class ProjectileController : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float delayBeforeDestruction;
     [SerializeField] private bool canBeReturned;
+    [SerializeField] private bool destroyOnPlatformsCollision = true;
     
     protected int direction;
     public bool CanBeReturned
@@ -15,6 +17,19 @@ public class ProjectileController : MonoBehaviour {
     }
 
     public float Speed { get { return speed; } set { speed = value; } }
+
+    public bool DestroyOnPlatformsCollision
+    {
+        get
+        {
+            return destroyOnPlatformsCollision;
+        }
+
+        set
+        {
+            destroyOnPlatformsCollision = value;
+        }
+    }
 
     protected virtual void Awake()
     {
@@ -39,15 +54,15 @@ public class ProjectileController : MonoBehaviour {
             this.GetComponent<HitStimulus>().SetDamageSource(other.GetComponent<HitStimulus>().DamageSource);
             direction *= -1;
         }
-        else if (other.tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Enemy)
+        else if (other.Root().tag=="Player"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Enemy)
         {
             Destroy(this.gameObject);
         }
-        else if (other.tag=="Enemy"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.William)
+        else if (other.Root().tag=="Enemy"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.William)
         {
             Destroy(this.gameObject);
         }
-        else if(other.tag=="Enemy"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Reaper)
+        else if(other.Root().tag=="Enemy"&&this.GetComponent<HitStimulus>().DamageSource==HitStimulus.DamageSourceType.Reaper)
         {
             Destroy(this.gameObject);
         }
@@ -55,13 +70,14 @@ public class ProjectileController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(Values.Tags.Plateforme))
+        if (collision.collider.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
             Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.CompareTag(Values.Tags.Plateforme))
+        if (other.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
             Destroy(gameObject);
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using Harmony;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,6 +17,9 @@ namespace Playmode.EnnemyRework.Boss.Edgar
         [SerializeField] private int yOffSetTileToSpawn;
         [SerializeField] private Tile tileToSpawn;
         [SerializeField] private float jumpDuration;
+        [SerializeField] private float landingDelay;
+        [SerializeField] private GameObject landingEffect;
+        [SerializeField] private Transform landingEffectSpawnPoint;
 
         private Vector3Int[] spawnedTileRelativePositions = new Vector3Int[] {
             new Vector3Int(2, 1 ,0),
@@ -47,8 +51,7 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
             if (rb.velocity.y == 0)
             {
-                Finish();
-                rb.velocity = new Vector2();
+                StartCoroutine(landing());
             }
         }
 
@@ -68,6 +71,8 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
             SetNewSpeed(PlayerController.instance.transform.position, jumpDuration);
 
+            rootMover.LookAtPlayer();
+
             rootMover.Jump();
         }
         private void SetNewSpeed(Vector2 targetPoint, float duration)
@@ -77,10 +82,18 @@ namespace Playmode.EnnemyRework.Boss.Edgar
             rootMover.Speed = speed;
         }
 
+        private IEnumerator landing()
+        {
+            yield return new WaitForSeconds(landingDelay);
+            Finish();
+            Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
+        }
+
         public override void Finish()
         {
             SpawnTiles();
 
+            rb.velocity = new Vector2();
             base.Finish();
         }
         private void SpawnTiles()

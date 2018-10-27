@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Light
 {
+    [ExecuteInEditMode]
     public class RectangleLight : MeshLight
     {
         [SerializeField] private float width;

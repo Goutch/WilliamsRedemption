@@ -113,101 +113,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //var gamePadState = GamePad.GetState(PlayerIndex.One);
-        //Input.GetKeyDown(KeyCode.A);
-
-        //GetInputs();
-
-        /**  if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-          {
-              DirectionFacingLeftRight = FacingSideLeftRight.Left;
-              CurrentController.animator.SetFloat("Speed", Mathf.Abs(-1 * speed * Time.deltaTime));
-              CurrentController.sprite.flipX = true;
-          }
-          else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-          {
-              DirectionFacingLeftRight = FacingSideLeftRight.Right;
-              CurrentController.animator.SetFloat("Speed", Mathf.Abs(1 * speed * Time.deltaTime));
-              CurrentController.sprite.flipX = false;
-          }
-          else
-          {
-              DirectionFacingLeftRight = FacingSideLeftRight.None;
-              CurrentController.animator.SetFloat("Speed", 0);
-          }
-  
-          if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-          {
-              DirectionFacingUpDown = FacingSideUpDown.Up;
-              CurrentController.animator.SetInteger("OrientationY", 1);
-          }
-          else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
-          {
-              DirectionFacingUpDown = FacingSideUpDown.Down;
-              CurrentController.animator.SetInteger("OrientationY", -1);
-          }
-          else
-          {
-              DirectionFacingUpDown = FacingSideUpDown.None;
-              CurrentController.animator.SetInteger("OrientationY", 0);
-          }
-  
-          CurrentController.animator.SetBool("IsJumping", Rigidbody.velocity.y > 0);
-          CurrentController.animator.SetBool("IsFalling", !IsOnGround && !IsDashing);
-          CurrentController.animator.SetBool("IsDashing", IsDashing);
-  
-          if (!CurrentController.Attacking)
-          {
-              CurrentController.animator.SetBool("IsAttacking", false);
-          } **/
-    }
-
-    private void FixedUpdate()
-    {
-        /** if (CurrentController.CanUseBasicAttack(this) && Input.GetKey(KeyCode.Return))
-         {
-             CurrentController.UseBasicAttack(this);
-             CurrentController.animator.SetTrigger("Attack");
-         }
- 
-         if (Rigidbody.velocity.y == 0 && !IsDashing)
-         {
-             IsOnGround = true;
-             if (Input.GetKeyDown(KeyCode.Space))
-             {
-                 Rigidbody.velocity = new Vector2(0, 0);
-                 Rigidbody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-             }
-         }
-         else
-         {
-             IsOnGround = false;
-         }
- 
-         if (!IsDashing)
-         {
-             if (Input.GetKey(KeyCode.A))
-                 //Rigidbody.velocity = new Vector2(-Time.deltaTime * speed, Rigidbody.velocity.y);
-                 Rigidbody.Translate(new Vector2(Vector2.left.x *speed*Time.deltaTime, Rigidbody.position.normalized.y ));
-             if (Input.GetKey(KeyCode.D))
-                 Rigidbody.velocity = new Vector2(Time.deltaTime * speed, Rigidbody.velocity.y);
- 
-             if (Input.GetKeyUp(KeyCode.A))
-                 Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
-             if (Input.GetKeyUp(KeyCode.D))
-                 Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
-         } **/
-    }
-
-    private void LateUpdate()
-    {
-        //if (CurrentController.Capacity1Usable(this) && Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-        //  CurrentController.UseCapacity1(this);
-        //}
-    }
 
     private void OnLightExpositionChanged(bool exposed)
     {
@@ -224,7 +129,7 @@ public class PlayerController : MonoBehaviour
         if (numbOfLocks == 0)
         {
             williamController.gameObject.SetActive(true);
-
+            reaperController.OnAttackFinish();
             reaperController.gameObject.SetActive(false);
             kRigidBody.LayerMask = williamLayerMask;
 
@@ -236,8 +141,10 @@ public class PlayerController : MonoBehaviour
     {
         if (numbOfLocks == 0)
         {
-            williamController.gameObject.SetActive(false);
+            
             reaperController.gameObject.SetActive(true);
+            williamController.OnAttackFinish();
+            williamController.gameObject.SetActive(false);
             kRigidBody.LayerMask = reaperLayerMask;
             CurrentController = reaperController;
         }
@@ -261,22 +168,4 @@ public class PlayerController : MonoBehaviour
     {
         return this.MemberwiseClone() as IPlayerDataReadOnly;
     }
-
-//    private void GetInputs()
-//    {
-//        buttonsPressed[InputsName.JUMP] = Input.GetButtonDown(InputsName.JUMP);
-//        buttonsPressed[InputsName.SPECIAL_CAPACITY] = Input.GetButtonDown(InputsName.SPECIAL_CAPACITY);
-//
-//        buttonsHeld[InputsName.UP] = Input.GetButton(InputsName.UP);
-//        buttonsHeld[InputsName.DOWN] = Input.GetButton(InputsName.DOWN);
-//        buttonsHeld[InputsName.RIGHT] = Input.GetButton(InputsName.RIGHT) || Input.GetAxis("Horizontal") > 0.5;
-//        buttonsHeld[InputsName.LEFT] = Input.GetButton(InputsName.LEFT) || Input.GetAxis("Horizontal") < -0.5;
-//        buttonsHeld[InputsName.ATTACK] = Input.GetButton(InputsName.ATTACK);
-//
-//
-//        buttonsReleased[InputsName.RIGHT] =
-//            Input.GetButtonUp(InputsName.RIGHT);
-//        buttonsReleased[InputsName.LEFT] =
-//            Input.GetButtonUp(InputsName.LEFT);
-//    }
 }

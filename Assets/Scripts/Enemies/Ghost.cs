@@ -1,4 +1,8 @@
-﻿using Light;
+﻿using System.Collections;
+using System.Diagnostics.Eventing.Reader;
+using System.Runtime.CompilerServices;
+using Game;
+using Light;
 using UnityEditor.Experimental.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
@@ -7,39 +11,98 @@ namespace Playmode.EnnemyRework
 {
     public class Ghost : Enemy
     {
-        [SerializeField] private int range;
-        private Vector2 disapearPos;
+        [SerializeField] private float damageKnockBackForce = 1;
+
+        [SerializeField] private float disapearTimeLimitBeforeDesSpawn = 5;
         private RootMover rootMover;
-        private Collider2D collider;
-        private SpriteRenderer spriteRenderer;
-        private LightSensor lightSensor;
+        private Rigidbody2D rigidBody;
+        private LightSensor playerLightSensor;
+        private bool isPlayerReaper = false;
+        private bool aprearing;
+        private bool disapearing;
+
+        public bool IsPlayerReaper
+        {
+            get { return isPlayerReaper; }
+            set { isPlayerReaper = value; }
+        }
 
 
-        protected override void Init()
+        
+
+        private void Start()
         {
             rootMover = GetComponent<RootMover>();
-            collider = GetComponent<BoxCollider2D>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            rigidBody = GetComponent<Rigidbody2D>();
+            playerLightSensor = PlayerController.instance.GetComponent<LightSensor>();
+            playerLightSensor.OnLightExpositionChange += OnPlayerStateChange;
         }
 
         private void FixedUpdate()
         {
-            if (Vector2.Distance(PlayerController.instance.transform.position, rootMover.transform.position) > range)
+            if (playerLightSensor.InLight == false)
             {
-                Destroy(rootMover.gameObject);
-            }
-
-            if (PlayerController.instance.CurrentController.GetComponent<ReaperController>())
-            {
-                spriteRenderer.enabled = true;
+                UpdateDirection();
                 rootMover.FlyToward(PlayerController.instance.transform.position);
             }
             else
             {
-                disapearPos = rootMover.transform.position;
                 spriteRenderer.enabled = false;
             }
         }
 
+        private void OnPlayerStateChange(bool isInLight)
+        {
+            IsPlayerReaper = !isInLight;
+            if (IsPlayerReaper)
+            {
+                spriteRenderer.enabled = true;
+            }
+            else
+            {
+                spriteRenderer.enabled = false;
+                StartCoroutine(DisapearRoutine());
+            }
+        }
+
+        private void OnDisable()
+        {
+            playerLightSensor.OnLightExpositionChange -= OnPlayerStateChange;
+        }
+
+        protected override void Init()
+        {
+            
+        }
+
+        protected override void OnHit(HitStimulus other)
+        {
+            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
+            {
+                Vector2 kockBackDir = (this.transform.position - other.transform.position);
+                base.OnHit(other);
+                rigidBody.AddForce(kockBackDir.normalized * damageKnockBackForce, ForceMode2D.Impulse);
+            }
+        }
+
+        private IEnumerator DisapearRoutine()
+        {
+            float disapearTime = Time.time;
+            while (Time.time < disapearTime + disapearTimeLimitBeforeDesSpawn)
+            {
+                //if player is william 
+                if (!isPlayerReaper)
+                    yield return null;
+                else
+                {
+                    //if he is reaper reapear
+                    yield break;
+                }
+            }
+            
+            Destroy(this.gameObject);
+            
+        }
+        
     }
 }

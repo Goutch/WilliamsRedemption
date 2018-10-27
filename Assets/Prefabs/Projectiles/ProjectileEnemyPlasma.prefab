@@ -156,6 +156,7 @@ MonoBehaviour:
   speed: 3
   delayBeforeDestruction: 15
   canBeReturned: 1
+  destroyOnPlatformsCollision: 1
   delayBeforeBulletCanKillHisShooter: 1
 --- !u!212 &212729438007589278
 SpriteRenderer:
@@ -191,7 +192,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 49a6d7b75915b8d48bccbf5aca6bffa5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

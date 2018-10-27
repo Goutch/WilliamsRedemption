@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boss: {fileID: 0}
   doorToCloseOnBossFightBegin: {fileID: 114378006494093518}
-  doorToOpenOnBossDeath: {fileID: 0}
+  doorToOpenOnBossDeath: {fileID: 114660104782414932}
 --- !u!114 &114378006494093518
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,9 +4,13 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 {
     class ProjectileShoot : Capacity
     {
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")]
+        [SerializeField] private Animator animator;
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private GameObject bullet;
+        [SerializeField] private GameObject particuleEffect;
+        [SerializeField] private Transform spawnPoint;
 
         private float lastTimeCapacityUsed;
 
@@ -34,15 +38,18 @@ namespace Playmode.EnnemyRework.Boss.Edgar
 
             lastTimeCapacityUsed = Time.time;
 
-            ShootProjectile(PlayerDirection());
+            animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
 
-            Finish();
+            Instantiate(particuleEffect, spawnPoint);
         }
 
-        public void ShootProjectile(Quaternion direction)
+        public void ShootPlasmaProjectile()
         {
-            GameObject projectile = Instantiate(bullet, transform.position, direction);
+            Quaternion direction = PlayerDirection();
+            GameObject projectile = Instantiate(bullet, spawnPoint.position, direction);
             projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
+
+            Finish();
         }
 
         private Quaternion PlayerDirection()

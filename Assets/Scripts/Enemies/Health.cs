@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Playmode.EnnemyRework;
+﻿using Playmode.EnnemyRework;
 using UnityEngine;
 
 public delegate void HealthEventHandler(GameObject gameObject);
@@ -21,21 +18,19 @@ public class Health : MonoBehaviour
         {
             healthPoints = value;
             OnHealthChange?.Invoke(gameObject);
-
             if (IsDead())
             {
-                OnDeath?.Invoke(gameObject);
 	            if (isKilledByPlayer && IsAnEnemy())
 	            {
 		            AddEnemyScoreToGameScore();
 	            }
-                Destroy(this.transform.root.gameObject);
+	            OnDeath?.Invoke(transform.root.gameObject);
             }
         }
 	}
 
 	void Awake () {
-        HealthPoints = MaxHealth;
+        healthPoints = MaxHealth;
 	}
 	
 	public void Hit()
@@ -57,7 +52,7 @@ public class Health : MonoBehaviour
 	private void AddEnemyScoreToGameScore()
 	{
 		int score = GetComponent<Enemy>().ScoreValue;
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddScore(score);
+		GameObject.FindGameObjectWithTag(Values.GameObject.GAME_CONTROLLER).GetComponent<GameController>().AddScore(score);
 	}
 
 	private bool IsAnEnemy()

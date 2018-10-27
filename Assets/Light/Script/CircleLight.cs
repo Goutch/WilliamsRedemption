@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Light
 {
+    [ExecuteInEditMode]
     public class CircleLight : MeshLight
     {
         [Range(0, 360)] [SerializeField] private float coneAngle;
