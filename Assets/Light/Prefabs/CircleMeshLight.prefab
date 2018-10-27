@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601090304264160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 9.7, z: 0}
+  m_LocalPosition: {x: -21.951612, y: 7.146881, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,7 +100,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 45
 --- !u!114 &114272788521883670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,13 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96322cc578191774497f2104925b4065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coneAngle: 0
-  faceAngle: 0
-  radius: 3
-  precisionInDegree: 2
   color: {r: 1, g: 1, b: 1, a: 1}
   obstacleLayerIndex: 1
   debugDraw: 0
+  updateEveryFrame: 1
+  movingObstacleUpdateStopCooldown: 1
+  hasMovingObstaclesInRange: 0
+  isOpen: 0
+  coneAngle: 0
+  faceAngle: 55
+  radius: 3
+  precisionInDegree: 2
 --- !u!114 &114863095067038874
 MonoBehaviour:
   m_ObjectHideFlags: 1

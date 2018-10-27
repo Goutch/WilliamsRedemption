@@ -18,6 +18,8 @@ namespace Light
         [SerializeField] private bool hasMovingObstaclesInRange = false;
         [SerializeField] private bool isOpen;
 
+        private bool isLocked;
+
         public bool HasMovingObstaclesInRange
         {
             get { return hasMovingObstaclesInRange; }
@@ -47,6 +49,7 @@ namespace Light
             GetComponent<MeshFilter>().mesh = mesh;
             vertices = new List<Vector3>();
             triangles = new List<int>();
+            isLocked = false;
         }
 
         public void DrawMesh()
@@ -148,10 +151,10 @@ namespace Light
 
         protected float VectorToDegree(Vector2 dir)
         {
-            float AngleRad = Mathf.Atan2(dir.x, dir.y);
-            float AngleDeg = (180 / Mathf.PI) * AngleRad;
+            float AngleRad = Mathf.Atan2(dir.y, dir.x); // jai inverser Y et X
+            float AngleDeg = (180* AngleRad/Mathf.PI );
 
-            return ClampDegree0To360(AngleDeg + 90);
+            return ClampDegree0To360(AngleDeg); // jai supprimer le +90
         }
 
         protected IEnumerator StartUpdateCooldownRoutine(float cooldown)
@@ -175,14 +178,25 @@ namespace Light
             GetComponent<LightStimulu>().enabled = false;
         }
 
-        public bool CanBeOpened()
-        {
-            return !isOpen;
-        }
 
         public bool IsOpened()
         {
             return isOpen;
+        }
+
+        public void Lock()
+        {
+            isLocked = true;
+        }
+
+        public void Unlock()
+        {
+            isLocked = false;
+        }
+
+        public bool IsLocked()
+        {
+            return isLocked;
         }
     }
 }

@@ -5,45 +5,66 @@ using UnityEngine;
 public class SwitchController : MonoBehaviour
 {
 //fix le isLocked
+	
+	[Tooltip("Objects triggered by this trigger.")]
 	[SerializeField] private GameObject[] triggerables;
+	[Tooltip("Amount of time before the countdown reaches zero.")]
 	[SerializeField] private float shutDownTime;
+	[Tooltip("Check this box if you want these objects to use a countdown.")]
 	[SerializeField] private bool hasTimer;
+	[Tooltip("Check this box if you want to lock the objects after being triggered.")]
+	[SerializeField] private bool lockLinkedObjects;
 
 	private float timerStartTime;
-	private bool isTriggered;
+	private bool timerHasStarted;
 	
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Player" && isTriggered == false)
+		if (other.tag == "Player" && timerHasStarted == false)
 		{
 			
 			foreach (var triggerable in triggerables)
 			{
 				
-				if (triggerable.GetComponent<ITriggerable>().CanBeOpened())
+				if (!triggerable.GetComponent<ITriggerable>().IsLocked()&& !triggerable.GetComponent<ITriggerable>().IsOpened())
 				{
 					triggerable.GetComponent<ITriggerable>()?.Open();
 					if (hasTimer)
 					{
+						triggerable.GetComponent<ITriggerable>()?.Lock();
 						timerStartTime = Time.time;
-						isTriggered = true;
+						timerHasStarted = true;
 					}
-				}
-				else
-				{
-					triggerable.GetComponent<ITriggerable>()?.Close();
-					if (hasTimer)
+					
+					if (lockLinkedObjects)
 					{
-						timerStartTime = Time.time;
-						isTriggered = true;
+						triggerable.GetComponent<ITriggerable>().Lock();
 					}
 				}
+				else if (!triggerable.GetComponent<ITriggerable>().IsLocked()&& triggerable.GetComponent<ITriggerable>().IsOpened())
+				{
+					
+						triggerable.GetComponent<ITriggerable>()?.Close();
+						if (hasTimer)
+						{
+							triggerable.GetComponent<ITriggerable>()?.Lock();
+							timerStartTime = Time.time;
+							timerHasStarted = true;
+						}
+
+						if (lockLinkedObjects)
+						{
+							triggerable.GetComponent<ITriggerable>().Lock();
+						}
+						
+				}
+
 			}
 		}
 	}
 
-	void Start()
+	void Awake()
 	{
 		timerStartTime = 0.0f;
 		foreach (var triggerable in triggerables)
@@ -57,12 +78,12 @@ public class SwitchController : MonoBehaviour
 				triggerable.GetComponent<ITriggerable>()?.Close();
 			}
 		}
-		isTriggered = false;
+		timerHasStarted = false;
 	}
 	
 	void Update()
 	{
-		if (hasTimer && isTriggered)
+		if (hasTimer && timerHasStarted)
 		{
 			if (TimeIsUp())
 			{
@@ -86,13 +107,15 @@ public class SwitchController : MonoBehaviour
 		{
 			if (triggerable.GetComponent<ITriggerable>().IsOpened())
 			{
+				triggerable.GetComponent<ITriggerable>()?.Unlock();
 				triggerable.GetComponent<ITriggerable>()?.Close();
-				isTriggered = false;
+				timerHasStarted = false;
 			}
-			else
+			else if (!triggerable.GetComponent<ITriggerable>().IsOpened())
 			{
+				triggerable.GetComponent<ITriggerable>()?.Unlock();
 				triggerable.GetComponent<ITriggerable>()?.Open();
-				isTriggered = false;
+				timerHasStarted = false;
 			}
 		}
 	}

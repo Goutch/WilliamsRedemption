@@ -6,8 +6,8 @@ namespace Light
     [ExecuteInEditMode]
     public class CircleLight : MeshLight
     {
-        [Range(0, 360)] [SerializeField] private float coneAngle = 0;
-        [Range(0, 360)] [SerializeField] private float faceAngle = 0;
+        [Range(0, 360)] [SerializeField] private float coneAngle;
+        [Range(0, 360)] [SerializeField] private float faceAngle;
         [SerializeField] private float radius = 3;
         [SerializeField] [Range(0.1f, 2)] private float precisionInDegree = 1;
 
@@ -24,6 +24,12 @@ namespace Light
                 radius = value;
                 GetComponent<LightStimulu>().OnRadiusChange(radius);
             }
+        }
+
+        public float FaceAngle
+        {
+            get { return faceAngle; }
+            set { faceAngle = value; }
         }
 
         private new void Start()
@@ -91,20 +97,20 @@ namespace Light
         {
             if (coneAngle == 0 || coneAngle == 360) return true;
 
-            float min = faceAngle - coneAngle / 2;
-            float max = faceAngle + coneAngle / 2;
+            float min = faceAngle - coneAngle /2 ; 
+            float max = faceAngle + coneAngle /2 ;
 
-            if (degree > max)
-            {
-                return false;
-            }
+//            if (degree > max)
+//            {
+//                return false;
+//            }
+//
+//            if (min < 0)
+//            {
+//                min = ClampDegree0To360(min);
+//            }
 
-            if (min < 0)
-            {
-                min = ClampDegree0To360(min);
-            }
-
-            return degree > min;
+            return (degree >= min && degree <= max); //ajout de la deuxieme condition et les =
         }
 
         protected override void UpdateUVs()
@@ -134,12 +140,12 @@ namespace Light
 
         public override LightSensor IsWithinLightLimits(Vector2 position)
         {
-            float AngleDeg = VectorToDegree(position - (Vector2) transform.position);
+            float AngleDeg = VectorToDegree( position -(Vector2) transform.position);
 
             if (CheckDegreeWithinCone(AngleDeg))
             {
                 RaycastHit2D hit =
-                    Physics2D.Raycast(transform.position, position - (Vector2) transform.position, Radius);
+                    Physics2D.Raycast(transform.position, position -(Vector2) transform.position  , Radius);
 
                 Debug.DrawRay(transform.position, new Vector2(
                     hit.point.x - transform.position.x,

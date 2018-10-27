@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace Game
-{
+
     [RequireComponent(typeof(Rigidbody2D))]
     public class KinematicRigidbody2D : MonoBehaviour
     {
@@ -64,12 +63,12 @@ namespace Game
 
         public bool IsGrounded
         {
-            get { return isGrounded; }
+            get { return isGrounded;}
         }
 
         public float TimeSinceAirborne
         {
-            get { return Time.time - lastGroundedTime; }
+            get { return Time.time - lastGroundedTime;}
         }
 
         private void Awake()
@@ -79,7 +78,6 @@ namespace Game
             contactFilter.useTriggers = false;
             contactFilter.useLayerMask = true;
             preallocaRaycastHits = new RaycastHit2D[NbPreallocatedRaycastHit];
-
             IsGravityIgnored = false;
         }
 
@@ -211,4 +209,3 @@ namespace Game
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
         }
     }
-}

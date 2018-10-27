@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KeyScript : MonoBehaviour
 {
+    [Tooltip("Door tied to this key.")]
     [SerializeField] private GameObject door;
     private DoorScript doorScript;
 
@@ -17,7 +18,7 @@ public class KeyScript : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            doorScript.UnlockDoor();
+            doorScript.Unlock();
             gameObject.SetActive(false);
         }
     }
