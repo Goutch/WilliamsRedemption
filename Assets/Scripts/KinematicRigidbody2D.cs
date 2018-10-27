@@ -62,12 +62,12 @@
 
         public bool IsGrounded
         {
-            get { return isGrounded; }
+            get { return isGrounded;}
         }
 
         public float TimeSinceAirborne
         {
-            get { return Time.time - lastGroundedTime; }
+            get { return Time.time - lastGroundedTime;}
         }
 
         private void Awake()
@@ -77,7 +77,6 @@
             contactFilter.useTriggers = false;
             contactFilter.useLayerMask = true;
             preallocaRaycastHits = new RaycastHit2D[NbPreallocatedRaycastHit];
-
             IsGravityIgnored = false;
         }
 

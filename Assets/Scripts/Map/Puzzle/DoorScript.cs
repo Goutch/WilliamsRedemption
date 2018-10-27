@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour, ITriggerable
 {
-    [SerializeField] private bool IsLocked;
+    [Tooltip("Locks the door.")]
+    [SerializeField] private bool isLocked;
+    [Tooltip("Check this box if you want the door to start opened.")]
     [SerializeField] private bool IsOpen;
+    
 
     void Awake()
     {
@@ -17,12 +20,9 @@ public class DoorScript : MonoBehaviour, ITriggerable
     
     public void Open()
     {
-        if (!IsLocked)
-        {
-            this.gameObject.GetComponent<SpriteRenderer>().enabled =false;
-            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            IsOpen = true;
-        }
+        this.gameObject.GetComponent<SpriteRenderer>().enabled =false;
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        IsOpen = true;   
     }
 
     public void Close()
@@ -32,27 +32,23 @@ public class DoorScript : MonoBehaviour, ITriggerable
         IsOpen = false;
     }
 
-    public void LockDoor()
+    public void Lock()
     {
-        IsLocked = true;
+        isLocked = true;
     }
 
-    public void UnlockDoor()
+    public void Unlock()
     {
-        IsLocked = false;
+        isLocked = false;
     }
     
-    public bool CanBeOpened()
-    {
-        return !IsLocked;
-    }
-
     public bool IsOpened()
     {
         return IsOpen;
     }
-    
 
-
-    
+    public bool IsLocked()
+    {
+        return isLocked;
+    }
 }

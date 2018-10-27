@@ -18,6 +18,8 @@ namespace Light
         [SerializeField] private bool hasMovingObstaclesInRange = false;
         [SerializeField] private bool isOpen;
 
+        private bool isLocked;
+
         public bool HasMovingObstaclesInRange
         {
             get { return hasMovingObstaclesInRange; }
@@ -47,6 +49,7 @@ namespace Light
             GetComponent<MeshFilter>().mesh = mesh;
             vertices = new List<Vector3>();
             triangles = new List<int>();
+            isLocked = false;
         }
 
         public void DrawMesh()
@@ -175,14 +178,25 @@ namespace Light
             GetComponent<LightStimulu>().enabled = false;
         }
 
-        public bool CanBeOpened()
-        {
-            return !isOpen;
-        }
 
         public bool IsOpened()
         {
             return isOpen;
+        }
+
+        public void Lock()
+        {
+            isLocked = true;
+        }
+
+        public void Unlock()
+        {
+            isLocked = false;
+        }
+
+        public bool IsLocked()
+        {
+            return isLocked;
         }
     }
 }

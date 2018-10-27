@@ -14,6 +14,8 @@ using XInputDotNetPure;
 		[SerializeField] private float jumpSpeed;
 		[Tooltip("Short period of time where the player can jump while being airborne.")]
 		[SerializeField] private float playerNoLongerGroundedDelay;
+		[Tooltip("Amount of jumps allowed after leaving ground.")] [SerializeField]
+		private float amountOfAdditionalJumps;
 
 
 		private PlayerIndex controllerNumber;
@@ -26,6 +28,7 @@ using XInputDotNetPure;
 		private float velocityY = 0;
 		private Vector2 horizontalVelocity;
 		private Vector2 verticalVelocity;
+		private int jumpCount;
 		
 		private void Awake()
 		{
@@ -37,6 +40,7 @@ using XInputDotNetPure;
 			jumpButtonPressed = false;
 			horizontalVelocity = Vector2.zero;
 			verticalVelocity = Vector2.zero;
+			jumpCount = 0;
 		}
 
 		private void Update()
@@ -51,7 +55,7 @@ using XInputDotNetPure;
 			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 			horizontalVelocity = Vector2.zero;
 			verticalVelocity = Vector2.zero;
-			
+			ResetJumpCount();	
 		}
 
 		public void Attack()
@@ -82,12 +86,19 @@ using XInputDotNetPure;
 
 		public void Jump()
 		{
-			if (kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay)
+			if (kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && jumpCount ==0)
 			{
 				verticalVelocity = Vector2.up;
 				player.CurrentController.animator.SetTrigger("Jump");
 				player.IsMoving = true;
 			}
+			else if (jumpCount<=amountOfAdditionalJumps)
+			{
+				verticalVelocity = Vector2.up;
+				player.CurrentController.animator.SetTrigger("Jump");
+				player.IsMoving = true;
+				jumpCount++;
+			}	
 		}
 
 		public void AimUp()
@@ -106,6 +117,14 @@ using XInputDotNetPure;
 		{
 			if (player.CurrentController.CapacityUsable(player))
 				player.CurrentController.UseCapacity(player, direction);
+		}
+
+		private void ResetJumpCount()
+		{
+			if (kinematicRigidbody2D.IsGrounded )
+			{
+				jumpCount = 0;
+			}
 		}
 	
 	}

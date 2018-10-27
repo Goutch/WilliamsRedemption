@@ -138,8 +138,7 @@ public class PlatformMover : MonoBehaviour
 			else
 			{
 				isHeadingUpwards = false;
-			}
-			
+			}	
 		}
 		else
 		{
