@@ -37,7 +37,7 @@ public class ReaperController : EntityControlableController
                     Physics2D.Raycast(
                         root.position,
                         direction, teleportationDistance * Time.deltaTime,
-                        player.ReaperLayerMask);
+                        1 << LayerMask.NameToLayer(Values.Layers.Default));
 
         if (hit.collider == null)
         {

@@ -13,6 +13,7 @@ namespace Playmode.EnnemyRework.Boss
 
             phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
             phases[currentPhaseIndex].Enter();
+
         }
         
         public void Update()
@@ -24,9 +25,17 @@ namespace Playmode.EnnemyRework.Boss
         {
             phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
 
-            ++currentPhaseIndex;
-            phases[currentPhaseIndex].Enter();
-            //TODO : Register to next state
+            if(currentPhaseIndex == phases.Length - 1)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                ++currentPhaseIndex;
+                phases[currentPhaseIndex].Enter();
+                phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
+            }
+
         }
     }
 }

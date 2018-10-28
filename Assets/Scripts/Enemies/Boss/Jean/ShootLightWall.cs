@@ -1,17 +1,16 @@
 ﻿using Boss;
+using System.Collections;
 using UnityEngine;
 
 namespace Playmode.EnnemyRework.Boss.Jean
 {
-    class ShootLight : Capacity
+    class ShootLightWall : Capacity
     {
         [SerializeField] private float cooldown;
-        [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private float shieldCost;
         [SerializeField] private GameObject projectile;
-        [SerializeField] private GameObject projectileSpawnPoint1;
-        [SerializeField] private GameObject projectileSpawnPoint2;
-        [SerializeField] private float probabilitySpawn1;
+        [SerializeField] private GameObject projectileSpawnPoint;
+        [SerializeField] private float delayAfterCapacityUsed;
 
         private ShieldManager shieldManager;
         private bool canEnterAsked1Time = false;
@@ -25,14 +24,9 @@ namespace Playmode.EnnemyRework.Boss.Jean
             base.Finish();
         }
 
-        public override void Act()
-        {
-            Finish();
-        }
-
         public override bool CanEnter()
         {
-            if (!canEnterAsked1Time)
+            if(!canEnterAsked1Time)
             {
                 lastTimeUsed = Time.time;
                 canEnterAsked1Time = true;
@@ -50,11 +44,22 @@ namespace Playmode.EnnemyRework.Boss.Jean
 
             shieldManager = GetComponentInChildren<ShieldManager>();
 
-            int random = Random.Range(0, 100);
-            Vector2 spawnPosition = random < probabilitySpawn1 ? projectileSpawnPoint1.transform.position : projectileSpawnPoint2.transform.position;
-            Instantiate(projectile, spawnPosition, transform.rotation);
+            Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
 
             shieldManager.UseShield(shieldCost);
+
+            StartCoroutine(WaitBeforeFinish());
+        }
+
+        private IEnumerator WaitBeforeFinish()
+        {
+            yield return new WaitForSeconds(delayAfterCapacityUsed);
+            Finish();
+        }
+
+        public override void Act()
+        {
+
 
         }
     }

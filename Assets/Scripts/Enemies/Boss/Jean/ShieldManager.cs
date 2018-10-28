@@ -4,19 +4,30 @@ namespace Playmode.EnnemyRework.Boss.Jean
 {
     public class ShieldManager : MonoBehaviour
     {
-        private float shieldPercent = 1;
-        private Vector2 baseScale;
+        [SerializeField] private Vector2 minScale;
+        [SerializeField] private Vector2 maxScale;
+        private bool isShieldActive = true;
 
-        private void Awake()
-        {
-            baseScale = transform.localScale;
-        }
+        private float shieldPercent = 1;
 
         public float ShieldPercent
         {
             get
             {
                 return shieldPercent;
+            }
+        }
+
+        public bool IsShieldActive
+        {
+            get
+            {
+                return isShieldActive;
+            }
+
+            set
+            {
+                isShieldActive = value;
             }
         }
 
@@ -27,7 +38,7 @@ namespace Playmode.EnnemyRework.Boss.Jean
             if (shieldPercent < 0)
                 shieldPercent = 0;
 
-            transform.localScale = baseScale * shieldPercent;
+            transform.localScale = (maxScale * shieldPercent) + (minScale - minScale * shieldPercent);
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Playmode.EnnemyRework
         public void LookAtPlayer()
         {
             float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
-            if (directionX > 0)
+            if (directionX < 0)
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             else
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
