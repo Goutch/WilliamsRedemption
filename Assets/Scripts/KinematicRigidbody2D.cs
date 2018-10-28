@@ -106,6 +106,11 @@ using UnityEngine;
 #endif
         }
 
+        private void Update()
+        {
+            AddTargetVelocityToVelocityY();
+        }
+
         private void ResetValuesBeforeSimulation()
         {
             isGrounded = false;
@@ -122,6 +127,16 @@ using UnityEngine;
         {
             //X velocity is entirely controlled by the object (like the player or an ennemy)
             velocity.x = targetVelocity.x;
+            //Y velocity is controlled by the object when it's target y velocity is greater than 0 or if gravity is ignored.
+            //Otherwise, current velocity is used.
+            //velocity.y = targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y;
+        }
+
+        /// <summary>
+        /// Since our game does not require a continous input to jump , we have to update the Y axis in update. 
+        /// </summary>
+        private void AddTargetVelocityToVelocityY()
+        {
             //Y velocity is controlled by the object when it's target y velocity is greater than 0 or if gravity is ignored.
             //Otherwise, current velocity is used.
             velocity.y = targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y;

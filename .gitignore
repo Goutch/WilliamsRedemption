@@ -43,3 +43,4 @@ sysinfo.txt
 
 #DLL needs to be commited, because this is a Unity Project
 !*.dll
+*.meta
