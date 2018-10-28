@@ -22,10 +22,18 @@ public class PlayerInputs : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {	
-		ManageKeyBoardInputs();	
+	void Update () {
+		if (!controllerState.IsConnected)
+		{
+			ManageKeyBoardInputs();
+		}
+		else
+		{
+			ManageControllerInputs();
+		}
+			
 	}
-	
+
 	private void ManageKeyBoardInputs()
 	{
 		
@@ -33,7 +41,6 @@ public class PlayerInputs : MonoBehaviour
 		{
 			player.Jump();
 		}
-		
 				
 		if (Input.GetKey(KeyCode.A))
 		{

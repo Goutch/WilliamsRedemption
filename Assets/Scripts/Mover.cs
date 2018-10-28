@@ -43,7 +43,6 @@ using XInputDotNetPure;
 
 		private void Update()
 		{
-			
 			kinematicRigidbody2D.Velocity = horizontalVelocity * speed +verticalVelocity * jumpSpeed;
 			velocityY = this.transform.position.y - lastPositionY;
 			velocityY = velocityY / Time.fixedDeltaTime;
