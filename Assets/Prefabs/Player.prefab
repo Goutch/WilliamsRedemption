@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 50817793017110226}
   - component: {fileID: 114913052588184466}
   - component: {fileID: 114043392105808680}
+  - component: {fileID: 114335291193448188}
   m_Layer: 1
   m_Name: Player
   m_TagString: Player
@@ -214,7 +215,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485973637437590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.43, y: 1.34, z: 0}
+  m_LocalPosition: {x: 92.6, y: 6.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4302502636305752}
@@ -399,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205f42d22b2d64844a6e0ee8c8713450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 0.3
+  attackCooldown: 0.2
   teleportationDistance: 150
   tpEffect: {fileID: 1755848583395488, guid: 83f64db88aee946448db9a3ae94dd822, type: 2}
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
@@ -418,6 +419,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+--- !u!114 &114335291193448188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485973637437590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b94a760e8bb984b81d6b56674c128d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114729406392851916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,8 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  jumpSpeed: 3.8
-  playerNoLongerGroundedDelay: 0.15
+  jumpSpeed: 4
+  playerNoLongerGroundedDelay: 0.1
+  amountOfAdditionalJumps: 0
 --- !u!114 &114926903096335436
 MonoBehaviour:
   m_ObjectHideFlags: 1
