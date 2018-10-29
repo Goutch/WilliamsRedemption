@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 
-    [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
     public class KinematicRigidbody2D : MonoBehaviour
     {
         private const int NbPreallocatedRaycastHit = 16;
@@ -57,6 +58,12 @@ using UnityEngine;
                 targetVelocity = value;
                 latestVelocity = value;
             }
+        }
+
+        public Vector2 VelocityModifier
+        {
+            get;
+            set;
         }
 
         public bool IsGravityIgnored { get; set; }
@@ -142,6 +149,11 @@ using UnityEngine;
             velocity.y = targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y;
         }
 
+        public void AddForce(Vector2 force)
+        {
+            VelocityModifier = force*Vector2.right;
+            Velocity=  force*Vector2.up;
+        }
         private Vector2 GetGravityDeltaPosition()
         {
             return gravity * (IsGravityIgnored ? 0f : gravityMultiplier) * Time.fixedDeltaTime;
@@ -221,6 +233,8 @@ using UnityEngine;
                 }
             }
 
-            rigidbody.position += deltaPosition.normalized * deltaMagnitude;
+            rigidbody.position += (VelocityModifier*Vector2.right) * Time.fixedDeltaTime + deltaPosition.normalized * deltaMagnitude;
+
+            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime*2);
         }
     }

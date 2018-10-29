@@ -1,5 +1,6 @@
 ﻿using System.CodeDom;
 using Game;
+using Harmony;
 using UnityEngine;
 
 namespace Playmode.EnnemyRework
@@ -16,6 +17,7 @@ namespace Playmode.EnnemyRework
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
+            GetComponent<HitStimulus>().OnHitOther += OnHitOther;
         }
 
         private void FixedUpdate()
@@ -27,6 +29,13 @@ namespace Playmode.EnnemyRework
                     knocked = false;
         }
 
+        private void OnHitOther(HitSensor other)
+        {
+            if (other.CompareTag(Values.Tags.Player))
+            {
+                other.Root().GetComponent<KinematicRigidbody2D>().AddForce(new Vector2(playerKnockBackForce.x*currenDirection,playerKnockBackForce.y));
+            }
+        }
         protected override void OnHit(HitStimulus other)
         {
             if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
@@ -48,13 +57,7 @@ namespace Playmode.EnnemyRework
                 rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * dir, bulletKnockBackForce.y),
                     ForceMode2D.Impulse);
                 knocked = true;
-            }
-            else
-            {
-                if (other.tag == "Player")
-                   other.GetComponent<KinematicRigidbody2D>().Velocity += new Vector2(playerKnockBackForce.x*currenDirection,playerKnockBackForce.y);
-                base.OnHit(other);
-            }
+            }      
         }
     }
 }

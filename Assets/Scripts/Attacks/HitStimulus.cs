@@ -2,9 +2,11 @@
 using Playmode.EnnemyRework;
 using UnityEngine;
 
+public delegate void HitEventHandler(HitSensor other);
 public class HitStimulus : MonoBehaviour
 {
     private new bool enabled = true;
+    public event HitEventHandler OnHitOther;
     public enum DamageSourceType
     {
         Reaper,
@@ -39,7 +41,9 @@ public class HitStimulus : MonoBehaviour
 
             if (hitSensor != null)
             {
+                OnHitOther?.Invoke(hitSensor);
                 hitSensor.Hit(this);
+                
             }
         }
     }
@@ -65,6 +69,7 @@ public class HitStimulus : MonoBehaviour
 
             if (hitSensor != null)
             {
+                OnHitOther?.Invoke(hitSensor);
                 hitSensor.Hit(this);
             }
         }
