@@ -128,11 +128,11 @@ public class PlayerController : MonoBehaviour
     {
         if (numbOfLocks == 0)
         {
+            williamController.sprite.flipX = reaperController.sprite.flipX;
             williamController.gameObject.SetActive(true);
             reaperController.OnAttackFinish();
             reaperController.gameObject.SetActive(false);
             kRigidBody.LayerMask = williamLayerMask;
-
             CurrentController = williamController;
         }
     }
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
     {
         if (numbOfLocks == 0)
         {
-            
+            reaperController.sprite.flipX = williamController.sprite.flipX;
             reaperController.gameObject.SetActive(true);
             williamController.OnAttackFinish();
             williamController.gameObject.SetActive(false);

@@ -66,6 +66,10 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	public void OnGameEnd()
+	{
+		pauseUI.OnPressKeyPause();
+	}
 	private void ShowDeathMenu()
 	{
 		pauseUI.OnPressKeyPause();

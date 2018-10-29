@@ -145,7 +145,7 @@ namespace Light
             if (CheckDegreeWithinCone(AngleDeg))
             {
                 RaycastHit2D hit =
-                    Physics2D.Raycast(transform.position, position -(Vector2) transform.position  , Radius);
+                    Physics2D.Raycast(transform.position, position -(Vector2) transform.position  , Radius,detectionLayers);
 
                 Debug.DrawRay(transform.position, new Vector2(
                     hit.point.x - transform.position.x,

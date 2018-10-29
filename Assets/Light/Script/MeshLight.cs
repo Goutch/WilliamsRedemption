@@ -17,6 +17,7 @@ namespace Light
         [SerializeField] private float movingObstacleUpdateStopCooldown = 1;
         [SerializeField] private bool hasMovingObstaclesInRange = false;
         [SerializeField] private bool isOpen;
+        [SerializeField] protected LayerMask detectionLayers;
 
         private bool isLocked;
 

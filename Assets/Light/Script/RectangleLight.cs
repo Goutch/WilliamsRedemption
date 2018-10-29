@@ -108,7 +108,7 @@ namespace Light
             if (!(position.x < transform.position.x - width/2 || position.x > transform.position.x + width/2))
             {
                 Vector2 startPos = (position * Vector2.right) + (transform.position * Vector2.up);
-                RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range);
+                RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range,detectionLayers);
 
                 if (hit.collider != null)
                 {
