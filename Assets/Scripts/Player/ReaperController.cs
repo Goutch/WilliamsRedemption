@@ -93,7 +93,7 @@ public class ReaperController : EntityControlableController
         meleeAttackObject.transform.localRotation= angle;
         meleeAttackObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Reaper);
         animator.SetTrigger("Attack");
-        Attacking = true;
+        
     }
     
 

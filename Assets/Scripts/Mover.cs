@@ -59,8 +59,7 @@ public class Mover : MonoBehaviour
 
     public void Attack()
     {
-        
-            player.CurrentController.UseBasicAttack(player, direction);
+          player.CurrentController.UseBasicAttack(player, direction);
     }
 
     public void MoveRight()
