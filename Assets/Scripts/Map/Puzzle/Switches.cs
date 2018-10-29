@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchController : MonoBehaviour
+public class Switches : MonoBehaviour
 {
-//fix le isLocked
 	
 	[Tooltip("Objects triggered by this trigger.")]
 	[SerializeField] private GameObject[] triggerables;
@@ -21,7 +20,7 @@ public class SwitchController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Player" && timerHasStarted == false)
+		if (other.CompareTag("Player")  && timerHasStarted == false)
 		{
 			
 			foreach (var triggerable in triggerables)

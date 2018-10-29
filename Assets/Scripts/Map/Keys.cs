@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyScript : MonoBehaviour
+public class Keys: MonoBehaviour
 {
     [Tooltip("Door tied to this key.")]
-    [SerializeField] private GameObject door;
-    private DoorScript doorScript;
+    [SerializeField] private Doors door;
 
-
-    void Awake()
-    {
-        doorScript = door.GetComponent<DoorScript>();
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            doorScript.Unlock();
+            door.Unlock();
             gameObject.SetActive(false);
         }
     }
