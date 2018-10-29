@@ -23,7 +23,7 @@ public abstract class EntityControlableController : MonoBehaviour
     public abstract void UseCapacity(PlayerController player, Vector2 direction);
     public abstract bool CapacityUsable(PlayerController player);
 
-    public bool CanUseBasicAttack(PlayerController player)
+    public bool CanUseBasicAttack()
     {
         if (Attacking==false&&Time.time - timeSinceLastAttack > attackCooldown)
         {

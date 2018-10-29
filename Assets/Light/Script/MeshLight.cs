@@ -41,14 +41,18 @@ namespace Light
         protected abstract void Scan();
         protected abstract void UpdateUVs();
 
+        private void Awake()
+        {
+            vertices = new List<Vector3>();
+            triangles = new List<int>();
+            mesh = new Mesh();
+        }
+
         protected void Start()
         {
             InitializeComponent();
             this.gameObject.layer = 2;
-            mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = mesh;
-            vertices = new List<Vector3>();
-            triangles = new List<int>();
             isLocked = false;
         }
 

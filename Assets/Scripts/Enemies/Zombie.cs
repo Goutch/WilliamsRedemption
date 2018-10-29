@@ -52,7 +52,7 @@ namespace Playmode.EnnemyRework
             else
             {
                 if (other.tag == "Player")
-                    other.GetComponent<KinematicRigidbody2D>().Velocity += new Vector2(playerKnockBackForce.x*currenDirection,playerKnockBackForce.y);
+                   other.GetComponent<KinematicRigidbody2D>().Velocity += new Vector2(playerKnockBackForce.x*currenDirection,playerKnockBackForce.y);
                 base.OnHit(other);
             }
         }

@@ -68,7 +68,7 @@ public class PlayerInputs : MonoBehaviour
 			player.UseCapacity();
 		}
 
-		if (Input.GetKey(KeyCode.Return))
+		if (Input.GetKey(KeyCode.Return)&&PlayerController.instance.CurrentController.CanUseBasicAttack())
 		{
 			player.Attack();
 		}

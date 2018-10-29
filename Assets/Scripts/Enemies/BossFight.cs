@@ -25,11 +25,13 @@ public class BossFight : MonoBehaviour
         if (other.CompareTag(Values.Tags.Player))
         {
             boss.SetActive(true);
+            
             doorToCloseOnBossFightBegin?.Close();
+            
             doorToOpenOnBossDeath?.Close();
-
+            
             cameraController.FixePoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
-
+            
             Destroy(GetComponent<BoxCollider2D>());
         }
     }
