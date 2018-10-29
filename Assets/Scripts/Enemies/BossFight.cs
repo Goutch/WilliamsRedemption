@@ -5,8 +5,8 @@ public class BossFight : MonoBehaviour
 {
     [SerializeField] private GameObject boss;
 
-    [SerializeField] private DoorScript doorToCloseOnBossFightBegin;
-    [SerializeField] private DoorScript doorToOpenOnBossDeath;
+    [SerializeField] private Doors doorToCloseOnBossFightBegin;
+    [SerializeField] private Doors doorToOpenOnBossDeath;
 
     private Collider2D bossArea;
     private CameraController cameraController;

@@ -6,8 +6,8 @@ public interface ITriggerable  {
 
 	void Open();
 	void Close();
-	bool IsLocked();
-	bool IsOpened();
 	void Unlock();
 	void Lock();
+	bool IsLocked();
+	bool IsOpened();
 }

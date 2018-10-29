@@ -30,7 +30,6 @@ public class ReaperController : EntityControlableController
         GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
         StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
         
-        //Vector3 direction = (sprite.flipX ? Vector3.left : Vector3.right);
 
         RaycastHit2D hit =
                     Physics2D.Raycast(
@@ -95,7 +94,5 @@ public class ReaperController : EntityControlableController
         animator.SetTrigger("Attack");
         
     }
-    
-
-    
+       
 }

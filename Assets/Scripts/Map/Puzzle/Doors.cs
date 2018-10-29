@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour, ITriggerable
+public class Doors : MonoBehaviour, ITriggerable
 {
     [Tooltip("Locks the door.")]
     [SerializeField] private bool isLocked;
     [Tooltip("Check this box if you want the door to start opened.")]
-    [SerializeField] private bool IsOpen;
+    [SerializeField] private bool isOpen;
     
-
+    
     void Awake()
     {
-        if (IsOpen)
+        if (isOpen)
         {
             Open();
         }
@@ -22,14 +22,14 @@ public class DoorScript : MonoBehaviour, ITriggerable
     {
         this.gameObject.GetComponent<SpriteRenderer>().enabled =false;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        IsOpen = true;   
+        isOpen = true;   
     }
 
     public void Close()
     {
         this.gameObject.GetComponent<SpriteRenderer>().enabled =true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled =true;
-        IsOpen = false;
+        isOpen = false;
     }
 
     public void Lock()
@@ -42,13 +42,9 @@ public class DoorScript : MonoBehaviour, ITriggerable
         isLocked = false;
     }
     
-    public bool IsOpened()
-    {
-        return IsOpen;
-    }
-
-    public bool IsLocked()
-    {
-        return isLocked;
-    }
+    public bool IsOpened() => isOpen; 
+    
+    public bool IsLocked() => isLocked;
+    
+   
 }

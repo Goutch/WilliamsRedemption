@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TripWireScript : MonoBehaviour
+public class TripWires : MonoBehaviour
 {
 
 	[Tooltip("Objects triggered by this trigger.")]
@@ -27,7 +27,7 @@ public class TripWireScript : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Player" && !isTripped)
+		if (other.CompareTag("Player") && !isTripped)
 		{
 			foreach (var triggerable in triggerables)
 			{
