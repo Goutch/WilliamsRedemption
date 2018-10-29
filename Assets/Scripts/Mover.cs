@@ -59,7 +59,7 @@ public class Mover : MonoBehaviour
 
     public void Attack()
     {
-        if (player.CurrentController.CanUseBasicAttack(player))
+        
             player.CurrentController.UseBasicAttack(player, direction);
     }
 
