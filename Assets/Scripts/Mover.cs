@@ -52,7 +52,8 @@ using XInputDotNetPure;
 			player.CurrentController.animator.SetBool("Grounded",kinematicRigidbody2D.IsGrounded);
 			horizontalVelocity = Vector2.zero;
 			verticalVelocity = Vector2.zero;
-			ResetJumpCount();	
+			ResetJumpCount();
+			
 		}
 
 		public void Attack()
@@ -68,7 +69,6 @@ using XInputDotNetPure;
 			player.DirectionFacingUpDown = FacingSideUpDown.None;
 			player.CurrentController.sprite.flipX = false;
 			player.IsMoving = true;
-			
 		}
 
 		public void MoveLeft()

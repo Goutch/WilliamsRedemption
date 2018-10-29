@@ -11,7 +11,6 @@ public class PlayerInputs : MonoBehaviour
 	private GamePadState controllerState;
 	private bool jumpButtonPressed;
 
-	// Use this for initialization
 	void Start ()
 	{
 		player = GetComponent<Mover>();
@@ -21,8 +20,8 @@ public class PlayerInputs : MonoBehaviour
 		jumpButtonPressed = false;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		if (!controllerState.IsConnected)
 		{
 			ManageKeyBoardInputs();
@@ -31,7 +30,6 @@ public class PlayerInputs : MonoBehaviour
 		{
 			ManageControllerInputs();
 		}
-			
 	}
 
 	private void ManageKeyBoardInputs()
@@ -67,7 +65,7 @@ public class PlayerInputs : MonoBehaviour
 			
 		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
-			player.UseCapacity(); // crtl R M
+			player.UseCapacity();
 		}
 
 		if (Input.GetKey(KeyCode.Return))
