@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd73fd877d8ffc340b28807696e32f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocked: 0
+  isLocked: 1
   isOpen: 0
 --- !u!212 &212825192371764670
 SpriteRenderer:

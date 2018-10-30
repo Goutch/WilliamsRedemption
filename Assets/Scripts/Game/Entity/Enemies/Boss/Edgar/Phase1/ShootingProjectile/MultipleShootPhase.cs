@@ -5,8 +5,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(RootMover))]
     class MultipleShootPhase : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")]
-        [SerializeField] private Animator animator;
         [SerializeField] private int numberOfShoots;
         [SerializeField] private float cooldown;
 
@@ -45,7 +43,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         }
 
-        protected override void CurrentState_OnStateFinish(Boss.State state)
+        protected override void CurrentState_OnStateFinish(State state)
         {
             base.CurrentState_OnStateFinish(state);
             ++numberProjectileShooted;

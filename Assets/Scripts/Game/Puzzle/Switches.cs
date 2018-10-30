@@ -63,7 +63,7 @@ namespace Game.Puzzle
             }
         }
 
-        void Awake()
+        private void Start()
         {
             timerStartTime = 0.0f;
             foreach (var triggerable in triggerables)

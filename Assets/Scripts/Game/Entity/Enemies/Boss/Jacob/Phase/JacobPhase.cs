@@ -4,7 +4,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
 {
     public class JacobPhase : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase1 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase + "' ")]
         [SerializeField] private Animator animator;
         [SerializeField] private Capacity passiveCapacity;
         private State saveState;
@@ -16,12 +16,12 @@ namespace Game.Entity.Enemies.Boss.Jacob
         public override void Enter()
         {
             base.Enter();
-            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase1);
+            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase);
         }
 
         protected override void EnterIdle()
         {
-            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase1);
+            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase);
         }
 
         public override void Act()

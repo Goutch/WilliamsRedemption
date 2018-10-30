@@ -26,7 +26,7 @@ namespace Game.Entity.Enemies
             if (!isTriggered)
             {
                 isTriggered = true;
-                animator.SetTrigger("Fly");
+                animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
                 Destroy(this.gameObject, 10);
                 direction = PlayerController.instance.transform.position.x - transform.root.position.x > 0
                     ? 1

@@ -52,9 +52,9 @@ namespace Game.Entity.Player
             velocityY = this.transform.position.y - lastPositionY;
             velocityY = velocityY / Time.fixedDeltaTime;
             lastPositionY = this.transform.position.y;
-            PlayerController.instance.CurrentController.animator.SetFloat("VelocityY", velocityY);
-            PlayerController.instance.CurrentController.animator.SetFloat("Speed", Mathf.Abs(kinematicRigidbody2D.Velocity.x));
-            PlayerController.instance.CurrentController.animator.SetBool("Grounded", kinematicRigidbody2D.IsGrounded);
+            PlayerController.instance.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.VelocityY, velocityY);
+            PlayerController.instance.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.Speed, Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+            PlayerController.instance.CurrentController.animator.SetBool(Values.AnimationParameters.Player.Grounded, kinematicRigidbody2D.IsGrounded);
             horizontalVelocity = Vector2.zero;
             verticalVelocity = Vector2.zero;
             ResetJumpCount();
@@ -90,13 +90,13 @@ namespace Game.Entity.Player
             if (kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && jumpCount == 0)
             {
                 verticalVelocity = Vector2.up;
-                PlayerController.instance.CurrentController.animator.SetTrigger("Jump");
+                PlayerController.instance.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 PlayerController.instance.IsMoving = true;
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
                 verticalVelocity = Vector2.up;
-                PlayerController.instance.CurrentController.animator.SetTrigger("Jump");
+                PlayerController.instance.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 PlayerController.instance.IsMoving = true;
                 jumpCount++;
             }

@@ -46,7 +46,7 @@ namespace Game.Entity.Enemies
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, direction);
             projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
-            animator.SetTrigger("Attack");
+            animator.SetTrigger(Values.AnimationParameters.Enemy.Attack);
         }
 
         private Quaternion PlayerDirection()

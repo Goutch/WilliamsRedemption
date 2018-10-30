@@ -62,7 +62,7 @@ namespace Game.Entity.Player
 
         IEnumerator Dash(PlayerController player, Vector2 direction)
         {
-            animator.SetTrigger("Dash");
+            animator.SetTrigger(Values.AnimationParameters.Player.Dash);
             player.LockTransformation();
             player.IsDashing = true;
 
@@ -98,13 +98,13 @@ namespace Game.Entity.Player
 
             player.IsDashing = false;
             player.UnlockTransformation();
-            animator.SetTrigger("DashEnd");
+            animator.SetTrigger(Values.AnimationParameters.Player.DashEnd);
         }
 
         public override void UseBasicAttack(PlayerController player, Vector2 direction)
         {
 
-            animator.SetTrigger("Attack");
+            animator.SetTrigger(Values.AnimationParameters.Player.Attack);
             Quaternion angle = Quaternion.identity;
 
             if (direction == Vector2.left)

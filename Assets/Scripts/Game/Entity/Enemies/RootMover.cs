@@ -40,7 +40,7 @@ namespace Game.Entity.Enemies
             if (this.isJumping && this.rootRigidBody.velocity.y == 0.0)
             {
                 this.isJumping = false;
-                animator.SetTrigger("JumpEnd");
+                animator.SetTrigger(Values.AnimationParameters.Enemy.JumpEnd);
             }
                 
         }
@@ -50,11 +50,11 @@ namespace Game.Entity.Enemies
             if (direction != 0)
             {
                 rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
-                animator.SetBool("Walking",true);
+                animator.SetBool(Values.AnimationParameters.Enemy.Walking,true);
             }
             else
             {
-                animator.SetBool("Walking",false);
+                animator.SetBool(Values.AnimationParameters.Enemy.Walking, false);
                 rootRigidBody.velocity*=Vector2.up;
             }
 
@@ -81,7 +81,7 @@ namespace Game.Entity.Enemies
         {
             this.isJumping = true;
             this.rootRigidBody.AddForce(new Vector2(currentDir*jumpBoost,jumpForce) , ForceMode2D.Impulse);
-            animator.SetTrigger("Jump");
+            animator.SetTrigger(Values.AnimationParameters.Enemy.Jump);
         }
 
         public void LookAtPlayer()

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4781886868172148}
   - component: {fileID: 212491362034880076}
   - component: {fileID: 95650347437575614}
-  - component: {fileID: 114173250783473764}
   - component: {fileID: 114060009174914876}
   - component: {fileID: 61952832044645342}
   - component: {fileID: 114865030044673450}
@@ -101,17 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageSource: 2
---- !u!114 &114173250783473764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1497215997032464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa4dc70aef7841145abd10e39f08e4df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114838399889881662
 MonoBehaviour:
   m_ObjectHideFlags: 1

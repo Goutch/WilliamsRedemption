@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4983463372311096}
   - component: {fileID: 61631179237684096}
-  - component: {fileID: 114404565550911100}
   - component: {fileID: 114462541683372892}
   m_Layer: 0
   m_Name: TripWire
@@ -67,20 +66,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.021845281, y: 0.92475367}
   m_EdgeRadius: 0
---- !u!114 &114404565550911100
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1481705942625348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c845df74bd9eb149b0745eed6f4a1a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerables:
-  - {fileID: 0}
-  IsOpened: 0
 --- !u!114 &114462541683372892
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2,6 +2,6 @@
 {
     class Jacob
     {
-        public const string IdlePhase1 = "IdlePhase1";
+        public const string IdlePhase = "IdlePhase";
     }
 }
