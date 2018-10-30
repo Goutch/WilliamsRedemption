@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Net;
+using System.Xml.Xsl;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -17,11 +19,16 @@ namespace Game.Entity.Player
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
+        private SpriteRenderer sr;
+        private Vector2 tpOffset;
+        
 
         private void Start()
         {
             capacityCanBeUsed = true;
             timerStartTime = 0;
+            sr = GetComponent<SpriteRenderer>();
+            tpOffset = sr.size*0.5f;
         }
 
         public override void UseCapacity(PlayerController player, Vector2 direction)
@@ -31,19 +38,22 @@ namespace Game.Entity.Player
             StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
 
 
+            Debug.DrawLine(root.position,
+                new Vector3(root.position.x + teleportationDistance * direction.x, root.position.y, root.position.z), Color.blue,
+                10);
             RaycastHit2D hit =
                         Physics2D.Raycast(
                             root.position,
-                            direction, teleportationDistance * Time.deltaTime,
+                            direction, teleportationDistance ,
                             player.ReaperLayerMask);
 
             if (hit.collider == null)
             {
-                root.Translate(direction * teleportationDistance * Time.deltaTime);
+                player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x+ teleportationDistance* direction.x , player.transform.position.y);
             }
             else
             {
-                root.Translate(direction * hit.distance * Time.deltaTime);
+               player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x + hit.distance -tpOffset.x *direction.x,player.transform.position.y);
             }
 
             capacityCanBeUsed = false;
@@ -92,6 +102,8 @@ namespace Game.Entity.Player
             meleeAttackObject.transform.localRotation = angle;
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
         }
+        
+        
     }
 }
 
