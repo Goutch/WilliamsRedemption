@@ -50,7 +50,6 @@ namespace Game.Entity.Enemies.Boss.Jacob
             if (spawnedEnemyManager.IsAllEnemySpawned() && spawnedEnemyManager.GetNumberOfEnemies() == 0)
             {
                 canEnter = true;
-                Debug.Log(canEnter);
             }
         }
     }

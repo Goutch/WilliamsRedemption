@@ -4,7 +4,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
 {
     class SpawnZombie : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase1 + "' ")]
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase + "' ")]
         [SerializeField] private Animator animator;
         [Tooltip("Require health component")]
         [SerializeField] private GameObject zombiePrefab;
@@ -37,7 +37,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
             base.Enter();
 
             lastTimeUsed = Time.time;
-            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase1);
+            animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase);
 
             SpawnAZombie();
         }

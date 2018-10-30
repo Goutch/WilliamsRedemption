@@ -90,7 +90,7 @@ namespace Game.Entity.Player
 
             GameObject meleeAttackObject = Instantiate(meleeAttack, transform);
             meleeAttackObject.transform.localRotation = angle;
-            animator.SetTrigger("Attack");
+            animator.SetTrigger(Values.AnimationParameters.Player.Attack);
         }
     }
 }

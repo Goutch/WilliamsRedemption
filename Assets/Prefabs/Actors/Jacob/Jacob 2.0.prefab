@@ -37,7 +37,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1302658178924928
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95185587434919710}
   duration: 4
+  disableDamage: 0
+  delayBeforeDoingDamageToPlayerAfterLeavingState: 0
 --- !u!198 &198004288251760996
 ParticleSystem:
   m_ObjectHideFlags: 1
