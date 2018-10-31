@@ -52,7 +52,7 @@ namespace Game.Entity.Player
             }
             else
             {
-               player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -tpOffset.x,player.transform.position.y);
+               player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -(tpOffset.x* player.playerHorizontalDirection.x),player.transform.position.y);
             }
 
             capacityCanBeUsed = false;
