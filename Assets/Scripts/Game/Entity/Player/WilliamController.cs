@@ -99,6 +99,7 @@ namespace Game.Entity.Player
             player.IsDashing = false;
             player.UnlockTransformation();
             animator.SetTrigger(Values.AnimationParameters.Player.DashEnd);
+            OnAttackFinish();
         }
 
         public override void UseBasicAttack(PlayerController player)

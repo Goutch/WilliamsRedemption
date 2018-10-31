@@ -9,10 +9,9 @@ namespace Game.Entity.Player
     {
         [Tooltip("Distance travelled by the player when teleporting.")]
         [SerializeField] private float teleportationDistance;
-        [SerializeField] private GameObject tpEffect;
+        [SerializeField] private GameObject tpEffect1;
+        [SerializeField] private GameObject tpEffect2;
         [SerializeField] private GameObject meleeAttack;
-        [Tooltip("Amount of time before the teleportation visual effect vanishes.")]
-        [SerializeField] private float timeBeforeTpEffectVanish;
 
         [Tooltip("Amount of time between teleportations.")]
         [SerializeField] private float TeleportationCoolDown;
@@ -33,9 +32,9 @@ namespace Game.Entity.Player
 
         public override void UseCapacity(PlayerController player)
         {
+            
             Transform root = transform.parent;
-            GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
-            StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
+            Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity),5);
 
             Debug.DrawLine(root.position,
                 new Vector3(root.position.x + teleportationDistance * player.playerHorizontalDirection.x, root.position.y, root.position.z), Color.blue,
@@ -54,15 +53,18 @@ namespace Game.Entity.Player
             {
                player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -(tpOffset.x* player.playerHorizontalDirection.x),player.transform.position.y);
             }
-
+            
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
+            Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity),5);
+            OnAttackFinish();
         }
 
         public override bool CapacityUsable(PlayerController player)
         {
             if (capacityCanBeUsed && player.IsOnGround)
             {
+
                 return true;
             }
             if (!capacityCanBeUsed && (Time.time - timerStartTime) >= TeleportationCoolDown)
@@ -70,20 +72,18 @@ namespace Game.Entity.Player
                 capacityCanBeUsed = true;
                 if (player.IsOnGround)
                 {
+
                     return true;
+                    
                 }
             }
             return false;
         }
 
-        IEnumerator TeleportEffectRemove(GameObject tpEffect, PlayerController player)
-        {
-            player.LockTransformation();
-            yield return new WaitForSeconds(timeBeforeTpEffectVanish);
-            Destroy(tpEffect);
-            player.UnlockTransformation();
-        }
 
+        public override void UseBasicAttack(PlayerController player, Vector2 direction)
+
+        
         public override void UseBasicAttack(PlayerController player)
         {
             Quaternion angle = Quaternion.identity;
