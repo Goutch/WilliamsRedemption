@@ -25,7 +25,6 @@ namespace Game.Entity.Player
 
         private PlayerIndex controllerNumber;
         private KinematicRigidbody2D kinematicRigidbody2D;
-        private Vector2 direction;
         private GamePadState controllerState;
         private bool jumpButtonPressed;
         private float lastPositionY;
@@ -38,7 +37,6 @@ namespace Game.Entity.Player
         private void Awake()
         {
             kinematicRigidbody2D = GetComponent<KinematicRigidbody2D>();
-            direction = Vector2.right;
             controllerNumber = PlayerIndex.One;
             controllerState = GamePad.GetState(controllerNumber);
             jumpButtonPressed = false;
@@ -62,15 +60,9 @@ namespace Game.Entity.Player
             ResetJumpCount();
         }
 
-        public void Attack()
-        {
-            player.CurrentController.UseBasicAttack(PlayerController.instance);
-        }
-
         public void MoveRight()
         {
             horizontalVelocity += Vector2.right;
-            direction = Vector2.right;
             player.playerHorizontalDirection = Vector2.right;
             player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
             player.DirectionFacingUpDown = FacingSideUpDown.None;
@@ -80,7 +72,6 @@ namespace Game.Entity.Player
         public void MoveLeft()
         {
             horizontalVelocity += Vector2.left;
-            direction = Vector2.left;
             player.playerHorizontalDirection = Vector2.left;
             player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
             player.DirectionFacingUpDown = FacingSideUpDown.None;
@@ -108,20 +99,12 @@ namespace Game.Entity.Player
         {
             player.DirectionFacingUpDown = FacingSideUpDown.Up;
             player.playerVerticalDirection = Vector2.up;
-            direction = Vector2.up;
         }
 
         public void AimDown()
         {
             player.DirectionFacingUpDown = FacingSideUpDown.Down;
             player.playerVerticalDirection = Vector2.down;
-            direction = Vector2.down;
-        }
-
-        public void UseCapacity()
-        {
-            if (player.CurrentController.CapacityUsable(PlayerController.instance))
-                player.CurrentController.UseCapacity(PlayerController.instance);
         }
 
         private void ResetJumpCount()
