@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 4490575477924524}
   - component: {fileID: 212523607364921480}
   - component: {fileID: 61899704678645508}
-  - component: {fileID: 114771697988774578}
   - component: {fileID: 50604881038958506}
+  - component: {fileID: 114592918827092106}
   m_Layer: 0
   m_Name: ChurchLight
   m_TagString: Untagged
@@ -188,13 +188,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1133829104553462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30329f9c6238d4f42a43686e56a09753, type: 3}
+  m_Script: {fileID: 11500000, guid: 34ad1d1ddd480694ea320a8867ae72c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxRightAngle: 275
-  MaxLeftAngle: 265
-  RotatingSpeed: 1
-  goingRight: 1
+  MaxRightAngle: 0
+  MaxLeftAngle: 0
+  RotatingSpeed: 0
+  goingRight: 0
 --- !u!114 &114268741292721738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,9 +203,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1133829104553462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ae77f77a924f38adb3f5c143c9cf58, type: 3}
+  m_Script: {fileID: 11500000, guid: d53fb9cd9bb68d54dae3eff657632f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  obstacleLayerIndex: 1
+  debugDraw: 0
+  updateEveryFrame: 0
+  movingObstacleUpdateStopCooldown: 1
+  hasMovingObstaclesInRange: 0
+  isOpen: 0
+  detectionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  coneAngle: 0
+  faceAngle: 0
+  radius: 3
+  precisionInDegree: 1
 --- !u!114 &114295351043446630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,21 +228,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1133829104553462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96322cc578191774497f2104925b4065, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a78ab3256393844f90dcde3b95d99a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
-  obstacleLayerIndex: 1
-  debugDraw: 0
-  updateEveryFrame: 1
-  movingObstacleUpdateStopCooldown: 1
-  hasMovingObstaclesInRange: 0
-  isOpen: 1
-  coneAngle: 17
-  faceAngle: 270
-  radius: 11.3
-  precisionInDegree: 1
---- !u!114 &114771697988774578
+--- !u!114 &114592918827092106
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,17 +239,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937193433491230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d829a340c6a9ee479fc37542cf2bfa0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d2b63ca2eb1a27468f4bcb748c7f2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDistanceLeft: 1
-  MaxDistanceRight: 2
+  MaxDistanceLeft: 0
+  MaxDistanceRight: 0
   MaxDistanceUp: 0
   MaxDistanceDown: 0
-  HorizontalSpeed: 0.3
-  VerticalSpeed: 2
-  isHeadingRight: 1
+  HorizontalSpeed: 0
+  VerticalSpeed: 0
+  isHeadingRight: 0
   isHeadingUpwards: 0
+  isUsingQuadraticCurve: 0
+  quadraticA: 0
+  quadraticB: 0
+  quadraticC: 0
 --- !u!212 &212523607364921480
 SpriteRenderer:
   m_ObjectHideFlags: 1
