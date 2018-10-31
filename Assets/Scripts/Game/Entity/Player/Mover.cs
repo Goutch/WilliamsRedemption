@@ -33,6 +33,7 @@ namespace Game.Entity.Player
         private Vector2 horizontalVelocity;
         private Vector2 verticalVelocity;
         private int jumpCount;
+        private PlayerController player;
 
         private void Awake()
         {
@@ -44,6 +45,7 @@ namespace Game.Entity.Player
             horizontalVelocity = Vector2.zero;
             verticalVelocity = Vector2.zero;
             jumpCount = 0;
+            player = GetComponent<PlayerController>();
         }
 
         private void Update()
@@ -62,16 +64,17 @@ namespace Game.Entity.Player
 
         public void Attack()
         {
-            PlayerController.instance.CurrentController.UseBasicAttack(PlayerController.instance, direction);
+            PlayerController.instance.CurrentController.UseBasicAttack(PlayerController.instance);
         }
 
         public void MoveRight()
         {
             horizontalVelocity += Vector2.right;
             direction = Vector2.right;
-            PlayerController.instance.DirectionFacingLeftRight = FacingSideLeftRight.Right;
+            player.playerHorizontalDirection = Vector2.right;
+            player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
             PlayerController.instance.DirectionFacingUpDown = FacingSideUpDown.None;
-            PlayerController.instance.CurrentController.sprite.flipX = false;
+           // PlayerController.instance.CurrentController.sprite.flipX = false;
             PlayerController.instance.IsMoving = true;
         }
 
@@ -79,9 +82,10 @@ namespace Game.Entity.Player
         {
             horizontalVelocity += Vector2.left;
             direction = Vector2.left;
+            player.playerHorizontalDirection = Vector2.left;
             PlayerController.instance.DirectionFacingLeftRight = FacingSideLeftRight.Left;
             PlayerController.instance.DirectionFacingUpDown = FacingSideUpDown.None;
-            PlayerController.instance.CurrentController.sprite.flipX = true;
+           // PlayerController.instance.CurrentController.sprite.flipX = true;
             PlayerController.instance.IsMoving = true;
         }
 
@@ -105,19 +109,21 @@ namespace Game.Entity.Player
         public void AimUp()
         {
             PlayerController.instance.DirectionFacingUpDown = FacingSideUpDown.Up;
+            player.playerVerticalDirection = Vector2.up;
             direction = Vector2.up;
         }
 
         public void AimDown()
         {
             PlayerController.instance.DirectionFacingUpDown = FacingSideUpDown.Down;
+            player.playerVerticalDirection = Vector2.down;
             direction = Vector2.down;
         }
 
         public void UseCapacity()
         {
             if (PlayerController.instance.CurrentController.CapacityUsable(PlayerController.instance))
-                PlayerController.instance.CurrentController.UseCapacity(PlayerController.instance, direction);
+                PlayerController.instance.CurrentController.UseCapacity(PlayerController.instance);
         }
 
         private void ResetJumpCount()

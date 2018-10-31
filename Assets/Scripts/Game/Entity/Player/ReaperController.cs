@@ -31,29 +31,28 @@ namespace Game.Entity.Player
             tpOffset = sr.size*0.5f;
         }
 
-        public override void UseCapacity(PlayerController player, Vector2 direction)
+        public override void UseCapacity(PlayerController player)
         {
             Transform root = transform.parent;
             GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
             StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
 
-
             Debug.DrawLine(root.position,
-                new Vector3(root.position.x + teleportationDistance * direction.x, root.position.y, root.position.z), Color.blue,
+                new Vector3(root.position.x + teleportationDistance * player.playerHorizontalDirection.x, root.position.y, root.position.z), Color.blue,
                 10);
             RaycastHit2D hit =
                         Physics2D.Raycast(
                             root.position,
-                            direction, teleportationDistance ,
+                            player.playerHorizontalDirection, teleportationDistance ,
                             player.ReaperLayerMask);
 
             if (hit.collider == null)
             {
-                player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x+ teleportationDistance* direction.x , player.transform.position.y);
+                player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x+ teleportationDistance* player.playerHorizontalDirection.x , player.transform.position.y);
             }
             else
             {
-               player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x + hit.distance -tpOffset.x *direction.x,player.transform.position.y);
+               player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -tpOffset.x,player.transform.position.y);
             }
 
             capacityCanBeUsed = false;
@@ -85,24 +84,22 @@ namespace Game.Entity.Player
             player.UnlockTransformation();
         }
 
-
-        public override void UseBasicAttack(PlayerController player, Vector2 direction)
+        public override void UseBasicAttack(PlayerController player)
         {
             Quaternion angle = Quaternion.identity;
 
-            if (direction == Vector2.left)
+            if (player.playerHorizontalDirection == Vector2.left)
                 angle = Quaternion.AngleAxis(180, Vector3.up);
 
-            if (direction == Vector2.down && !player.IsOnGround)
+            if (player.playerHorizontalDirection == Vector2.down && !player.IsOnGround)
                 angle = Quaternion.AngleAxis(-90, Vector3.forward);
-            else if (direction == Vector2.up)
+            else if (player.playerHorizontalDirection == Vector2.up)
                 angle = Quaternion.AngleAxis(90, Vector3.forward);
 
             GameObject meleeAttackObject = Instantiate(meleeAttack, transform);
             meleeAttackObject.transform.localRotation = angle;
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
         }
-        
         
     }
 }
