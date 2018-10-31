@@ -64,7 +64,6 @@ namespace Game.Entity.Player
         {
             if (capacityCanBeUsed && player.IsOnGround)
             {
-
                 return true;
             }
             if (!capacityCanBeUsed && (Time.time - timerStartTime) >= TeleportationCoolDown)
@@ -72,17 +71,11 @@ namespace Game.Entity.Player
                 capacityCanBeUsed = true;
                 if (player.IsOnGround)
                 {
-
-                    return true;
-                    
+                    return true;                
                 }
             }
             return false;
         }
-
-
-        public override void UseBasicAttack(PlayerController player, Vector2 direction)
-
         
         public override void UseBasicAttack(PlayerController player)
         {
