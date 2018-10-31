@@ -7,10 +7,9 @@ namespace Game.Entity.Player
     {
         [Tooltip("Distance travelled by the player when teleporting.")]
         [SerializeField] private float teleportationDistance;
-        [SerializeField] private GameObject tpEffect;
+        [SerializeField] private GameObject tpEffect1;
+        [SerializeField] private GameObject tpEffect2;
         [SerializeField] private GameObject meleeAttack;
-        [Tooltip("Amount of time before the teleportation visual effect vanishes.")]
-        [SerializeField] private float timeBeforeTpEffectVanish;
 
         [Tooltip("Amount of time between teleportations.")]
         [SerializeField] private float TeleportationCoolDown;
@@ -27,8 +26,7 @@ namespace Game.Entity.Player
         public override void UseCapacity(PlayerController player, Vector2 direction)
         {
             Transform root = transform.parent;
-            GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
-            StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
+            Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity),5);
 
 
             RaycastHit2D hit =
@@ -45,9 +43,10 @@ namespace Game.Entity.Player
             {
                 root.Translate(direction * hit.distance * Time.deltaTime);
             }
-
+            
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
+            Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity),5);
         }
 
         public override bool CapacityUsable(PlayerController player)
@@ -65,14 +64,6 @@ namespace Game.Entity.Player
                 }
             }
             return false;
-        }
-
-        IEnumerator TeleportEffectRemove(GameObject tpEffect, PlayerController player)
-        {
-            player.LockTransformation();
-            yield return new WaitForSeconds(timeBeforeTpEffectVanish);
-            Destroy(tpEffect);
-            player.UnlockTransformation();
         }
 
 
