@@ -32,6 +32,8 @@ namespace Game.Entity.Player
         private LightSensor lightSensor;
         public KinematicRigidbody2D kRigidBody { get; private set; }
         private LayerMask layerMask;
+        private Vector2 horizontalDirection;
+        private Vector2 verticalDirection;
 
 
         private int nbPlayerLivesLeft;
@@ -49,6 +51,18 @@ namespace Game.Entity.Player
         {
             get { return reaperLayerMask; }
             set { reaperLayerMask = value; }
+        }
+
+        public Vector2 playerHorizontalDirection
+        {
+            get { return horizontalDirection;}
+            set { horizontalDirection = value; }
+        }
+
+        public Vector2 playerVerticalDirection
+        {
+            get { return verticalDirection;}
+            set { verticalDirection = value; }
         }
 
 
@@ -85,6 +99,11 @@ namespace Game.Entity.Player
         private void Start()
         {
             OnLightExpositionChanged(true);
+        }
+
+        void Update()
+        {
+            SetSpriteOrientation();
         }
 
         public void DamagePlayer()
@@ -163,6 +182,19 @@ namespace Game.Entity.Player
 
             if (numbOfLocks == 0)
                 OnLightExpositionChanged(lightSensor.InLight);
+        }
+
+        private void SetSpriteOrientation()
+        {
+            if (horizontalDirection == Vector2.left)
+            {
+                CurrentController.sprite.flipX = true;
+            }
+            else
+            {
+                CurrentController.sprite.flipX = false;
+            }
+            
         }
     }
 }
