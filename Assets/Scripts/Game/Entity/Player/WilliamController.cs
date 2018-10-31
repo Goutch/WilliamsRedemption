@@ -37,9 +37,9 @@ namespace Game.Entity.Player
             capacityCanBeUsed = true;
         }
 
-        public override void UseCapacity(PlayerController player, Vector2 direction)
+        public override void UseCapacity(PlayerController player)
         {
-            StartCoroutine(Dash(player, direction));
+            StartCoroutine(Dash(player, player.playerHorizontalDirection));
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
         }
@@ -99,20 +99,21 @@ namespace Game.Entity.Player
             player.IsDashing = false;
             player.UnlockTransformation();
             animator.SetTrigger(Values.AnimationParameters.Player.DashEnd);
+            OnAttackFinish();
         }
 
-        public override void UseBasicAttack(PlayerController player, Vector2 direction)
+        public override void UseBasicAttack(PlayerController player)
         {
 
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
             Quaternion angle = Quaternion.identity;
 
-            if (direction == Vector2.left)
+            if (player.playerHorizontalDirection == Vector2.left)
                 angle = Quaternion.AngleAxis(180, Vector3.up);
 
-            if (direction == Vector2.down && !player.IsOnGround)
+            if (player.playerHorizontalDirection == Vector2.down && !player.IsOnGround)
                 angle = Quaternion.AngleAxis(-90, Vector3.forward);
-            else if (direction == Vector2.up)
+            else if (player.playerHorizontalDirection == Vector2.up)
                 angle = Quaternion.AngleAxis(90, Vector3.forward);
 
             GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
