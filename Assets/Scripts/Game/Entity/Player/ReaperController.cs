@@ -25,6 +25,7 @@ namespace Game.Entity.Player
 
         public override void UseCapacity(PlayerController player, Vector2 direction)
         {
+            
             Transform root = transform.parent;
             Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity),5);
 
@@ -47,12 +48,14 @@ namespace Game.Entity.Player
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
             Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity),5);
+            OnAttackFinish();
         }
 
         public override bool CapacityUsable(PlayerController player)
         {
             if (capacityCanBeUsed && player.IsOnGround)
             {
+
                 return true;
             }
             if (!capacityCanBeUsed && (Time.time - timerStartTime) >= TeleportationCoolDown)
@@ -60,7 +63,9 @@ namespace Game.Entity.Player
                 capacityCanBeUsed = true;
                 if (player.IsOnGround)
                 {
+
                     return true;
+                    
                 }
             }
             return false;
