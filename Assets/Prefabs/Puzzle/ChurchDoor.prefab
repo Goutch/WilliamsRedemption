@@ -75,11 +75,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1192238462530516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc8d4ed4fddfa04f9a6e868024b5f35, type: 3}
+  m_Script: {fileID: 11500000, guid: fd73fd877d8ffc340b28807696e32f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLocked: 1
-  IsOpen: 0
+  isLocked: 0
+  isOpen: 0
 --- !u!212 &212825192371764670
 SpriteRenderer:
   m_ObjectHideFlags: 1
