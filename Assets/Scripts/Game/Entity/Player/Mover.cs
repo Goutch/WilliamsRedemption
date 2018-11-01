@@ -88,7 +88,7 @@ namespace Game.Entity.Player
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
-                verticalVelocity = Vector2.up;
+                verticalVelocity = Vector2.up* 0.75f;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 player.IsMoving = true;
                 jumpCount++;

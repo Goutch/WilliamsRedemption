@@ -242,7 +242,7 @@ namespace Game.Entity.Player
 
             rigidbody.position += (VelocityModifier * Vector2.right) * Time.fixedDeltaTime + deltaPosition.normalized * deltaMagnitude;
 
-            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
+            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime *2);
         }
     }
 
