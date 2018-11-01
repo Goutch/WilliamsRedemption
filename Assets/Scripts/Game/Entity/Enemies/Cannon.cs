@@ -6,6 +6,7 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private int rotationCannon;
         [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private Transform projectileSpawnPoint;
         private float timeJustAfterShooting;
         private const float TIME_BEFORE_SHOOTING_AGAIN = 2;
 
@@ -24,7 +25,7 @@ namespace Game.Entity.Enemies
 
         private void Shoot()
         {
-            GameObject projectile = Instantiate(bulletPrefab, transform.position, Quaternion.AngleAxis(rotationCannon, Vector3.back));
+            GameObject projectile = Instantiate(bulletPrefab, projectileSpawnPoint.position, Quaternion.AngleAxis(rotationCannon, Vector3.back));
             projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
         }
 
