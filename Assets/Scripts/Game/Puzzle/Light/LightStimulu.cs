@@ -15,7 +15,6 @@ namespace Game.Puzzle.Light
         {
             lightSensorsInRange = new List<LightSensor>();
             movingLightObstaclesInRange = new List<MovingLightObstacle>();
-
             meshLight = GetComponent<MeshLight>();
         }
 
