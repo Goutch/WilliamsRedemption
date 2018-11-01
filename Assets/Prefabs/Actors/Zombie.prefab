@@ -182,7 +182,7 @@ MonoBehaviour:
   isDumbEnoughToFall: 1
   surroundingRange: 1
   bulletKnockBackForce: {x: 1, y: 1}
-  playerKnockBackForce: {x: 2, y: 1}
+  playerKnockBackForce: {x: 1, y: 1}
 --- !u!114 &114294219723639196
 MonoBehaviour:
   m_ObjectHideFlags: 1

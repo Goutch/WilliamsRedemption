@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4800844599087302}
   - component: {fileID: 212802372452397250}
   - component: {fileID: 61351709984373016}
-  - component: {fileID: 114451173859705918}
+  - component: {fileID: 114510032234855456}
   m_Layer: 1
   m_Name: LightSwitch
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1497670692778824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0398384, y: 3.9239888, z: 0.17058608}
+  m_LocalPosition: {x: 79.35718, y: -0.2466873, z: 0.17058608}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.06, y: 0.06}
   m_EdgeRadius: 0
---- !u!114 &114451173859705918
+--- !u!114 &114510032234855456
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,13 +75,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1497670692778824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44fa702f9530ee4ca8818b3cb3ef674, type: 3}
+  m_Script: {fileID: 11500000, guid: ffae217b5098f33418e7d02251de80a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggerables:
   - {fileID: 0}
   shutDownTime: 0
   hasTimer: 0
+  lockLinkedObjects: 1
 --- !u!212 &212802372452397250
 SpriteRenderer:
   m_ObjectHideFlags: 1

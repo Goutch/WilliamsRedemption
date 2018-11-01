@@ -56,7 +56,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4810564569891190}
   - component: {fileID: 114926903096335436}
-  - component: {fileID: 114934042567158534}
   - component: {fileID: 114802261952464798}
   - component: {fileID: 331281465660467604}
   - component: {fileID: 114202914198825776}
@@ -64,6 +63,8 @@ GameObject:
   - component: {fileID: 50817793017110226}
   - component: {fileID: 114913052588184466}
   - component: {fileID: 114043392105808680}
+  - component: {fileID: 114348915077439140}
+  - component: {fileID: 114216722390949236}
   m_Layer: 1
   m_Name: Player
   m_TagString: Player
@@ -172,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260370951139702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4843001817836080}
@@ -214,7 +215,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485973637437590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.43, y: 1.34, z: 0}
+  m_LocalPosition: {x: -10.76, y: 3.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4302502636305752}
@@ -254,7 +255,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &58590137019637222
 CircleCollider2D:
@@ -283,7 +284,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.005517006, y: -0.025747493}
+  m_Offset: {x: 0, y: -0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -294,7 +295,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.110342026, y: 0.268505}
+  m_Size: {x: 0.12, y: 0.27}
   m_EdgeRadius: 0
 --- !u!61 &61639566562894936
 BoxCollider2D:
@@ -308,7 +309,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012480974, y: -0.031331375}
+  m_Offset: {x: -0.03, y: -0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -319,7 +320,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.13141775, y: 0.25733724}
+  m_Size: {x: 0.12, y: 0.27}
   m_EdgeRadius: 0
 --- !u!95 &95204828313189758
 Animator:
@@ -387,7 +388,7 @@ MonoBehaviour:
   maxGroundSlopeAngleArctan: 0.35000002
   sleepVelocity: 0.001
   deltaPrecision: 0.01
-  showDebugInformation: 1
+  showDebugInformation: 0
 --- !u!114 &114052410221525620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205f42d22b2d64844a6e0ee8c8713450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 0.3
+  attackCooldown: 0.2
   teleportationDistance: 150
   tpEffect: {fileID: 1755848583395488, guid: 83f64db88aee946448db9a3ae94dd822, type: 2}
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
@@ -417,7 +418,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 3
+--- !u!114 &114216722390949236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485973637437590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aecbf6e29efb25469f528b4b149921f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeWithoutLightLimit: 0.1
+  inLight: 0
+--- !u!114 &114348915077439140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485973637437590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b94a760e8bb984b81d6b56674c128d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114729406392851916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,8 +495,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  jumpSpeed: 3.8
-  playerNoLongerGroundedDelay: 0.15
+  jumpSpeed: 4
+  playerNoLongerGroundedDelay: 0.1
+  amountOfAdditionalJumps: 0
 --- !u!114 &114926903096335436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -490,19 +516,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 116535
   invincibilitySeconds: 1
---- !u!114 &114934042567158534
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1485973637437590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3599df53a7c64134a062d55fe647df56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeWithoutLightLimit: 0.1
-  inLight: 0
 --- !u!198 &198314816615773322
 ParticleSystem:
   m_ObjectHideFlags: 1
