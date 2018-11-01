@@ -54,7 +54,7 @@ namespace Game.Puzzle.Light
                 RaycastHit2D hit =
                     Physics2D.Raycast(raycastBeginPos + (Vector2) transform.position,
                         raycastDirection, range,
-                        obstacleLayerIndex, 0);
+                        obstacleLayer, 0);
 
                 if (hit.collider == null)
                 {

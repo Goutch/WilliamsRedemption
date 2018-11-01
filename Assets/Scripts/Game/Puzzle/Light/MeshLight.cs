@@ -8,7 +8,7 @@ namespace Game.Puzzle.Light
     public abstract class MeshLight : MonoBehaviour , ITriggerable
     {
         [SerializeField] protected Color color = Color.white;
-        [SerializeField] protected int obstacleLayerIndex = 1;
+        [SerializeField] protected LayerMask obstacleLayer;
 
         [Tooltip("Draw the triangles of the mesh in blue in the scene tab")] [SerializeField]
         protected bool debugDraw = false;

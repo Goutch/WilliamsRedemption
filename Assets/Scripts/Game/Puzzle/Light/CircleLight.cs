@@ -68,7 +68,7 @@ namespace Game.Puzzle.Light
             {
                 raycastDirection = DegreeToVector(i);
                 RaycastHit2D hit =
-                    Physics2D.Raycast(this.transform.position, raycastDirection, Radius, obstacleLayerIndex, 0);
+                    Physics2D.Raycast(this.transform.position, raycastDirection, Radius, obstacleLayer, 0);
 
                 if (hit.collider == null)
                 {
