@@ -98,7 +98,7 @@ namespace Game.Entity.Player
 
         private void Start()
         {
-            OnLightExpositionChanged(true);
+            OnLightExpositionChanged(false);
         }
 
         void Update()
