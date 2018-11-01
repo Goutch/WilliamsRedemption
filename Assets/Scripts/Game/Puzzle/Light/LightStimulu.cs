@@ -17,6 +17,7 @@ namespace Game.Puzzle.Light
             movingLightObstaclesInRange = new List<MovingLightObstacle>();
 
             meshLight = GetComponent<MeshLight>();
+            int h = 0;
         }
 
         private void Update()
