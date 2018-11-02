@@ -28,9 +28,6 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         public override bool CanEnter()
         {
-            Debug.Log(bossController.GetCurrentState());
-            Debug.Log(bossController.GetCurrentState() is Vulnerable);
-
             if ((Time.time - lastUsed > cooldown ||
                 Vector2.Distance(PlayerController.instance.transform.position, transform.position) <
                 distanceFromPlayerTeleport) && !(bossController.GetCurrentState() is Vulnerable))

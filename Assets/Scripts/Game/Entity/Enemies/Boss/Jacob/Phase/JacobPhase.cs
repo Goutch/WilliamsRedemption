@@ -2,7 +2,7 @@
 
 namespace Game.Entity.Enemies.Boss.Jacob
 {
-    public class JacobPhase : SequentialLoopPhase
+    public class JacobPhase : NonSequentialPhase
     {
         [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase + "' ")]
         [SerializeField] private Animator animator;

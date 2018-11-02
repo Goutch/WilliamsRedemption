@@ -402,10 +402,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 0.2
   teleportationDistance: 150
-  tpEffect: {fileID: 1755848583395488, guid: 83f64db88aee946448db9a3ae94dd822, type: 2}
+  tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
+  tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
     type: 2}
-  timeBeforeTpEffectVanish: 0.5
   TeleportationCoolDown: 0.8
 --- !u!114 &114202914198825776
 MonoBehaviour:

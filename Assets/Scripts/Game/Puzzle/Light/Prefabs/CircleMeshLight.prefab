@@ -109,20 +109,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1601090304264160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96322cc578191774497f2104925b4065, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a78ab3256393844f90dcde3b95d99a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
-  obstacleLayerIndex: 1
-  debugDraw: 0
-  updateEveryFrame: 1
-  movingObstacleUpdateStopCooldown: 1
-  hasMovingObstaclesInRange: 0
-  isOpen: 0
-  coneAngle: 0
-  faceAngle: 55
-  radius: 3
-  precisionInDegree: 2
 --- !u!114 &114863095067038874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,6 +120,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1601090304264160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ae77f77a924f38adb3f5c143c9cf58, type: 3}
+  m_Script: {fileID: 11500000, guid: d53fb9cd9bb68d54dae3eff657632f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  obstacleLayerIndex: 1
+  debugDraw: 0
+  updateEveryFrame: 0
+  movingObstacleUpdateStopCooldown: 1
+  hasMovingObstaclesInRange: 0
+  isOpen: 0
+  detectionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  coneAngle: 0
+  faceAngle: 0
+  radius: 3
+  precisionInDegree: 1

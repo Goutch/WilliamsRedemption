@@ -59,9 +59,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
             Func<Vector3Int, bool> positionsToTheRightOfBoss = position => position.x > cellBossPosition.x;
 
             mover.LookAtPlayer();
-            //1 = right
+
             float directionX = transform.rotation.y == -1 ? -1 : 1;
-            Debug.Log(directionX);
+
             if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheRightOfBoss))
             {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
