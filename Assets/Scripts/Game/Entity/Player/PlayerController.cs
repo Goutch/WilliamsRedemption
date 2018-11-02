@@ -71,7 +71,16 @@ namespace Game.Entity.Player
         public bool IsMoving { get; set; }
         private bool isInvincible = false;
 
-        public bool IsInvincible => isInvincible;
+        public bool IsInvincible
+        {
+            get { return isInvincible; }
+            set
+            {
+                isInvincible = value;
+                williamController.animator.SetBool("Invincible",value);
+                reaperController.animator.SetBool("Invincible",value);
+            }
+        } 
 
         public FacingSideUpDown DirectionFacingUpDown { get; set; }
         public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
@@ -108,7 +117,7 @@ namespace Game.Entity.Player
 
         public void DamagePlayer()
         {
-            if (!isInvincible)
+            if (!IsInvincible)
             {
                 health.Hit();
                 StartCoroutine(InvincibleRoutine());
@@ -117,9 +126,9 @@ namespace Game.Entity.Player
 
         private IEnumerator InvincibleRoutine()
         {
-            isInvincible = true;
+            IsInvincible = true;
             yield return new WaitForSeconds(invincibilitySeconds);
-            isInvincible = false;
+            IsInvincible= false;
         }
 
         private void HandleCollision(HitStimulus other)
