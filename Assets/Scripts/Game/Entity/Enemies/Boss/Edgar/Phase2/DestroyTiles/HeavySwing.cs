@@ -60,25 +60,23 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             mover.LookAtPlayer();
 
-            float directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? -1 : 1;
+            float directionX = transform.rotation.y == -1 ? -1 : 1;
 
-            if (directionX < 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheLeftOfBoss))
+            if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheRightOfBoss))
             {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
-            }
-            else if (directionX < 0 && !spawnedTilesManager.IsAnySpawnedTiles(positionsToTheLeftOfBoss))
-            {
-                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
-                directionX = 1;
-            }
-            else if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheRightOfBoss))
-            {
-                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             }
             else if (directionX > 0 && !spawnedTilesManager.IsAnySpawnedTiles(positionsToTheRightOfBoss))
             {
+                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
+            }
+            else if (directionX < 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheLeftOfBoss))
+            {
+                transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
+            }
+            else if (directionX < 0 && !spawnedTilesManager.IsAnySpawnedTiles(positionsToTheLeftOfBoss))
+            {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
-                directionX = -1;
             }
         }
     }

@@ -49,6 +49,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             ShootProjectile();
             base.Finish();
         }
+
         public void ShootProjectile()
         {
             GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);

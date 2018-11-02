@@ -36,13 +36,14 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         protected override void EnterIdle()
         {
+            base.EnterIdle();
             animator.SetTrigger(Values.AnimationParameters.Edgar.IdlePhase1);
+
+            mover.LookAtPlayer();
         }
         protected override void Idle()
         {
             base.Idle();
-
-            mover.LookAtPlayer();
         }
     }
 }

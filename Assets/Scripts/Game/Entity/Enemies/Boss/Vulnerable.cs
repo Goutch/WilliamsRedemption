@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss
 {
-    class Vulnerable : State
+    class Vulnerable : Capacity
     {
         [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.Vulnerable + "' ")]
         [SerializeField] private Animator animator;
@@ -18,7 +18,6 @@ namespace Game.Entity.Enemies.Boss
         private void Start()
         {
             hitStimuli = this.GetComponentsInObject<HitStimulus>();
-            Debug.Log(hitStimuli.Length);
         }
         public override void Finish()
         {
