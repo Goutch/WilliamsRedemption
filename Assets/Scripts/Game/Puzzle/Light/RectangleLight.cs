@@ -104,18 +104,22 @@ namespace Game.Puzzle.Light
 
         public override LightSensor IsWithinLightLimits(Vector2 position)
         {
-            if (!(position.x < transform.position.x - width/2 || position.x > transform.position.x + width/2))
+            if (isOpen)
             {
-                Vector2 startPos = (position * Vector2.right) + (transform.position * Vector2.up);
-                RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range,detectionLayers);
-
-                if (hit.collider != null)
+                if (!(position.x < transform.position.x - width / 2 || position.x > transform.position.x + width / 2))
                 {
-                    Debug.DrawLine(startPos, hit.point, Color.green);
-                    return hit.collider.Root().GetComponent<LightSensor>();
+                    Vector2 startPos = (position * Vector2.right) + (transform.position * Vector2.up);
+                    RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, range, detectionLayers);
+
+                    if (hit.collider != null)
+                    {
+                        Debug.DrawLine(startPos, hit.point, Color.green);
+                        return hit.collider.Root().GetComponent<LightSensor>();
+                    }
                 }
-  
+   
             }
+
             return null;
         }
     }

@@ -59,7 +59,7 @@ namespace Game.Puzzle.Light
 
             startAngle = coneAngle == 0 ? 0 : faceAngle - coneAngle / 2;
             endAngle = coneAngle == 0 ? 360 : faceAngle + coneAngle / 2;
-            
+
             vertices.Add(centerVertices);
 
             int cornerAIndex = 1;
@@ -97,8 +97,8 @@ namespace Game.Puzzle.Light
         {
             if (coneAngle == 0 || coneAngle == 360) return true;
 
-            float min = faceAngle - coneAngle /2 ; 
-            float max = faceAngle + coneAngle /2 ;
+            float min = faceAngle - coneAngle / 2;
+            float max = faceAngle + coneAngle / 2;
 
 //            if (degree > max)
 //            {
@@ -140,24 +140,28 @@ namespace Game.Puzzle.Light
 
         public override LightSensor IsWithinLightLimits(Vector2 position)
         {
-            float AngleDeg = VectorToDegree( position -(Vector2) transform.position);
-
-            if (CheckDegreeWithinCone(AngleDeg))
+            if (isOpen)
             {
-                RaycastHit2D hit =
-                    Physics2D.Raycast(transform.position, position -(Vector2) transform.position  , Radius,detectionLayers);
+                float AngleDeg = VectorToDegree(position - (Vector2) transform.position);
 
-                Debug.DrawRay(transform.position, new Vector2(
-                    hit.point.x - transform.position.x,
-                    hit.point.y - transform.position.y), Color.green);
-
-                if (hit.collider != null)
+                if (CheckDegreeWithinCone(AngleDeg))
                 {
-                    return hit.collider.Root().GetComponent<LightSensor>();
+                    RaycastHit2D hit =
+                        Physics2D.Raycast(transform.position, position - (Vector2) transform.position, Radius,
+                            detectionLayers);
+
+                    Debug.DrawRay(transform.position, new Vector2(
+                        hit.point.x - transform.position.x,
+                        hit.point.y - transform.position.y), Color.green);
+
+                    if (hit.collider != null)
+                    {
+                        return hit.collider.Root().GetComponent<LightSensor>();
+                    }
                 }
             }
+
             return null;
         }
-
     }
 }

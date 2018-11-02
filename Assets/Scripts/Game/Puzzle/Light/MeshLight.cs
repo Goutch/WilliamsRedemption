@@ -16,7 +16,7 @@ namespace Game.Puzzle.Light
         [SerializeField] private bool updateEveryFrame = false;
         [SerializeField] private float movingObstacleUpdateStopCooldown = 1;
         [SerializeField] private bool hasMovingObstaclesInRange = false;
-        [SerializeField] private bool isOpen;
+        [SerializeField] protected bool isOpen;
         [SerializeField] protected LayerMask detectionLayers;
 
         private bool isLocked;
