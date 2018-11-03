@@ -18,16 +18,22 @@ namespace Game.Entity.Player
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
-        private SpriteRenderer sr;
+       // private SpriteRenderer sr;
+        private BoxCollider2D bc;
         private Vector2 tpOffset;
+        private Vector2 tpPosition;
+        private bool mustTeleport;
+        private Rigidbody2D rb;
         
 
         private void Start()
         {
             capacityCanBeUsed = true;
             timerStartTime = 0;
-            sr = GetComponent<SpriteRenderer>();
-            tpOffset = sr.size*0.5f;
+            bc = GetComponent<BoxCollider2D>();
+            tpOffset = bc.size;
+            mustTeleport = false;
+            rb = GetComponentInParent<Rigidbody2D>();
         }
 
         public override void UseCapacity(PlayerController player)
@@ -46,18 +52,28 @@ namespace Game.Entity.Player
                             player.ReaperLayerMask);
 
             if (hit.collider == null)
-            {
-                player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x+ teleportationDistance* player.playerHorizontalDirection.x , player.transform.position.y);
+            { 
+                tpPosition= new Vector2(player.transform.position.x+ teleportationDistance* player.playerHorizontalDirection.x-(tpOffset.x* player.playerHorizontalDirection.x) , player.transform.position.y);
+                mustTeleport = true;
             }
             else
             {
-               player.GetComponent<Rigidbody2D>().position = new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -(tpOffset.x* player.playerHorizontalDirection.x),player.transform.position.y);
+               tpPosition= new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -(tpOffset.x* player.playerHorizontalDirection.x),player.transform.position.y);
+                mustTeleport = true;
             }
-            
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
             Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity),5);
             OnAttackFinish();
+        }
+
+        private void FixedUpdate()
+        {
+            if (mustTeleport)
+            {
+                rb.MovePosition(tpPosition);
+                mustTeleport = false;
+            }
         }
 
         public override bool CapacityUsable(PlayerController player)
