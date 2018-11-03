@@ -26,7 +26,7 @@ namespace Game.Entity.Player
         private Rigidbody2D rb;
         
 
-        private void Start()
+        void Start()
         {
             capacityCanBeUsed = true;
             timerStartTime = 0;
@@ -34,6 +34,11 @@ namespace Game.Entity.Player
             tpOffset = bc.size;
             mustTeleport = false;
             rb = GetComponentInParent<Rigidbody2D>();
+        }
+
+        private void OnDisable()
+        {
+            mustTeleport = false;
         }
 
         public override void UseCapacity(PlayerController player)

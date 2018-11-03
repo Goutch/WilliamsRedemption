@@ -152,7 +152,6 @@ namespace Game.Entity.Player
                 CurrentController = williamController;
                 reaperController.gameObject.SetActive(false);
                 kRigidBody.LayerMask = williamLayerMask;
-
             }
         }
 
