@@ -49,6 +49,10 @@ namespace Game.Puzzle.Light
             }
         }
 
+        private void Update()
+        {
+            base.Update();
+        }
 
         protected override void Scan()
         {
