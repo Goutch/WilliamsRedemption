@@ -67,7 +67,7 @@ namespace Game.Entity.Player
 
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
-        public bool IsMoving { get; set; }
+        public bool IsMoving => kRigidBody.Velocity.sqrMagnitude > 0;
         private bool isInvincible = false;
 
         public bool IsInvincible
@@ -101,7 +101,6 @@ namespace Game.Entity.Player
 
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
-            IsMoving = false;
         }
 
         private void Start()

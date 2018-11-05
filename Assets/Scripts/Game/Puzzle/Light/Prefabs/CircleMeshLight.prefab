@@ -37,8 +37,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601090304264160}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.91, y: 2.03, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0010032654, y: 0.037999988, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -59,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 83893ea97bc7ef941846fe0c6d98541b, type: 2}
+  - {fileID: 2100000, guid: 7b040415eb11a6f4681d64fcba220731, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +100,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 0.37
 --- !u!114 &114272788521883670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,19 +123,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53fb9cd9bb68d54dae3eff657632f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 1, g: 0.6965628, b: 0.5707547, a: 0.48180526}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4097
   debugDraw: 0
-  updateEveryFrame: 1
+  updateEveryFrame: 0
   movingObstacleUpdateStopCooldown: 1
   hasMovingObstaclesInRange: 0
-  isOpen: 0
+  isOpen: 1
   detectionLayers:
     serializedVersion: 2
-    m_Bits: 257
-  coneAngle: 0
-  faceAngle: 0
-  radius: 3
-  precisionInDegree: 1
+    m_Bits: 137475
+  coneAngle: 360
+  faceAngle: 292
+  minAlpha: 0.3
+  maxAlpha: 0.825
+  radius: 0.37
+  precisionInDegree: 0.17
+  flickerSpeed: 0.02

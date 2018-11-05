@@ -54,23 +54,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1435179318988644}
-  m_LocalRotation: {x: -0, y: -0, z: 0.6104908, w: 0.7920234}
-  m_LocalPosition: {x: 71.398, y: -29.155, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 71.356, y: -29.135, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4987726082283284}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 75.25}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4987726082283284
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1006238264387252}
-  m_LocalRotation: {x: -0, y: -0, z: -0.6104908, w: 0.7920234}
-  m_LocalPosition: {x: 0.0209, y: 0.0055, z: 0}
-  m_LocalScale: {x: 0.50000006, y: 0.50000006, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.016, y: 0.008, z: 0}
+  m_LocalScale: {x: 0.78, y: 1.6, z: 1}
   m_Children: []
   m_Father: {fileID: 4086304912265912}
   m_RootOrder: 0
@@ -90,7 +90,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7b040415eb11a6f4681d64fcba220731, type: 2}
+  - {fileID: 2100000, guid: 5f5c809ce539b8d4cb9e54c1684915a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +131,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.37
+  m_Radius: 0.32
 --- !u!114 &114488258436366336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,22 +154,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53fb9cd9bb68d54dae3eff657632f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.40050718, b: 0.023584902, a: 1}
+  color: {r: 1, g: 0.40050718, b: 0.023584902, a: 0.7966727}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4097
   debugDraw: 0
   updateEveryFrame: 1
   movingObstacleUpdateStopCooldown: 1
-  hasMovingObstaclesInRange: 0
+  hasMovingObstaclesInRange: 1
   isOpen: 1
   detectionLayers:
     serializedVersion: 2
     m_Bits: 137475
-  coneAngle: 181
+  coneAngle: 180
   faceAngle: 90
-  radius: 0.37
+  minAlpha: 0.092
+  maxAlpha: 0.826
+  radius: 0.32
   precisionInDegree: 0.17
+  flickerSpeed: 0.05
 --- !u!198 &198316330545756686
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -740,7 +743,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: -0.07
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -824,7 +827,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.08980453
+      value: 0.05808476
       mode: 0
       spread: 0
       speed:
@@ -881,7 +884,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 30.331406
+      value: 180
       mode: 0
       spread: 0
       speed:
@@ -943,7 +946,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 18.82
+      scalar: 52.91
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1381,7 +1384,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.8867924, g: 0.64444405, b: 0, a: 1}
+        key0: {r: 0.8867924, g: 0.64444405, b: 0, a: 0.6627451}
         key1: {r: 0.6981132, g: 0.4379603, b: 0, a: 0.48235294}
         key2: {r: 0.735849, g: 0, b: 0.11177743, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
