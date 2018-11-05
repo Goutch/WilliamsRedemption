@@ -10,6 +10,7 @@ namespace Game.Puzzle
         [SerializeField] private bool isOpen;
 
 
+        //BEN_CORRECTION : Private.
         void Awake()
         {
             if (isOpen)
@@ -20,6 +21,9 @@ namespace Game.Puzzle
 
         public void Open()
         {
+            //BEN_CORRECTION : Problème de performance : GetComponent devrait être fait qu'une seule
+            //                 fois dans le "Awake" (voir Close).
+            //BEN_REVIEW : Aussi, "this.gameObject" est redondant et peut être supprimé.
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             isOpen = true;
@@ -42,6 +46,7 @@ namespace Game.Puzzle
             isLocked = false;
         }
 
+        //BEN_REVIEW : Propriétés devraient être en haut du Awake.
         public bool IsOpened() => isOpen;
 
         public bool IsLocked() => isLocked;

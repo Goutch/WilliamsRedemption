@@ -80,6 +80,7 @@ namespace Game.Puzzle
             timerHasStarted = false;
         }
 
+        //BEN_CORRECTION : Manque private.
         void Update()
         {
             if (hasTimer && timerHasStarted)

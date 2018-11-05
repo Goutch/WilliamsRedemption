@@ -8,12 +8,12 @@ namespace Game.UI
     {
 
         [SerializeField] private int startingTime;
-        public static TimeUI instance;
+        public static TimeUI instance; //BEN_CORRECTION : Jamais utlisée.
         private GameController gameController;
         private Text timeText;
-        private int time;
-        private int remainingTime;
-        private const string remainingTimeText = "Remaining Time : ";
+        private int time; //BEN_CORRECTION : Attribut inutile. Aurait pu être une variable dans une fonction. Me voir si pas clair.
+        private int remainingTime; //BEN_CORRECTION : Attribut inutile. Aurait pu être une variable dans une fonction.
+        private const string remainingTimeText = "Remaining Time : "; //BEN_CORRECTION : Aurait du être un "SerilizedField". Ça hérite de "MonoBehaviour", donc vous n'avez aucune excuse.
 
         private void Start()
         {
@@ -26,6 +26,7 @@ namespace Game.UI
 
         private void OnTimeChange()
         {
+            //BEN_REVIEW : Ces deux fonction auraient pu être fusionnées en une seule.
             UpdateTimeValue();
             UpdateTimeText();
         }
@@ -34,6 +35,8 @@ namespace Game.UI
         {
             if (!IsRemainingTimeOver())
             {
+                //BEN_CORRECTION : Si vous avez déjà le "Time" dans "GameController", pourquoi est-ce que vous
+                //                 effectuez toutes ces manipulations dessus ?
                 time = Mathf.RoundToInt(gameController.Time);
                 remainingTime = startingTime - time;
             }

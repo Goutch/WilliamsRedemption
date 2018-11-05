@@ -2,6 +2,7 @@
 
 namespace Game.Puzzle
 {
+    //BEN_REVIWE : Key pas de "s" ? Non ?
     public class Keys : MonoBehaviour
     {
         [Tooltip("Door tied to this key.")]

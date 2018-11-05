@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Game.Puzzle.Light
 {
     [ExecuteInEditMode]
+    //BEN_REVIEW : Une "light" est un "Trigerrable" ? Je vais continuer de lire, mais je trouve ça louche déjà en partant.
     public abstract class MeshLight : MonoBehaviour , ITriggerable
     {
         [SerializeField] protected Color color = Color.white;

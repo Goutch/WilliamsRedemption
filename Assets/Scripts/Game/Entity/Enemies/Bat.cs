@@ -8,9 +8,9 @@ namespace Game.Entity.Enemies
         private RootMover rootMover;
         private int direction = 1;
         private bool isTriggered;
+        //BEN_REVIEW : SerializedFields devrait être en premier.
         [SerializeField] private Vector2 exponentialFonction;
         [SerializeField] private float fonctionYOffSet = .32f;
-
 
         protected void Fly()
         {
@@ -21,6 +21,7 @@ namespace Game.Entity.Enemies
                     exponentialFonction.y + transform.position.y));
         }
 
+        //BEN_CORRECTION : Enlever le "On". Ce n'est pas un événement.
         public void OnTriggered()
         {
             if (!isTriggered)
@@ -44,6 +45,9 @@ namespace Game.Entity.Enemies
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+        //BEN_REVIEW : Au lieu de faire de l'attente active, utiliser une coroutine.
+        //
+        //             Démarrer la coroutine dans "OnTriggered".
         private void FixedUpdate()
         {
             if (isTriggered)

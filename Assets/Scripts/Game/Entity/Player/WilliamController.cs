@@ -62,9 +62,10 @@ namespace Game.Entity.Player
 
         IEnumerator Dash(PlayerController player, Vector2 direction)
         {
+            //BEN_REVIEW : Ce serait vraiment chouette si vous pouviez séparer l'animator de votre composant.
             animator.SetTrigger(Values.AnimationParameters.Player.Dash);
             player.LockTransformation();
-            player.IsDashing = true;
+            player.IsDashing = true; //BEN_CORRECTION : Sert absolument à rien. La valeur n'est pas utilisée.
 
             Transform root = transform.parent;
 
@@ -101,6 +102,8 @@ namespace Game.Entity.Player
             animator.SetTrigger(Values.AnimationParameters.Player.DashEnd);
         }
 
+        //BEN_REVIEW : J'aurais vraiment placé l'attaque dans un composant à part. Ici, la seule chose à faire ausi été
+        //             d'appeler ce composant, qui se serait ensuite occupé du reste.
         public override void UseBasicAttack(PlayerController player, Vector2 direction)
         {
 

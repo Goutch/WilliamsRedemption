@@ -7,17 +7,17 @@ namespace Game.Puzzle
     {
 
         [Tooltip("Distance traveled by the platform when heading left.(From start to this)")]
-        [SerializeField] private float MaxDistanceLeft;
+        [SerializeField] private float MaxDistanceLeft; //BEN_CORRECTION : Standard de nommage.
         [Tooltip("Distance traveled by the platform when heading right.(From start to this this)")]
-        [SerializeField] private float MaxDistanceRight;
+        [SerializeField] private float MaxDistanceRight; //BEN_CORRECTION : Standard de nommage.
         [Tooltip("Distance Travelled by the platform when heading upwards.(From start to this")]
-        [SerializeField] private float MaxDistanceUp;
+        [SerializeField] private float MaxDistanceUp; //BEN_CORRECTION : Standard de nommage.
         [Tooltip("Distance traveled by the platform when heading downwards.(From start to this")]
-        [SerializeField] private float MaxDistanceDown;
+        [SerializeField] private float MaxDistanceDown; //BEN_CORRECTION : Standard de nommage.
         [Tooltip("Speed at which the platform moves horizontaly.")]
-        [SerializeField] private float HorizontalSpeed;
+        [SerializeField] private float HorizontalSpeed; //BEN_CORRECTION : Standard de nommage.
         [Tooltip("Speed at which the platform moves verticaly.")]
-        [SerializeField] private float VerticalSpeed;
+        [SerializeField] private float VerticalSpeed; //BEN_CORRECTION : Standard de nommage.
         [Tooltip("True when heading towards the right. (Checking this will make the platform head towards the right first.")]
         [SerializeField] private bool isHeadingRight;
         [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")]
@@ -43,9 +43,11 @@ namespace Game.Puzzle
 
 
 
+        //BEN_CORRECTION : Commentaire inutile + private manquant.
         // Use this for initialization
         void Start()
         {
+            //BEN_CORRECTION : Nommage. rb.
             rb = GetComponent<Rigidbody2D>();
             initialPositionX = rb.position.x;
             initialPositionY = rb.position.y;
@@ -53,6 +55,7 @@ namespace Game.Puzzle
             quadraticX = 0;
         }
 
+        //BEN_CORRECTION : Commentaire inutile + private manquant.
         // Update is called once per frame
         void Update()
         {
@@ -66,6 +69,8 @@ namespace Game.Puzzle
         {
             if (!isUsingQuadraticCurve)
             {
+                //BEN_REVIEW : Dans l'autre fonction (useQuadraticCurve), vous utilisez "rb.MovePosition".
+                //             Est-ce vraiment ce que vous voulez ?
                 rb.velocity = new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed);
             }
             else
@@ -79,6 +84,16 @@ namespace Game.Puzzle
         {
             if (other.collider.CompareTag(Values.Tags.Player))
             {
+                //BEN_REVIEW : OH, je vois. IsMoving, en vérité, c'est "IsPlayerWantsToMove" ou quelque chose du genre...
+                //
+                //             Je trouve que vos plateformes mobiles sont un peu compliquées pour rien. Pourquoi ne pas
+                //             tout simplement additionner le mouvement de la plateforme à ce que la plateforme touche ?
+                //
+                //             Du genre :
+                //
+                //             other.gameObject.transform.position += plateformeMovement;
+                //
+                //             Avec un setup comme ça, "OnCollisionExit2D" serait plus nécessaire.
                 if (!other.gameObject.GetComponent<PlayerController>().IsMoving)
                 {
                     other.transform.parent = gameObject.transform;
@@ -100,6 +115,7 @@ namespace Game.Puzzle
             }
         }
 
+        //BEN_CORRECTION : Ne retourne pas un boolean, mais s'appelle "Check".
         private void CheckHorizontalDirection()
         {
             if (isHeadingRight)

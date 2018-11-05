@@ -32,6 +32,7 @@ namespace Game.Entity
             }
         }
 
+        //BEN_CORRECTION : private.
         void Awake()
         {
             healthPoints = MaxHealth;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game.Puzzle
 {
+    //BEN_REVIEW : J'aurais appellé ça "EndGameTrigger".
     public class EndGame : MonoBehaviour
     {
         private void OnTriggerEnter2D(Collider2D other)

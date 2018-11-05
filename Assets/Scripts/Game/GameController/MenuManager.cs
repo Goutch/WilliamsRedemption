@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//BEN_REVIEW : Pourrait être une classe statique à la place, car ne fait qu'appeler des méthodes statiques. 
 public class MenuManager : MonoBehaviour {
 
 	public void LoadLevel1()

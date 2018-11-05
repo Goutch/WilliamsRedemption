@@ -28,6 +28,7 @@ namespace Game.Entity.Player
         {
             Transform root = transform.parent;
             GameObject tpEffectTemp = Instantiate(tpEffect, root.position, Quaternion.identity);
+            //BEN_CORRECION : L'effet devrait se détruire tout seul. Ce n'est pas la responsabilité du "reaper".
             StartCoroutine(TeleportEffectRemove(tpEffectTemp, player));
 
 

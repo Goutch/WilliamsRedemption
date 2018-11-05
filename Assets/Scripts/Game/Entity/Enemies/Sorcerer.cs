@@ -12,7 +12,7 @@ namespace Game.Entity.Enemies
         private float timeSinceLastAttack = 0;
         
         
-
+        //BEN_CORRECTION : Code mort.
         protected override void Init()
         {
             base.Init();

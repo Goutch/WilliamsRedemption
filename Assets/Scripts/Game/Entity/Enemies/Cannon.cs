@@ -7,7 +7,7 @@ namespace Game.Entity.Enemies
         [SerializeField] private int rotationCannon;
         [SerializeField] private GameObject bulletPrefab;
         private float timeJustAfterShooting;
-        private const float TIME_BEFORE_SHOOTING_AGAIN = 2;
+        private const float TIME_BEFORE_SHOOTING_AGAIN = 2; //BEN_CORRECTION : Devrait être un "SerializedField".
 
         protected override void Init()
         {

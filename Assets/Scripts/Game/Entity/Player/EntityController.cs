@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game.Entity.Player
 {
+    //BEN_REVIEW : Une entité, c'est très vague.
     public abstract class EntityController : MonoBehaviour
     {
         [SerializeField] private float attackCooldown;

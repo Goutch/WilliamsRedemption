@@ -7,6 +7,7 @@ namespace Game.Controller
     public class LightController : MonoBehaviour
     {
 
+        //BEN_CORRECTION : Private manquant.
         MeshLight[] meshLights;
 
         private void Awake()
