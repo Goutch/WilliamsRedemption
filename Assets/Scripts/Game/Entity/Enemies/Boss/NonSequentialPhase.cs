@@ -81,6 +81,12 @@ namespace Game.Entity.Enemies.Boss
         {
             return currentState?.GetCurrentState() ?? this;
         }
+
+        public override void Finish()
+        {
+            currentState.Finish();
+            base.Finish();
+        }
     }
 }
 

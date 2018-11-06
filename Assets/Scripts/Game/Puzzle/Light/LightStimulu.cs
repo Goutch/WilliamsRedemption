@@ -13,6 +13,7 @@ namespace Game.Puzzle.Light
 
         private void Start()
         {
+
             lightSensorsInRange = new List<LightSensor>();
             movingLightObstaclesInRange = new List<MovingLightObstacle>();
             meshLight = GetComponent<MeshLight>();
@@ -29,6 +30,7 @@ namespace Game.Puzzle.Light
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+
             if (other.transform.root.GetComponent<LightSensor>() && !lightSensorsInRange.Contains(other.transform.root.GetComponent<LightSensor>()))
             {
                 lightSensorsInRange.Add(other.transform.root.GetComponent<LightSensor>());
