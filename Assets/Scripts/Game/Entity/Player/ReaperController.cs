@@ -18,14 +18,12 @@ namespace Game.Entity.Player
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
-       // private SpriteRenderer sr;
         private BoxCollider2D bc;
         private Vector2 tpOffset;
         private Vector2 tpPosition;
         private bool mustTeleport;
         private Rigidbody2D rb;
         
-
         void Start()
         {
             capacityCanBeUsed = true;

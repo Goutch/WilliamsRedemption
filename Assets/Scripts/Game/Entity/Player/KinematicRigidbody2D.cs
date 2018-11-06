@@ -101,6 +101,7 @@ namespace Game.Entity.Player
 
             AddGravityToVelocity();
             AddTargetVelocityToVelocity();
+            AddTargetVelocityToVelocityY();
 
             var deltaPosition = GetVelocityDeltaPosition();
             var groundMovementVector = GetGroundMovementVector();
@@ -118,11 +119,6 @@ namespace Game.Entity.Player
                 Debug.DrawLine(rigidbody.position, rigidbody.position + velocity, Color.red);
             }
 #endif
-        }
-
-        private void Update()
-        {
-            AddTargetVelocityToVelocityY();
         }
 
         private void ResetValuesBeforeSimulation()
