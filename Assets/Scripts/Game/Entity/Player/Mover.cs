@@ -70,7 +70,7 @@ namespace Game.Entity.Player
 
         public void MoveRight()
         {
-            horizontalVelocity += Vector2.right;
+            horizontalVelocity = Vector2.right;
             player.playerHorizontalDirection = Vector2.right;
             player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
             player.DirectionFacingUpDown = FacingSideUpDown.None;
@@ -79,7 +79,7 @@ namespace Game.Entity.Player
 
         public void MoveLeft()
         {
-            horizontalVelocity += Vector2.left;
+            horizontalVelocity = Vector2.left;
             player.playerHorizontalDirection = Vector2.left;
             player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
             player.DirectionFacingUpDown = FacingSideUpDown.None;
@@ -96,7 +96,7 @@ namespace Game.Entity.Player
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
-                verticalVelocity = Vector2.up* 0.75f;
+                verticalVelocity = Vector2.up* 0.76f;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 player.IsMoving = true;
                 jumpCount++;
