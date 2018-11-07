@@ -40,7 +40,6 @@ namespace Game.Entity.Enemies.Boss
                 phases[currentPhaseIndex].Enter();
                 phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
             }
-
         }
     }
 }

@@ -67,6 +67,7 @@ namespace Game.Puzzle.Light
             UpdateColor();
             if (debugDraw)
                 DebugDraw(Color.red, 0.1f);
+            transform.localRotation = transform.root.localRotation;
         }
 
         protected void DebugDraw(Color color, float time)
