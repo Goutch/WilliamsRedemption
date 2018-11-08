@@ -8,8 +8,8 @@ namespace Game.Puzzle.Light
     {
         [Range(0, 360)] [SerializeField] private float coneAngle;
         [Range(0, 360)] [SerializeField] private float faceAngle;
-        [Range(0,1)][SerializeField] private float minAlpha;
-        [Range(0,1)][SerializeField] private float maxAlpha;
+        [Range(0,1)][SerializeField] private float minAlpha=.75f;
+        [Range(0,1)][SerializeField] private float maxAlpha=1f;
         [SerializeField] private float radius = 3;
         [SerializeField] [Range(0.1f, 2)] private float precisionInDegree = 1;
         [SerializeField] private float flickerSpeed = .02f;
