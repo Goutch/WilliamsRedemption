@@ -1,5 +1,7 @@
 ﻿using Game.Controller;
+using Harmony;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.Puzzle
 {
@@ -8,6 +10,22 @@ namespace Game.Puzzle
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(Values.Tags.Player))
+            {
+                ChooseActionToDo();
+            }
+        }
+
+        private void ChooseActionToDo()
+        {
+            if (SceneManager.GetActiveScene().name == Values.GameObject.Level1)
+            {
+                SceneManager.LoadScene(Game.Values.GameObject.Level2);
+            }
+            else if (SceneManager.GetActiveScene().name == Game.Values.GameObject.Level2)
+            {
+                SceneManager.LoadScene(Game.Values.GameObject.Level3);
+            }
+            else
             {
                 GameObject.FindWithTag(Values.Tags.GameController).GetComponent<GameController>().OnGameEnd();
             }

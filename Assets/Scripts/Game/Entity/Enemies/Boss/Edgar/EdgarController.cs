@@ -4,6 +4,14 @@ namespace Game.Entity.Enemies.Boss.Edgar
 {
     public class EdgarController : BossController
     {
+        private RootMover mover;
+
+        private void OnEnable()
+        {
+            mover = GetComponent<RootMover>();
+            mover.LookAtPlayer();
+        }
+
         protected override void OnHit(HitStimulus other)
         {
             if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)

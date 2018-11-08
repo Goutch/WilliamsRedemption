@@ -99,7 +99,7 @@ namespace Game.Entity.Enemies.Boss
         {
             List<Vector3Int> positonTilesToDestroy = new List<Vector3Int>();
             Vector3Int positionInCell = ConvertLocalToCell(transform.position);
-            int directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? -1 : 1;
+            int directionX = transform.rotation == Quaternion.AngleAxis(0, Vector3.up) ? 1 : -1;
 
             foreach (Vector3Int tilesPosition in spawnedTilesPosition)
             {

@@ -136,7 +136,7 @@ namespace Game.Entity.Player
         private void AddTargetVelocityToVelocity()
         {
             //X velocity is entirely controlled by the object (like the player or an ennemy)
-            velocity.x = targetVelocity.x;
+            velocity.x = targetVelocity.x + VelocityModifier.x;
             //Y velocity is controlled by the object when it's target y velocity is greater than 0 or if gravity is ignored.
             //Otherwise, current velocity is used.
             //velocity.y = targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y;
@@ -149,7 +149,7 @@ namespace Game.Entity.Player
         {
             //Y velocity is controlled by the object when it's target y velocity is greater than 0 or if gravity is ignored.
             //Otherwise, current velocity is used.
-            velocity.y = targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y;
+            velocity.y = (targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y) + VelocityModifier.y;
         }
 
         public void AddForce(Vector2 force)
@@ -236,7 +236,7 @@ namespace Game.Entity.Player
                 }
             }
 
-            rigidbody.position += (VelocityModifier * Vector2.right) * Time.fixedDeltaTime + deltaPosition.normalized * deltaMagnitude;
+            rigidbody.position += deltaPosition.normalized * deltaMagnitude;
 
             VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime *2);
         }

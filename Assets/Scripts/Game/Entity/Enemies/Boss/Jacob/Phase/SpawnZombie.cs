@@ -40,6 +40,8 @@ namespace Game.Entity.Enemies.Boss.Jacob
             animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase);
 
             SpawnAZombie();
+
+            Finish();
         }
 
         private void SpawnAZombie()

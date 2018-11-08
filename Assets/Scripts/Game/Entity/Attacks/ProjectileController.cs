@@ -52,6 +52,7 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void HandleCollision(HitStimulus other)
         {
+            Debug.Log(other);
             if (CanBeReturned && other.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.Reaper && other.GetComponent<MeleeAttackController>())
             {
                 this.GetComponent<HitStimulus>().SetDamageSource(other.GetComponent<HitStimulus>().DamageSource);
@@ -75,6 +76,19 @@ namespace Game.Entity.Enemies.Attack
         {
             if (collision.collider.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
                 Destroy(gameObject);
+
+            if (collision.gameObject.Root().CompareTag(Values.Tags.Player) && this.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.Enemy && collision.gameObject.GetComponent<HitSensor>())
+            {
+                Destroy(this.gameObject);
+            }
+            else if (collision.gameObject.Root().CompareTag(Values.Tags.Enemy) && this.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.William && collision.gameObject.GetComponent<HitSensor>())
+            {
+                Destroy(this.gameObject);
+            }
+            else if (collision.gameObject.Root().CompareTag(Values.Tags.Enemy) && this.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.Reaper && collision.gameObject.GetComponent<HitSensor>())
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -82,6 +96,18 @@ namespace Game.Entity.Enemies.Attack
             if (other.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
                 Destroy(gameObject);
 
+            if (other.Root().CompareTag(Values.Tags.Player) && this.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.Enemy && other.GetComponent<HitSensor>())
+            {
+                Destroy(this.gameObject);
+            }
+            else if (other.Root().CompareTag(Values.Tags.Enemy) && this.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.William && other.GetComponent<HitSensor>())
+            {
+                Destroy(this.gameObject);
+            }
+            else if (other.Root().CompareTag(Values.Tags.Enemy) && this.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.Reaper && other.GetComponent<HitSensor>())
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
