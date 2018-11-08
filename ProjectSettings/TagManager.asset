@@ -15,6 +15,7 @@ TagManager:
   - LightManager
   - Light
   - ProjectileEnemy
+  - Collectable
   layers:
   - Default
   - TransparentFX

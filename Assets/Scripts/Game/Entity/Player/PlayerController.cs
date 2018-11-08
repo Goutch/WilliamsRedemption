@@ -37,8 +37,6 @@ namespace Game.Entity.Player
 
 
         private int nbPlayerLivesLeft;
-
-        private int currentLevel;
         private int numbOfLocks = 0;
 
         public LayerMask WilliamLayerMask
@@ -87,7 +85,6 @@ namespace Game.Entity.Player
 
         private void Awake()
         {
-            currentLevel = 1;
             if (instance == null)
                 instance = this;
 

@@ -38,7 +38,6 @@ namespace Game.UI
             {
                 lifePointsImages[playerHealth.HealthPoints].SetActive(false);
             }
-
         }
 
     }

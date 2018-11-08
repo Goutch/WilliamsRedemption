@@ -24,10 +24,13 @@ namespace Game.Controller
         private const string deathTextString = "Game Over";
         public int Score => score;
         public float Time => time;
-
+        private int currentLevel;
+        public int CurrentLevel => currentLevel;
+        private AchievementEventChannel achievementEventChannel;
         void Start()
         {
             PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
+            achievementEventChannel = GetComponent<AchievementEventChannel>();
             startTime = UnityEngine.Time.time;
             pauseUI = GetComponent<PauseUI>();
             collectableUI = GetComponent<CollectablesUI>();
@@ -58,7 +61,7 @@ namespace Game.Controller
         {
             AddScore(scoreValue);
             collectableUI.AddCollectable();
-
+            achievementEventChannel.PublishPlayerFoundCollectable();
         }
         private void UpdatePause()
         {
