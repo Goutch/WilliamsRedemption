@@ -6,21 +6,20 @@ namespace Game.Entity.Player
 {
     public class Mover : MonoBehaviour
     {
-        [Tooltip("Player mouvement speed")]
-        [SerializeField]
+        [Tooltip("Player mouvement speed")] [SerializeField]
         private float speed;
 
-        [Tooltip("Player Jump Speed")]
-        [SerializeField]
+        [Tooltip("Player Jump Speed")] [SerializeField]
         private float jumpSpeed;
 
-        [Tooltip("Short period of time where the player can jump while being airborne.")]
-        [SerializeField]
+        [Tooltip("Short period of time where the player can jump while being airborne.")] [SerializeField]
         private float playerNoLongerGroundedDelay;
 
-        [Tooltip("Amount of jumps allowed after leaving ground.")]
-        [SerializeField]
+        [Tooltip("Amount of jumps allowed after leaving ground.")] [SerializeField]
         private float amountOfAdditionalJumps;
+
+        [Tooltip("Jump velocity muliplier. Only effective after the first jump.")] [SerializeField]
+        private float additionalJumpVelocity;
 
 
         private PlayerIndex controllerNumber;
@@ -52,8 +51,10 @@ namespace Game.Entity.Player
             velocityY = velocityY / Time.fixedDeltaTime;
             lastPositionY = this.transform.position.y;
             player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.VelocityY, velocityY);
-            player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.Speed, Mathf.Abs(kinematicRigidbody2D.Velocity.x));
-            player.CurrentController.animator.SetBool(Values.AnimationParameters.Player.Grounded, kinematicRigidbody2D.IsGrounded);
+            player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.Speed,
+                Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+            player.CurrentController.animator.SetBool(Values.AnimationParameters.Player.Grounded,
+                kinematicRigidbody2D.IsGrounded);
         }
 
         private void FixedUpdate()
@@ -92,7 +93,7 @@ namespace Game.Entity.Player
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
-                verticalVelocity = Vector2.up* 0.76f;
+                verticalVelocity = Vector2.up * additionalJumpVelocity;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 player.IsMoving = true;
                 jumpCount++;
