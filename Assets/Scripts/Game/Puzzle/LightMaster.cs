@@ -15,22 +15,20 @@ public class LightMaster : MonoBehaviour
 	
 	private int index;
 
-
-
-	void Awake()
+	private void Awake()
 	{
 		index = 0;
 		timeAtStart = 0;
 		timeSinceStart = 0;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		
 		KeepTrackOfTime();
 		
 	}
 
+	//TODO:: 
 	private void Cycle()
 	{
 		
@@ -46,6 +44,7 @@ public class LightMaster : MonoBehaviour
 		
 	}
 
+	//TODO::
 	private void ResetTime()
 	{
 		

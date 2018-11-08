@@ -48,16 +48,12 @@ namespace Game.Entity.Player
 
         private void Update()
         {
-            //kinematicRigidbody2D.Velocity = horizontalVelocity * speed + verticalVelocity * jumpSpeed;
             velocityY = this.transform.position.y - lastPositionY;
             velocityY = velocityY / Time.fixedDeltaTime;
             lastPositionY = this.transform.position.y;
             player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.VelocityY, velocityY);
             player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.Speed, Mathf.Abs(kinematicRigidbody2D.Velocity.x));
             player.CurrentController.animator.SetBool(Values.AnimationParameters.Player.Grounded, kinematicRigidbody2D.IsGrounded);
-            //horizontalVelocity = Vector2.zero;
-           // verticalVelocity = Vector2.zero;
-           // ResetJumpCount();
         }
 
         private void FixedUpdate()

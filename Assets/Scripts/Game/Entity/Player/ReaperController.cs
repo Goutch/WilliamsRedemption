@@ -24,7 +24,7 @@ namespace Game.Entity.Player
         private bool mustTeleport;
         private Rigidbody2D rb;
         
-        void Start()
+        private void Start()
         {
             capacityCanBeUsed = true;
             timerStartTime = 0;

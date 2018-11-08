@@ -101,7 +101,7 @@ namespace Game.Entity.Player
             OnLightExpositionChanged(true);
         }
 
-        void Update()
+        private void Update()
         {
             SetSpriteOrientation();
         }
