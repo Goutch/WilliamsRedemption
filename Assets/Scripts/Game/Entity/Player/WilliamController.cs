@@ -82,7 +82,7 @@ namespace Game.Entity.Player
                 hit.point = new Vector2(dashDistance * direction.x + transform.position.x, transform.position.y);
             }
 
-            float distance = Vector2.Distance(hit.point, transform.position);
+            float distance = Vector2.Distance(hit.point - GetComponent<BoxCollider2D>().size, transform.position);
             float duration = distance / dashSpeed;
 
             float time = 0;

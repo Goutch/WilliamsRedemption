@@ -6,17 +6,18 @@ using UnityEngine;
 namespace Game.Entity.Player
 {
     public delegate void PlayerDeathEventHandler();
-
     public class PlayerController : MonoBehaviour
     {
         private Dictionary<string, bool> buttonsPressed;
         private Dictionary<string, bool> buttonsReleased;
         private Dictionary<string, bool> buttonsHeld;
 
-        [SerializeField] [Tooltip("Layers William collides with.")]
+        [SerializeField]
+        [Tooltip("Layers William collides with.")]
         private LayerMask williamLayerMask;
 
-        [SerializeField] [Tooltip("Layers Reaper collides with.")]
+        [SerializeField]
+        [Tooltip("Layers Reaper collides with.")]
         private LayerMask reaperLayerMask;
 
         [SerializeField] private float invincibilitySeconds;
@@ -54,20 +55,20 @@ namespace Game.Entity.Player
 
         public Vector2 playerHorizontalDirection
         {
-            get { return horizontalDirection; }
+            get { return horizontalDirection;}
             set { horizontalDirection = value; }
         }
 
         public Vector2 playerVerticalDirection
         {
-            get { return verticalDirection; }
+            get { return verticalDirection;}
             set { verticalDirection = value; }
         }
 
 
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
-        public bool IsMoving => kRigidBody.Velocity.sqrMagnitude > 0;
+        public bool IsMoving { get; set; }
         private bool isInvincible = false;
 
         public bool IsInvincible
@@ -76,10 +77,10 @@ namespace Game.Entity.Player
             set
             {
                 isInvincible = value;
-                williamController.animator.SetBool("Invincible", value);
-                reaperController.animator.SetBool("Invincible", value);
+                williamController.animator.SetBool("Invincible",value);
+                reaperController.animator.SetBool("Invincible",value);
             }
-        }
+        } 
 
         public FacingSideUpDown DirectionFacingUpDown { get; set; }
         public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
@@ -101,6 +102,7 @@ namespace Game.Entity.Player
 
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
+            IsMoving = false;
         }
 
         private void Start()
@@ -108,7 +110,7 @@ namespace Game.Entity.Player
             OnLightExpositionChanged(false);
         }
 
-        void Update()
+        private void Update()
         {
             SetSpriteOrientation();
         }
@@ -126,7 +128,7 @@ namespace Game.Entity.Player
         {
             IsInvincible = true;
             yield return new WaitForSeconds(invincibilitySeconds);
-            IsInvincible = false;
+            IsInvincible= false;
         }
 
         private void HandleCollision(HitStimulus other)
@@ -153,17 +155,12 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                reaperController.animator.SetBool("Invincible", false);
-                if(isInvincible)
-                    williamController.animator.SetBool("Invincible", true);
                 williamController.sprite.flipX = reaperController.sprite.flipX;
                 williamController.gameObject.SetActive(true);
                 reaperController.OnAttackFinish();
                 CurrentController = williamController;
                 reaperController.gameObject.SetActive(false);
                 kRigidBody.LayerMask = williamLayerMask;
-                if (IsInvincible)
-                    currentController.animator.SetBool("Invincible", IsInvincible);
             }
         }
 
@@ -171,9 +168,6 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                williamController.animator.SetBool("Invincible", false);
-                if(isInvincible)
-                    reaperController.animator.SetBool("Invincible", true);
                 reaperController.sprite.flipX = williamController.sprite.flipX;
                 reaperController.gameObject.SetActive(true);
                 williamController.OnAttackFinish();
@@ -208,6 +202,7 @@ namespace Game.Entity.Player
             {
                 CurrentController.sprite.flipX = false;
             }
+            
         }
     }
 }
