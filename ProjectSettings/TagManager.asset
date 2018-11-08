@@ -34,7 +34,7 @@ TagManager:
   - Darkness
   - Projectile
   - MeleeAttack
-  - 
+  - LightOnlyCollision
   - 
   - 
   - 
@@ -51,6 +51,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 3595444823
+    locked: 0
+  - name: Decoration
+    uniqueID: 848824259
     locked: 0
   - name: Default
     uniqueID: 0

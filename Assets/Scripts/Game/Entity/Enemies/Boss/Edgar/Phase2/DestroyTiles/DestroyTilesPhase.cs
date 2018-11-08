@@ -25,6 +25,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         protected override void EnterIdle()
         {
+            base.EnterIdle();
             if (!spawnedTilesManager.IsAnySpawnedTiles())
                 Finish();
 

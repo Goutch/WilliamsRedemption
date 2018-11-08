@@ -17,7 +17,7 @@ namespace Game.Puzzle
 
         private void ChooseActionToDo()
         {
-            if (SceneManager.GetActiveScene().name == R.S.Scene.Level1)
+            if (SceneManager.GetActiveScene().name == Values.GameObject.Level1)
             {
                 SceneManager.LoadScene(Game.Values.GameObject.Level2);
             }

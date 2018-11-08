@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreValue: 10
   damageKnockBackForce: 1
-  disapearTimeLimitBeforeDesSpawn: 5
+  disapearTimeLimitBeforeDesSpawn: 2
 --- !u!114 &114602427331176794
 MonoBehaviour:
   m_ObjectHideFlags: 1
