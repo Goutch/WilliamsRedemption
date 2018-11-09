@@ -247,10 +247,8 @@ namespace Game.Entity.Player
                     }
                 }
             }
-
-            rigidbody.position += deltaPosition.normalized * deltaMagnitude;
-
-            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime *2);
+                rigidbody.position += deltaPosition.normalized * deltaMagnitude;
+                VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
         }
     }
 

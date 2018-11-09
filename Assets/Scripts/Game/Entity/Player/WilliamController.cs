@@ -96,6 +96,7 @@ namespace Game.Entity.Player
                 yield return 0;
             }
 
+
             player.IsDashing = false;
             player.UnlockTransformation();
             animator.SetTrigger(Values.AnimationParameters.Player.DashEnd);
