@@ -13,14 +13,27 @@ namespace Game.Entity.Enemies.Boss
 
         private int numberOfEnemySpawn = 0;
 
+        public int NumberOfEnemySpawnAllowed
+        {
+            get
+            {
+                return numberOfEnemySpawnAllowed;
+            }
+
+            set
+            {
+                numberOfEnemySpawnAllowed = value;
+            }
+        }
+
         private void Awake()
         {
             enemies = new List<GameObject>();
         }
 
-        public void SpawnEnemies(GameObject prefab, Vector3 position, Quaternion quaternion)
+        public void SpawnEnemy(GameObject prefab, Vector3 position, Quaternion quaternion)
         {
-            if(numberOfEnemySpawn < numberOfEnemySpawnAllowed)
+            if(numberOfEnemySpawn < NumberOfEnemySpawnAllowed)
             {
                 GameObject enemy = Instantiate(prefab, position, quaternion);
 
@@ -33,7 +46,7 @@ namespace Game.Entity.Enemies.Boss
 
         public bool IsAllEnemySpawned()
         {
-            return numberOfEnemySpawn == numberOfEnemySpawnAllowed;
+            return numberOfEnemySpawn == NumberOfEnemySpawnAllowed;
         }
 
         private void SpawnedEnemyManager_OnDeath(GameObject enemy)
@@ -50,8 +63,19 @@ namespace Game.Entity.Enemies.Boss
 
         public void ResetEnemySpawnedCount()
         {
-            enemies.Clear();
+            Clear();
             numberOfEnemySpawn = 0;
+        }
+
+        public void Clear()
+        {
+            foreach(GameObject enemy in enemies)
+            {
+                if (enemy != null)
+                    Destroy(enemy);
+            }
+
+            enemies.Clear();
         }
     }
 }

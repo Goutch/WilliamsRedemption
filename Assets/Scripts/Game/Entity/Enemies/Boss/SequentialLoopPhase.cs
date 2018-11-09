@@ -100,7 +100,7 @@ namespace Game.Entity.Enemies.Boss
 
         public override void Finish()
         {
-            currentState.Finish();
+            currentState?.Finish();
             currentState = null;
             base.Finish();
         }

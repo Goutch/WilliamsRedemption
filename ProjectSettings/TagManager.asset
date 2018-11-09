@@ -15,6 +15,7 @@ TagManager:
   - LightManager
   - Light
   - ProjectileEnemy
+  - LastBossFloorTag
   layers:
   - Default
   - TransparentFX

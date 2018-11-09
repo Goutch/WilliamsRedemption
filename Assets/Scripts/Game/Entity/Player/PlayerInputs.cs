@@ -35,16 +35,16 @@ namespace Game.Entity.Player
         private void ManageKeyBoardInputs()
         {
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !PlayerController.instance.IsStun)
             {
                 player.Jump();
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) && !PlayerController.instance.IsStun)
             {
                 player.MoveLeft();
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D) && !PlayerController.instance.IsStun)
             {
                 player.MoveRight();
             }
@@ -63,12 +63,12 @@ namespace Game.Entity.Player
                 player.AimDown();
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && playerController.CurrentController.CapacityUsable(playerController))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && playerController.CurrentController.CapacityUsable(playerController) && !PlayerController.instance.IsStun)
             {
                 playerController.CurrentController.UseCapacity(playerController);
             }
 
-            if (Input.GetKey(KeyCode.Return) && playerController.CurrentController.CanUseBasicAttack())
+            if (Input.GetKey(KeyCode.Return) && playerController.CurrentController.CanUseBasicAttack() && !PlayerController.instance.IsStun)
             {
                 playerController.CurrentController.UseBasicAttack(playerController);
             }
@@ -79,23 +79,23 @@ namespace Game.Entity.Player
         {
             controllerState = GamePad.GetState(controllerNumber);
 
-            if (controllerState.Buttons.A == ButtonState.Pressed && !jumpButtonPressed)
+            if (controllerState.Buttons.A == ButtonState.Pressed && !jumpButtonPressed && !PlayerController.instance.IsStun)
             {
                 player.Jump();
                 jumpButtonPressed = true;
 
             }
-            if (controllerState.Buttons.A == ButtonState.Released)
+            if (controllerState.Buttons.A == ButtonState.Released && !PlayerController.instance.IsStun)
             {
                 jumpButtonPressed = false;
                 playerController.IsMoving = false;
             }
 
-            if (controllerState.ThumbSticks.Left.X <= -0.5)
+            if (controllerState.ThumbSticks.Left.X <= -0.5 && !PlayerController.instance.IsStun)
             {
                 player.MoveLeft();
             }
-            else if (controllerState.ThumbSticks.Left.X >= 0.5)
+            else if (controllerState.ThumbSticks.Left.X >= 0.5 && !PlayerController.instance.IsStun)
             {
                 player.MoveRight();
             }
@@ -114,12 +114,12 @@ namespace Game.Entity.Player
                 player.AimDown();
             }
 
-            if (controllerState.Buttons.X == ButtonState.Pressed && playerController.CurrentController.CapacityUsable(playerController))
+            if (controllerState.Buttons.X == ButtonState.Pressed && playerController.CurrentController.CapacityUsable(playerController) && !PlayerController.instance.IsStun)
             {
                 playerController.CurrentController.UseCapacity(playerController);
             }
 
-            if (controllerState.Buttons.B == ButtonState.Pressed && playerController.CurrentController.CanUseBasicAttack())
+            if (controllerState.Buttons.B == ButtonState.Pressed && playerController.CurrentController.CanUseBasicAttack() && !PlayerController.instance.IsStun)
             {
                 playerController.CurrentController.UseBasicAttack(playerController);
             }

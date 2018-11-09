@@ -10,10 +10,8 @@ namespace Game.Puzzle.Light
         private List<MovingLightObstacle> movingLightObstaclesInRange;
         private MeshLight meshLight;
 
-
-        private void Start()
+        private void Awake()
         {
-
             lightSensorsInRange = new List<LightSensor>();
             movingLightObstaclesInRange = new List<MovingLightObstacle>();
             meshLight = GetComponent<MeshLight>();
@@ -24,7 +22,9 @@ namespace Game.Puzzle.Light
             foreach (LightSensor lightSensor in lightSensorsInRange)
             {
                 if (lightSensor != null)
+                {
                     meshLight.IsWithinLightLimits(lightSensor.transform.position)?.Exposed();
+                }
             }
         }
 

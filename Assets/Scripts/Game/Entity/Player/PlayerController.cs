@@ -32,6 +32,7 @@ namespace Game.Entity.Player
         private LightSensor lightSensor;
         public KinematicRigidbody2D kRigidBody { get; private set; }
         private LayerMask layerMask;
+        private Mover mover;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
 
@@ -69,6 +70,7 @@ namespace Game.Entity.Player
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
         public bool IsMoving { get; set; }
+        public bool IsStun { get; set; }
         private bool isInvincible = false;
 
         public bool IsInvincible
@@ -204,6 +206,18 @@ namespace Game.Entity.Player
                 CurrentController.sprite.flipX = false;
             }
             
+        }
+
+        public void StunPlayer(float duration)
+        {
+            StartCoroutine(StunPlayerCoroutine(duration));
+        }
+
+        private IEnumerator StunPlayerCoroutine(float duration)
+        {
+            IsStun = true;
+            yield return new WaitForSeconds(duration);
+            IsStun = false;
         }
     }
 }
