@@ -14,9 +14,6 @@
         public const string PanelPause = "GameController/Canvas/PanelPause";
         public const string ButtonRestartGame = "GameController/Canvas/PanelPause/ButtonRestartGame";
         public const string TextPause = "GameController/Canvas/PanelPause/Text";
-        public const string Menu = "Scenes/Menu";
-        public const string Level1 = "Scenes/Level1";
-        public const string Level2 = "Scenes/Level2";
-        public const string Level3 = "Scenes/Level3";
+
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using Game.Controller;
+﻿using Game.Controller;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,15 +6,14 @@ namespace Game.UI
 {
     public class ScoreUI : MonoBehaviour
     {
+        [SerializeField] private Text scoreText;
         private GameController gameController;
-        private Text scoreText;
         private int score;
 
         private void Start()
         {
-            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
-            gameController.OnScoreChange += OnScoreChange;
-            scoreText = GameObject.Find(Values.GameObject.ScoreText).GetComponent<Text>();
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>();
             score = gameController.Score;
             UpdateScoreText();
         }
@@ -30,11 +28,10 @@ namespace Game.UI
         {
             score = gameController.Score;
         }
+
         private void UpdateScoreText()
         {
             scoreText.text = "Score : " + score.ToString();
         }
     }
 }
-
-

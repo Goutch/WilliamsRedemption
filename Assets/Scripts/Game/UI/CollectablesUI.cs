@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Controller;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
@@ -6,11 +7,15 @@ namespace Game.UI
     public class CollectablesUI:MonoBehaviour
     {
         [SerializeField] private Text numberText;
-        private int numberOfCollectable=0;
+        private GameController gameController;
+        private void Start()
+        {
+            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
+        }
+
         public void AddCollectable()
         {
-            numberOfCollectable++;
-            numberText.text=numberOfCollectable.ToString();
+            numberText.text=gameController.ToString();
         }
     }
 }

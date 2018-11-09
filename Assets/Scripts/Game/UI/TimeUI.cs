@@ -8,9 +8,10 @@ namespace Game.UI
     {
 
         [SerializeField] private int startingTime;
-        public static TimeUI instance;
+        [SerializeField] private Text timeText;
+        
         private GameController gameController;
-        private Text timeText;
+        
         private int time;
         private int remainingTime;
         private const string remainingTimeText = "Remaining Time : ";
@@ -18,8 +19,6 @@ namespace Game.UI
         private void Start()
         {
             gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
-            timeText = GameObject.Find(Values.GameObject.TimeText).GetComponent<Text>();
-            gameController.OnTimeChange += OnTimeChange;
             remainingTime = startingTime;
             OnTimeChange();
         }
@@ -34,7 +33,7 @@ namespace Game.UI
         {
             if (!IsRemainingTimeOver())
             {
-                time = Mathf.RoundToInt(gameController.Time);
+                time = Mathf.RoundToInt(gameController.CurrentGameTime);
                 remainingTime = startingTime - time;
             }
         }
