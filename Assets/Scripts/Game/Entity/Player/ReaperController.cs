@@ -7,14 +7,15 @@ namespace Game.Entity.Player
 {
     public class ReaperController : EntityController
     {
-        [Tooltip("Distance travelled by the player when teleporting.")]
-        [SerializeField] private float teleportationDistance;
-        [SerializeField] private GameObject tpEffect1;
-        [SerializeField] private GameObject tpEffect2;
         [SerializeField] private GameObject meleeAttack;
 
+        
+        [Tooltip("Distance travelled by the player when teleporting.")]
+        [SerializeField] private float teleportationDistance;
         [Tooltip("Amount of time between teleportations.")]
         [SerializeField] private float TeleportationCoolDown;
+        [SerializeField] private GameObject tpEffect1;
+        [SerializeField] private GameObject tpEffect2;
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
@@ -57,13 +58,13 @@ namespace Game.Entity.Player
             if (hit.collider == null)
             { 
                 tpPosition= new Vector2(player.transform.position.x+ teleportationDistance* player.playerHorizontalDirection.x-(tpOffset.x* player.playerHorizontalDirection.x) , player.transform.position.y);
-                mustTeleport = true;
             }
             else
             {
-               tpPosition= new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -(tpOffset.x* player.playerHorizontalDirection.x),player.transform.position.y);
-                mustTeleport = true;
+                tpPosition= new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -(tpOffset.x* player.playerHorizontalDirection.x),player.transform.position.y);
             }
+
+            mustTeleport = true;
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
             Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity),5);

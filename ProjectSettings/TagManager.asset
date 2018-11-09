@@ -15,6 +15,7 @@ TagManager:
   - LightManager
   - Light
   - ProjectileEnemy
+  - PassThrough
   layers:
   - Default
   - TransparentFX

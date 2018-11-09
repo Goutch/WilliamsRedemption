@@ -28,7 +28,6 @@ namespace Game.Entity.Player
         private float timerStartTime;
         private Animator animator;
 
-
         private void Start()
         {
             timerStartTime = 0;
@@ -83,6 +82,7 @@ namespace Game.Entity.Player
             }
 
             float distance = Vector2.Distance(hit.point - GetComponent<BoxCollider2D>().size, transform.position);
+
             float duration = distance / dashSpeed;
 
             float time = 0;
@@ -104,7 +104,6 @@ namespace Game.Entity.Player
 
         public override void UseBasicAttack(PlayerController player)
         {
-
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
             Quaternion angle = Quaternion.identity;
 

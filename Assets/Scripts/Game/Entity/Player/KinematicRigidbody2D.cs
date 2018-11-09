@@ -88,7 +88,6 @@ namespace Game.Entity.Player
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody2D>();
-
             contactFilter.useTriggers = false;
             contactFilter.useLayerMask = true;
             preallocaRaycastHits = new RaycastHit2D[NbPreallocatedRaycastHit];
@@ -124,7 +123,6 @@ namespace Game.Entity.Player
         private void ResetValuesBeforeSimulation()
         {
             isGrounded = false;
-
             contactFilter.layerMask = layerMask;
         }
 
@@ -174,7 +172,7 @@ namespace Game.Entity.Player
         
         private bool CanPassThrough(Vector2 position, Vector2 hitPosition)
         {
-            return position.y < hitPosition.y;
+            return position.y <= hitPosition.y;
         }
 
         private void ApplyDeltaPosition(Vector2 deltaPosition, bool isVerticalDelta)
@@ -206,12 +204,14 @@ namespace Game.Entity.Player
                             if (CanPassThrough(rigidbody.position, raycastHit.point))
                                 continue;
                         }
-                        
+
+
                         //If this a useable ground ?
                         if (colliderNormal.y > 1 - maxGroundSlopeAngleArctan)
                         {
                             isGrounded = true;
                             lastGroundedTime = Time.time;
+
                             if (isVerticalDelta)
                             {
                                 groundNormal = colliderNormal;
