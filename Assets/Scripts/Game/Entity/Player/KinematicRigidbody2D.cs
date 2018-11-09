@@ -101,6 +101,7 @@ namespace Game.Entity.Player
 
             AddGravityToVelocity();
             AddTargetVelocityToVelocity();
+            AddTargetVelocityToVelocityY();
 
             var deltaPosition = GetVelocityDeltaPosition();
             var groundMovementVector = GetGroundMovementVector();
@@ -118,11 +119,6 @@ namespace Game.Entity.Player
                 Debug.DrawLine(rigidbody.position, rigidbody.position + velocity, Color.red);
             }
 #endif
-        }
-
-        private void Update()
-        {
-            AddTargetVelocityToVelocityY();
         }
 
         private void ResetValuesBeforeSimulation()
@@ -242,7 +238,7 @@ namespace Game.Entity.Player
 
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
 
-            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
+            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime *2);
         }
     }
 
