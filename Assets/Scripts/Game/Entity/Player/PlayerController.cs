@@ -107,7 +107,7 @@ namespace Game.Entity.Player
             OnLightExpositionChanged(false);
         }
 
-        void Update()
+        private void Update()
         {
             SetSpriteOrientation();
         }
@@ -158,7 +158,6 @@ namespace Game.Entity.Player
                 CurrentController = williamController;
                 reaperController.gameObject.SetActive(false);
                 kRigidBody.LayerMask = williamLayerMask;
-
             }
         }
 
