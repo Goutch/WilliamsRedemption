@@ -201,9 +201,12 @@ namespace Game.Entity.Player
                         var colliderNormal = raycastHit.normal;
                         
                         //Pass through Platforms.
-                        if (CanPassThrough(rigidbody.position, raycastHit.point))
-                            continue;
-
+                        if (raycastHit.collider.CompareTag("PassThrough"))
+                        {
+                            if (CanPassThrough(rigidbody.position, raycastHit.point))
+                                continue;
+                        }
+                        
                         //If this a useable ground ?
                         if (colliderNormal.y > 1 - maxGroundSlopeAngleArctan)
                         {
