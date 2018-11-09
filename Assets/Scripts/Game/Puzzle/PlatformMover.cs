@@ -57,7 +57,7 @@ namespace Game.Puzzle
 
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             initialPositionX = rb.position.x;
@@ -67,7 +67,7 @@ namespace Game.Puzzle
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             CheckHorizontalDirection();
             checkVertialDirection();

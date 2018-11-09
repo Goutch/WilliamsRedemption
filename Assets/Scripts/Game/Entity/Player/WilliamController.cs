@@ -5,22 +5,18 @@ namespace Game.Entity.Player
 {
     public class WilliamController : EntityController
     {
-        [Tooltip("Distance travelled by the player during a dash.")]
-        [SerializeField]
+        [Tooltip("Distance travelled by the player during a dash.")] [SerializeField]
         private float dashDistance;
 
-        [Tooltip("Speed at witch the player dashes.")]
-        [SerializeField]
+        [Tooltip("Speed at witch the player dashes.")] [SerializeField]
         private float dashSpeed;
 
         [SerializeField] private GameObject projectile;
 
-        [Tooltip("Amount of time between bullets.")]
-        [SerializeField]
+        [Tooltip("Amount of time between bullets.")] [SerializeField]
         private float fireRate;
 
-        [Tooltip("Amount of time between dashes.")]
-        [SerializeField]
+        [Tooltip("Amount of time between dashes.")] [SerializeField]
         private float DashCoolDown;
 
         private bool capacityCanBeUsed;
@@ -73,7 +69,8 @@ namespace Game.Entity.Player
                     direction, dashDistance,
                     player.WilliamLayerMask);
             Debug.DrawLine(root.position,
-                new Vector3(root.position.x + dashDistance * direction.x, root.position.y, root.position.z), Color.yellow,
+                new Vector3(root.position.x + dashDistance * direction.x, root.position.y, root.position.z),
+                Color.yellow,
                 10);
 
             if (hit.collider == null)
@@ -92,7 +89,8 @@ namespace Game.Entity.Player
             {
                 time += Time.deltaTime;
                 player.kRigidBody.Velocity =
-                    Vector2.right * direction.x * dashSpeed; //set our rigidbody velocity to a custom velocity every frame.
+                    Vector2.right * direction.x *
+                    dashSpeed; //set our rigidbody velocity to a custom velocity every frame.
                 yield return 0;
             }
 
@@ -118,7 +116,6 @@ namespace Game.Entity.Player
 
             GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
             projectileObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.William);
-
         }
     }
 }
