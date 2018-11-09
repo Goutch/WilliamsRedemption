@@ -8,29 +8,22 @@ namespace Game.Entity.Player
     {
         private const int NbPreallocatedRaycastHit = 16;
 
-        [Header("Physics")]
-        [SerializeField]
-        [Tooltip("Gravity force.")]
+        [Header("Physics")] [SerializeField] [Tooltip("Gravity force.")]
         private Vector2 gravity = new Vector2(0, -9.81f);
 
-        [SerializeField]
-        [Tooltip("How much gravity affects this object.")]
+        [SerializeField] [Tooltip("How much gravity affects this object.")]
         private float gravityMultiplier = 1f;
 
-        [SerializeField]
-        [Tooltip("Layers player collides with.")]
+        [SerializeField] [Tooltip("Layers player collides with.")]
         private LayerMask layerMask;
 
-        [SerializeField]
-        [Tooltip("Arctan value of the maximum slope angle considered as ground.")]
+        [SerializeField] [Tooltip("Arctan value of the maximum slope angle considered as ground.")]
         private float maxGroundSlopeAngleArctan = 1 - 0.65f; //About 33°.
 
-        [SerializeField]
-        [Tooltip("Simulation is ignored when velocity is bellow this threshold.")]
+        [SerializeField] [Tooltip("Simulation is ignored when velocity is bellow this threshold.")]
         private float sleepVelocity = 0.001f;
 
-        [SerializeField]
-        [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
+        [SerializeField] [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
         private float deltaPrecision = 0.01f;
 
 #if UNITY_EDITOR
@@ -67,11 +60,7 @@ namespace Game.Entity.Player
             }
         }
 
-        public Vector2 VelocityModifier
-        {
-            get;
-            set;
-        }
+        public Vector2 VelocityModifier { get; set; }
 
         public bool IsGravityIgnored { get; set; }
 
@@ -147,7 +136,8 @@ namespace Game.Entity.Player
         {
             //Y velocity is controlled by the object when it's target y velocity is greater than 0 or if gravity is ignored.
             //Otherwise, current velocity is used.
-            velocity.y = (targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y) + VelocityModifier.y;
+            velocity.y = (targetVelocity.y > 0 || IsGravityIgnored ? targetVelocity.y : velocity.y) +
+                         VelocityModifier.y;
         }
 
         public void AddForce(Vector2 force)
@@ -155,6 +145,7 @@ namespace Game.Entity.Player
             VelocityModifier = force * Vector2.right;
             Velocity = force * Vector2.up;
         }
+
         private Vector2 GetGravityDeltaPosition()
         {
             return gravity * (IsGravityIgnored ? 0f : gravityMultiplier) * Time.fixedDeltaTime;
@@ -169,7 +160,7 @@ namespace Game.Entity.Player
         {
             return new Vector2(groundNormal.y, -groundNormal.x);
         }
-        
+
         private bool CanPassThrough(Vector2 position, Vector2 hitPosition)
         {
             return position.y <= hitPosition.y;
@@ -194,10 +185,10 @@ namespace Game.Entity.Player
                         deltaMagnitude + deltaPrecision);
 
                     for (int i = 0; i < nbCollidersDetected; i++)
-                    {   
+                    {
                         var raycastHit = preallocaRaycastHits[i];
                         var colliderNormal = raycastHit.normal;
-                        
+
                         //Pass through Platforms.
                         if (raycastHit.collider.CompareTag("PassThrough"))
                         {
@@ -247,10 +238,9 @@ namespace Game.Entity.Player
                     }
                 }
             }
-                rigidbody.position += deltaPosition.normalized * deltaMagnitude;
-                VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
+
+            rigidbody.position += deltaPosition.normalized * deltaMagnitude;
+            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
         }
     }
-
 }
-

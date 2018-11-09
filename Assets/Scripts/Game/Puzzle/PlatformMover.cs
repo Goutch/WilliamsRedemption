@@ -5,32 +5,46 @@ namespace Game.Puzzle
 {
     public class PlatformMover : MonoBehaviour
     {
+        [Tooltip("Distance traveled by the platform when heading left.(From start to this)")] [SerializeField]
+        private float MaxDistanceLeft;
 
-        [Tooltip("Distance traveled by the platform when heading left.(From start to this)")]
-        [SerializeField] private float MaxDistanceLeft;
-        [Tooltip("Distance traveled by the platform when heading right.(From start to this this)")]
-        [SerializeField] private float MaxDistanceRight;
-        [Tooltip("Distance Travelled by the platform when heading upwards.(From start to this")]
-        [SerializeField] private float MaxDistanceUp;
-        [Tooltip("Distance traveled by the platform when heading downwards.(From start to this")]
-        [SerializeField] private float MaxDistanceDown;
-        [Tooltip("Speed at which the platform moves horizontaly.")]
-        [SerializeField] private float HorizontalSpeed;
-        [Tooltip("Speed at which the platform moves verticaly.")]
-        [SerializeField] private float VerticalSpeed;
-        [Tooltip("True when heading towards the right. (Checking this will make the platform head towards the right first.")]
-        [SerializeField] private bool isHeadingRight;
-        [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")]
-        [SerializeField] private bool isHeadingUpwards;
+        [Tooltip("Distance traveled by the platform when heading right.(From start to this this)")] [SerializeField]
+        private float MaxDistanceRight;
+
+        [Tooltip("Distance Travelled by the platform when heading upwards.(From start to this")] [SerializeField]
+        private float MaxDistanceUp;
+
+        [Tooltip("Distance traveled by the platform when heading downwards.(From start to this")] [SerializeField]
+        private float MaxDistanceDown;
+
+        [Tooltip("Speed at which the platform moves horizontaly.")] [SerializeField]
+        private float HorizontalSpeed;
+
+        [Tooltip("Speed at which the platform moves verticaly.")] [SerializeField]
+        private float VerticalSpeed;
+
+        [Tooltip(
+            "True when heading towards the right. (Checking this will make the platform head towards the right first.")]
+        [SerializeField]
+        private bool isHeadingRight;
+
+        [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")] [SerializeField]
+        private bool isHeadingUpwards;
+
         [Header("Quadratic function options:")]
         [Tooltip("True when checked. Enables the platform to follow a curving path.")]
-        [SerializeField] private bool isUsingQuadraticCurve;
-        [Tooltip("Quadratic function coefficient. Affects steepness and narrowness of the curve.")]
-        [SerializeField] private float quadraticA;
+        [SerializeField]
+        private bool isUsingQuadraticCurve;
+
+        [Tooltip("Quadratic function coefficient. Affects steepness and narrowness of the curve.")] [SerializeField]
+        private float quadraticA;
+
         [Tooltip("Quadratic function coefficient. Is added to Y everytime the value of X is increased by one. ")]
-        [SerializeField] private float quadraticB;
-        [Tooltip("Quadratic function coefficient. Value of Y ")]
-        [SerializeField] private float quadraticC;
+        [SerializeField]
+        private float quadraticB;
+
+        [Tooltip("Quadratic function coefficient. Value of Y ")] [SerializeField]
+        private float quadraticC;
 
         private float initialPositionX;
         private float initialPositionY;
@@ -40,7 +54,6 @@ namespace Game.Puzzle
         private Vector2 verticalDirection;
         private float quadraticFucntion;
         private float positionX;
-
 
 
         // Use this for initialization
@@ -61,7 +74,6 @@ namespace Game.Puzzle
         }
 
 
-
         private void FixedUpdate()
         {
             if (!isUsingQuadraticCurve)
@@ -72,7 +84,6 @@ namespace Game.Puzzle
             {
                 useQuadraticCurve();
             }
-
         }
 
         private void OnCollisionStay2D(Collision2D other)
@@ -87,9 +98,7 @@ namespace Game.Puzzle
                 {
                     other.transform.parent = null;
                 }
-
             }
-
         }
 
         private void OnCollisionExit2D(Collision2D other)
@@ -112,7 +121,6 @@ namespace Game.Puzzle
                 {
                     isHeadingRight = false;
                 }
-
             }
             else
             {
@@ -163,4 +171,3 @@ namespace Game.Puzzle
         }
     }
 }
-
