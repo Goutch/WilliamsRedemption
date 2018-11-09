@@ -171,6 +171,11 @@ namespace Game.Entity.Player
         {
             return new Vector2(groundNormal.y, -groundNormal.x);
         }
+        
+        private bool CanPassThrough(Vector2 position, Vector2 hitPosition)
+        {
+            return position.y < hitPosition.y;
+        }
 
         private void ApplyDeltaPosition(Vector2 deltaPosition, bool isVerticalDelta)
         {
@@ -179,21 +184,25 @@ namespace Game.Entity.Player
             if (deltaMagnitude > sleepVelocity)
             {
                 var attachedColliderCount = rigidbody.attachedColliderCount;
-                var allColliders = new Collider2D[attachedColliderCount];
-                rigidbody.GetAttachedColliders(allColliders);
+                var selfColliders = new Collider2D[attachedColliderCount];
+                rigidbody.GetAttachedColliders(selfColliders);
 
                 // ReSharper disable once LocalVariableHidesMember
-                foreach (var collider in allColliders.Where(it => !it.isTrigger))
+                foreach (var selfCollider in selfColliders.Where(it => !it.isTrigger))
                 {
-                    var nbCollidersDetected = collider.Cast(deltaPosition,
+                    var nbCollidersDetected = selfCollider.Cast(deltaPosition,
                         contactFilter,
                         preallocaRaycastHits,
                         deltaMagnitude + deltaPrecision);
 
                     for (int i = 0; i < nbCollidersDetected; i++)
-                    {
+                    {   
                         var raycastHit = preallocaRaycastHits[i];
                         var colliderNormal = raycastHit.normal;
+                        
+                        //Pass through Platforms.
+                        if (CanPassThrough(rigidbody.position, raycastHit.point))
+                            continue;
 
                         //If this a useable ground ?
                         if (colliderNormal.y > 1 - maxGroundSlopeAngleArctan)
