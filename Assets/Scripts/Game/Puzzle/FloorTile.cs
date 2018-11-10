@@ -5,17 +5,28 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Game.Puzzle
 {
+    public delegate void OnDestinationReachedHandler();
+
     public class FloorTile : MonoBehaviour
     {
         [SerializeField] private float distanceMoving;
         [SerializeField] private float speed;
-        [SerializeField] private Transform grid;
+
+        public event OnDestinationReachedHandler onDestinationReached;
 
         private Vector2 initialePosition;
         private Transform parent;
         private bool hasParentAtStart;
         private bool playerOnFloor = false;
         private FloorTile[] initialChild;
+
+        public bool IsAtInitialPosition
+        {
+            get
+            {
+                return Mathf.Abs(transform.position.y - initialePosition.y) < 0.02f;
+            }
+        }
 
         private void Awake()
         {
@@ -29,7 +40,7 @@ namespace Game.Puzzle
             initialePosition = transform.position;
             parent = transform.parent;
 
-            hasParentAtStart = parent.GetComponent<FloorTile>() != null ? true : false;
+            hasParentAtStart = parent?.GetComponent<FloorTile>() != null ? true : false;
         }
 
         public void MoveUp()
@@ -40,7 +51,7 @@ namespace Game.Puzzle
 
         private void Update()
         {
-            if(hasParentAtStart && transform.parent == grid && Mathf.Abs(parent.transform.position.y - transform.position.y) < 0.05f)
+            if(hasParentAtStart && Mathf.Abs(parent.transform.position.y - transform.position.y) < 0.05f)
             {
                 transform.parent = parent;
                 transform.localPosition = new Vector2(initialePosition.x - parent.transform.position.x, 0);
@@ -53,7 +64,7 @@ namespace Game.Puzzle
 
             if (hasParentAtStart)
             {
-                transform.parent = grid;
+                transform.parent = null;
             }
 
             while (Mathf.Abs(transform.position.y - targetPosition.y) > 0.02f)
@@ -67,6 +78,8 @@ namespace Game.Puzzle
 
                 yield return new WaitForFixedUpdate();
             }
+
+            onDestinationReached?.Invoke();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
