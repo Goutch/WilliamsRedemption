@@ -40,7 +40,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         }
         protected override void EnterIdle()
         {
-
+            base.EnterIdle();
         }
 
         protected override void CurrentState_OnStateFinish(State state)

@@ -238,7 +238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1496525009655606
 GameObject:
   m_ObjectHideFlags: 1
@@ -550,8 +550,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1495303630612842}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95.14, y: 0.8186909, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 105.82, y: 4.94, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 4879104153461332}
   - {fileID: 4782942097980788}
@@ -1112,6 +1112,7 @@ MonoBehaviour:
   - {fileID: 114725212148069990}
   - {fileID: 114247593095113172}
   - {fileID: 114504292182497060}
+  passiveCapacities: []
   animator: {fileID: 95395829336313276}
 --- !u!114 &114113245451544756
 MonoBehaviour:
@@ -1172,9 +1173,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1bd114ef79cbb94fa60c5c5dd1b558c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subState:
+  subStates:
   - {fileID: 114009837430279748}
   - {fileID: 114145931860855702}
+  passiveCapacities: []
 --- !u!114 &114249678001657846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1188,6 +1190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114848836985378804}
+  passiveCapacities: []
   numberOfShoots: 2
   cooldown: 3
 --- !u!114 &114254634824265624
@@ -1220,6 +1223,7 @@ MonoBehaviour:
   subStates:
   - {fileID: 114254634824265624}
   - {fileID: 114249678001657846}
+  passiveCapacities: []
   animator: {fileID: 95395829336313276}
   percentageHealthTransitionCondition: 0.7
 --- !u!114 &114379991829354728
@@ -1281,9 +1285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1bd114ef79cbb94fa60c5c5dd1b558c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subState:
+  subStates:
   - {fileID: 114113245451544756}
   - {fileID: 114905592222218656}
+  passiveCapacities: []
 --- !u!114 &114725212148069990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1297,6 +1302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114830030037052890}
+  passiveCapacities: []
   animator: {fileID: 95395829336313276}
 --- !u!114 &114830030037052890
 MonoBehaviour:
@@ -1358,8 +1364,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95395829336313276}
   duration: 3
-  disableDamage: 1
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0.5
+  attackCollider: {fileID: 0}
 --- !u!210 &210165169773877084
 SortingGroup:
   m_ObjectHideFlags: 1

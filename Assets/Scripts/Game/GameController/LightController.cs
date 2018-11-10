@@ -6,7 +6,6 @@ namespace Game.Controller
 {
     public class LightController : MonoBehaviour
     {
-
         MeshLight[] meshLights;
 
         private void Awake()

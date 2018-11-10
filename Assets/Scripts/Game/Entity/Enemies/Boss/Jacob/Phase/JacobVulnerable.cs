@@ -18,6 +18,8 @@ namespace Game.Entity.Enemies.Boss.Jacob
         public override void Finish()
         {
             spawnedEnemyManager.ResetEnemySpawnedCount();
+
+            canEnter = false;
             base.Finish();
         }
 
@@ -39,10 +41,10 @@ namespace Game.Entity.Enemies.Boss.Jacob
             spawnedEnemyManager.OnEnnemyDied -= Zombie_OnDeath;
         }
 
+
         private void Health_OnHealthChange(GameObject gameObject)
         {
             Finish();
-            canEnter = false;
         }
 
         private void Zombie_OnDeath(GameObject gameObject)

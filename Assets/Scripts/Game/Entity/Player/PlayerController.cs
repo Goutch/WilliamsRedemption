@@ -6,18 +6,13 @@ using UnityEngine;
 namespace Game.Entity.Player
 {
     public delegate void PlayerDeathEventHandler();
+
     public class PlayerController : MonoBehaviour
     {
-        private Dictionary<string, bool> buttonsPressed;
-        private Dictionary<string, bool> buttonsReleased;
-        private Dictionary<string, bool> buttonsHeld;
-
-        [SerializeField]
-        [Tooltip("Layers William collides with.")]
+        [SerializeField] [Tooltip("Layers William collides with.")]
         private LayerMask williamLayerMask;
 
-        [SerializeField]
-        [Tooltip("Layers Reaper collides with.")]
+        [SerializeField] [Tooltip("Layers Reaper collides with.")]
         private LayerMask reaperLayerMask;
 
         [SerializeField] private float invincibilitySeconds;
@@ -32,9 +27,9 @@ namespace Game.Entity.Player
         private LightSensor lightSensor;
         public KinematicRigidbody2D kRigidBody { get; private set; }
         private LayerMask layerMask;
+        private Vector2 horizontalDirection;
+        private Vector2 verticalDirection;
 
-
-        private int nbPlayerLivesLeft;
 
         private int currentLevel;
         private int numbOfLocks = 0;
@@ -51,13 +46,34 @@ namespace Game.Entity.Player
             set { reaperLayerMask = value; }
         }
 
+        public Vector2 playerHorizontalDirection
+        {
+            get { return horizontalDirection; }
+            set { horizontalDirection = value; }
+        }
+
+        public Vector2 playerVerticalDirection
+        {
+            get { return verticalDirection; }
+            set { verticalDirection = value; }
+        }
+
 
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
         public bool IsMoving { get; set; }
         private bool isInvincible = false;
 
-        public bool IsInvincible => isInvincible;
+        public bool IsInvincible
+        {
+            get { return isInvincible; }
+            set
+            {
+                isInvincible = value;
+                williamController.animator.SetBool("Invincible", value);
+                reaperController.animator.SetBool("Invincible", value);
+            }
+        }
 
         public FacingSideUpDown DirectionFacingUpDown { get; set; }
         public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
@@ -84,12 +100,17 @@ namespace Game.Entity.Player
 
         private void Start()
         {
-            OnLightExpositionChanged(true);
+            OnLightExpositionChanged(false);
+        }
+
+        private void Update()
+        {
+            SetSpriteOrientation();
         }
 
         public void DamagePlayer()
         {
-            if (!isInvincible)
+            if (!IsInvincible)
             {
                 health.Hit();
                 StartCoroutine(InvincibleRoutine());
@@ -98,9 +119,9 @@ namespace Game.Entity.Player
 
         private IEnumerator InvincibleRoutine()
         {
-            isInvincible = true;
+            IsInvincible = true;
             yield return new WaitForSeconds(invincibilitySeconds);
-            isInvincible = false;
+            IsInvincible = false;
         }
 
         private void HandleCollision(HitStimulus other)
@@ -133,7 +154,6 @@ namespace Game.Entity.Player
                 CurrentController = williamController;
                 reaperController.gameObject.SetActive(false);
                 kRigidBody.LayerMask = williamLayerMask;
-
             }
         }
 
@@ -147,7 +167,6 @@ namespace Game.Entity.Player
                 CurrentController = reaperController;
                 williamController.gameObject.SetActive(false);
                 kRigidBody.LayerMask = reaperLayerMask;
-
             }
         }
 
@@ -163,6 +182,18 @@ namespace Game.Entity.Player
 
             if (numbOfLocks == 0)
                 OnLightExpositionChanged(lightSensor.InLight);
+        }
+
+        private void SetSpriteOrientation()
+        {
+            if (horizontalDirection == Vector2.left)
+            {
+                CurrentController.sprite.flipX = true;
+            }
+            else
+            {
+                CurrentController.sprite.flipX = false;
+            }
         }
     }
 }

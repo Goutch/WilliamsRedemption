@@ -7,6 +7,8 @@ namespace Game.Entity.Enemies.Boss
     public abstract class State : MonoBehaviour
     {
         public event OnStateFinish OnStateFinish;
+        public abstract State GetCurrentState();
+
 
         public abstract void Act();
         public abstract bool CanEnter();
@@ -18,8 +20,8 @@ namespace Game.Entity.Enemies.Boss
 
         public virtual void Finish()
         {
-            OnStateFinish?.Invoke(this);
             Debug.Log("Finish: " + this);
+            OnStateFinish?.Invoke(this);
         }
     }
 }

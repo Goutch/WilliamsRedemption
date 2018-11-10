@@ -19,12 +19,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4783496136867546}
-  - component: {fileID: 114339286859503702}
   - component: {fileID: 23521812161328876}
   - component: {fileID: 33991683176278512}
-  - component: {fileID: 114886213237185478}
   - component: {fileID: 61721664852517304}
   - component: {fileID: 210919091072440994}
+  - component: {fileID: 114060827210736454}
+  - component: {fileID: 114656081034803432}
+  - component: {fileID: 114552764055912710}
   m_Layer: 2
   m_Name: RectangleMeshLight
   m_TagString: Light
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1725158655626504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45, y: 33.2, z: 0}
+  m_LocalPosition: {x: 43.464, y: 18.634, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +100,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -20}
+  m_Offset: {x: 0, y: -11.65}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -110,9 +111,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 150, y: 40}
+  m_Size: {x: 114.56, y: 23.3}
   m_EdgeRadius: 0
---- !u!114 &114339286859503702
+--- !u!114 &114060827210736454
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,33 +121,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 1725158655626504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d49eeef42d7d44c0b649a88eb34571a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a78ab3256393844f90dcde3b95d99a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114552764055912710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725158655626504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a78ab3256393844f90dcde3b95d99a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114656081034803432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725158655626504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b60467c81f1a63f4fb1bb5005c6176db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  obstacleLayerIndex: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
   debugDraw: 0
-  updateEveryFrame: 0
+  updateEveryFrame: 1
   movingObstacleUpdateStopCooldown: 1
   hasMovingObstaclesInRange: 0
-  isOpen: 0
+  isOpen: 1
   detectionLayers:
     serializedVersion: 2
-    m_Bits: 253751
-  width: 150
-  range: 40
+    m_Bits: 19203
+  width: 114.56
+  range: 23.3
   raycastPrecision: 0.01
---- !u!114 &114886213237185478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1725158655626504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ae77f77a924f38adb3f5c143c9cf58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &210919091072440994
 SortingGroup:
   m_ObjectHideFlags: 1

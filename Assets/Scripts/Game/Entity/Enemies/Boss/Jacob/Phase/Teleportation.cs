@@ -14,15 +14,23 @@ namespace Game.Entity.Enemies.Boss.Jacob
         [SerializeField] private GameObject spawnParticulePrefab;
         private float lastUsed;
 
+        private BossController bossController;
+
+        private void Awake()
+        {
+            bossController = GetComponent<BossController>();
+        }
+
         public override void Act()
         {
+            
         }
 
         public override bool CanEnter()
         {
-            if (Time.time - lastUsed > cooldown ||
+            if ((Time.time - lastUsed > cooldown ||
                 Vector2.Distance(PlayerController.instance.transform.position, transform.position) <
-                distanceFromPlayerTeleport)
+                distanceFromPlayerTeleport) && !(bossController.GetCurrentState() is Vulnerable))
                 return true;
             else
                 return false;
@@ -30,6 +38,8 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         public override void Enter()
         {
+            base.Enter();
+
             Teleport();
 
             lastUsed = Time.time;
