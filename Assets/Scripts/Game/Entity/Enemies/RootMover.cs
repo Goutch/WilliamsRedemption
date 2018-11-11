@@ -72,6 +72,12 @@ namespace Game.Entity.Enemies
             rootRigidBody.velocity = new Vector2(Vector2.up.x * rootRigidBody.velocity.x + (Vector2.right.x * direction * Speed), rootRigidBody.velocity.y);
         }
 
+        public void MoveForward()
+        {
+
+            rootRigidBody.MovePosition(new Vector2(transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1), transform.position.y));
+        }
+
         public void MoveOnXAxis()
         {
             MoveOnXAxis(1);
