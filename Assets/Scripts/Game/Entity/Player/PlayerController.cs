@@ -110,15 +110,6 @@ namespace Game.Entity.Player
             SetSpriteOrientation();
         }
 
-        private void FixedUpdate()
-        {
-            if (mustSetPosition)
-            {
-                GetComponent<Rigidbody2D>().MovePosition(newPlayerPosition);
-                mustSetPosition = false;
-            }
-        }
-
         public void DamagePlayer()
         {
             if (!IsInvincible)
@@ -207,15 +198,8 @@ namespace Game.Entity.Player
             }
         }
 
-        public void SetPositionAtNextFixedUpdate(Vector2  newPosition)
-        {
-            newPlayerPosition = newPosition;
-            mustSetPosition = true;
-        }
+     
 
-        public void CancelPositionChange()
-        {
-            mustSetPosition = false;
-        }
+
     }
 }

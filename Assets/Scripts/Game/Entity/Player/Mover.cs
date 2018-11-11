@@ -70,16 +70,16 @@ namespace Game.Entity.Player
         {
             horizontalVelocity = Vector2.right;
             player.playerHorizontalDirection = Vector2.right;
-            player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
-            player.DirectionFacingUpDown = FacingSideUpDown.None;
+            //player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
+            //player.DirectionFacingUpDown = FacingSideUpDown.None;
         }
 
         public void MoveLeft()
         {
             horizontalVelocity = Vector2.left;
             player.playerHorizontalDirection = Vector2.left;
-            player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
-            player.DirectionFacingUpDown = FacingSideUpDown.None;
+           // player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
+           // player.DirectionFacingUpDown = FacingSideUpDown.None;
         }
 
         public void Jump()
@@ -97,17 +97,7 @@ namespace Game.Entity.Player
             }
         }
 
-        public void AimUp()
-        {
-            player.DirectionFacingUpDown = FacingSideUpDown.Up;
-            player.playerVerticalDirection = Vector2.up;
-        }
-
-        public void AimDown()
-        {
-            player.DirectionFacingUpDown = FacingSideUpDown.Down;
-            player.playerVerticalDirection = Vector2.down;
-        }
+        
 
         private void ResetJumpCount()
         {

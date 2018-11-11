@@ -91,6 +91,8 @@ namespace Game.Puzzle
             {
                 useQuadraticCurve();
             }
+
+            
         }
 
         private void OnCollisionStay2D(Collision2D other)
@@ -101,6 +103,7 @@ namespace Game.Puzzle
 
                 if (!isUsingQuadraticCurve)
                 {
+                    Vector2 v = new Vector2(horizontalDirection.x*HorizontalSpeed*Time.fixedDeltaTime,VerticalSpeed*verticalDirection.y*Time.fixedDeltaTime);
                     player.kRigidBody.Velocity += rb.velocity;                    
                 }
                 else
@@ -110,9 +113,9 @@ namespace Game.Puzzle
 
                     float xDistance = rb.position.x - lastRbPosition.x;
                     float yDistance = rb.position.y - lastRbPosition.y;
-                    Vector2 v = new Vector2(Mathf.Abs(xDistance),Mathf.Abs(yDistance));
+                    Vector2 v = new Vector2((xDistance),(0));
                    
-                    player.kRigidBody.Velocity +=v/Time.fixedDeltaTime*horizontalDirection;
+                    player.kRigidBody.Velocity +=v/Time.fixedDeltaTime;
                 }             
             }        
         }
@@ -129,10 +132,7 @@ namespace Game.Puzzle
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.collider.CompareTag(Values.Tags.Player))
-            {
-                other.gameObject.GetComponent<PlayerController>().CancelPositionChange();
-            }
+            
         }
 
         private void CheckHorizontalDirection()
@@ -191,7 +191,7 @@ namespace Game.Puzzle
         {
             lastRbPosition = rb.position;
             quadraticX = rb.position.x - initialPositionX;
-            positionX += HorizontalSpeed * horizontalDirection.x * Time.fixedDeltaTime;
+            positionX += HorizontalSpeed * horizontalDirection.x *Time.fixedDeltaTime;
             quadraticFucntion = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
             Vector2 curve = new Vector2(positionX, quadraticFucntion + initialPositionY);
             rb.MovePosition(curve);
