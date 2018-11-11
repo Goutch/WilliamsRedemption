@@ -49,33 +49,40 @@ namespace Game.Puzzle
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
+        private Vector2 lastRbPosition;
         private Rigidbody2D rb;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
         private float quadraticFucntion;
         private float positionX;
+        
+        private Vector2 heightOffset;
 
 
         // Use this for initialization
-        private void Start()
+        private void Awake()
         {
+            
             rb = GetComponent<Rigidbody2D>();
             initialPositionX = rb.position.x;
             initialPositionY = rb.position.y;
             positionX = initialPositionX;
             quadraticX = 0;
+            
+            lastRbPosition = rb.position;
         }
 
         // Update is called once per frame
         private void Update()
         {
             CheckHorizontalDirection();
-            checkVertialDirection();
+            checkVertialDirection();   
         }
 
 
         private void FixedUpdate()
         {
+            
             if (!isUsingQuadraticCurve)
             {
                 rb.velocity = new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed);
@@ -90,22 +97,41 @@ namespace Game.Puzzle
         {
             if (other.collider.CompareTag(Values.Tags.Player))
             {
-                if (!other.gameObject.GetComponent<PlayerController>().IsMoving)
+                PlayerController player = other.gameObject.GetComponent<PlayerController>();
+
+                if (!isUsingQuadraticCurve)
                 {
-                    other.transform.parent = gameObject.transform;
+                    player.kRigidBody.Velocity += rb.velocity;                    
                 }
                 else
                 {
-                    other.transform.parent = null;
-                }
-            }
+                    // other.gameObject.GetComponent<Rigidbody2D>().MovePosition(rb.position + heightOffset);
+                    //other.gameObject.GetComponent<PlayerController>().SetPositionAtNextFixedUpdate(rb.position);
+
+                    float xDistance = rb.position.x - lastRbPosition.x;
+                    float yDistance = rb.position.y - lastRbPosition.y;
+                    Vector2 v = new Vector2(Mathf.Abs(xDistance),Mathf.Abs(yDistance));
+                   
+                    player.kRigidBody.Velocity +=v/Time.fixedDeltaTime*horizontalDirection;
+                }             
+            }        
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.collider.CompareTag(Values.Tags.Player))
             {
-                other.transform.parent = null;
+                other.gameObject.GetComponent<PlayerController>().CancelPositionChange();
             }
         }
 
@@ -163,11 +189,13 @@ namespace Game.Puzzle
 
         private void useQuadraticCurve()
         {
+            lastRbPosition = rb.position;
             quadraticX = rb.position.x - initialPositionX;
             positionX += HorizontalSpeed * horizontalDirection.x * Time.fixedDeltaTime;
             quadraticFucntion = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
             Vector2 curve = new Vector2(positionX, quadraticFucntion + initialPositionY);
             rb.MovePosition(curve);
+            
         }
     }
 }

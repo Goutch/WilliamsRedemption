@@ -29,6 +29,10 @@ namespace Game.Entity.Player
         private LayerMask layerMask;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
+        private Vector2 newPlayerPosition;
+        private bool mustSetPosition;
+        private bool isInvincible = false;
+
 
 
         private int currentLevel;
@@ -61,8 +65,7 @@ namespace Game.Entity.Player
 
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
-        public bool IsMoving { get; set; }
-        private bool isInvincible = false;
+        
 
         public bool IsInvincible
         {
@@ -95,7 +98,6 @@ namespace Game.Entity.Player
 
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
-            IsMoving = false;
         }
 
         private void Start()
@@ -106,6 +108,15 @@ namespace Game.Entity.Player
         private void Update()
         {
             SetSpriteOrientation();
+        }
+
+        private void FixedUpdate()
+        {
+            if (mustSetPosition)
+            {
+                GetComponent<Rigidbody2D>().MovePosition(newPlayerPosition);
+                mustSetPosition = false;
+            }
         }
 
         public void DamagePlayer()
@@ -194,6 +205,17 @@ namespace Game.Entity.Player
             {
                 CurrentController.sprite.flipX = false;
             }
+        }
+
+        public void SetPositionAtNextFixedUpdate(Vector2  newPosition)
+        {
+            newPlayerPosition = newPosition;
+            mustSetPosition = true;
+        }
+
+        public void CancelPositionChange()
+        {
+            mustSetPosition = false;
         }
     }
 }
