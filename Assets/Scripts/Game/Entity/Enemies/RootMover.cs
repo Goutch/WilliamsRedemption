@@ -86,7 +86,12 @@ namespace Game.Entity.Enemies
 
         public void LookAtPlayer()
         {
-            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
+            LookAtPlayer(transform.position);
+        }
+
+        public void LookAtPlayer(Vector2 fromPosition)
+        {
+            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - fromPosition.x);
             if (directionX < 0)
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             else

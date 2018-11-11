@@ -32,6 +32,7 @@ namespace Game.Entity.Player
         private LightSensor lightSensor;
         public KinematicRigidbody2D kRigidBody { get; private set; }
         private LayerMask layerMask;
+        private Mover mover;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
 
@@ -69,9 +70,19 @@ namespace Game.Entity.Player
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
         public bool IsMoving { get; set; }
+        public bool IsStun { get; set; }
         private bool isInvincible = false;
 
-        public bool IsInvincible => isInvincible;
+        public bool IsInvincible
+        {
+            get { return isInvincible; }
+            set
+            {
+                isInvincible = value;
+                williamController.animator.SetBool("Invincible",value);
+                reaperController.animator.SetBool("Invincible",value);
+            }
+        } 
 
         public FacingSideUpDown DirectionFacingUpDown { get; set; }
         public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
@@ -101,14 +112,14 @@ namespace Game.Entity.Player
             OnLightExpositionChanged(false);
         }
 
-        void Update()
+        private void Update()
         {
             SetSpriteOrientation();
         }
 
         public void DamagePlayer()
         {
-            if (!isInvincible)
+            if (!IsInvincible)
             {
                 health.Hit();
                 StartCoroutine(InvincibleRoutine());
@@ -117,9 +128,9 @@ namespace Game.Entity.Player
 
         private IEnumerator InvincibleRoutine()
         {
-            isInvincible = true;
+            IsInvincible = true;
             yield return new WaitForSeconds(invincibilitySeconds);
-            isInvincible = false;
+            IsInvincible= false;
         }
 
         private void HandleCollision(HitStimulus other)
@@ -152,7 +163,6 @@ namespace Game.Entity.Player
                 CurrentController = williamController;
                 reaperController.gameObject.SetActive(false);
                 kRigidBody.LayerMask = williamLayerMask;
-
             }
         }
 
@@ -195,6 +205,18 @@ namespace Game.Entity.Player
                 CurrentController.sprite.flipX = false;
             }
             
+        }
+
+        public void StunPlayer(float duration)
+        {
+            StartCoroutine(StunPlayerCoroutine(duration));
+        }
+
+        private IEnumerator StunPlayerCoroutine(float duration)
+        {
+            IsStun = true;
+            yield return new WaitForSeconds(duration);
+            IsStun = false;
         }
     }
 }

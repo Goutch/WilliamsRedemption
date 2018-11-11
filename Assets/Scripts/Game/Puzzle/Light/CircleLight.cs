@@ -8,9 +8,12 @@ namespace Game.Puzzle.Light
     {
         [Range(0, 360)] [SerializeField] private float coneAngle;
         [Range(0, 360)] [SerializeField] private float faceAngle;
+        [Range(0,1)][SerializeField] private float minAlpha=.75f;
+        [Range(0,1)][SerializeField] private float maxAlpha=1f;
         [SerializeField] private float radius = 3;
         [SerializeField] [Range(0.1f, 2)] private float precisionInDegree = 1;
-
+        [SerializeField] private float flickerSpeed = .02f;
+        private float perlinPos;
         private float startAngle;
         private float endAngle;
 
@@ -35,6 +38,7 @@ namespace Game.Puzzle.Light
         private new void Start()
         {
             base.Start();
+            perlinPos = Random.Range(0, 10000);
             Radius = radius;
             DrawMesh();
         }
@@ -49,6 +53,16 @@ namespace Game.Puzzle.Light
             }
         }
 
+        private void Update()
+        {
+            float alpha=Mathf.PerlinNoise(perlinPos,0);
+            alpha = Mathf.Clamp(alpha, minAlpha, maxAlpha);
+                
+            color.a = alpha;
+            perlinPos +=flickerSpeed ;
+            UpdateColor();
+            base.Update();
+        }
 
         protected override void Scan()
         {
@@ -59,7 +73,7 @@ namespace Game.Puzzle.Light
 
             startAngle = coneAngle == 0 ? 0 : faceAngle - coneAngle / 2;
             endAngle = coneAngle == 0 ? 360 : faceAngle + coneAngle / 2;
-            
+
             vertices.Add(centerVertices);
 
             int cornerAIndex = 1;
@@ -68,7 +82,7 @@ namespace Game.Puzzle.Light
             {
                 raycastDirection = DegreeToVector(i);
                 RaycastHit2D hit =
-                    Physics2D.Raycast(this.transform.position, raycastDirection, Radius, obstacleLayerIndex, 0);
+                    Physics2D.Raycast(this.transform.position, raycastDirection, Radius, obstacleLayer, 0);
 
                 if (hit.collider == null)
                 {
@@ -97,8 +111,8 @@ namespace Game.Puzzle.Light
         {
             if (coneAngle == 0 || coneAngle == 360) return true;
 
-            float min = faceAngle - coneAngle /2 ; 
-            float max = faceAngle + coneAngle /2 ;
+            float min = faceAngle - coneAngle / 2;
+            float max = faceAngle + coneAngle / 2;
 
 //            if (degree > max)
 //            {
@@ -140,24 +154,28 @@ namespace Game.Puzzle.Light
 
         public override LightSensor IsWithinLightLimits(Vector2 position)
         {
-            float AngleDeg = VectorToDegree( position -(Vector2) transform.position);
-
-            if (CheckDegreeWithinCone(AngleDeg))
+            if (isOpen)
             {
-                RaycastHit2D hit =
-                    Physics2D.Raycast(transform.position, position -(Vector2) transform.position  , Radius,detectionLayers);
+                float AngleDeg = VectorToDegree(position - (Vector2) transform.position);
 
-                Debug.DrawRay(transform.position, new Vector2(
-                    hit.point.x - transform.position.x,
-                    hit.point.y - transform.position.y), Color.green);
-
-                if (hit.collider != null)
+                if (CheckDegreeWithinCone(AngleDeg))
                 {
-                    return hit.collider.Root().GetComponent<LightSensor>();
+                    RaycastHit2D hit =
+                        Physics2D.Raycast(transform.position, position - (Vector2) transform.position, Radius,
+                            detectionLayers);
+
+                    Debug.DrawRay(transform.position, new Vector2(
+                        hit.point.x - transform.position.x,
+                        hit.point.y - transform.position.y), Color.green);
+
+                    if (hit.collider != null)
+                    {
+                        return hit.collider.Root().GetComponent<LightSensor>();
+                    }
                 }
             }
+
             return null;
         }
-
     }
 }

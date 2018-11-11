@@ -6,21 +6,20 @@ namespace Game.Entity.Player
 {
     public class Mover : MonoBehaviour
     {
-        [Tooltip("Player mouvement speed")]
-        [SerializeField]
+        [Tooltip("Player mouvement speed")] [SerializeField]
         private float speed;
 
-        [Tooltip("Player Jump Speed")]
-        [SerializeField]
+        [Tooltip("Player Jump Speed")] [SerializeField]
         private float jumpSpeed;
 
-        [Tooltip("Short period of time where the player can jump while being airborne.")]
-        [SerializeField]
+        [Tooltip("Short period of time where the player can jump while being airborne.")] [SerializeField]
         private float playerNoLongerGroundedDelay;
 
-        [Tooltip("Amount of jumps allowed after leaving ground.")]
-        [SerializeField]
+        [Tooltip("Amount of jumps allowed after leaving ground.")] [SerializeField]
         private float amountOfAdditionalJumps;
+
+        [Tooltip("Jump velocity muliplier. Only effective after the first jump.")] [SerializeField]
+        private float additionalJumpVelocity;
 
 
         private PlayerIndex controllerNumber;
@@ -48,13 +47,19 @@ namespace Game.Entity.Player
 
         private void Update()
         {
-            kinematicRigidbody2D.Velocity = horizontalVelocity * speed + verticalVelocity * jumpSpeed;
             velocityY = this.transform.position.y - lastPositionY;
             velocityY = velocityY / Time.fixedDeltaTime;
             lastPositionY = this.transform.position.y;
             player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.VelocityY, velocityY);
-            player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.Speed, Mathf.Abs(kinematicRigidbody2D.Velocity.x));
-            player.CurrentController.animator.SetBool(Values.AnimationParameters.Player.Grounded, kinematicRigidbody2D.IsGrounded);
+            player.CurrentController.animator.SetFloat(Values.AnimationParameters.Player.Speed,
+                Mathf.Abs(kinematicRigidbody2D.Velocity.x));
+            player.CurrentController.animator.SetBool(Values.AnimationParameters.Player.Grounded,
+                kinematicRigidbody2D.IsGrounded);
+        }
+
+        private void FixedUpdate()
+        {
+            kinematicRigidbody2D.Velocity = horizontalVelocity * speed + verticalVelocity * jumpSpeed;
             horizontalVelocity = Vector2.zero;
             verticalVelocity = Vector2.zero;
             ResetJumpCount();
@@ -62,20 +67,20 @@ namespace Game.Entity.Player
 
         public void MoveRight()
         {
-            horizontalVelocity += Vector2.right;
+            horizontalVelocity = Vector2.right;
             player.playerHorizontalDirection = Vector2.right;
             player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
             player.DirectionFacingUpDown = FacingSideUpDown.None;
-            player.IsMoving = true;
+
         }
 
         public void MoveLeft()
         {
-            horizontalVelocity += Vector2.left;
+            horizontalVelocity = Vector2.left;
             player.playerHorizontalDirection = Vector2.left;
             player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
             player.DirectionFacingUpDown = FacingSideUpDown.None;
-            player.IsMoving = true;
+
         }
 
         public void Jump()
@@ -84,13 +89,12 @@ namespace Game.Entity.Player
             {
                 verticalVelocity = Vector2.up;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
-                player.IsMoving = true;
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
-                verticalVelocity = Vector2.up;
+                verticalVelocity = Vector2.up * additionalJumpVelocity;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
-                player.IsMoving = true;
+
                 jumpCount++;
             }
         }
