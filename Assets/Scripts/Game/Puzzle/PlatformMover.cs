@@ -95,22 +95,24 @@ namespace Game.Puzzle
             
         }
 
-        private void OnCollisionStay2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D other) //bouge ce qui touche a la plateforme (Donne y le meme mouvement) Liste des colliders pis bouge tout ce qui colide avec dans le fixedUpdate.
         {
             if (other.collider.CompareTag(Values.Tags.Player))
             {
                 PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
+                Vector3 offset = player.transform.position - transform.position;
+                
+
                 if (!isUsingQuadraticCurve)
                 {
-                    Vector2 v = new Vector2(horizontalDirection.x*HorizontalSpeed*Time.fixedDeltaTime,VerticalSpeed*verticalDirection.y*Time.fixedDeltaTime);
-                    player.kRigidBody.Velocity += rb.velocity;                    
+                   // Vector2 v = new Vector2(horizontalDirection.x*HorizontalSpeed*Time.fixedDeltaTime,VerticalSpeed*verticalDirection.y*Time.fixedDeltaTime);
+                    player.transform.position = transform.position + offset;     
+                    
+                    
                 }
                 else
                 {
-                    // other.gameObject.GetComponent<Rigidbody2D>().MovePosition(rb.position + heightOffset);
-                    //other.gameObject.GetComponent<PlayerController>().SetPositionAtNextFixedUpdate(rb.position);
-
                     float xDistance = rb.position.x - lastRbPosition.x;
                     float yDistance = rb.position.y - lastRbPosition.y;
                     Vector2 v = new Vector2((xDistance),(0));
