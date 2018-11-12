@@ -29,7 +29,8 @@ namespace Game.Puzzle.Light
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.transform.root.GetComponent<LightSensor>() && !lightSensorsInRange.Contains(other.transform.root.GetComponent<LightSensor>()))
+            if (other.transform.root.GetComponent<LightSensor>() &&
+                !lightSensorsInRange.Contains(other.transform.root.GetComponent<LightSensor>()))
             {
                 lightSensorsInRange.Add(other.transform.root.GetComponent<LightSensor>());
             }
@@ -46,7 +47,7 @@ namespace Game.Puzzle.Light
         {
             if (other.transform.root.GetComponent<LightSensor>())
             {
-                lightSensorsInRange.RemoveAll(sensor=>other.transform.root.GetComponent<LightSensor>());
+                lightSensorsInRange.RemoveAll(sensor => other.transform.root.GetComponent<LightSensor>());
             }
 
             if (other.transform.root.GetComponent<MovingLightObstacle>())
