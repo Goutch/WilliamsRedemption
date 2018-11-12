@@ -19,4 +19,9 @@ public class MenuManager : MonoBehaviour {
 		SceneManager.LoadScene(Game.Values.GameObject.Menu);
 		Time.timeScale = 1.0f;
 	}
+
+	public void GoToLeaderboardOnWeb()
+	{
+		Application.OpenURL("http://35.188.160.44/leaderboardPage");
+	}
 }

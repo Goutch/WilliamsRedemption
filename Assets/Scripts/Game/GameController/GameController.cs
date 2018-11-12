@@ -79,6 +79,8 @@ namespace Game.Controller
             GameObject.Find(Values.GameObject.ButtonRestartGame).SetActive(true);
             endText = GameObject.Find(Values.GameObject.TextPause).GetComponent<Text>();
             endText.text = textToShow;
+            GameObject.Find(Values.GameObject.ButtonTestInsertData).SetActive(true);
+            GameObject.Find(Values.GameObject.NameField).SetActive(true);
         }
         private void ShowDeathMenu()
         {
