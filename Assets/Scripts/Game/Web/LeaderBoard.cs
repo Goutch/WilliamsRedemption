@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Game.Controller;
 using Game.UI;
+using UnityEngine.SocialPlatforms.Impl;
 
 [Serializable]
 public class PlayerData:MonoBehaviour
@@ -15,17 +16,15 @@ public class PlayerData:MonoBehaviour
 }
 
 public class LeaderBoard : MonoBehaviour
-{        
-        
-    public void InsertDataToDatabase()
+{
+    [SerializeField] private InputField nameField;
+    public void InsertDataToDatabase(int score, float time)
     {
         PlayerData myPlayerData = new PlayerData();
         
-        myPlayerData.name = GameObject.Find(Game.Values.GameObject.NameFieldText).GetComponent<Text>().text;
-        myPlayerData.score = GameObject.FindGameObjectWithTag(Game.Values.Tags.GameController)
-            .GetComponent<GameController>().Score;
-        myPlayerData.time = GameObject.FindGameObjectWithTag(Game.Values.Tags.GameController)
-            .GetComponent<GameController>().GetComponent<TimeUI>().GetRemainingTime();
+        myPlayerData.name = nameField.text;
+        myPlayerData.score = score;
+        myPlayerData.time = time;
         
         if (myPlayerData.name != "")
         {
