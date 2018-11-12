@@ -182,11 +182,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114096452233095216, guid: 432db387a6d85fd43a87b8a1841ecf20,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4655148729547628, guid: 432db387a6d85fd43a87b8a1841ecf20, type: 2}
       propertyPath: m_LocalPosition.x
       value: -8.093386
@@ -217,36 +212,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4655148729547628, guid: 432db387a6d85fd43a87b8a1841ecf20, type: 2}
       propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224163014968555256, guid: 432db387a6d85fd43a87b8a1841ecf20,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114096452233095216, guid: 432db387a6d85fd43a87b8a1841ecf20,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2100721865}
-    - target: {fileID: 114096452233095216, guid: 432db387a6d85fd43a87b8a1841ecf20,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReturnMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 114096452233095216, guid: 432db387a6d85fd43a87b8a1841ecf20,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114096452233095216, guid: 432db387a6d85fd43a87b8a1841ecf20,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 114096452233095216, guid: 432db387a6d85fd43a87b8a1841ecf20,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -329,9 +294,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2100721865 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114351726763380652, guid: 432db387a6d85fd43a87b8a1841ecf20,
-    type: 2}
-  m_PrefabInternal: {fileID: 512759272}
-  m_Script: {fileID: 11500000, guid: 4e8b68470a35c294fa6720825d33216b, type: 3}
