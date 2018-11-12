@@ -15,7 +15,7 @@ namespace Game.Controller
 
         public string Requirement => requirement;
         public string Accomplishment => accomplishment;
-        
+
         public enum AchievementType
         {
             Level1,

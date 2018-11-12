@@ -17,9 +17,7 @@ namespace Game.Controller
         
     public class GameController : MonoBehaviour
     {
-        private string achievementPath = "Achievements";
-        private List<Achievement> acomplishedAchievements;
-        private Dictionary<string,Achievement> achievements;
+
         
         private int score;
         private float time;
@@ -52,17 +50,14 @@ namespace Game.Controller
 
         void Start()
         {
-            achievements=new Dictionary<string, Achievement>();
+
             DontDestroyOnLoad(this.gameObject);
             menu = GetComponent<MenuManager>();
             achievementEventChannel = GetComponent<AchievementEventChannel>();
             collectableUI = GetComponent<CollectablesUI>();
             scoreUI = GetComponent<ScoreUI>();
             SceneManager.sceneLoaded += OnSceneLoaded;
-            foreach (var achievement in Resources.LoadAll<Achievement>(achievementPath))
-            {
-                achievements.Add(achievement.name,achievement);
-            }   
+  
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -112,7 +107,7 @@ namespace Game.Controller
             this.score += score;
             scoreUI.OnScoreChange();
         }
-
+        
         public void AddCollectable(int scoreValue)
         {
             collectable++;

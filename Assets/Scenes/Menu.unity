@@ -217,6 +217,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 432db387a6d85fd43a87b8a1841ecf20, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &668242381 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114653328380540262, guid: 432db387a6d85fd43a87b8a1841ecf20,
+    type: 2}
+  m_PrefabInternal: {fileID: 512759272}
+  m_Script: {fileID: 11500000, guid: ceccdb836b5343549e51f08aa3b91775, type: 3}
 --- !u!1 &1893482694
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,3 +300,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2100721862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1453289080750168, guid: 432db387a6d85fd43a87b8a1841ecf20,
+    type: 2}
+  m_PrefabInternal: {fileID: 512759272}
+--- !u!114 &2100721863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2100721862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754c267ebba142f883dddfff2d2b0812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  achievementUi: {fileID: 668242381}
