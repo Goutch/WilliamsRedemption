@@ -18,7 +18,7 @@ namespace Game.UI
             UpdateScoreText();
         }
 
-        private void OnScoreChange()
+        public void OnScoreChange()
         {
             UpdateScoreValue();
             UpdateScoreText();

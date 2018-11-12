@@ -18,6 +18,9 @@ public class MenuManager : MonoBehaviour
     {
         gameController = GetComponent<GameController>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        HideGameOverPanel();
+        HidePausePanel();
+        HideGameHUD();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -41,8 +44,11 @@ public class MenuManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        HideGameOverPanel();
+        HidePausePanel();
+        HideGameHUD();
+        DisplayMainMenu();
         SceneManager.LoadScene(Game.Values.Scenes.Menu);
-        Time.timeScale = 1.0f;
     }
 
     public void OnStartButtonClick()
@@ -72,7 +78,7 @@ public class MenuManager : MonoBehaviour
 
     public void DisplayPausePanel()
     {
-       PauseMenuPanel.SetActive(true);
+        PauseMenuPanel.SetActive(true);
     }
 
     public void HidePausePanel()
@@ -87,25 +93,6 @@ public class MenuManager : MonoBehaviour
 
     public void HideGameHUD()
     {
-        
         gameHUD.SetActive(false);
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!gameController.IsGamePaused)
-            {
-                DisplayPausePanel();
-                gameController.PauseGame();
-            }
-            else
-            {
-                HidePausePanel();
-                gameController.ResumeGame();
-            }
-        }
     }
 }

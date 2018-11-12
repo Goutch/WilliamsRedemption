@@ -13,8 +13,7 @@ namespace Game.Controller
     {
         private AchievementManager achievementManager;
         public event AchievementEventHandler OnPlayerFindCollectable;
-        private List<Achievement> acomplishedAchievements;
-        [SerializeField]private List<Achievement> achievement;
+
         private void Start()
         {
             achievementManager = GetComponent<AchievementManager>();}

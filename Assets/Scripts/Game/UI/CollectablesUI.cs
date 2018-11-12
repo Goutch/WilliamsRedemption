@@ -10,12 +10,12 @@ namespace Game.UI
         private GameController gameController;
         private void Start()
         {
-            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
+            gameController=GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
         }
 
         public void AddCollectable()
         {
-            numberText.text=gameController.ToString();
+            numberText.text=gameController.CollectableAquiered.ToString();
         }
     }
 }
