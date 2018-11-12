@@ -44,4 +44,9 @@ public class LeaderBoard : MonoBehaviour
             
         www = new WWW("http://35.188.160.44/api/insert", formData, postHeader);
     }
+    
+    public void GoToLeaderboardOnWeb()
+    {
+        Application.OpenURL("http://35.188.160.44/leaderboardPage");
+    }
 }
