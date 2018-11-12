@@ -9,6 +9,9 @@ using UnityEngine;
 namespace Game.Entity.Enemies.Boss.Anna
 {
     [RequireComponent(typeof(RootMover))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(BossController))]
     class AnnaPhase1 : NonSequentialPhase
     {
         [SerializeField] private float percentageHealthTransitionCondition;
@@ -16,12 +19,15 @@ namespace Game.Entity.Enemies.Boss.Anna
         private RootMover mover;
         private Animator animator;
         private Health health;
+        private BossController bossController;
 
         private void Awake()
         {
             mover = GetComponent<RootMover>();
             animator = GetComponent<Animator>();
             health = GetComponent<Health>();
+            bossController = GetComponent<BossController>();
+
             health.OnHealthChange += Health_OnHealthChange;
         }
 
@@ -32,6 +38,15 @@ namespace Game.Entity.Enemies.Boss.Anna
                 health.OnHealthChange -= Health_OnHealthChange;
                 Finish();
             }
+        }
+
+        public override void Finish()
+        {
+            base.Finish();
+
+            animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, false);
+
+            bossController.IsInvulnerable = false;
         }
 
         protected override void EnterIdle()

@@ -13,15 +13,8 @@ namespace Game.Entity.Enemies.Boss.Anna
         [SerializeField] private GameObject enemyToSpawn;
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private float spawnDelay;
-
-        private SpawnedEnemyManager enemyManager;
-
+        [SerializeField] private SpawnedEnemyManager enemyManager;
         private float timeEnemyDied;
-
-        private void Awake()
-        {
-            enemyManager = GetComponent<SpawnedEnemyManager>();
-        }
 
         private void OnEnable()
         {

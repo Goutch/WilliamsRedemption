@@ -16,5 +16,6 @@ namespace Game.Values.AnimationParameters
         public const string Special = "Special";
         public const string Invulnerable = "Invulnerable";
         public const string Speed = "Speed";
+        public const string CastInvulnerability = "CastInvulnerability";
     }
 }

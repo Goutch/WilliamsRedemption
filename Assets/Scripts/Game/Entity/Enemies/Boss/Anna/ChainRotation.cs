@@ -35,13 +35,18 @@ namespace Game.Entity.Enemies.Boss.Anna
             base.Enter();
 
             animator.SetTrigger(Values.AnimationParameters.Anna.Special);
-            enemyManager.Clear();
 
             chain.SetActive(true);
 
             light.Close();
 
             transform.position = teleportationPoint.transform.position;
+        }
+
+        public override void Finish()
+        {
+            base.Finish();
+            enemyManager.Clear();
         }
 
         protected override void Idle()

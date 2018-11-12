@@ -18,7 +18,6 @@ namespace Game.Entity.Enemies.Boss.Anna
 
         private BossController bossController;
         private HitSensor hitSensor;
-        private SpriteRenderer sprite;
         private Animator animator;
 
         private float lastTimeUsed;
@@ -27,7 +26,6 @@ namespace Game.Entity.Enemies.Boss.Anna
         private void Awake()
         {
             bossController = GetComponent<BossController>();
-            sprite = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             hitSensor = GetComponent<HitSensor>();
         }
@@ -45,12 +43,12 @@ namespace Game.Entity.Enemies.Boss.Anna
         public override void Enter()
         {
             base.Enter();
-            animator.SetTrigger(Values.AnimationParameters.Anna.Invulnerable);
+            StopAllCoroutines();
 
-            bossController.IsInvulnerable = true;
+            animator.SetTrigger(Values.AnimationParameters.Anna.CastInvulnerability);
+            animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, true);
 
-            sprite.color = Color.blue;
-
+            bossController.IsInvulnerable = true; 
             isCapacityBeingUsed = true;
         }
 
@@ -58,6 +56,9 @@ namespace Game.Entity.Enemies.Boss.Anna
         public void MakeInvulnerable()
         {
             Finish();
+
+            animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, true);
+            bossController.IsInvulnerable = true;
         }
 
         public override void Finish()
@@ -99,8 +100,7 @@ namespace Game.Entity.Enemies.Boss.Anna
         private void RemoveInvulnerablity()
         {
             bossController.IsInvulnerable = false;
-
-            sprite.color = Color.white;
+            animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, false);
         }
     }
 }
