@@ -79,8 +79,7 @@ namespace Game.Entity.Player
             set
             {
                 isInvincible = value;
-                williamController.animator.SetBool("Invincible",value);
-                reaperController.animator.SetBool("Invincible",value);
+                currentController.animator.SetBool("Invincible",value);
             }
         } 
 
