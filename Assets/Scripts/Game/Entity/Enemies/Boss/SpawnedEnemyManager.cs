@@ -44,6 +44,11 @@ namespace Game.Entity.Enemies.Boss
             }
         }
 
+        public bool CanSpawnEnemy()
+        {
+            return numberOfEnemySpawn < NumberOfEnemySpawnAllowed;
+        }
+
         public bool IsAllEnemySpawned()
         {
             return numberOfEnemySpawn == NumberOfEnemySpawnAllowed;
@@ -52,6 +57,9 @@ namespace Game.Entity.Enemies.Boss
         private void SpawnedEnemyManager_OnDeath(GameObject enemy)
         {
             enemies.Remove(enemy);
+
+            if (IsAllEnemySpawned())
+                ResetEnemySpawnedCount();
 
             OnEnnemyDied?.Invoke(enemy);
         }

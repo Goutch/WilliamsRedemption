@@ -8,22 +8,25 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private float sightRange;
-        [SerializeField] float attackCooldown;
-        private float timeSinceLastAttack = 0;
-        
-        
+        [SerializeField] private float attackCooldown;
 
-        protected override void Init()
+        [SerializeField] private LayerMask layerVisibleByTheUnit;
+
+        private float timeSinceLastAttack;
+
+        private new void Awake()
         {
-            base.Init();
-            
+            base.Awake();
+            timeSinceLastAttack = Time.time;
         }
 
         protected override void FixedUpdate()
         {
             RaycastHit2D hit2D = new RaycastHit2D();
+
             Vector2 dir = PlayerController.instance.transform.position - transform.position;
-            hit2D = Physics2D.Raycast(transform.position, dir, sightRange);
+            hit2D = Physics2D.Raycast(transform.position, dir, sightRange, layerVisibleByTheUnit);
+
             if (hit2D.collider != null && hit2D.collider.CompareTag(Values.Tags.Player))
             {
                 UpdateDirection();

@@ -11,13 +11,27 @@ namespace Game.Entity.Enemies.Boss.Anna
     [RequireComponent(typeof(RootMover))]
     class AnnaPhase1 : NonSequentialPhase
     {
+        [SerializeField] private float percentageHealthTransitionCondition;
+
         private RootMover mover;
         private Animator animator;
+        private Health health;
 
         private void Awake()
         {
             mover = GetComponent<RootMover>();
             animator = GetComponent<Animator>();
+            health = GetComponent<Health>();
+            health.OnHealthChange += Health_OnHealthChange;
+        }
+
+        private void Health_OnHealthChange(GameObject gameObject)
+        {
+            if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
+            {
+                health.OnHealthChange -= Health_OnHealthChange;
+                Finish();
+            }
         }
 
         protected override void EnterIdle()
