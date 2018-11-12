@@ -19,4 +19,5 @@ public class MenuManager : MonoBehaviour {
 		SceneManager.LoadScene(Game.Values.GameObject.Menu);
 		Time.timeScale = 1.0f;
 	}
+
 }
