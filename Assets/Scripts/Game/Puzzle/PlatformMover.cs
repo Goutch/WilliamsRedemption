@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Timers;
 using Game.Entity.Player;
 using Harmony;
@@ -53,129 +54,91 @@ namespace Game.Puzzle
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
-        private Vector2 lastRbPosition;
+        private Vector2 lastPosition;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
         private float quadraticFunction;
         private float positionX;
-        private HashSet<Transform> colliders;
-        private Vector2 curve;
-        private Vector3 heightOffset;
+        
+        //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
+        private HashSet<Transform> transformers;
+        //Translation vector used by the platform and it's colliding objects.
+        private Vector2 translation;
 
 
-        // Use this for initialization
         private void Awake()
         {
             initialPositionX = transform.position.x;
             initialPositionY = transform.position.y;
             positionX = initialPositionX;
             quadraticX = 0;
-            colliders = new HashSet<Transform>();
-            lastRbPosition = transform.position;
-            heightOffset = new Vector3(0, GetComponent<BoxCollider2D>().size.y,0);
+            transformers = new HashSet<Transform>();
+            lastPosition = transform.position;
+            translation = new Vector2(0, 0);
         }
 
-        // Update is called once per frame
         private void Update()
         {
             CheckHorizontalDirection();
-            checkVertialDirection();   
+            checkVertialDirection();
         }
 
-
-        private void FixedUpdate()
+        private void OnEnable()
         {
-            Vector3 temp = transform.position;
-            if (!isUsingQuadraticCurve)
-            {
-                
-                Vector3 t= new Vector3(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed)*Time.fixedDeltaTime;
-                transform.Translate(t);
-                
-                if (colliders.Count >0)
-                {
-                    foreach (var collider in colliders)
-                    {
-                        collider.Translate(t);
-                    }
-                }
-            }
-            else
-            {
-                useQuadraticCurve();
-                
-                if (colliders.Count >0)
-                {
-                    foreach (var collider in colliders)
-                    {
-                        
-                        collider.Translate(curve);
-                    }
-                }
-            }
+            StartCoroutine(FollowPlatform());
+        }
 
-            
-
-            
+        private void OnDisable()
+        {
+            StopCoroutine(FollowPlatform());
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag(Values.Tags.Player))
             {
-                if (!colliders.Contains(other.transform))
+                if (!transformers.Contains(other.transform))
                 {
-                    colliders.Add(other.transform);
+                    transformers.Add(other.transform);
                 }
             }
         }
-        
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (colliders.Contains(other.transform))
+            if (transformers.Contains(other.transform))
             {
-                colliders.Remove(other.transform);
+                transformers.Remove(other.transform);
             }
         }
 
-        private void OnCollisionStay2D(Collision2D other) //bouge ce qui touche a la plateforme (Donne y le meme mouvement) Liste des colliders pis bouge tout ce qui colide avec dans le fixedUpdate.
+        IEnumerator FollowPlatform()
         {
-//            if (other.collider.CompareTag(Values.Tags.Player))
-//            {
-//                PlayerController player = other.gameObject.GetComponent<PlayerController>();
-//
-//                Vector3 offset = player.transform.position - transform.position;
-//                
-//
-//                if (!isUsingQuadraticCurve)
-//                {
-//                   // Vector2 v = new Vector2(horizontalDirection.x*HorizontalSpeed*Time.fixedDeltaTime,VerticalSpeed*verticalDirection.y*Time.fixedDeltaTime);
-//                    player.transform.position = transform.position + offset;     
-//                    
-//                    
-//                }
-//                else
-//                {
-//                    float xDistance = rb.position.x - lastRbPosition.x;
-//                    float yDistance = rb.position.y - lastRbPosition.y;
-//                    Vector2 v = new Vector2((xDistance),(0));
-//                   
-//                    player.kRigidBody.Velocity +=v/Time.fixedDeltaTime;
-//                }             
-//            }        
-        }
+            while (isActiveAndEnabled)
+            {
+                if (!isUsingQuadraticCurve)
+                {
+                    translation =
+                        new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
+                        Time.deltaTime;
+                }
+                else
+                {
+                    translation = useQuadraticCurve();
+                }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            
-        }
+                transform.Translate(translation);
 
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            
+                if (transformers.Count > 0)
+                {
+                    foreach (var transformer in transformers)
+                    {
+                        transformer.Translate(translation);
+                    }
+                }
+                yield return null;
+            }
         }
-
 
         private void CheckHorizontalDirection()
         {
@@ -229,21 +192,15 @@ namespace Game.Puzzle
             }
         }
 
-        private void useQuadraticCurve()
+        private Vector2 useQuadraticCurve()
         {
-//            lastRbPosition = rb.position;
-//            quadraticX = rb.position.x - initialPositionX;
-//            positionX += HorizontalSpeed * horizontalDirection.x *Time.fixedDeltaTime;
-//            quadraticFucntion = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
-//            Vector2 curve = new Vector2(positionX, quadraticFucntion + initialPositionY);
-//            rb.MovePosition(curve);
-
-            lastRbPosition = transform.position;
+            lastPosition = transform.position;
             quadraticX = transform.position.x - initialPositionX;
-            positionX += HorizontalSpeed * horizontalDirection.x * Time.fixedDeltaTime;
+            positionX += HorizontalSpeed * horizontalDirection.x * Time.deltaTime;
             quadraticFunction = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
-            curve = new Vector2(positionX,quadraticFunction + initialPositionY);
-            transform.Translate(curve - lastRbPosition);
+            Vector2 curve = new Vector2(positionX, quadraticFunction + initialPositionY);
+
+            return curve - lastPosition;
         }
     }
 }
