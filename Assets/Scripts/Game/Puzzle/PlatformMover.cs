@@ -139,7 +139,7 @@ namespace Game.Puzzle
                         transformer.Translate(translation);
                     }
                 }
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -208,7 +208,7 @@ namespace Game.Puzzle
 
         public float GetVerticalSpeed()
         {
-            return VerticalSpeed +verticalCapacityPrecisionOffset * Time.deltaTime;
+            return VerticalSpeed * Time.deltaTime;
         }
     }
 }
