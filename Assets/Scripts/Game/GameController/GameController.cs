@@ -41,6 +41,7 @@ namespace Game.Controller
         public int LevelRemainingTime => levelRemainingTime;
 
         public int Score => score;
+
         public int CollectableAquiered => collectable;
         public bool IsGameStarted => isGameStarted;
         public bool IsGamePaused => isGamePaused;
@@ -67,7 +68,6 @@ namespace Game.Controller
                 PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
                 lifePointsUI.InitLifePoints();
                 startTime = Time.time;
-                score = 0;
             }
 
             Time.timeScale = 1f;

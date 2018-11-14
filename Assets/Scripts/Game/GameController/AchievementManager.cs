@@ -20,7 +20,8 @@ namespace Game.Controller
         {
             gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
             gameController.OnGameEnd += OnGameEnd;
-
+            achievements=new Dictionary<string, Achievement>();
+            achievementEventChannel = GetComponent<AchievementEventChannel>();
             achievementEventChannel.OnPlayerFindCollectable += OnPlayerFindCollectable;
             foreach (var achievement in Resources.LoadAll<Achievement>(achievementPath))
             {
