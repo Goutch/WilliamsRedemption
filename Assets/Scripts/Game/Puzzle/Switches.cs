@@ -4,15 +4,17 @@ namespace Game.Puzzle
 {
     public class Switches : MonoBehaviour
     {
+        [Tooltip("Objects triggered by this trigger.")] [SerializeField]
+        private GameObject[] triggerables;
 
-        [Tooltip("Objects triggered by this trigger.")]
-        [SerializeField] private GameObject[] triggerables;
-        [Tooltip("Amount of time before the countdown reaches zero.")]
-        [SerializeField] private float shutDownTime;
-        [Tooltip("Check this box if you want these objects to use a countdown.")]
-        [SerializeField] private bool hasTimer;
-        [Tooltip("Check this box if you want to lock the objects after being triggered.")]
-        [SerializeField] private bool lockLinkedObjects;
+        [Tooltip("Amount of time before the countdown reaches zero.")] [SerializeField]
+        private float shutDownTime;
+
+        [Tooltip("Check this box if you want these objects to use a countdown.")] [SerializeField]
+        private bool hasTimer;
+
+        [Tooltip("Check this box if you want to lock the objects after being triggered.")] [SerializeField]
+        private bool lockLinkedObjects;
 
         private float timerStartTime;
         private bool timerHasStarted;
@@ -22,11 +24,10 @@ namespace Game.Puzzle
         {
             if (other.CompareTag(Values.Tags.Player) && timerHasStarted == false)
             {
-
                 foreach (var triggerable in triggerables)
                 {
-
-                    if (!triggerable.GetComponent<ITriggerable>().IsLocked() && !triggerable.GetComponent<ITriggerable>().IsOpened())
+                    if (!triggerable.GetComponent<ITriggerable>().IsLocked() &&
+                        !triggerable.GetComponent<ITriggerable>().IsOpened())
                     {
                         triggerable.GetComponent<ITriggerable>()?.Open();
                         if (hasTimer)
@@ -41,9 +42,9 @@ namespace Game.Puzzle
                             triggerable.GetComponent<ITriggerable>().Lock();
                         }
                     }
-                    else if (!triggerable.GetComponent<ITriggerable>().IsLocked() && triggerable.GetComponent<ITriggerable>().IsOpened())
+                    else if (!triggerable.GetComponent<ITriggerable>().IsLocked() &&
+                             triggerable.GetComponent<ITriggerable>().IsOpened())
                     {
-
                         triggerable.GetComponent<ITriggerable>()?.Close();
                         if (hasTimer)
                         {
@@ -56,9 +57,7 @@ namespace Game.Puzzle
                         {
                             triggerable.GetComponent<ITriggerable>().Lock();
                         }
-
                     }
-
                 }
             }
         }
@@ -77,10 +76,11 @@ namespace Game.Puzzle
                     triggerable.GetComponent<ITriggerable>()?.Close();
                 }
             }
+
             timerHasStarted = false;
         }
 
-        void Update()
+        private void Update()
         {
             if (hasTimer && timerHasStarted)
             {
@@ -97,6 +97,7 @@ namespace Game.Puzzle
             {
                 return true;
             }
+
             return false;
         }
 
@@ -118,8 +119,5 @@ namespace Game.Puzzle
                 }
             }
         }
-
     }
-
 }
-

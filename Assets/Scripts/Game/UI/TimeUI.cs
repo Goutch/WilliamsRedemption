@@ -21,5 +21,10 @@ namespace Game.UI
         {
             timeText.text = remainingTimeText + Mathf.RoundToInt(gameController.LevelRemainingTime).ToString();
         }
+
+        public float GetRemainingTime()
+        {
+            return remainingTime;
+        }
     }
 }

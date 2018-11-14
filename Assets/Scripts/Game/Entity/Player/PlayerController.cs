@@ -6,18 +6,13 @@ using UnityEngine;
 namespace Game.Entity.Player
 {
     public delegate void PlayerDeathEventHandler();
+
     public class PlayerController : MonoBehaviour
     {
-        private Dictionary<string, bool> buttonsPressed;
-        private Dictionary<string, bool> buttonsReleased;
-        private Dictionary<string, bool> buttonsHeld;
-
-        [SerializeField]
-        [Tooltip("Layers William collides with.")]
+        [SerializeField] [Tooltip("Layers William collides with.")]
         private LayerMask williamLayerMask;
 
-        [SerializeField]
-        [Tooltip("Layers Reaper collides with.")]
+        [SerializeField] [Tooltip("Layers Reaper collides with.")]
         private LayerMask reaperLayerMask;
 
         [SerializeField] private float invincibilitySeconds;
@@ -36,7 +31,7 @@ namespace Game.Entity.Player
         private Vector2 verticalDirection;
 
 
-        private int nbPlayerLivesLeft;
+        private int currentLevel;
         private int numbOfLocks = 0;
 
         public LayerMask WilliamLayerMask
@@ -53,13 +48,13 @@ namespace Game.Entity.Player
 
         public Vector2 playerHorizontalDirection
         {
-            get { return horizontalDirection;}
+            get { return horizontalDirection; }
             set { horizontalDirection = value; }
         }
 
         public Vector2 playerVerticalDirection
         {
-            get { return verticalDirection;}
+            get { return verticalDirection; }
             set { verticalDirection = value; }
         }
 
@@ -75,16 +70,17 @@ namespace Game.Entity.Player
             set
             {
                 isInvincible = value;
-                williamController.animator.SetBool("Invincible",value);
-                reaperController.animator.SetBool("Invincible",value);
+                williamController.animator.SetBool("Invincible", value);
+                reaperController.animator.SetBool("Invincible", value);
             }
-        } 
+        }
 
         public FacingSideUpDown DirectionFacingUpDown { get; set; }
         public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
 
         private void Awake()
         {
+            currentLevel = 1;
             if (instance == null)
                 instance = this;
 
@@ -125,7 +121,7 @@ namespace Game.Entity.Player
         {
             IsInvincible = true;
             yield return new WaitForSeconds(invincibilitySeconds);
-            IsInvincible= false;
+            IsInvincible = false;
         }
 
         private void HandleCollision(HitStimulus other)
@@ -171,7 +167,6 @@ namespace Game.Entity.Player
                 CurrentController = reaperController;
                 williamController.gameObject.SetActive(false);
                 kRigidBody.LayerMask = reaperLayerMask;
-
             }
         }
 
@@ -199,7 +194,6 @@ namespace Game.Entity.Player
             {
                 CurrentController.sprite.flipX = false;
             }
-            
         }
     }
 }

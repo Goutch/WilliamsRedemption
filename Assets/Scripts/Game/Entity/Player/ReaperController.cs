@@ -7,14 +7,17 @@ namespace Game.Entity.Player
 {
     public class ReaperController : EntityController
     {
-        [Tooltip("Distance travelled by the player when teleporting.")]
-        [SerializeField] private float teleportationDistance;
-        [SerializeField] private GameObject tpEffect1;
-        [SerializeField] private GameObject tpEffect2;
         [SerializeField] private GameObject meleeAttack;
 
-        [Tooltip("Amount of time between teleportations.")]
-        [SerializeField] private float TeleportationCoolDown;
+
+        [Tooltip("Distance travelled by the player when teleporting.")] [SerializeField]
+        private float teleportationDistance;
+
+        [Tooltip("Amount of time between teleportations.")] [SerializeField]
+        private float TeleportationCoolDown;
+
+        [SerializeField] private GameObject tpEffect1;
+        [SerializeField] private GameObject tpEffect2;
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
@@ -23,7 +26,7 @@ namespace Game.Entity.Player
         private Vector2 tpPosition;
         private bool mustTeleport;
         private Rigidbody2D rb;
-        
+
         private void Start()
         {
             capacityCanBeUsed = true;
@@ -41,32 +44,38 @@ namespace Game.Entity.Player
 
         public override void UseCapacity(PlayerController player)
         {
-            
             Transform root = transform.parent;
-            Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity),5);
+            Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity), 5);
 
             Debug.DrawLine(root.position,
-                new Vector3(root.position.x + teleportationDistance * player.playerHorizontalDirection.x, root.position.y, root.position.z), Color.blue,
+                new Vector3(root.position.x + teleportationDistance * player.playerHorizontalDirection.x,
+                    root.position.y, root.position.z), Color.blue,
                 10);
             RaycastHit2D hit =
-                        Physics2D.Raycast(
-                            root.position,
-                            player.playerHorizontalDirection, teleportationDistance ,
-                            player.ReaperLayerMask);
+                Physics2D.Raycast(
+                    root.position,
+                    player.playerHorizontalDirection, teleportationDistance,
+                    player.ReaperLayerMask);
 
             if (hit.collider == null)
-            { 
-                tpPosition= new Vector2(player.transform.position.x+ teleportationDistance* player.playerHorizontalDirection.x-(tpOffset.x* player.playerHorizontalDirection.x) , player.transform.position.y);
-                mustTeleport = true;
+            {
+                tpPosition =
+                    new Vector2(
+                        player.transform.position.x + teleportationDistance * player.playerHorizontalDirection.x -
+                        (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y);
             }
             else
             {
-               tpPosition= new Vector2(player.transform.position.x + hit.distance*player.playerHorizontalDirection.x -(tpOffset.x* player.playerHorizontalDirection.x),player.transform.position.y);
-                mustTeleport = true;
+                tpPosition =
+                    new Vector2(
+                        player.transform.position.x + hit.distance * player.playerHorizontalDirection.x -
+                        (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y);
             }
+
+            mustTeleport = true;
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
-            Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity),5);
+            Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity), 5);
             OnAttackFinish();
         }
 
@@ -85,17 +94,19 @@ namespace Game.Entity.Player
             {
                 return true;
             }
+
             if (!capacityCanBeUsed && (Time.time - timerStartTime) >= TeleportationCoolDown)
             {
                 capacityCanBeUsed = true;
                 if (player.IsOnGround)
                 {
-                    return true;                
+                    return true;
                 }
             }
+
             return false;
         }
-        
+
         public override void UseBasicAttack(PlayerController player)
         {
             Quaternion angle = Quaternion.identity;
@@ -112,7 +123,5 @@ namespace Game.Entity.Player
             meleeAttackObject.transform.localRotation = angle;
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
         }
-        
     }
 }
-
