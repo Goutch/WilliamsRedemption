@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Game.Puzzle;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -43,6 +44,8 @@ namespace Game.Entity.Player
         private new Rigidbody2D rigidbody;
         private ContactFilter2D contactFilter;
         private RaycastHit2D[] preallocaRaycastHits;
+        private float verticalCapacityOffset;
+        public bool isOnMovingGround;
 
         public LayerMask LayerMask
         {
@@ -81,6 +84,7 @@ namespace Game.Entity.Player
             contactFilter.useLayerMask = true;
             preallocaRaycastHits = new RaycastHit2D[NbPreallocatedRaycastHit];
             IsGravityIgnored = false;
+            isOnMovingGround = false;
         }
 
         private void FixedUpdate()
@@ -112,6 +116,7 @@ namespace Game.Entity.Player
         private void ResetValuesBeforeSimulation()
         {
             isGrounded = false;
+            isOnMovingGround = false;
             contactFilter.layerMask = layerMask;
         }
 
@@ -166,6 +171,11 @@ namespace Game.Entity.Player
             return position.y <= hitPosition.y;
         }
 
+        public float GetVerticalOffset()
+        {
+            return verticalCapacityOffset;
+        }
+
         private void ApplyDeltaPosition(Vector2 deltaPosition, bool isVerticalDelta)
         {
             var deltaMagnitude = deltaPosition.magnitude;
@@ -194,6 +204,12 @@ namespace Game.Entity.Player
                         {
                             if (CanPassThrough(rigidbody.position, raycastHit.point))
                                 continue;
+                        }
+
+                        if (raycastHit.collider.CompareTag("MovingPlatform"))
+                        {
+                            isOnMovingGround = true;
+                            verticalCapacityOffset = raycastHit.collider.GetComponent<PlatformMover>().GetVerticalSpeed();
                         }
 
 

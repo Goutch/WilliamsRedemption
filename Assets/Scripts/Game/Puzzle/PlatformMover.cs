@@ -59,6 +59,8 @@ namespace Game.Puzzle
         private Vector2 verticalDirection;
         private float quadraticFunction;
         private float positionX;
+        private float verticalCapacityPrecisionOffset;
+        
         
         //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
         private HashSet<Transform> transformers;
@@ -75,6 +77,7 @@ namespace Game.Puzzle
             transformers = new HashSet<Transform>();
             lastPosition = transform.position;
             translation = new Vector2(0, 0);
+            verticalCapacityPrecisionOffset = 0.0001f;
         }
 
         private void Update()
@@ -201,6 +204,11 @@ namespace Game.Puzzle
             Vector2 curve = new Vector2(positionX, quadraticFunction + initialPositionY);
 
             return curve - lastPosition;
+        }
+
+        public float GetVerticalSpeed()
+        {
+            return VerticalSpeed +verticalCapacityPrecisionOffset * Time.deltaTime;
         }
     }
 }
