@@ -1,90 +1,212 @@
-﻿using Game.Entity;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Game.Entity;
 using Game.Entity.Player;
 using Game.UI;
+using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Experimental.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Game.Controller
 {
-    public delegate void ScoreEventHandler();
-
-    public delegate void TimeEventHandler();
+    public delegate void GameControllerEventHandler();
 
     public class GameController : MonoBehaviour
     {
         private int score;
         private float time;
+        private int collectable;
         private float startTime;
-        public event ScoreEventHandler OnScoreChange;
-        public event TimeEventHandler OnTimeChange;
-        private PauseUI pauseUI;
-        private Text endText;
+        private int levelRemainingTime;
+        private bool isGamePaused = false;
+        private bool isGameStarted = false;
+
+        [SerializeField] private Level startLevel;
+        private Level currentLevel;
+
+        //UI
+        private ScoreUI scoreUI;
         private CollectablesUI collectableUI;
-        private const string gameCompletedTextString = "Congratulations!";
-        private const string deathTextString = "Game Over";
+        private MenuManager menu;
+        [SerializeField] private LifePointsUI lifePointsUI;
+
+        public float CurrentGameTime => time;
+
+        public int LevelRemainingTime => levelRemainingTime;
+
         public int Score => score;
-        public float Time => time;
+
+        public int CollectableAquiered => collectable;
+        public bool IsGameStarted => isGameStarted;
+        public bool IsGamePaused => isGamePaused;
+
+        public int TotalTime => totalTime;
+
+        public event GameControllerEventHandler OnGameEnd;
+
+        private string activeScene = "";
+
+        private int totalTime = 0;
 
         void Start()
         {
-            PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
-            startTime = UnityEngine.Time.time;
-            pauseUI = GetComponent<PauseUI>();
+            menu = GetComponent<MenuManager>();
             collectableUI = GetComponent<CollectablesUI>();
+            scoreUI = GetComponent<ScoreUI>();
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.LoadSceneAsync(Values.Scenes.Menu, LoadSceneMode.Additive);
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name != Values.Scenes.Menu)
+            {
+                PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
+                lifePointsUI.InitLifePoints();
+                startTime = Time.time;
+            }
+
+            Time.timeScale = 1f;
+            activeScene = scene.name;
         }
 
         private void Update()
         {
-            UpdateTime();
-            UpdatePause();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!IsGamePaused)
+                {
+                    PauseGame();
+                    menu.DisplayPausePanel();
+                }
+                else
+                {
+                    ResumeGame();
+                    menu.HidePausePanel();
+                }
+            }
+
+            if (!isGamePaused && isGameStarted)
+            {
+                time = UnityEngine.Time.time - startTime;
+                if (levelRemainingTime > 0)
+                    levelRemainingTime = Mathf.RoundToInt((currentLevel.ExpectedTime - CurrentGameTime));
+                else
+                {
+                    levelRemainingTime = 0;
+                }
+            }
         }
 
         public void AddScore(int score)
         {
             this.score += score;
-            OnScoreChange?.Invoke();
-        }
-        private void OnPlayerDie(GameObject gameObject)
-        {
-            ShowDeathMenu();
-        }
-        private void UpdateTime()
-        {
-            time = UnityEngine.Time.time - startTime;
-            OnTimeChange?.Invoke();
+            scoreUI.OnScoreChange();
         }
 
         public void AddCollectable(int scoreValue)
         {
+            collectable++;
             AddScore(scoreValue);
             collectableUI.AddCollectable();
-
         }
-        private void UpdatePause()
+
+        public void NextLevel()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (activeScene == Values.Scenes.Menu)
             {
-                pauseUI.OnPressKeyPause();
+                isGameStarted = true;
+                isGamePaused = false;
+                currentLevel = startLevel;
+                LoadLevel(currentLevel);
+            }
+            else
+            {
+                PlayerController.instance.GetComponent<Health>().OnDeath -= OnPlayerDie;
+                currentLevel = currentLevel.NextLevel;
+                isGameStarted = true;
+                isGamePaused = false;
+                totalTime += Mathf.RoundToInt(CurrentGameTime);
+                if (currentLevel != null)
+                {
+                    LoadLevel(currentLevel);
+                }
+                else
+                {
+                    GameOver();
+                }
             }
         }
 
-        public void OnGameEnd()
+        public void GameOver()
         {
-            ShowEndMenu(gameCompletedTextString);
+            PauseGame();
+            OnGameEnd?.Invoke();
+            menu.DisplayGameOverPanel();
         }
 
-        private void ShowEndMenu(string textToShow)
+        [UsedImplicitly]
+        public void ReturnMenu()
         {
-            pauseUI.OnPressKeyPause();
-            GameObject.Find(Values.GameObject.ButtonRestartGame).SetActive(true);
-            endText = GameObject.Find(Values.GameObject.TextPause).GetComponent<Text>();
-            endText.text = textToShow;
-            GameObject.Find(Values.GameObject.ButtonTestInsertData).SetActive(true);
-            GameObject.Find(Values.GameObject.NameField).SetActive(true);
+            currentLevel = null;
+            isGameStarted = false;
+            SceneManager.UnloadSceneAsync(activeScene);
+            SceneManager.LoadSceneAsync(Game.Values.Scenes.Menu, LoadSceneMode.Additive);
+            menu.ReturnToMenu();
+            score = 0;
+            scoreUI.OnScoreChange();
+            totalTime = 0;
+            collectable = 0;
         }
-        private void ShowDeathMenu()
+
+        [UsedImplicitly]
+        public void Restart()
         {
-            ShowEndMenu(deathTextString);
+            LoadLevel(currentLevel);
+            menu.HideGameOverPanel();
+            menu.HidePausePanel();
+            score = 0;
+            scoreUI.OnScoreChange();
+            totalTime = 0;
+            collectable = 0;
+        }
+
+        public void LoadLevel(Level level)
+        {
+            SceneManager.UnloadSceneAsync(activeScene);
+            SceneManager.LoadSceneAsync(level.Scene.name, LoadSceneMode.Additive);
+            levelRemainingTime = level.ExpectedTime;
+            startTime = Time.time;
+            time = 0;
+            isGameStarted = true;
+            isGamePaused = false;
+            collectable = 0;
+            menu.HidePausePanel();
+            menu.HideMainMenu();
+            activeScene = level.Scene.name;
+        }
+
+        private void OnPlayerDie(GameObject gameObject)
+        {
+            GameOver();
+        }
+
+        public void PauseGame()
+        {
+            Debug.Log("Game paused");
+            UnityEngine.Time.timeScale = 0f;
+            isGamePaused = true;
+        }
+
+        public void ResumeGame()
+        {
+            Debug.Log("Game resumed");
+            UnityEngine.Time.timeScale = 1f;
+            isGamePaused = false;
         }
     }
 }

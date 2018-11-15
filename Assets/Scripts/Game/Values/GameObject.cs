@@ -3,6 +3,12 @@
     public class GameObject
     {
         public const string GameController = "GameController";
+        public const string Jacob = "Jacob";
+        public const string Edgar = "Edgar";
+        public const string Jean = "Jean";
+        public const string Anna = "Anna";
+        public const string ZekGor = "ZekGor";
+        public const string Death = "Death";
         public const string TimeText = "GameController/Canvas/TimeText";
         public const string ScoreText = "GameController/Canvas/ScoreText";
         public const string PanelPause = "GameController/Canvas/PanelPause";
@@ -15,5 +21,6 @@
         public const string Level1 = "Scenes/Level1";
         public const string Level2 = "Scenes/Level2";
         public const string Level3 = "Scenes/Level3";
+
     }
 }

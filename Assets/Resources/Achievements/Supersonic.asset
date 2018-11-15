@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585c8770c9ee42dbb26ebcd884843c96, type: 3}
+  m_Name: Supersonic
+  m_EditorClassIdentifier: 
+  scoreValue: 400
+  type: 3
+  requirement: Finish the game under 10 minutes.
+  accomplishment: you beated it fast.
