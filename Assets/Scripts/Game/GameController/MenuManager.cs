@@ -48,7 +48,6 @@ public class MenuManager : MonoBehaviour
         HidePausePanel();
         HideGameHUD();
         DisplayMainMenu();
-        SceneManager.LoadScene(Game.Values.Scenes.Menu);
     }
 
     public void OnStartButtonClick()

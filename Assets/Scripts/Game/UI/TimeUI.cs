@@ -19,7 +19,7 @@ namespace Game.UI
 
         private void Update()
         {
-            timeText.text = remainingTimeText + Mathf.RoundToInt(gameController.LevelRemainingTime).ToString();
+            timeText.text = remainingTimeText + Mathf.RoundToInt(gameController.LevelRemainingTime);
         }
     }
 }

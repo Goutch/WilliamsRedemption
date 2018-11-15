@@ -8,30 +8,23 @@ namespace Game.UI
     {
         [SerializeField] private Text scoreText;
         private GameController gameController;
-        private int score;
 
         private void Start()
         {
             gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
                 .GetComponent<GameController>();
-            score = gameController.Score;
             UpdateScoreText();
         }
 
         public void OnScoreChange()
         {
-            UpdateScoreValue();
             UpdateScoreText();
         }
 
-        private void UpdateScoreValue()
-        {
-            score = gameController.Score;
-        }
 
         private void UpdateScoreText()
         {
-            scoreText.text = "Score : " + score.ToString();
+            scoreText.text = "Score : " + gameController.Score.ToString();
         }
     }
 }

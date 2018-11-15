@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using Game.Controller;
 using Game.UI;
 using Game.Values.AnimationParameters;
+using Harmony;
+using JetBrains.Annotations;
 using UnityEngine.SocialPlatforms.Impl;
 
 [Serializable]
@@ -32,12 +34,11 @@ public class LeaderBoard : MonoBehaviour
     {
         gameController = GameObject.FindGameObjectWithTag(Game.Values.Tags.GameController)
             .GetComponent<GameController>();
-        InsertDataToDatabase("me", 161, 10);
     }
-
+    [UsedImplicitly]
     public void SendScoreToWebApi()
     {
-        InsertDataToDatabase(nameField.text, gameController.Score, gameController.LevelRemainingTime);
+        InsertDataToDatabase(nameField.text, gameController.Score, gameController.TotalTime);
     }
 
     private void InsertDataToDatabase(string name, int score, float time)

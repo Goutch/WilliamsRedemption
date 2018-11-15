@@ -1,10 +1,12 @@
 ﻿using Game.Controller;
+using Game.Controller.Events;
 using Game.Entity.Enemies;
 using UnityEngine;
 
 namespace Game.Entity
 {
     public delegate void HealthEventHandler(GameObject gameObject);
+
     public class Health : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
@@ -13,6 +15,7 @@ namespace Game.Entity
         private int healthPoints;
         public event HealthEventHandler OnDeath;
         public event HealthEventHandler OnHealthChange;
+        private GameController gameController;
 
         public int HealthPoints
         {
@@ -23,10 +26,18 @@ namespace Game.Entity
                 OnHealthChange?.Invoke(gameObject);
                 if (IsDead())
                 {
-                    if (isKilledByPlayer && IsAnEnemy())
+                    if (IsAnEnemy())
                     {
-                        AddEnemyScoreToGameScore();
+                        gameController.GetComponent<EnemyDeathEventChannel>()
+                            .Publish(new OnEnemyDeath(GetComponent<Enemy>()));
+                        if (isKilledByPlayer)
+                        {
+                            AddEnemyScoreToGameScore();
+                        }
+
+                        
                     }
+
                     OnDeath?.Invoke(transform.root.gameObject);
                 }
             }
@@ -35,6 +46,8 @@ namespace Game.Entity
         void Awake()
         {
             healthPoints = MaxHealth;
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>();
         }
 
         public void Hit()
@@ -65,5 +78,3 @@ namespace Game.Entity
         }
     }
 }
-
-

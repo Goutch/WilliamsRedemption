@@ -14,11 +14,9 @@ using UnityEngine.UI;
 namespace Game.Controller
 {
     public delegate void GameControllerEventHandler();
-        
+
     public class GameController : MonoBehaviour
     {
-
-        
         private int score;
         private float time;
         private int collectable;
@@ -46,19 +44,21 @@ namespace Game.Controller
         public bool IsGameStarted => isGameStarted;
         public bool IsGamePaused => isGamePaused;
 
-        private AchievementEventChannel achievementEventChannel;
+        public int TotalTime => totalTime;
+
         public event GameControllerEventHandler OnGameEnd;
+
+        private string activeScene = "";
+
+        private int totalTime = 0;
 
         void Start()
         {
-
-            DontDestroyOnLoad(this.gameObject);
             menu = GetComponent<MenuManager>();
-            achievementEventChannel = GetComponent<AchievementEventChannel>();
             collectableUI = GetComponent<CollectablesUI>();
             scoreUI = GetComponent<ScoreUI>();
             SceneManager.sceneLoaded += OnSceneLoaded;
-  
+            SceneManager.LoadSceneAsync(Values.Scenes.Menu, LoadSceneMode.Additive);
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -71,6 +71,7 @@ namespace Game.Controller
             }
 
             Time.timeScale = 1f;
+            activeScene = scene.name;
         }
 
         private void Update()
@@ -81,7 +82,6 @@ namespace Game.Controller
                 {
                     PauseGame();
                     menu.DisplayPausePanel();
-                    
                 }
                 else
                 {
@@ -107,18 +107,17 @@ namespace Game.Controller
             this.score += score;
             scoreUI.OnScoreChange();
         }
-        
+
         public void AddCollectable(int scoreValue)
         {
             collectable++;
             AddScore(scoreValue);
             collectableUI.AddCollectable();
-            achievementEventChannel.PublishPlayerFoundCollectable();
         }
 
         public void NextLevel()
         {
-            if (SceneManager.GetActiveScene().name == Values.Scenes.Menu)
+            if (activeScene == Values.Scenes.Menu)
             {
                 isGameStarted = true;
                 isGamePaused = false;
@@ -131,6 +130,7 @@ namespace Game.Controller
                 currentLevel = currentLevel.NextLevel;
                 isGameStarted = true;
                 isGamePaused = false;
+                totalTime += Mathf.RoundToInt(CurrentGameTime);
                 if (currentLevel != null)
                 {
                     LoadLevel(currentLevel);
@@ -144,18 +144,23 @@ namespace Game.Controller
 
         public void GameOver()
         {
-            menu.DisplayGameOverPanel();
             PauseGame();
             OnGameEnd?.Invoke();
+            menu.DisplayGameOverPanel();
         }
 
         [UsedImplicitly]
         public void ReturnMenu()
         {
-            score = 0;
             currentLevel = null;
             isGameStarted = false;
+            SceneManager.UnloadSceneAsync(activeScene);
+            SceneManager.LoadSceneAsync(Game.Values.Scenes.Menu, LoadSceneMode.Additive);
             menu.ReturnToMenu();
+            score = 0;
+            scoreUI.OnScoreChange();
+            totalTime = 0;
+            collectable = 0;
         }
 
         [UsedImplicitly]
@@ -164,17 +169,25 @@ namespace Game.Controller
             LoadLevel(currentLevel);
             menu.HideGameOverPanel();
             menu.HidePausePanel();
+            score = 0;
+            scoreUI.OnScoreChange();
+            totalTime = 0;
+            collectable = 0;
         }
 
         public void LoadLevel(Level level)
         {
-            SceneManager.LoadScene(level.Scene.name);
+            SceneManager.UnloadSceneAsync(activeScene);
+            SceneManager.LoadSceneAsync(level.Scene.name, LoadSceneMode.Additive);
             levelRemainingTime = level.ExpectedTime;
-            score = 0;
             startTime = Time.time;
             time = 0;
             isGameStarted = true;
             isGamePaused = false;
+            collectable = 0;
+            menu.HidePausePanel();
+            menu.HideMainMenu();
+            activeScene = level.Scene.name;
         }
 
         private void OnPlayerDie(GameObject gameObject)
