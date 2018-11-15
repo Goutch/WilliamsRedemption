@@ -127,6 +127,8 @@ MonoBehaviour:
   speed: 5
   delayBeforeDestruction: 5
   canBeReturned: 0
+  destroyOnPlatformsCollision: 1
+  projectileSound: {fileID: 8300000, guid: 2d06a53aed1ff944fbd246b3bfd05b00, type: 3}
 --- !u!212 &212303321489881524
 SpriteRenderer:
   m_ObjectHideFlags: 1

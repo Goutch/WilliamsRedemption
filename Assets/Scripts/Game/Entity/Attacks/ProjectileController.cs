@@ -12,9 +12,9 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool canBeReturned;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
+        //[SerializeField] private GameObject SoundEffectPrefab;
 
         protected int direction;
-        private AudioSource source;
         public AudioClip projectileSound;
         public bool CanBeReturned
         {
@@ -39,8 +39,8 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
-            StartCoroutine(Destroy());
             UseSound();
+            StartCoroutine(Destroy());
             direction = 1;
             GetComponent<HitSensor>().OnHit += HandleCollision;
         }
@@ -116,9 +116,9 @@ namespace Game.Entity.Enemies.Attack
 
         private void UseSound()
         {
-            source = GetComponent<AudioSource>();
+            //AudioSource source=Instantiate(SoundEffectPrefab, this.transform.position,Quaternion.identity).GetComponent<AudioSource>();        
             GameObject.FindGameObjectWithTag(Values.GameObject.GameController).GetComponent<AudioManager>()
-                .PlaySound(source,projectileSound);
+                .PlaySound(projectileSound);
         }
     }
 
