@@ -12,10 +12,11 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool canBeReturned;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
+        [SerializeField] private AudioClip projectileSound;
         //[SerializeField] private GameObject SoundEffectPrefab;
 
         protected int direction;
-        public AudioClip projectileSound;
+        
         public bool CanBeReturned
         {
             get { return canBeReturned; }

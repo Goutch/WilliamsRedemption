@@ -5,9 +5,8 @@ namespace Game.Entity.Enemies.Attack
     class MeleeAttackController : MonoBehaviour
     {
         [SerializeField] private float delayBeforeDestruction;
-
-        public AudioClip meleeSound;
-
+        [SerializeField] private AudioClip meleeSound;
+        
         private void Awake()
         {
             UseSound();
