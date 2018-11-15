@@ -47,10 +47,13 @@ namespace Game.Entity.Enemies.Boss.Jacob
             Finish();
         }
 
-        private void Teleport()
+        protected virtual void Teleport()
         {
             Vector2 oldPosition = transform.position;
-            Destroy(Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity),3);
+
+            if(spawnParticulePrefab != null)
+                Destroy(Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity),3);
+
             do
             {
                 transform.position = teleportPoints[Random.Range(0, teleportPoints.Length)].position;

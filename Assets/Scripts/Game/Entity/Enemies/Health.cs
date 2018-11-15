@@ -1,4 +1,5 @@
-﻿using Game.Controller;
+﻿using AnimatorExtension;
+using Game.Controller;
 using Game.Entity.Enemies;
 using UnityEngine;
 
@@ -8,12 +9,16 @@ namespace Game.Entity
     public class Health : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
-        private bool isKilledByPlayer = true;
         public int MaxHealth => maxHealth;
-        private int healthPoints;
+
         public event HealthEventHandler OnDeath;
         public event HealthEventHandler OnHealthChange;
 
+        private Animator animator;
+
+        private bool isKilledByPlayer = true;
+
+        private int healthPoints;
         public int HealthPoints
         {
             get { return healthPoints; }
@@ -21,6 +26,10 @@ namespace Game.Entity
             {
                 healthPoints = value;
                 OnHealthChange?.Invoke(gameObject);
+
+                if (animator != null && animator.ContainsParam(Values.AnimationParameters.Enemy.Hurt))
+                    animator.SetTrigger(Values.AnimationParameters.Enemy.Hurt);
+
                 if (IsDead())
                 {
                     if (isKilledByPlayer && IsAnEnemy())
@@ -35,6 +44,7 @@ namespace Game.Entity
         void Awake()
         {
             healthPoints = MaxHealth;
+            animator = GetComponent<Animator>();
         }
 
         public void Hit()

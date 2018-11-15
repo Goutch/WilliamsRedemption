@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Edgar
 {
+    [RequireComponent(typeof(ProjectileManager))]
     class ProjectileShoot : Capacity
     {
         [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")]
@@ -13,12 +14,16 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [SerializeField] private GameObject particuleEffect;
         [SerializeField] private Transform spawnPoint;
 
+        private ProjectileManager projectileManager;
+
         private float lastTimeCapacityUsed;
 
         private void Awake()
         {
             if (capacityUsableAtStart)
                 lastTimeCapacityUsed = -cooldown;
+
+            projectileManager = GetComponent<ProjectileManager>();
         }
 
         public override void Act()
@@ -39,15 +44,17 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             lastTimeCapacityUsed = Time.time;
 
-            animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
+            if(animator != null)
+                animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
 
-            Instantiate(particuleEffect, spawnPoint);
+            if(particuleEffect != null)
+                Instantiate(particuleEffect, spawnPoint);
         }
 
         public void ShootPlasmaProjectile()
         {
             Quaternion direction = PlayerDirection();
-            GameObject projectile = Instantiate(bullet, spawnPoint.position, direction);
+            GameObject projectile = projectileManager.SpawnProjectile(bullet, spawnPoint.position, direction);
             projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
 
             Finish();
