@@ -37,7 +37,6 @@ namespace Game.Entity.Enemies.Boss.Death
 
             animator.SetTrigger(Values.AnimationParameters.Death.StunPlayer);
 
-            PlayerController.instance.StunPlayer(stunDuration);
 
             StartCoroutine(PlayerStunFinish());
         }
