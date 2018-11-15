@@ -1,5 +1,6 @@
 using AnimatorExtension;
 using Game.Controller;
+using Game.Controller.Events;
 using Game.Entity.Enemies;
 using UnityEngine;
 
