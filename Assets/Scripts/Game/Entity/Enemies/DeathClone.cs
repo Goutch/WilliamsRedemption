@@ -1,5 +1,6 @@
 ﻿using Game.Entity;
 using Game.Entity.Enemies;
+using Game.Entity.Enemies.Attack;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,20 +41,10 @@ public class DeathClone : Enemy {
         }
     }
 
-    protected override void OnHit(HitStimulus other)
-    {
-        base.OnHit(other);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        HitStimulus other;
-        if (other = collision.GetComponent<HitStimulus>())
-            base.OnHit(other);
-    }
 
     private void ShootProjectile()
     {
-        Instantiate(projectile, transform.position, transform.rotation);
+        GameObject projectileObject = Instantiate(projectile, transform.position, transform.rotation);
+        projectileObject.GetComponent<HitStimulus>().Type = HitStimulus.DamageType.Enemy;
     }
 }

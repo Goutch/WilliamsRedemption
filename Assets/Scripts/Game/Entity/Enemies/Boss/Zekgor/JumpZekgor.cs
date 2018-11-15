@@ -20,7 +20,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 
         private float lastTimeCapacityUsed;
 
-        private void Awake()
+        protected override void Init()
         {
             mover = GetComponent<RootMover>();
             rb = GetComponent<Rigidbody2D>();

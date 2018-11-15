@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Game.Entity.Enemies.Boss.Death
 {
-    [RequireComponent(typeof(RootMover), typeof(Rigidbody2D), typeof(SpriteRenderer))]
+    [RequireComponent(typeof(RootMover), typeof(SpriteRenderer))]
     public class Shadowstep : Capacity
     {
         [SerializeField] private float distanceFromPlayer;
@@ -20,11 +20,10 @@ namespace Game.Entity.Enemies.Boss.Death
 
         private float lastTimeUsed;
 
-        [UsedImplicitly]
-        private void Awake()
+        protected override void Init()
         {
             rigidbody = GetComponent<Rigidbody2D>();
-            collider = GetComponent<Collider2D>();
+            collider = GetComponentInChildren<Collider2D>();
             mover = GetComponent<RootMover>();
         }
 
@@ -35,8 +34,8 @@ namespace Game.Entity.Enemies.Boss.Death
 
         private void TeleportBehindPlayer()
         {
-            Vector2 playerPosition = PlayerController.instance.transform.position;
-            EntityController currentPlayerController = PlayerController.instance.CurrentController;
+            Vector2 playerPosition = player.transform.position;
+            EntityController currentPlayerController = player.CurrentController;
             SpriteRenderer currentPlayerSpriteRenderer = currentPlayerController.GetComponent<SpriteRenderer>();
 
             int playerDirectionFacing = currentPlayerSpriteRenderer.flipX ? -1 : 1;

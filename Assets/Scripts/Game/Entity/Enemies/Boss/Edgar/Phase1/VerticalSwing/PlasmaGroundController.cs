@@ -106,7 +106,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 explosionEffectSize.y / 2 - originSize.y / 2),
                 Quaternion.identity);
 
-            explosionObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
 
             SpawnTiles();
 

@@ -19,7 +19,7 @@ namespace Game.Entity.Enemies.Boss.Anna
         private Animator animator;
         private SpawnedEnemyManager enemyManager;
 
-        private void Awake()
+        protected override void Init()
         {
             animator = GetComponent<Animator>();
             enemyManager = GetComponent<SpawnedEnemyManager>();

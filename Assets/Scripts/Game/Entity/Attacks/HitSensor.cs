@@ -1,25 +1,64 @@
-﻿
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Game.Entity
+namespace Game.Entity.Enemies.Attack
 {
-    public delegate void HitSensorEventHandler(HitStimulus otherStimulus);
+    public delegate void OnHitEventHandler(HitStimulus hitStimulus);
 
     public class HitSensor : MonoBehaviour
     {
-        public event HitSensorEventHandler OnHit;
-        public void Hit(HitStimulus otherStimulus)
+        public event OnHitEventHandler OnHitEnter;
+        public event OnHitEventHandler OnHitExit;
+
+        private List<HitStimulus> hitStimuli;
+
+        private void Awake()
         {
-            NotifyHit(otherStimulus);
+            hitStimuli = new List<HitStimulus>();
         }
 
-        public void NotifyHit(HitStimulus otherStimulus)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            OnHit?.Invoke(otherStimulus);
+            HitStimulus stimulus;
+            if (stimulus = collision.GetComponent<HitStimulus>())
+            {
+                hitStimuli.Add(stimulus);
+                OnHitEnter?.Invoke(stimulus);
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            HitStimulus stimulus;
+            if (stimulus = collision.gameObject.GetComponent<HitStimulus>())
+            {
+                hitStimuli.Add(stimulus);
+                OnHitEnter?.Invoke(stimulus);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            HitStimulus stimulus;
+            if (stimulus = collision.GetComponent<HitStimulus>())
+            {
+                hitStimuli.Remove(stimulus);
+                OnHitExit?.Invoke(stimulus);
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            HitStimulus stimulus;
+            if (stimulus = collision.gameObject.GetComponent<HitStimulus>())
+            {
+                hitStimuli.Remove(stimulus);
+                OnHitExit?.Invoke(stimulus);
+            }
         }
     }
 }
-
-

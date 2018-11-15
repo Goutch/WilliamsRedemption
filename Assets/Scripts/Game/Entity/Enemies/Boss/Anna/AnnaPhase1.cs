@@ -16,12 +16,14 @@ namespace Game.Entity.Enemies.Boss.Anna
     {
         [SerializeField] private float percentageHealthTransitionCondition;
 
+
+        private BossController bossController;
         private RootMover mover;
         private Animator animator;
         private Health health;
-        private BossController bossController;
 
-        private void Awake()
+
+        protected override void Init()
         {
             mover = GetComponent<RootMover>();
             animator = GetComponent<Animator>();
@@ -60,7 +62,7 @@ namespace Game.Entity.Enemies.Boss.Anna
             base.Idle();
             mover.LookAtPlayer();
 
-            if (Mathf.Abs(transform.position.x - PlayerController.instance.transform.position.x) > 0.25f)
+            if (Mathf.Abs(transform.position.x - player.transform.position.x) > 0.25f)
             {
                 mover.MoveForward();
 

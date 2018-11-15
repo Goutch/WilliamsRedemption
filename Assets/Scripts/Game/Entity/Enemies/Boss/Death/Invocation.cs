@@ -17,7 +17,7 @@ namespace Game.Entity.Enemies.Boss.Death
         [SerializeField] private SpawnedEnemyManager enemyManager;
         private float lastTimeUsed;
 
-        private void Awake()
+        protected override void Init()
         {
             if (UsableAtStart)
                 lastTimeUsed = int.MinValue;

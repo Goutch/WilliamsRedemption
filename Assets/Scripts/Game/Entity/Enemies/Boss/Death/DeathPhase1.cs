@@ -14,7 +14,7 @@ namespace Game.Entity.Enemies.Boss.Death
         [SerializeField] private SpawnedEnemyManager enemyManager;
         private Health health;
 
-        private void Awake()
+        protected override void Init()
         {
             animator = GetComponent<Animator>();
             health = GetComponent<Health>();

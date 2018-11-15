@@ -14,7 +14,7 @@ namespace Game.Entity.Enemies.Boss.Death
 
         private Rigidbody2D rb;
 
-        private void Awake()
+        protected override void Init()
         {
             rb = GetComponent<Rigidbody2D>();
         }

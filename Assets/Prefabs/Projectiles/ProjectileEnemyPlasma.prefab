@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4137110478704378}
   - component: {fileID: 212729438007589278}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114509136821399068}
   - component: {fileID: 50975631865947204}
   - component: {fileID: 61077717344239686}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: ProjectileEnemyPlasma
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}

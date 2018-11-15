@@ -16,7 +16,6 @@ namespace Game.Entity.Enemies
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
-            GetComponent<HitStimulus>().OnHitOther += OnHitOther;
         }
 
         private void FixedUpdate()
@@ -28,35 +27,6 @@ namespace Game.Entity.Enemies
                     knocked = false;
         }
 
-        private void OnHitOther(HitSensor other)
-        {
-            if (other.CompareTag(Values.Tags.Player))
-            {
-                other.Root().GetComponent<KinematicRigidbody2D>().AddForce(new Vector2(playerKnockBackForce.x*currenDirection,playerKnockBackForce.y));
-            }
-        }
-        protected override void OnHit(HitStimulus other)
-        {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
-            {
-                base.OnHit(other);
-            }
-            else if (other.DamageSource == HitStimulus.DamageSourceType.William)
-            {
-                int dir;
-                if (other.transform.position.x < this.transform.position.x)
-                {
-                    dir = 1;
-                }
-                else
-                {
-                    dir = -1;
-                }
-
-                rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * dir, bulletKnockBackForce.y),
-                    ForceMode2D.Impulse);
-                knocked = true;
-            }      
-        }
+      
     }
 }

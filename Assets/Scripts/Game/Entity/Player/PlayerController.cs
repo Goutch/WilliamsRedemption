@@ -17,7 +17,6 @@ namespace Game.Entity.Player
 
         [SerializeField] private float invincibilitySeconds;
         private Health health;
-        public static PlayerController instance;
 
         private WilliamController williamController;
         private ReaperController reaperController;
@@ -83,8 +82,6 @@ namespace Game.Entity.Player
         private void Awake()
         {
             currentLevel = 1;
-            if (instance == null)
-                instance = this;
 
             kRigidBody = GetComponent<KinematicRigidbody2D>();
             layerMask = kRigidBody.LayerMask;
@@ -93,7 +90,6 @@ namespace Game.Entity.Player
             health = GetComponent<Health>();
             williamController = GetComponentInChildren<WilliamController>();
             reaperController = GetComponentInChildren<ReaperController>();
-            GetComponent<HitSensor>().OnHit += HandleCollision;
 
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
@@ -126,14 +122,6 @@ namespace Game.Entity.Player
             IsInvincible = false;
         }
 
-        private void HandleCollision(HitStimulus other)
-        {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Enemy ||
-                other.DamageSource == HitStimulus.DamageSourceType.Obstacle)
-            {
-                DamagePlayer();
-            }
-        }
 
 
         private void OnLightExpositionChanged(bool exposed)

@@ -27,7 +27,7 @@ namespace Game.Controller
 
         void Start()
         {
-            PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
+            GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<Health>().OnDeath += OnPlayerDie;
             startTime = UnityEngine.Time.time;
             pauseUI = GetComponent<PauseUI>();
             collectableUI = GetComponent<CollectablesUI>();

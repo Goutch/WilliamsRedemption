@@ -26,7 +26,6 @@ namespace Game.Entity.Enemies
         private void Shoot()
         {
             GameObject projectile = Instantiate(bulletPrefab, projectileSpawnPoint.position, Quaternion.AngleAxis(rotationCannon, Vector3.back));
-            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
         }
 
         private void ResetTimeToShoot()

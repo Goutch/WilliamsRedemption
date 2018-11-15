@@ -4,7 +4,7 @@
     {
         private RootMover mover;
 
-        private void Awake()
+        protected override void Init()
         {
             mover = GetComponent<RootMover>();
         }

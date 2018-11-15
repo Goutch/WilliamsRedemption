@@ -11,13 +11,5 @@ namespace Game.Entity.Enemies.Boss.Jean
             shieldManager = GetComponent<ShieldManager>();
             base.Awake();
         }
-
-        protected override void OnHit(HitStimulus other)
-        {
-            if (!shieldManager.IsShieldActive)
-            {
-                base.OnHit(other);
-            }
-        }
     }
 }

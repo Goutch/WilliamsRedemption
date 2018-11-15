@@ -9,11 +9,7 @@ namespace Game.Entity.Enemies
         [SerializeField] private float jumpForce;
         [SerializeField] private float speed;
         [SerializeField] private float jumpBoost;
-        private int currentDir;
-        private bool isJumping = false;
 
-        public bool IsJumping => isJumping;
-        private Animator animator;
         public float Speed
         {
             get
@@ -26,12 +22,18 @@ namespace Game.Entity.Enemies
                 speed = value;
             }
         }
+        private int currentDir;
+        private bool isJumping = false;
+        public bool IsJumping => isJumping;
 
+        private Animator animator;
         private Rigidbody2D rootRigidBody;
+        private PlayerController player;
 
         private void Awake()
         {
             this.rootRigidBody = this.transform.root.GetComponent<Rigidbody2D>();
+            player = GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<PlayerController>();
             animator = GetComponent<Animator>();
         }
 
@@ -97,7 +99,7 @@ namespace Game.Entity.Enemies
 
         public void LookAtPlayer(Vector2 fromPosition)
         {
-            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - fromPosition.x);
+            float directionX = Mathf.Sign(player.transform.position.x - fromPosition.x);
             if (directionX < 0)
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             else

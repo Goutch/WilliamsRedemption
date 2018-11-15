@@ -19,7 +19,7 @@ namespace Game.Entity.Enemies.Boss.Death
         [SerializeField] private SpawnedEnemyManager enemyManager;
         [SerializeField] private new MeshLight light;
 
-        private void Awake()
+        protected override void Init()
         {
             enemyManager.NumberOfEnemySpawnAllowed = positionsToSpawn.Length;
         }

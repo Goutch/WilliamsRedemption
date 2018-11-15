@@ -27,7 +27,7 @@ namespace Game.Entity.Enemies
         {
             rootMover = GetComponent<RootMover>();
             rigidBody = GetComponent<Rigidbody2D>();
-            playerLightSensor = PlayerController.instance.GetComponent<LightSensor>();
+            playerLightSensor = player.GetComponent<LightSensor>();
             playerLightSensor.OnLightExpositionChange += OnPlayerStateChange;
         }
 
@@ -36,7 +36,7 @@ namespace Game.Entity.Enemies
             if (playerLightSensor.InLight == false)
             {
                 UpdateDirection();
-                rootMover.FlyToward(PlayerController.instance.transform.position);
+                rootMover.FlyToward(player.transform.position);
             }
             else
             {
@@ -68,15 +68,6 @@ namespace Game.Entity.Enemies
             
         }
 
-        protected override void OnHit(HitStimulus other)
-        {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
-            {
-                Vector2 kockBackDir = (this.transform.position - other.transform.position);
-                base.OnHit(other);
-                rigidBody.AddForce(kockBackDir.normalized * damageKnockBackForce, ForceMode2D.Impulse);
-            }
-        }
 
         private IEnumerator DisapearRoutine()
         {

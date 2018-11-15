@@ -55,7 +55,7 @@ namespace Game.Entity.Player
                 Physics2D.Raycast(
                     root.position,
                     player.playerHorizontalDirection, teleportationDistance,
-                    player.ReaperLayerMask);
+                    1 << LayerMask.NameToLayer(Values.Layers.Platform));
 
             if (hit.collider == null)
             {
@@ -83,6 +83,7 @@ namespace Game.Entity.Player
         {
             if (mustTeleport)
             {
+                Vector2 test = transform.position;
                 rb.MovePosition(tpPosition);
                 mustTeleport = false;
             }
@@ -121,6 +122,7 @@ namespace Game.Entity.Player
 
             GameObject meleeAttackObject = Instantiate(meleeAttack, transform);
             meleeAttackObject.transform.localRotation = angle;
+            meleeAttackObject.transform.parent = transform;
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
         }
     }

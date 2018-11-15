@@ -5,11 +5,14 @@ namespace Game.Entity.Enemies
 {
     public class Bat : Enemy
     {
-        private RootMover rootMover;
-        private int direction = 1;
-        private bool isTriggered;
         [SerializeField] private Vector2 exponentialFonction;
         [SerializeField] private float fonctionYOffSet = .32f;
+
+        private RootMover rootMover;
+
+        private int direction = 1;
+        private bool isTriggered;
+
 
 
         protected void Fly()
@@ -28,7 +31,7 @@ namespace Game.Entity.Enemies
                 isTriggered = true;
                 animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
                 Destroy(this.gameObject, 10);
-                direction = PlayerController.instance.transform.position.x - transform.root.position.x > 0
+                direction = player.transform.position.x - transform.root.position.x > 0
                     ? 1
                     : -1;
                 if (direction == 1)

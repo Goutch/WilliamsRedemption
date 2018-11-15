@@ -57,11 +57,10 @@ namespace Game.Entity.Enemies.Boss
         private void SpawnedEnemyManager_OnDeath(GameObject enemy)
         {
             enemies.Remove(enemy);
-
-            if (IsAllEnemySpawned())
-                ResetEnemySpawnedCount();
-
             OnEnnemyDied?.Invoke(enemy);
+
+            if (IsAllEnemySpawned() && GetNumberOfEnemies() == 0)
+                ResetEnemySpawnedCount();
         }
 
         public int GetNumberOfEnemies()

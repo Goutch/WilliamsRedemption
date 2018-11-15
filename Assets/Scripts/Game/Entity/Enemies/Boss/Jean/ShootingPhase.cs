@@ -16,7 +16,7 @@ namespace Game.Entity.Enemies.Boss.Jean
             return base.CanEnter() && shieldManager.ShieldPercent > 0;
         }
 
-        private void Awake()
+        protected override void Init()
         {
             mover = GetComponent<RootMover>();
             shieldManager = GetComponent<ShieldManager>();

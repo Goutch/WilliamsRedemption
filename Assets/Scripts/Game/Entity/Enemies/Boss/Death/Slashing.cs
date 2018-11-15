@@ -13,7 +13,7 @@ namespace Game.Entity.Enemies.Boss.Death
     {
         private Animator animator;
 
-        private void Awake()
+        protected override void Init()
         {
             animator = GetComponent<Animator>();
         }

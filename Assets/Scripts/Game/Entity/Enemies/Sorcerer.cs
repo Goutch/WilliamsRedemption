@@ -14,9 +14,9 @@ namespace Game.Entity.Enemies
 
         private float timeSinceLastAttack;
 
-        private new void Awake()
+        protected override void Init()
         {
-            base.Awake();
+            base.Init();
             timeSinceLastAttack = Time.time;
         }
 
@@ -24,7 +24,7 @@ namespace Game.Entity.Enemies
         {
             RaycastHit2D hit2D = new RaycastHit2D();
 
-            Vector2 dir = PlayerController.instance.transform.position - transform.position;
+            Vector2 dir = player.transform.position - transform.position;
             hit2D = Physics2D.Raycast(transform.position, dir, sightRange, layerVisibleByTheUnit);
 
             if (hit2D.collider != null && hit2D.collider.CompareTag(Values.Tags.Player))
@@ -48,13 +48,12 @@ namespace Game.Entity.Enemies
         public void ShootProjectile(Quaternion direction)
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, direction);
-            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
             animator.SetTrigger(Values.AnimationParameters.Enemy.Attack);
         }
 
         private Quaternion PlayerDirection()
         {
-            Vector2 dir = PlayerController.instance.transform.position - transform.position;
+            Vector2 dir =player.transform.position - transform.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion direction = Quaternion.AngleAxis(angle, Vector3.forward);
             return direction;

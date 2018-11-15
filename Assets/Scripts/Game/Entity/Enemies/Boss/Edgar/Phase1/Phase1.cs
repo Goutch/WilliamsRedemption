@@ -12,7 +12,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private Health health;
         private RootMover mover;
 
-        private void Awake()
+        protected override void Init()
         {
             health = GetComponent<Health>();
             health.OnHealthChange += Health_OnHealthChange;

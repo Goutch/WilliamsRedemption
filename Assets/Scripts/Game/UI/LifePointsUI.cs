@@ -12,6 +12,7 @@ namespace Game.UI
         private GameObject[] lifePointsImages;
         private PlayerController playerController;
         private Health playerHealth;
+
         private void Start()
         {
             if (instance == null)
@@ -20,8 +21,8 @@ namespace Game.UI
             {
                 Destroy(this.gameObject);
             }
-
-            playerController = PlayerController.instance;
+            GameObject objectS = GameObject.FindGameObjectWithTag(Values.Tags.Player);
+            playerController = GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<PlayerController>();
             playerHealth = playerController.GetComponent<Health>();
             playerHealth.OnHealthChange += OnHealthChange;
             lifePointsImages = new GameObject[playerHealth.MaxHealth];

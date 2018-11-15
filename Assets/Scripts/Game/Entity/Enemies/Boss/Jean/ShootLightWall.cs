@@ -12,6 +12,11 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         private ShieldManager shieldManager;
 
+        protected override void Init()
+        {
+
+        }
+
         public override void Enter()
         {
             base.Enter();

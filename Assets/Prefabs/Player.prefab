@@ -11,23 +11,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1485973637437590}
   m_IsPrefabAsset: 1
---- !u!1 &1146203869401504
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4284094366158722}
-  - component: {fileID: 58590137019637222}
-  - component: {fileID: 114018446814034060}
-  m_Layer: 14
-  m_Name: RangeTrigger
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1260370951139702
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,9 +23,9 @@ GameObject:
   - component: {fileID: 114052410221525620}
   - component: {fileID: 95204828313189758}
   - component: {fileID: 61639566562894936}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Reaper
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,16 +39,15 @@ GameObject:
   m_Component:
   - component: {fileID: 4810564569891190}
   - component: {fileID: 114926903096335436}
-  - component: {fileID: 114802261952464798}
   - component: {fileID: 331281465660467604}
   - component: {fileID: 114202914198825776}
-  - component: {fileID: 114802316432215884}
   - component: {fileID: 50817793017110226}
   - component: {fileID: 114913052588184466}
   - component: {fileID: 114043392105808680}
   - component: {fileID: 114348915077439140}
   - component: {fileID: 114216722390949236}
-  m_Layer: 1
+  - component: {fileID: 114432879913396936}
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -82,7 +64,7 @@ GameObject:
   - component: {fileID: 4497981617914682}
   - component: {fileID: 198517467293896838}
   - component: {fileID: 199584051926578422}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Paticule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +83,9 @@ GameObject:
   - component: {fileID: 95969086284925558}
   - component: {fileID: 114729406392851916}
   - component: {fileID: 61365683719780014}
-  m_Layer: 1
+  m_Layer: 10
   m_Name: William
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +100,7 @@ GameObject:
   - component: {fileID: 4843001817836080}
   - component: {fileID: 198314816615773322}
   - component: {fileID: 199274223819952426}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Paticule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4199709009178004}
-  m_Layer: 1
+  m_Layer: 10
   m_Name: GunEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,19 +134,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4483256213265086}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4284094366158722
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1146203869401504}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4810564569891190}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4302502636305752
 Transform:
@@ -215,12 +184,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485973637437590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.8, y: 3.7, z: 0}
+  m_LocalPosition: {x: 16, y: 11.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4302502636305752}
   - {fileID: 4483256213265086}
-  - {fileID: 4284094366158722}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -257,21 +225,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!58 &58590137019637222
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1146203869401504}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.01
 --- !u!61 &61365683719780014
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -282,7 +235,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.02}
   m_SpriteTilingProperty:
@@ -307,7 +260,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: -0.03, y: -0.02}
   m_SpriteTilingProperty:
@@ -358,17 +311,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114018446814034060
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1146203869401504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114043392105808680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -384,7 +326,7 @@ MonoBehaviour:
   gravityMultiplier: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 130871
+    m_Bits: 0
   maxGroundSlopeAngleArctan: 0.35000002
   sleepVelocity: 0.001
   deltaPrecision: 0.01
@@ -401,12 +343,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 0.2
-  teleportationDistance: 1.92
-  tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
-  tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
     type: 2}
+  teleportationDistance: 1.92
   TeleportationCoolDown: 0.8
+  tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
+  tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
 --- !u!114 &114202914198825776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -443,6 +385,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b94a760e8bb984b81d6b56674c128d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114432879913396936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485973637437590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09a37129c5af9845aaaaf4cab2a4d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114729406392851916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -455,34 +408,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 0.1
-  dashDistance: 1.28
-  dashSpeed: 12.8
+  dashDistance: 1.6
+  dashSpeed: 16
   projectile: {fileID: 1689002622773110, guid: 91c6616cb3ccb8d48911555a81756f0b, type: 2}
   fireRate: 1
   DashCoolDown: 0.8
---- !u!114 &114802261952464798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1485973637437590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114802316432215884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1485973637437590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 4
 --- !u!114 &114913052588184466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -498,6 +428,7 @@ MonoBehaviour:
   jumpSpeed: 4
   playerNoLongerGroundedDelay: 0.1
   amountOfAdditionalJumps: 1
+  additionalJumpVelocity: 0.76
 --- !u!114 &114926903096335436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -511,10 +442,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   williamLayerMask:
     serializedVersion: 2
-    m_Bits: 122679
+    m_Bits: 2560
   reaperLayerMask:
     serializedVersion: 2
-    m_Bits: 116535
+    m_Bits: 2048
   invincibilitySeconds: 1
 --- !u!198 &198314816615773322
 ParticleSystem:

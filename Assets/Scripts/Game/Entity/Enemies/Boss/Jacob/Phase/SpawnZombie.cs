@@ -15,7 +15,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         private SpawnedEnemyManager spawnedEnemyManager;
 
-        private void Awake()
+        protected override void Init()
         {
             spawnedEnemyManager = GetComponent<SpawnedEnemyManager>();
         }

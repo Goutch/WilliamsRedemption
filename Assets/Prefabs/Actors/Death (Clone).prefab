@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 0
-  projectile: {fileID: 1689002622773110, guid: 02eb7d085ee45b746ba344b467307393, type: 2}
+  projectile: {fileID: 1689002622773110, guid: 91c6616cb3ccb8d48911555a81756f0b, type: 2}
   delayBetweenShot: 4
 --- !u!114 &114353070276424658
 MonoBehaviour:
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 2
 --- !u!212 &212332890381840368
 SpriteRenderer:
   m_ObjectHideFlags: 1

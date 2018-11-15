@@ -11,7 +11,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private SpawnedTilesManager spawnedTilesManager;
         private RootMover mover;
 
-        private void Awake()
+        protected override void Init()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
             mover = GetComponent<RootMover>();

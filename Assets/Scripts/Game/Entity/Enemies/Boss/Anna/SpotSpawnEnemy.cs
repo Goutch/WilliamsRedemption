@@ -47,5 +47,10 @@ namespace Game.Entity.Enemies.Boss.Anna
 
             enemyManager.SpawnEnemy(enemyToSpawn, spawnPoint.position, Quaternion.identity);
         }
+
+        protected override void Init()
+        {
+            
+        }
     }
 }

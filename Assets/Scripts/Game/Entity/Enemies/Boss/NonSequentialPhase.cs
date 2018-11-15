@@ -21,13 +21,13 @@ namespace Game.Entity.Enemies.Boss
         protected virtual void EnterIdle()
         {
             IsIdling = true;
-            Debug.Log("Enter Idle: " + this);
+            //Debug.Log("Enter Idle: " + this);
         }
 
         protected virtual void ExitIdle()
         {
             IsIdling = false;
-            Debug.Log("Exit Idle: " + this);
+            //Debug.Log("Exit Idle: " + this);
         }
 
         public override void Act()
