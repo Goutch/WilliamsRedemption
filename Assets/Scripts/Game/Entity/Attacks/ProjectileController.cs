@@ -39,7 +39,7 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
-            UseSound();
+            //UseSound();
             StartCoroutine(Destroy());
             direction = 1;
             GetComponent<HitSensor>().OnHit += HandleCollision;
@@ -117,7 +117,7 @@ namespace Game.Entity.Enemies.Attack
         private void UseSound()
         {
             //AudioSource source=Instantiate(SoundEffectPrefab, this.transform.position,Quaternion.identity).GetComponent<AudioSource>();        
-            GameObject.FindGameObjectWithTag(Values.GameObject.GameController).GetComponent<AudioManager>()
+            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<AudioManager>()
                 .PlaySound(projectileSound);
         }
     }
