@@ -39,7 +39,7 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
-            //UseSound();
+            UseSound();
             StartCoroutine(Destroy());
             direction = 1;
             GetComponent<HitSensor>().OnHit += HandleCollision;
