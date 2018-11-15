@@ -155,6 +155,9 @@ MonoBehaviour:
     type: 2}
   sightRange: 2
   attackCooldown: 1
+  layerVisibleByTheUnit:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &114799244635330762
 MonoBehaviour:
   m_ObjectHideFlags: 1
