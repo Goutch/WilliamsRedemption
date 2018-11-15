@@ -11,6 +11,7 @@ namespace Game.Entity.Enemies
         protected Animator animator;
         protected SpriteRenderer spriteRenderer;
         public int ScoreValue => scoreValue;
+        public bool IsInvulnerable { get; set; }
 
         protected void Awake()
         {
@@ -27,7 +28,7 @@ namespace Game.Entity.Enemies
 
         protected virtual void OnHit(HitStimulus other)
         {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper || other.DamageSource == HitStimulus.DamageSourceType.William)
+            if (!IsInvulnerable && (other.DamageSource == HitStimulus.DamageSourceType.Reaper || other.DamageSource == HitStimulus.DamageSourceType.William))
                 health.Hit();
         }
 

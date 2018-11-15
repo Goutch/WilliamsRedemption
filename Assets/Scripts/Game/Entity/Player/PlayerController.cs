@@ -29,10 +29,6 @@ namespace Game.Entity.Player
         private LayerMask layerMask;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
-        private Vector2 newPlayerPosition;
-        private bool mustSetPosition;
-        private bool isInvincible = false;
-
 
 
         private int currentLevel;
@@ -65,7 +61,7 @@ namespace Game.Entity.Player
 
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
-        
+        private bool isInvincible;
 
         public bool IsInvincible
         {
@@ -90,6 +86,7 @@ namespace Game.Entity.Player
             kRigidBody = GetComponent<KinematicRigidbody2D>();
             layerMask = kRigidBody.LayerMask;
 
+            isInvincible = false;
 
             health = GetComponent<Health>();
             williamController = GetComponentInChildren<WilliamController>();

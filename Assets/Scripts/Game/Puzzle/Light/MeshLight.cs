@@ -20,6 +20,7 @@ namespace Game.Puzzle.Light
         [SerializeField] protected LayerMask detectionLayers;
 
         private bool isLocked;
+        private MeshRenderer renderer;
 
         public bool HasMovingObstaclesInRange
         {
@@ -55,6 +56,11 @@ namespace Game.Puzzle.Light
             this.gameObject.layer = 2;
             GetComponent<MeshFilter>().mesh = mesh;
             isLocked = false;
+            renderer = GetComponent<MeshRenderer>();
+            if (isOpen)
+                Open();
+            else
+                Close();
         }
 
         public void DrawMesh()
@@ -173,7 +179,7 @@ namespace Game.Puzzle.Light
         {
             isOpen = true;
             DrawMesh();
-            GetComponent<LightStimulu>().enabled = true;
+            renderer.enabled = true;
         }
 
         public void Close()
@@ -181,7 +187,7 @@ namespace Game.Puzzle.Light
             isOpen = false;
             mesh.Clear();
             vertices.Clear();
-            GetComponent<LightStimulu>().enabled = false;
+            renderer.enabled = false;
         }
 
 

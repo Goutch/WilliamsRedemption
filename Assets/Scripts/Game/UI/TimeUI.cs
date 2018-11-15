@@ -47,6 +47,11 @@ namespace Game.UI
         {
             return remainingTime <= 0;
         }
+
+        public float GetRemainingTime()
+        {
+            return remainingTime;
+        }
     }
 
 }

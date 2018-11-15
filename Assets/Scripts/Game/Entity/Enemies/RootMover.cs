@@ -72,6 +72,12 @@ namespace Game.Entity.Enemies
             rootRigidBody.velocity = new Vector2(Vector2.up.x * rootRigidBody.velocity.x + (Vector2.right.x * direction * Speed), rootRigidBody.velocity.y);
         }
 
+        public void MoveForward()
+        {
+
+            rootRigidBody.MovePosition(new Vector2(transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1), transform.position.y));
+        }
+
         public void MoveOnXAxis()
         {
             MoveOnXAxis(1);
@@ -86,7 +92,12 @@ namespace Game.Entity.Enemies
 
         public void LookAtPlayer()
         {
-            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
+            LookAtPlayer(transform.position);
+        }
+
+        public void LookAtPlayer(Vector2 fromPosition)
+        {
+            float directionX = Mathf.Sign(PlayerController.instance.transform.position.x - fromPosition.x);
             if (directionX < 0)
                 transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
             else
