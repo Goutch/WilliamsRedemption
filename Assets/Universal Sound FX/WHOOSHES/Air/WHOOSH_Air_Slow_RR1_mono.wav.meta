@@ -1,16 +1,14 @@
 fileFormatVersion: 2
-guid: 86bb01ffc8c100a4e97ce4d1797042b3
+guid: d3c598914439a5a4f8f1e4ccc1ffb2d1
 labels:
 - usfx
 - imphenzia
 - mono
-- sword
-- impact
-- hit
-- medieval
-- metal
-- clang
-- cling
+- whoosh
+- swoosh
+- air
+- blade
+- swing
 AudioImporter:
   serializedVersion: 6
   defaultSettings:
