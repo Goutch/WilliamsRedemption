@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using System.Collections;
+using Game.Controller;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Attack
@@ -13,6 +14,8 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private bool destroyOnPlatformsCollision = true;
 
         protected int direction;
+        private AudioSource source;
+        public AudioClip projectileSound;
         public bool CanBeReturned
         {
             get { return canBeReturned; }
@@ -37,6 +40,7 @@ namespace Game.Entity.Enemies.Attack
         protected virtual void Awake()
         {
             StartCoroutine(Destroy());
+            UseSound();
             direction = 1;
             GetComponent<HitSensor>().OnHit += HandleCollision;
         }
@@ -108,6 +112,13 @@ namespace Game.Entity.Enemies.Attack
             {
                 Destroy(this.gameObject);
             }
+        }
+
+        private void UseSound()
+        {
+            source = GetComponent<AudioSource>();
+            GameObject.FindGameObjectWithTag(Values.GameObject.GameController).GetComponent<AudioManager>()
+                .PlaySound(source,projectileSound);
         }
     }
 
