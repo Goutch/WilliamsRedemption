@@ -49,16 +49,6 @@ namespace Game.Entity.Player
             }
 
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                player.AimUp();
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                player.AimDown();
-            }
-
             if (Input.GetKeyDown(KeyCode.LeftShift) &&
                 playerController.CurrentController.CapacityUsable(playerController))
             {
@@ -93,17 +83,6 @@ namespace Game.Entity.Player
             else if (controllerState.ThumbSticks.Left.X >= 0.5)
             {
                 player.MoveRight();
-            }
-
-
-            if (controllerState.ThumbSticks.Left.Y >= 0.5)
-            {
-                player.AimUp();
-            }
-
-            if (controllerState.ThumbSticks.Left.Y <= -0.5)
-            {
-                player.AimDown();
             }
 
             if (controllerState.Buttons.X == ButtonState.Pressed &&

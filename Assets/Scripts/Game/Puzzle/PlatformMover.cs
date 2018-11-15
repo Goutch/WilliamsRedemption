@@ -1,5 +1,10 @@
-﻿using Game.Entity.Player;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Timers;
+using Game.Entity.Player;
+using Harmony;
 using UnityEngine;
+using UnityScript.Steps;
 
 namespace Game.Puzzle
 {
@@ -49,63 +54,92 @@ namespace Game.Puzzle
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
-        private Rigidbody2D rb;
+        private Vector2 lastPosition;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
-        private float quadraticFucntion;
+        private float quadraticFunction;
         private float positionX;
+        private float verticalCapacityPrecisionOffset;
+        
+        
+        //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
+        private HashSet<Transform> transforms;
+        //Translation vector used by the platform and it's colliding objects.
+        private Vector2 translation;
 
 
-        // Use this for initialization
-        private void Start()
+        private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
-            initialPositionX = rb.position.x;
-            initialPositionY = rb.position.y;
+            initialPositionX = transform.position.x;
+            initialPositionY = transform.position.y;
             positionX = initialPositionX;
             quadraticX = 0;
+            transforms = new HashSet<Transform>();
+            lastPosition = transform.position;
+            translation = new Vector2(0, 0);
+            verticalCapacityPrecisionOffset = 0.0001f;
         }
 
-        // Update is called once per frame
         private void Update()
         {
             CheckHorizontalDirection();
             checkVertialDirection();
         }
 
-
-        private void FixedUpdate()
+        private void OnEnable()
         {
-            if (!isUsingQuadraticCurve)
-            {
-                rb.velocity = new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed);
-            }
-            else
-            {
-                useQuadraticCurve();
-            }
+            StartCoroutine(FollowPlatform());
         }
 
-        private void OnCollisionStay2D(Collision2D other)
+        private void OnDisable()
         {
-            if (other.collider.CompareTag(Values.Tags.Player))
+            StopCoroutine(FollowPlatform());
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag(Values.Tags.Player))
             {
-                if (!other.gameObject.GetComponent<PlayerController>().IsMoving)
+                if (!transforms.Contains(other.transform))
                 {
-                    other.transform.parent = gameObject.transform;
-                }
-                else
-                {
-                    other.transform.parent = null;
+                    transforms.Add(other.transform);
                 }
             }
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.collider.CompareTag(Values.Tags.Player))
+            if (transforms.Contains(other.transform))
             {
-                other.transform.parent = null;
+                transforms.Remove(other.transform);
+            }
+        }
+
+        IEnumerator FollowPlatform()
+        {
+            while (isActiveAndEnabled)
+            {
+                if (!isUsingQuadraticCurve)
+                {
+                    translation =
+                        new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
+                        Time.deltaTime;
+                }
+                else
+                {
+                    translation = useQuadraticCurve();
+                }
+
+                transform.Translate(translation);
+
+                if (transforms.Count > 0)
+                {
+                    foreach (var transformer in transforms)
+                    {
+                        transformer.Translate(translation);
+                    }
+                }
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -161,13 +195,20 @@ namespace Game.Puzzle
             }
         }
 
-        private void useQuadraticCurve()
+        private Vector2 useQuadraticCurve()
         {
-            quadraticX = rb.position.x - initialPositionX;
-            positionX += HorizontalSpeed * horizontalDirection.x * Time.fixedDeltaTime;
-            quadraticFucntion = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
-            Vector2 curve = new Vector2(positionX, quadraticFucntion + initialPositionY);
-            rb.MovePosition(curve);
+            lastPosition = transform.position;
+            quadraticX = transform.position.x - initialPositionX;
+            positionX += HorizontalSpeed * horizontalDirection.x * Time.deltaTime;
+            quadraticFunction = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
+            Vector2 curve = new Vector2(positionX, quadraticFunction + initialPositionY);
+
+            return curve - lastPosition;
+        }
+
+        public float GetVerticalSpeed()
+        {
+            return VerticalSpeed * Time.deltaTime;
         }
     }
 }

@@ -16,6 +16,7 @@ TagManager:
   - Light
   - ProjectileEnemy
   - PassThrough
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
