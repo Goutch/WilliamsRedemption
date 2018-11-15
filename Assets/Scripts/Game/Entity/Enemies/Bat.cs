@@ -8,9 +8,9 @@ namespace Game.Entity.Enemies
         private RootMover rootMover;
         private int direction = 1;
         private bool isTriggered;
+        [SerializeField] private AudioClip batSound;
         [SerializeField] private Vector2 exponentialFonction;
         [SerializeField] private float fonctionYOffSet = .32f;
-
 
         protected void Fly()
         {
@@ -25,6 +25,7 @@ namespace Game.Entity.Enemies
         {
             if (!isTriggered)
             {
+                UseSound();
                 isTriggered = true;
                 animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
                 Destroy(this.gameObject, 10);
@@ -50,6 +51,11 @@ namespace Game.Entity.Enemies
             {
                 Fly();
             }
+        }
+        private void UseSound()
+        {
+            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<AudioManager>()
+                .PlaySound(batSound);
         }
     }
 }
