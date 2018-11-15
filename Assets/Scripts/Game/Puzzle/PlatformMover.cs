@@ -63,7 +63,7 @@ namespace Game.Puzzle
         
         
         //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
-        private HashSet<Transform> transformers;
+        private HashSet<Transform> transforms;
         //Translation vector used by the platform and it's colliding objects.
         private Vector2 translation;
 
@@ -74,7 +74,7 @@ namespace Game.Puzzle
             initialPositionY = transform.position.y;
             positionX = initialPositionX;
             quadraticX = 0;
-            transformers = new HashSet<Transform>();
+            transforms = new HashSet<Transform>();
             lastPosition = transform.position;
             translation = new Vector2(0, 0);
             verticalCapacityPrecisionOffset = 0.0001f;
@@ -100,18 +100,18 @@ namespace Game.Puzzle
         {
             if (other.gameObject.CompareTag(Values.Tags.Player))
             {
-                if (!transformers.Contains(other.transform))
+                if (!transforms.Contains(other.transform))
                 {
-                    transformers.Add(other.transform);
+                    transforms.Add(other.transform);
                 }
             }
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (transformers.Contains(other.transform))
+            if (transforms.Contains(other.transform))
             {
-                transformers.Remove(other.transform);
+                transforms.Remove(other.transform);
             }
         }
 
@@ -132,9 +132,9 @@ namespace Game.Puzzle
 
                 transform.Translate(translation);
 
-                if (transformers.Count > 0)
+                if (transforms.Count > 0)
                 {
-                    foreach (var transformer in transformers)
+                    foreach (var transformer in transforms)
                     {
                         transformer.Translate(translation);
                     }

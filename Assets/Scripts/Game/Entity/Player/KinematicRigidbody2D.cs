@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Game.Puzzle;
 using UnityEngine;
 
@@ -101,7 +102,11 @@ namespace Game.Entity.Player
             var verticalDeltaPosition = Vector2.up * deltaPosition.y;
 
             ApplyDeltaPosition(horizontalDeltaPosition, false);
+            ApplyDeltaPosition(Vector2.left * Time.fixedDeltaTime, false);
+            ApplyDeltaPosition(Vector2.right * Time.fixedDeltaTime, false);
             ApplyDeltaPosition(verticalDeltaPosition, true);
+            
+            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
 
             latestVelocity = velocity;
 
@@ -119,7 +124,7 @@ namespace Game.Entity.Player
             isOnMovingGround = false;
             contactFilter.layerMask = layerMask;
         }
-
+        
         private void AddGravityToVelocity()
         {
             velocity += GetGravityDeltaPosition();
@@ -180,7 +185,7 @@ namespace Game.Entity.Player
         {
             var deltaMagnitude = deltaPosition.magnitude;
 
-            if (deltaMagnitude > sleepVelocity)
+            if (deltaMagnitude >= sleepVelocity)
             {
                 var attachedColliderCount = rigidbody.attachedColliderCount;
                 var selfColliders = new Collider2D[attachedColliderCount];
@@ -256,7 +261,6 @@ namespace Game.Entity.Player
             }
 
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
-            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
         }
     }
 }
