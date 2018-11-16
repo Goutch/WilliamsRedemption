@@ -29,6 +29,10 @@ namespace Game.Entity.Player
         private LayerMask layerMask;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
+        
+        [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
 
 
         private int currentLevel;
@@ -112,6 +116,7 @@ namespace Game.Entity.Player
         {
             if (!IsInvincible)
             {
+                UseSound();
                 health.Hit();
                 StartCoroutine(InvincibleRoutine());
             }
@@ -194,6 +199,12 @@ namespace Game.Entity.Player
             {
                 CurrentController.sprite.flipX = false;
             }
+        }
+        private void UseSound()
+        {
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(woundedSound, true, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }
