@@ -1,6 +1,8 @@
 ﻿using Game.Puzzle.Light;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Controller;
+using Game.Controller.Events;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -29,8 +31,8 @@ namespace Game.Entity.Player
         private LayerMask layerMask;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
-
-
+        private PlayerHealthEventChannel playerHealthEventChannel;
+        private GameController gameController;
         private int currentLevel;
         private int numbOfLocks = 0;
 
@@ -81,20 +83,27 @@ namespace Game.Entity.Player
         {
             currentLevel = 1;
             if (instance == null)
+            {
                 instance = this;
+            }
 
+            gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<GameController>();
+            playerHorizontalDirection = Vector2.right;
             kRigidBody = GetComponent<KinematicRigidbody2D>();
             layerMask = kRigidBody.LayerMask;
 
             isInvincible = false;
-
+            numbOfLocks = 0;
+        
             health = GetComponent<Health>();
             williamController = GetComponentInChildren<WilliamController>();
             reaperController = GetComponentInChildren<ReaperController>();
-            GetComponent<HitSensor>().OnHit += HandleCollision;
-
+            CurrentController = williamController;
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
+            GetComponent<HitSensor>().OnHit += HandleCollision;
+            playerHealthEventChannel = gameController.GetComponent<PlayerHealthEventChannel>();
         }
 
         private void Start()
@@ -113,6 +122,7 @@ namespace Game.Entity.Player
             {
                 health.Hit();
                 StartCoroutine(InvincibleRoutine());
+                playerHealthEventChannel.Publish(new OnPlayerTakeDamage());
             }
         }
 
@@ -147,11 +157,13 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                williamController.sprite.flipX = reaperController.sprite.flipX;
-                williamController.gameObject.SetActive(true);
+                //williamController.sprite.flipX = reaperController.sprite.flipX;
                 reaperController.OnAttackFinish();
-                CurrentController = williamController;
                 reaperController.gameObject.SetActive(false);
+                williamController.gameObject.SetActive(true);
+
+                CurrentController = williamController;
+
                 kRigidBody.LayerMask = williamLayerMask;
             }
         }
@@ -160,11 +172,14 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                reaperController.sprite.flipX = williamController.sprite.flipX;
-                reaperController.gameObject.SetActive(true);
+                // reaperController.sprite.flipX = williamController.sprite.flipX;
                 williamController.OnAttackFinish();
-                CurrentController = reaperController;
                 williamController.gameObject.SetActive(false);
+                reaperController.gameObject.SetActive(true);
+                
+
+                CurrentController = reaperController;
+
                 kRigidBody.LayerMask = reaperLayerMask;
             }
         }
@@ -194,9 +209,5 @@ namespace Game.Entity.Player
                 CurrentController.sprite.flipX = false;
             }
         }
-
-     
-
-
     }
 }

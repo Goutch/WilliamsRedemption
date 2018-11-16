@@ -28,8 +28,10 @@ namespace Game.Controller
         private bool isGameStarted = false;
         private Level currentLevel;
         public event GameControllerEventHandler OnGameEnd;
+        public event GameControllerEventHandler OnLevelChange;
 
         private CollectablesEventChannel collectablesEventChannel;
+
         //UI
         private ScoreUI scoreUI;
         private CollectablesUI collectableUI;
@@ -51,6 +53,8 @@ namespace Game.Controller
 
         private int totalTime = 0;
 
+        public Level CurrentLevel => currentLevel;
+
         void Start()
         {
             menu = GetComponent<MenuManager>();
@@ -59,7 +63,8 @@ namespace Game.Controller
             lifePointsUI = GetComponent<LifePointsUI>();
             collectablesEventChannel = GetComponent<CollectablesEventChannel>();
             SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.LoadSceneAsync(Values.Scenes.Menu, LoadSceneMode.Additive);
+            if (SceneManager.GetActiveScene().name == "Main")
+                SceneManager.LoadSceneAsync(Values.Scenes.Menu, LoadSceneMode.Additive);
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -119,7 +124,8 @@ namespace Game.Controller
 
         public void NextLevel()
         {
-            if (SceneManager.GetActiveScene().name== Values.Scenes.Menu)
+            OnLevelChange?.Invoke();
+            if (SceneManager.GetActiveScene().name == Values.Scenes.Menu)
             {
                 isGameStarted = true;
                 isGamePaused = false;

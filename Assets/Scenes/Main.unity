@@ -118,6 +118,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1453289080750168, guid: 432db387a6d85fd43a87b8a1841ecf20,
     type: 2}
   m_PrefabInternal: {fileID: 885975994}
+--- !u!114 &223179751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 223179750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc1d28d788e433893d5681acd69756a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &223179752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 223179750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc1d28d788e433893d5681acd69756a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &223179762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,13 +193,13 @@ Prefab:
     - target: {fileID: 114137147069472340, guid: 432db387a6d85fd43a87b8a1841ecf20,
         type: 2}
       propertyPath: BunnyHop
-      value: 2
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 114351726763380652, guid: 432db387a6d85fd43a87b8a1841ecf20,
         type: 2}
       propertyPath: startLevel
       value: 
-      objectReference: {fileID: 11400000, guid: b523f614d601f5049a396edcd8b567b3,
+      objectReference: {fileID: 11400000, guid: 25fbb541bbd6a7a4d9664185ca09f786,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 432db387a6d85fd43a87b8a1841ecf20, type: 2}

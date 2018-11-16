@@ -18,7 +18,7 @@ namespace Game.Values
         public const string Perfection = "Perfection";
         public const string PhantomsCanHang = "Phantoms Can Hang";
         public const string PriestSlayer = "Priest Slayer";
-        public const string SuperSonic = "Super Sonic";
+        public const string SuperSonic = "Supersonic";
         public const string TangledChains= "Tangled Chains";
         public const string TriggerHappy = "Trigger Happy";
         public const string ZeroDeaths= "Zero Deaths";

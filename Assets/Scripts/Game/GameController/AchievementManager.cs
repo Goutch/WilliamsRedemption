@@ -9,6 +9,7 @@ using Game.Entity.Enemies.Boss.Zekgor;
 using Game.UI;
 using Game.Values.AnimationParameters;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 namespace Game.Controller
 {
@@ -17,17 +18,22 @@ namespace Game.Controller
         [SerializeField] private AchievementUI achievementUi;
 
 
-        [Tooltip("PhantomCanHang number of ghost to unlock achievement")] [SerializeField]
+        [Tooltip("PhantomCanHang number of ghost to kill to unlock Phantoms can hang")] [SerializeField]
         private int PhantomCanHang = 10;
 
         [Tooltip("Number of jump to unluck BunnyHop")] [SerializeField]
         private int BunnyHop = 500;
 
+        [Tooltip("Number of second to unlock super sonic")] [SerializeField]
+        private int supersonic = 600;
+
+        [Tooltip("Number of shoot to unlock trigger happy")] [SerializeField]
+        private int triggerHappy=1;
+
         private GameController gameController;
         private string achievementPath = "Achievements";
         private List<Achievement> acomplishedAchievements;
         private Dictionary<string, Achievement> achievements;
-        public List<Achievement> AcomplishedAchievements => acomplishedAchievements;
 
         private int zombieKillCount = 0;
         private int ghostKillCount = 0;
@@ -36,8 +42,12 @@ namespace Game.Controller
         private int collectableLevel1Count = 0;
         private int collectableLevel2Count = 0;
         private int collectableLevel3Count = 0;
+        private int Level1PlayerDamageCount = 0;
+        private int Level2PlayerDamageCount = 0;
+        private int Level3PlayerDamageCount = 0;
 
         private int playerJumpCount = 0;
+        private int playerShootCount = 0;
 
         private void Start()
         {
@@ -46,6 +56,7 @@ namespace Game.Controller
             gameController = GetComponent<GameController>();
 
             gameController.OnGameEnd += OnGameEnd;
+            gameController.OnLevelChange += OnLevelChange;
 
             foreach (var achievement in Resources.LoadAll<Achievement>(achievementPath))
             {
@@ -55,6 +66,8 @@ namespace Game.Controller
             GetComponent<EnemyDeathEventChannel>().OnEventPublished += OnEnemyDie;
             GetComponent<CollectablesEventChannel>().OnEventPublished += CollectableFound;
             GetComponent<PlayerJumpEventChannel>().OnEventPublished += PlayerJump;
+            GetComponent<PlayerHealthEventChannel>().OnEventPublished += PlayerTakeDamage;
+            GetComponent<PlayerShootEventChannel>().OnEventPublished += PlayerShoot;
         }
 
         private void OnDisable()
@@ -63,10 +76,71 @@ namespace Game.Controller
             GetComponent<EnemyDeathEventChannel>().OnEventPublished -= OnEnemyDie;
             GetComponent<CollectablesEventChannel>().OnEventPublished -= CollectableFound;
             GetComponent<PlayerJumpEventChannel>().OnEventPublished -= PlayerJump;
+            gameController.OnLevelChange -= OnLevelChange;
+        }
+
+        private void OnLevelChange()
+        {
+            if (gameController.CurrentLevel == null)
+            {
+                return;
+            }
+
+            if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level1)
+            {
+                if (Level1PlayerDamageCount == 0)
+                {
+                    acomplishedAchievements.Add(achievements[Values.Achievements.Legendary1]);
+                }
+            }
+
+            else if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level2)
+            {
+                if (Level2PlayerDamageCount == 0)
+                {
+                    acomplishedAchievements.Add(achievements[Values.Achievements.Legendary2]);
+                }
+            }
+
+            else if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level3)
+            {
+                if (Level3PlayerDamageCount == 0)
+                {
+                    acomplishedAchievements.Add(achievements[Values.Achievements.Legendary3]);
+                }
+            }
         }
 
         private void OnGameEnd()
         {
+            if (gameController.TotalTime <= supersonic)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.SuperSonic]);
+            }
+
+            if (playerShootCount >= triggerHappy)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.TriggerHappy]);
+            }
+            if (acomplishedAchievements.Count == achievements.Count - 1)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.Perfection]);
+            }
+
+
+            int bonusScoreValue = 0;
+
+            string achievementListText = "";
+            foreach (var achievement in acomplishedAchievements)
+            {
+                achievementListText += achievement.name;
+                achievementListText += ":";
+                achievementListText += achievement.ScoreValue;
+                achievementListText += "\n";
+                bonusScoreValue += achievement.ScoreValue;
+            }
+
+            achievementUi.DisplayAchievements(achievementListText, bonusScoreValue);
         }
 
         private void OnEnemyDie(OnEnemyDeath enemyDeath)
@@ -162,6 +236,29 @@ namespace Game.Controller
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.BunnyHop]);
             }
+        }
+
+        private void PlayerTakeDamage(OnPlayerTakeDamage onPlayerTakeDamageEvent)
+        {
+            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level1)
+            {
+                Level1PlayerDamageCount++;
+            }
+
+            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level2)
+            {
+                Level2PlayerDamageCount++;
+            }
+
+            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level2)
+            {
+                Level3PlayerDamageCount++;
+            }
+        }
+
+        private void PlayerShoot(OnPlayerShoot shoot)
+        {
+            playerShootCount++;
         }
     }
 }
