@@ -9,7 +9,11 @@ namespace Game.Puzzle
 
         [Tooltip("Check this box if objects tied to this trigger need to be opened on start")] [SerializeField]
         private bool IsOpened;
-
+        
+        [SerializeField] private AudioClip doorSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
+        private GameObject soundToPlay;
         private bool isTripped;
 
         private void Awake()
@@ -40,12 +44,20 @@ namespace Game.Puzzle
                     }
                     else if (!triggerable.GetComponent<ITriggerable>().IsLocked())
                     {
+                        UseSound();
                         triggerable.GetComponent<ITriggerable>()?.Open();
                         isTripped = true;
                         triggerable.GetComponent<ITriggerable>()?.Lock();
                     }
                 }
             }
+        }
+        
+        private void UseSound()
+        {
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(doorSound, false, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }
