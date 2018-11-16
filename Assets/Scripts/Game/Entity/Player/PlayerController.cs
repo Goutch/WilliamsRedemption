@@ -81,8 +81,10 @@ namespace Game.Entity.Player
         {
             currentLevel = 1;
             if (instance == null)
+            {
                 instance = this;
-
+            }
+            playerHorizontalDirection = Vector2.right;
             kRigidBody = GetComponent<KinematicRigidbody2D>();
             layerMask = kRigidBody.LayerMask;
 

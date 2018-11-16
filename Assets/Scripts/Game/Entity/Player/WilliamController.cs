@@ -51,7 +51,6 @@ namespace Game.Entity.Player
                 capacityCanBeUsed = true;
                 return true;
             }
-
             return false;
         }
 
