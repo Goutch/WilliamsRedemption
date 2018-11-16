@@ -1,4 +1,5 @@
-﻿using Game.Puzzle.Light;
+﻿using Game.Entity.Enemies.Attack;
+using Game.Puzzle.Light;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,8 +26,8 @@ namespace Game.Entity.Player
 
         private LightSensor lightSensor;
         public KinematicRigidbody2D kRigidBody { get; private set; }
-        private LayerMask layerMask;
         private Mover mover;
+        private HitSensor hitSensor;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
 
@@ -84,8 +85,8 @@ namespace Game.Entity.Player
             currentLevel = 1;
 
             kRigidBody = GetComponent<KinematicRigidbody2D>();
-            layerMask = kRigidBody.LayerMask;
-
+            hitSensor = GetComponent<HitSensor>();
+            hitSensor.OnHit += HitSensor_OnHitEnter;
 
             health = GetComponent<Health>();
             williamController = GetComponentInChildren<WilliamController>();
@@ -94,6 +95,12 @@ namespace Game.Entity.Player
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
             IsMoving = false;
+        }
+
+        private void HitSensor_OnHitEnter(HitStimulus hitStimulus)
+        {
+            if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
+                DamagePlayer();
         }
 
         private void Start()

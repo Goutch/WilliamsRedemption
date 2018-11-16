@@ -4,11 +4,14 @@ using UnityEngine;
 
 namespace Game.Entity.Enemies.Attack
 {
+    [RequireComponent(typeof(HitStimulus))]
     public class ProjectileController : MonoBehaviour
     {
         [SerializeField] private float speed;
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
+
+        private HitStimulus hitStimulus;
 
         public float Speed
         {
@@ -21,7 +24,6 @@ namespace Game.Entity.Enemies.Attack
                 speed = value;
             }
         }
-
         public bool DestroyOnPlatformsCollision
         {
             get
@@ -37,7 +39,22 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
+            hitStimulus = GetComponent<HitStimulus>();
+            hitStimulus.OnHitStimulusSensed += HitStimulus_OnHitStimulusSensed;
+
             Destroy(gameObject, delayBeforeDestruction);
+        }
+
+        private void HitStimulus_OnHitStimulusSensed(HitSensor hitSensor)
+        {
+            if(hitSensor.gameObject.CompareTag(Values.Tags.Player) && hitStimulus.Type == HitStimulus.DamageType.Enemy)
+            {
+                Destroy(gameObject);
+            }
+            else if(hitSensor.gameObject.CompareTag(Values.Tags.Enemy) && hitStimulus.Type != HitStimulus.DamageType.Enemy)
+            {
+                Destroy(gameObject);
+            }
         }
 
         void FixedUpdate()

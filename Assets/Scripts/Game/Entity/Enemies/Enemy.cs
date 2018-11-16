@@ -25,19 +25,16 @@ namespace Game.Entity.Enemies
             animator = GetComponent<Animator>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             hitSensor = GetComponent<HitSensor>();
-            hitSensor.OnHitEnter += HitSensor_OnHitEnter;
+            hitSensor.OnHit += OnHit;
 
             Init();
         }
 
-        private void HitSensor_OnHitEnter(HitStimulus hitStimulus)
+        protected virtual void OnHit(HitStimulus hitStimulus)
         {
             if(hitStimulus.Type != HitStimulus.DamageType.Enemy)
             {
                 health.Hit();
-
-                if (hitStimulus.DestroyOnCollision)
-                    Destroy(hitStimulus.gameObject);
             }
         }
 
@@ -47,30 +44,6 @@ namespace Game.Entity.Enemies
         private void OnDeath(GameObject gameObject)
         {
             Destroy(this.gameObject);
-        }
-        protected int UpdateDirection()
-        {
-            float dist = player.transform.position.x - transform.root.position.x;
-            int dir=0;
-            if (dist > -0.1 && dist < 0.01)
-                dir = 0;
-            else
-                dir = dist > 0
-                    ? 1
-                    : -1;
-            UpdateSpriteDirection(dir);
-            return dir;
-        }
-        protected void UpdateSpriteDirection(int dir)
-        {
-            if (dir == 1)
-            {
-                spriteRenderer.flipX = false;
-            }
-            else
-            {
-                spriteRenderer.flipX = true;
-            }
         }
     }
 }

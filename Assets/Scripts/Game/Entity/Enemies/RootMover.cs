@@ -44,28 +44,25 @@ namespace Game.Entity.Enemies
                 this.isJumping = false;
                 animator.SetTrigger(Values.AnimationParameters.Enemy.JumpEnd);
             }
-                
+
         }
 
-        public void WalkToward(int direction)
+        public void Walk()
         {
-            if (direction != 0)
-            {
-                rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
-                animator.SetBool(Values.AnimationParameters.Enemy.Walking,true);
-            }
-            else
-            {
-                animator.SetBool(Values.AnimationParameters.Enemy.Walking, false);
-                rootRigidBody.velocity*=Vector2.up;
-            }
+            int direction = (transform.rotation.y == 1 ? -1 : 1);
 
-            currentDir = direction;
+            rootRigidBody.velocity = new Vector2(speed * direction, rootRigidBody.velocity.y);
+            animator.SetBool(Values.AnimationParameters.Enemy.Walking, true);
+        }
+
+        public void StopWalking()
+        {
+            rootRigidBody.velocity = new Vector2(0, rootRigidBody.velocity.x);
         }
 
         public void FlyToward(Vector2 targetPosition)
         {
-            this.transform.root.position = Vector3.MoveTowards(this.transform.root.position, (Vector3) targetPosition,
+            this.transform.root.position = Vector3.MoveTowards(this.transform.root.position, (Vector3)targetPosition,
                 Speed * Time.deltaTime);
         }
 
@@ -76,7 +73,6 @@ namespace Game.Entity.Enemies
 
         public void MoveForward()
         {
-
             rootRigidBody.MovePosition(new Vector2(transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1), transform.position.y));
         }
 
@@ -88,7 +84,7 @@ namespace Game.Entity.Enemies
         public void Jump()
         {
             this.isJumping = true;
-            this.rootRigidBody.AddForce(new Vector2(currentDir*jumpBoost,jumpForce) , ForceMode2D.Impulse);
+            this.rootRigidBody.AddForce(new Vector2(currentDir * jumpBoost, jumpForce), ForceMode2D.Impulse);
             animator.SetTrigger(Values.AnimationParameters.Enemy.Jump);
         }
 

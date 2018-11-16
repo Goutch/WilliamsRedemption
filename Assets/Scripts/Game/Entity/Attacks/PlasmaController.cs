@@ -11,16 +11,24 @@ namespace Game.Entity.Enemies.Attack
             private set { canBeReturned = value; }
         }
 
+        private HitStimulus hitStimulus;
+
+        private new void Awake()
+        {
+            base.Awake();
+            hitStimulus = GetComponent<HitStimulus>();
+        }
+
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
             base.OnTriggerEnter2D(collision);
 
-            HitStimulus hitStimulus;
-            if (CanBeReturned && (hitStimulus = collision.GetComponent<HitStimulus>()) && hitStimulus.Range == HitStimulus.AttackRange.Melee)
+            HitStimulus otherHitStimulus;
+            if (CanBeReturned && (otherHitStimulus = collision.GetComponent<HitStimulus>()) && otherHitStimulus.Range == HitStimulus.AttackRange.Melee)
             {
                 transform.localRotation *= Quaternion.Euler(0, 0, 180);
-
-                hitStimulus.Type = HitStimulus.DamageType.Darkness;
+                //TODO ARCHIEVEMENT
+                this.hitStimulus.Type = HitStimulus.DamageType.Darkness;
             }
         }
     }

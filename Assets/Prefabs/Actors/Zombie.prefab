@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4973207178121200}
   - component: {fileID: 61030294389625766}
-  - component: {fileID: 114294219723639196}
-  m_Layer: 17
+  - component: {fileID: 114428076605782380}
+  m_Layer: 0
   m_Name: AttackTrigger
-  m_TagString: ProjectileEnemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,8 +44,7 @@ GameObject:
   - component: {fileID: 114216607206163880}
   - component: {fileID: 61713765814383116}
   - component: {fileID: 114854751574253946}
-  - component: {fileID: 114602427331176794}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -183,7 +182,7 @@ MonoBehaviour:
   surroundingRange: 1
   bulletKnockBackForce: {x: 1, y: 1}
   playerKnockBackForce: {x: 1, y: 1}
---- !u!114 &114294219723639196
+--- !u!114 &114428076605782380
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,21 +190,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1241562989883340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114602427331176794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1291848360045852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
+  type: 2
+  range: 0
 --- !u!114 &114653092132304700
 MonoBehaviour:
   m_ObjectHideFlags: 1

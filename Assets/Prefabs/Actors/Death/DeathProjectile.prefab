@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50311171149562176}
   - component: {fileID: 61391442894971738}
   - component: {fileID: 114841679602737112}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: DeathProjectile
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4461704948970452}
   - component: {fileID: 212642567867680510}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   range: 1
-  destroyOnCollision: 1
 --- !u!212 &212642567867680510
 SpriteRenderer:
   m_ObjectHideFlags: 1

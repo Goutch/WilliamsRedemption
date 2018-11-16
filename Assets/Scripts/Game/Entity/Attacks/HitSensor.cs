@@ -11,54 +11,11 @@ namespace Game.Entity.Enemies.Attack
 
     public class HitSensor : MonoBehaviour
     {
-        public event OnHitEventHandler OnHitEnter;
-        public event OnHitEventHandler OnHitExit;
+        public event OnHitEventHandler OnHit;
 
-        private List<HitStimulus> hitStimuli;
-
-        private void Awake()
+        public void Notify(HitStimulus hitStimulus)
         {
-            hitStimuli = new List<HitStimulus>();
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            HitStimulus stimulus;
-            if (stimulus = collision.GetComponent<HitStimulus>())
-            {
-                hitStimuli.Add(stimulus);
-                OnHitEnter?.Invoke(stimulus);
-            }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            HitStimulus stimulus;
-            if (stimulus = collision.gameObject.GetComponent<HitStimulus>())
-            {
-                hitStimuli.Add(stimulus);
-                OnHitEnter?.Invoke(stimulus);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            HitStimulus stimulus;
-            if (stimulus = collision.GetComponent<HitStimulus>())
-            {
-                hitStimuli.Remove(stimulus);
-                OnHitExit?.Invoke(stimulus);
-            }
-        }
-
-        private void OnCollisionExit2D(Collision2D collision)
-        {
-            HitStimulus stimulus;
-            if (stimulus = collision.gameObject.GetComponent<HitStimulus>())
-            {
-                hitStimuli.Remove(stimulus);
-                OnHitExit?.Invoke(stimulus);
-            }
+            OnHit?.Invoke(hitStimulus);
         }
     }
 }

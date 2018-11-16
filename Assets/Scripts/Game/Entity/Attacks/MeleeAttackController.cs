@@ -6,12 +6,10 @@ namespace Game.Entity.Enemies.Attack
     {
         [SerializeField] private float delayBeforeDestruction;
 
-
         private void Awake()
         {
             Destroy(this.gameObject, delayBeforeDestruction);
         }
-
     }
 }
 

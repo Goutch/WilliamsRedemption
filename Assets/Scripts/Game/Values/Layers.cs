@@ -6,5 +6,6 @@
         public const string TransparentFX = "TransparentFX";
         public const string Enemy = "Enemy";
         public const string Platform = "Platform";
+        public const string Player = "Player";
     }
 }

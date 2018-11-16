@@ -35,7 +35,7 @@ namespace Game.Entity.Enemies
         {
             if (playerLightSensor.InLight == false)
             {
-                UpdateDirection();
+                rootMover.LookAtPlayer();
                 rootMover.FlyToward(player.transform.position);
             }
             else

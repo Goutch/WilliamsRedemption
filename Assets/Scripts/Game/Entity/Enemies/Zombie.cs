@@ -1,4 +1,5 @@
-﻿using Game.Entity.Player;
+﻿using Game.Entity.Enemies.Attack;
+using Game.Entity.Player;
 using Harmony;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Game.Entity.Enemies
         [SerializeField] private Vector2 bulletKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
 
-        private Rigidbody2D rigidbody;
+        private new Rigidbody2D rigidbody;
         private bool knocked = false;
 
         protected override void Init()
@@ -18,15 +19,29 @@ namespace Game.Entity.Enemies
             rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        private void FixedUpdate()
+        private new void FixedUpdate()
         {
             if (!knocked)
                 base.FixedUpdate();
-            if (knocked)
-                if (rigidbody.velocity.y == 0)
+            if (knocked && rigidbody.velocity.y == 0)
                     knocked = false;
         }
 
-      
+        protected override void OnHit(HitStimulus hitStimulus)
+        {
+            if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
+            {
+                base.OnHit(hitStimulus);
+            }
+            else
+            {
+                rootMover.LookAtPlayer();
+                int direction = (transform.rotation.y == 1 ? -1 : 1);
+
+                rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction, bulletKnockBackForce.y),
+                    ForceMode2D.Impulse);
+                knocked = true;
+            }
+        }
     }
 }

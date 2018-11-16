@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114353070276424658}
   - component: {fileID: 114816349611019612}
   - component: {fileID: 61255231793372900}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Death (Clone)
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -141,8 +141,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567805082619396}
-  - component: {fileID: 114625146310918528}
   - component: {fileID: 61007322094525024}
+  - component: {fileID: 114488591483113374}
+  - component: {fileID: 114115384411311582}
   m_Layer: 17
   m_Name: Attack
   m_TagString: Enemy
@@ -743,6 +744,17 @@ MonoBehaviour:
   rotationSpeed: 2
   teleportationPoint: {fileID: 0}
   light: {fileID: 0}
+--- !u!114 &114115384411311582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412352226452874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4596a1c014d03654caaa2b5fef433c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114119021894490916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -822,6 +834,19 @@ MonoBehaviour:
   phases:
   - {fileID: 114517867566043914}
   - {fileID: 114021108439774554}
+--- !u!114 &114488591483113374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412352226452874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  range: 0
 --- !u!114 &114517867566043914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -863,18 +888,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 15
---- !u!114 &114625146310918528
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1412352226452874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
 --- !u!114 &114625513398620132
 MonoBehaviour:
   m_ObjectHideFlags: 1
