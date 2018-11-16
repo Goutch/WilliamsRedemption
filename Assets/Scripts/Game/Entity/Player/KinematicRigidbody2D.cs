@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Game.Puzzle;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -43,6 +45,8 @@ namespace Game.Entity.Player
         private new Rigidbody2D rigidbody;
         private ContactFilter2D contactFilter;
         private RaycastHit2D[] preallocaRaycastHits;
+        private float verticalCapacityOffset;
+        public bool isOnMovingGround;
 
         public LayerMask LayerMask
         {
@@ -81,6 +85,7 @@ namespace Game.Entity.Player
             contactFilter.useLayerMask = true;
             preallocaRaycastHits = new RaycastHit2D[NbPreallocatedRaycastHit];
             IsGravityIgnored = false;
+            isOnMovingGround = false;
         }
 
         private void FixedUpdate()
@@ -97,7 +102,11 @@ namespace Game.Entity.Player
             var verticalDeltaPosition = Vector2.up * deltaPosition.y;
 
             ApplyDeltaPosition(horizontalDeltaPosition, false);
+            ApplyDeltaPosition(Vector2.left * Time.fixedDeltaTime, false);
+            ApplyDeltaPosition(Vector2.right * Time.fixedDeltaTime, false);
             ApplyDeltaPosition(verticalDeltaPosition, true);
+            
+            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
 
             latestVelocity = velocity;
 
@@ -112,9 +121,10 @@ namespace Game.Entity.Player
         private void ResetValuesBeforeSimulation()
         {
             isGrounded = false;
+            isOnMovingGround = false;
             contactFilter.layerMask = layerMask;
         }
-
+        
         private void AddGravityToVelocity()
         {
             velocity += GetGravityDeltaPosition();
@@ -166,11 +176,16 @@ namespace Game.Entity.Player
             return position.y <= hitPosition.y;
         }
 
+        public float GetVerticalOffset()
+        {
+            return verticalCapacityOffset;
+        }
+
         private void ApplyDeltaPosition(Vector2 deltaPosition, bool isVerticalDelta)
         {
             var deltaMagnitude = deltaPosition.magnitude;
 
-            if (deltaMagnitude > sleepVelocity)
+            if (deltaMagnitude >= sleepVelocity)
             {
                 var attachedColliderCount = rigidbody.attachedColliderCount;
                 var selfColliders = new Collider2D[attachedColliderCount];
@@ -194,6 +209,12 @@ namespace Game.Entity.Player
                         {
                             if (CanPassThrough(rigidbody.position, raycastHit.point))
                                 continue;
+                        }
+
+                        if (raycastHit.collider.CompareTag("MovingPlatform"))
+                        {
+                            isOnMovingGround = true;
+                            verticalCapacityOffset = raycastHit.collider.GetComponent<PlatformMover>().GetVerticalSpeed();
                         }
 
 
@@ -240,7 +261,6 @@ namespace Game.Entity.Player
             }
 
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
-            VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
         }
     }
 }

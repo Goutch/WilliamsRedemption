@@ -91,7 +91,7 @@ namespace Game.Entity.Player
                 player.kRigidBody.Velocity =
                     Vector2.right * direction.x *
                     dashSpeed; //set our rigidbody velocity to a custom velocity every frame.
-                yield return 0;
+                yield return new WaitForFixedUpdate();
             }
 
 
