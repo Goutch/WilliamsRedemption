@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4119305309545696}
   - component: {fileID: 82863208674070148}
+  - component: {fileID: 114809907700701184}
   m_Layer: 0
   m_Name: SoundEffect
   m_TagString: Untagged
@@ -135,3 +136,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114809907700701184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352970673462576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9ad4f763ef6284db94469cb7be692e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

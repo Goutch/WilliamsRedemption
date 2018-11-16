@@ -401,12 +401,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 0.2
-  teleportationDistance: 1.92
-  tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
-  tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
   meleeAttack: {fileID: 1296230141094148, guid: 60b21160215535240a1642046dd836e6,
     type: 2}
+  teleportationDistance: 1.92
   TeleportationCoolDown: 0.8
+  tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
+  tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
+  teleportSound: {fileID: 8300000, guid: bc881043d23671e40a8a9e733ceb4a60, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114202914198825776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -498,6 +501,7 @@ MonoBehaviour:
   jumpSpeed: 4
   playerNoLongerGroundedDelay: 0.1
   amountOfAdditionalJumps: 1
+  additionalJumpVelocity: 0
 --- !u!114 &114926903096335436
 MonoBehaviour:
   m_ObjectHideFlags: 1

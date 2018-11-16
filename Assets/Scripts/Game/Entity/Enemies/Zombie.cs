@@ -8,19 +8,26 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
+        [SerializeField] private AudioClip zombieSound;
+        [SerializeField] private float timerBetweenZombieMoans;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private Rigidbody2D rigidbody;
         private bool knocked = false;
+        private float timeSinceLastMoan;
+        private GameObject soundToPlay;
 
         protected override void Init()
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
             GetComponent<HitStimulus>().OnHitOther += OnHitOther;
+            timeSinceLastMoan = Time.time;
         }
 
         private void FixedUpdate()
         {
+            CheckZombieMoans();
             if (!knocked)
                 base.FixedUpdate();
             if (knocked)
@@ -57,6 +64,22 @@ namespace Game.Entity.Enemies
                     ForceMode2D.Impulse);
                 knocked = true;
             }      
+        }
+        
+        private void UseSound()
+        {
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(zombieSound, true, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
+        }
+
+        private void CheckZombieMoans()
+        {
+            if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans)
+            {
+                UseSound();
+                timeSinceLastMoan = Time.time;
+            }
         }
     }
 }

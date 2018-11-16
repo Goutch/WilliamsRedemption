@@ -19,6 +19,7 @@ namespace Game.Entity.Player
         [SerializeField] private GameObject tpEffect1;
         [SerializeField] private GameObject tpEffect2;
         [SerializeField] private AudioClip teleportSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
@@ -27,6 +28,7 @@ namespace Game.Entity.Player
         private Vector2 tpPosition;
         private bool mustTeleport;
         private Rigidbody2D rb;
+        private GameObject soundToPlay;
 
         private void Start()
         {
@@ -128,8 +130,9 @@ namespace Game.Entity.Player
         
         private void UseSound()
         {
-            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<AudioManager>()
-                .PlaySound(teleportSound);
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(teleportSound, false, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

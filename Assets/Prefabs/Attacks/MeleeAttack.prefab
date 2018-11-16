@@ -95,7 +95,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeDestruction: 0.2
-  meleeSound: {fileID: 8300000, guid: 86bb01ffc8c100a4e97ce4d1797042b3, type: 3}
+  meleeSound: {fileID: 8300000, guid: d3c598914439a5a4f8f1e4ccc1ffb2d1, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114986324099716190
 MonoBehaviour:
   m_ObjectHideFlags: 1

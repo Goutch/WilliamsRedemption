@@ -17,9 +17,11 @@ namespace Game.Puzzle
         private bool lockLinkedObjects;
 
         [SerializeField] private AudioClip switchSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
         
         private float timerStartTime;
         private bool timerHasStarted;
+        private GameObject soundToPlay;
 
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -125,8 +127,9 @@ namespace Game.Puzzle
         
         private void UseSound()
         {
-            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<AudioManager>()
-                .PlaySound(switchSound);
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(switchSound, false, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

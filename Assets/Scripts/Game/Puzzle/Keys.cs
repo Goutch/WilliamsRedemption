@@ -7,6 +7,9 @@ namespace Game.Puzzle
         [Tooltip("Door tied to this key.")]
         [SerializeField] private Doors door;
         [SerializeField] private AudioClip keySound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
+        private GameObject soundToPlay;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -20,8 +23,9 @@ namespace Game.Puzzle
 
         private void UseSound()
         {
-            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<AudioManager>()
-                .PlaySound(keySound);
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(keySound, false, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

@@ -13,9 +13,10 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private bool canBeReturned;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
         [SerializeField] private AudioClip projectileSound;
-        //[SerializeField] private GameObject SoundEffectPrefab;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         protected int direction;
+        private GameObject soundToPlay;
         
         public bool CanBeReturned
         {
@@ -117,9 +118,9 @@ namespace Game.Entity.Enemies.Attack
 
         private void UseSound()
         {
-            //AudioSource source=Instantiate(SoundEffectPrefab, this.transform.position,Quaternion.identity).GetComponent<AudioSource>();        
-            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<AudioManager>()
-                .PlaySound(projectileSound);
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(projectileSound, false, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 

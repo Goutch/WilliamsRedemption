@@ -4,13 +4,16 @@ using UnityEngine;
 namespace Game.Entity.Enemies
 {
     public class Bat : Enemy
-    {
-        private RootMover rootMover;
-        private int direction = 1;
-        private bool isTriggered;
+    {     
         [SerializeField] private AudioClip batSound;
         [SerializeField] private Vector2 exponentialFonction;
         [SerializeField] private float fonctionYOffSet = .32f;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
+        private RootMover rootMover;
+        private int direction = 1;
+        private bool isTriggered;
+        private GameObject soundToPlay;
 
         protected void Fly()
         {
@@ -54,8 +57,9 @@ namespace Game.Entity.Enemies
         }
         private void UseSound()
         {
-            GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<AudioManager>()
-                .PlaySound(batSound);
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(batSound, true, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }
