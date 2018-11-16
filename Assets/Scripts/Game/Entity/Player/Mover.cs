@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Controller.Events;
+using UnityEngine;
 using XInputDotNetPure;
 
 
@@ -21,7 +22,7 @@ namespace Game.Entity.Player
         [Tooltip("Jump velocity muliplier. Only effective after the first jump.")] [SerializeField]
         private float additionalJumpVelocity;
 
-
+        
         private PlayerIndex controllerNumber;
         private KinematicRigidbody2D kinematicRigidbody2D;
         private GamePadState controllerState;
@@ -33,6 +34,8 @@ namespace Game.Entity.Player
         private int jumpCount;
         private PlayerController player;
 
+        private PlayerJumpEventChannel jumpEventChannel;
+
         private void Awake()
         {
             kinematicRigidbody2D = GetComponent<KinematicRigidbody2D>();
@@ -43,6 +46,8 @@ namespace Game.Entity.Player
             verticalVelocity = Vector2.zero;
             jumpCount = 0;
             player = GetComponent<PlayerController>();
+            jumpEventChannel = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<PlayerJumpEventChannel>();
         }
 
         private void Update()
@@ -94,6 +99,8 @@ namespace Game.Entity.Player
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 jumpCount++;
             }
+            jumpEventChannel.Publish(new OnPlayerJump());
+            
         }
 
         public void AimUp()

@@ -18,9 +18,9 @@
         public const string NameField = "GameController/Canvas/PanelPause/NameField";
         public const string ButtonTestInsertData = "GameController/Canvas/PanelPause/ButtonTestInsertData";
         public const string Menu = "Scenes/Menu";
-        public const string Level1 = "Scenes/Level1";
-        public const string Level2 = "Scenes/Level2";
-        public const string Level3 = "Scenes/Level3";
+        public const string Level1 = "Level1";
+        public const string Level2 = "Level2";
+        public const string Level3 = "Level3";
 
     }
 }

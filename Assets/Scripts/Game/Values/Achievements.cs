@@ -4,9 +4,9 @@ namespace Game.Values
 {
     public class Achievements
     {
-        public const string Archeologue1 = "Archeologue 1";
-        public const string Archeologue2 = "Archeologue 2";
-        public const string Archeologue3 = "Archeologue 3";
+        public const string Archeologue1 = "Archeologist 1";
+        public const string Archeologue2 = "Archeologist 2";
+        public const string Archeologue3 = "Archeologist 3";
         public const string BunnyHop = "Bunny Hop";
         public const string DeathByDeath = "Death By Death";
         public const string DemonSlayer = "Demon Slayer";
