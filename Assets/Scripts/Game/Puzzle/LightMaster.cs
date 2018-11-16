@@ -8,45 +8,58 @@ using UnityEngine.Analytics;
 public class LightMaster : MonoBehaviour
 {
 
-	[SerializeField] private ITriggerable[] lights;
+	[Tooltip("Array of lights. Add the lights in the order they should light up.")]
+	[SerializeField] private GameObject [] lights;
+	[Tooltip("Amount of time in seconds where each light stays open.")]
 	[SerializeField] private float timePerLight;
+
+	private ITriggerable currentlight;
 	private float timeAtStart;
-	private float timeSinceStart;
-	
-	private int index;
+	private int currentLightIndex;
 
 	private void Awake()
 	{
-		index = 0;
 		timeAtStart = 0;
-		timeSinceStart = 0;
+		currentLightIndex = 0;
+		currentlight = lights[currentLightIndex].GetComponent<ITriggerable>();
+	}
+
+	private void Start()
+	{
+		currentlight.Open();
+		timeAtStart = Time.time;
 	}
 	
-	private void Update () {
-		
-		KeepTrackOfTime();
-		
+	private void Update () 
+	{
+		Cycle();
 	}
 
-	//TODO:: 
 	private void Cycle()
 	{
-		
-	}
-
-	private void KeepTrackOfTime()
-	{
-		timeSinceStart = Time.time;
-		if (timeAtStart == 0)
+		if(TimeSinceLit() >= timePerLight)
 		{
-			timeAtStart = Time.time;
+			currentlight.Close();
+			currentLightIndex++;
+			if (currentLightIndex >= lights.Length)
+			{
+				currentLightIndex = 0;
+				currentlight = lights[currentLightIndex].GetComponent<ITriggerable>();
+				currentlight.Open();
+				timeAtStart = Time.time;
+			}
+			else
+			{
+				currentlight = lights[currentLightIndex].GetComponent<ITriggerable>();
+				currentlight.Open();
+				timeAtStart = Time.time;
+			}
 		}
-		
 	}
 
-	//TODO::
-	private void ResetTime()
+	private float TimeSinceLit()
 	{
-		
+		float timeSinceStart = Time.time - timeAtStart;
+		return timeSinceStart;
 	}
 }
