@@ -1,4 +1,5 @@
-﻿using Boo.Lang;
+﻿using System.Xml.XPath;
+using Boo.Lang;
 using Game.Controller;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
@@ -19,24 +20,12 @@ namespace Game.UI
         {
             gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
                 .GetComponent<GameController>();
-            gameController.OnGameEnd += OnGameEnd;
             achievementManager = gameController.GetComponent<AchievementManager>();
         }
 
-        private void OnGameEnd()
+        public void DisplayAchievements(string achievementListText,int bonusScoreValue)
         {
-            int bonusScoreValue = 0;
-
-            string achievementListText = "";
-            foreach (var achievement in achievementManager.AcomplishedAchievements)
-            {
-                achievementListText += achievement.name;
-                achievementListText += ":";
-                achievementListText += achievement.ScoreValue;
-                achievementListText += "\n";
-                bonusScoreValue += achievement.ScoreValue;
-            }         
-            
+           
             achievementList.text = achievementListText;
             score.text = "Score:" + gameController.Score;
             bonus.text = "Bonus:" + bonusScoreValue;

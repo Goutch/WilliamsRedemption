@@ -4,9 +4,9 @@ namespace Game.Values
 {
     public class Achievements
     {
-        public const string Archeologue1 = "Archeologue 1";
-        public const string Archeologue2 = "Archeologue 2";
-        public const string Archeologue3 = "Archeologue 3";
+        public const string Archeologue1 = "Archeologist 1";
+        public const string Archeologue2 = "Archeologist 2";
+        public const string Archeologue3 = "Archeologist 3";
         public const string BunnyHop = "Bunny Hop";
         public const string DeathByDeath = "Death By Death";
         public const string DemonSlayer = "Demon Slayer";
@@ -18,7 +18,7 @@ namespace Game.Values
         public const string Perfection = "Perfection";
         public const string PhantomsCanHang = "Phantoms Can Hang";
         public const string PriestSlayer = "Priest Slayer";
-        public const string SuperSonic = "Super Sonic";
+        public const string SuperSonic = "Supersonic";
         public const string TangledChains= "Tangled Chains";
         public const string TriggerHappy = "Trigger Happy";
         public const string ZeroDeaths= "Zero Deaths";
