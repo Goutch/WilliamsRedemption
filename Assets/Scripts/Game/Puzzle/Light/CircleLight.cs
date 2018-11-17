@@ -1,4 +1,5 @@
 ﻿using Harmony;
+using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 
 namespace Game.Puzzle.Light
@@ -32,7 +33,14 @@ namespace Game.Puzzle.Light
         public float FaceAngle
         {
             get { return faceAngle; }
-            set { faceAngle = value; }
+            set
+            {
+                faceAngle = value;
+                if (faceAngle > 360)
+                {
+                    faceAngle -= 360;
+                }
+            }
         }
 
         private new void Start()
@@ -111,18 +119,8 @@ namespace Game.Puzzle.Light
         {
             if (coneAngle == 0 || coneAngle == 360) return true;
 
-            float min = faceAngle - coneAngle / 2;
-            float max = faceAngle + coneAngle / 2;
-
-//            if (degree > max)
-//            {
-//                return false;
-//            }
-//
-//            if (min < 0)
-//            {
-//                min = ClampDegree0To360(min);
-//            }
+            float min = faceAngle - (coneAngle / 2);
+            float max = faceAngle + (coneAngle / 2);
 
             return (degree >= min && degree <= max); //ajout de la deuxieme condition et les =
         }
