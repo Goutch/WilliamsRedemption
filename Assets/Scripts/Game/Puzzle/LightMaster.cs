@@ -30,6 +30,7 @@ public class LightMaster : MonoBehaviour
 	{
 		if (!SeparateLightsInGroups)
 		{
+			
 			currentlight.Open();
 		}
 		else
