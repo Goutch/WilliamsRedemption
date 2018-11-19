@@ -75,6 +75,7 @@ namespace Game.Entity
                     OnHitOther?.Invoke(hitSensor);
                     hitSensor.Hit(this);
                 }
+                
             }
         }
     }

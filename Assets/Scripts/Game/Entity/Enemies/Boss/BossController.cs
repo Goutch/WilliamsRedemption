@@ -19,8 +19,17 @@ namespace Game.Entity.Enemies.Boss
             phases[currentPhaseIndex].OnStateFinish += BossController_OnStateFinish;
             phases[currentPhaseIndex].Enter();
 
+            health.OnDeath += Health_OnDeath;
         }
-        
+
+        private void Health_OnDeath(GameObject gameObject)
+        {
+            health.OnDeath -= Health_OnDeath;
+
+            phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
+            phases[currentPhaseIndex].Finish();
+        }
+
         public void Update()
         {
             phases[currentPhaseIndex].Act();

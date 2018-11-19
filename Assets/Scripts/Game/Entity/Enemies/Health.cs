@@ -1,32 +1,52 @@
-﻿using Game.Controller;
+using AnimatorExtension;
+using Game.Controller;
+using Game.Controller.Events;
 using Game.Entity.Enemies;
 using UnityEngine;
 
 namespace Game.Entity
 {
     public delegate void HealthEventHandler(GameObject gameObject);
+
     public class Health : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
-        private bool isKilledByPlayer = true;
         public int MaxHealth => maxHealth;
-        private int healthPoints;
+
         public event HealthEventHandler OnDeath;
         public event HealthEventHandler OnHealthChange;
+        private GameController gameController;
 
+        private Animator animator;
+
+        private bool isKilledByPlayer = true;
+
+        private int healthPoints;
         public int HealthPoints
         {
             get { return healthPoints; }
-            private set
+            set
             {
                 healthPoints = value;
                 OnHealthChange?.Invoke(gameObject);
+
+                if (animator != null && animator.ContainsParam(Values.AnimationParameters.Enemy.Hurt))
+                    animator.SetTrigger(Values.AnimationParameters.Enemy.Hurt);
+
                 if (IsDead())
                 {
-                    if (isKilledByPlayer && IsAnEnemy())
+                    if (IsAnEnemy())
                     {
-                        AddEnemyScoreToGameScore();
+                        gameController.GetComponent<EnemyDeathEventChannel>()
+                            .Publish(new OnEnemyDeath(GetComponent<Enemy>()));
+                        if (isKilledByPlayer)
+                        {
+                            AddEnemyScoreToGameScore();
+                        }
+
+                        
                     }
+
                     OnDeath?.Invoke(transform.root.gameObject);
                 }
             }
@@ -35,6 +55,9 @@ namespace Game.Entity
         void Awake()
         {
             healthPoints = MaxHealth;
+            animator = GetComponent<Animator>();
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>();
         }
 
         public void Hit()
@@ -65,5 +88,3 @@ namespace Game.Entity
         }
     }
 }
-
-

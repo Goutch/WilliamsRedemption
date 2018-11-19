@@ -7,7 +7,6 @@ namespace Game.Entity.Enemies.Attack
 {
     public class ProjectileController : MonoBehaviour
     {
-
         [SerializeField] private float speed;
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool canBeReturned;
@@ -58,7 +57,6 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void HandleCollision(HitStimulus other)
         {
-            Debug.Log(other);
             if (CanBeReturned && other.GetComponent<HitStimulus>().DamageSource == HitStimulus.DamageSourceType.Reaper && other.GetComponent<MeleeAttackController>())
             {
                 this.GetComponent<HitStimulus>().SetDamageSource(other.GetComponent<HitStimulus>().DamageSource);
@@ -78,7 +76,7 @@ namespace Game.Entity.Enemies.Attack
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.collider.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
                 Destroy(gameObject);
@@ -97,7 +95,7 @@ namespace Game.Entity.Enemies.Attack
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
                 Destroy(gameObject);

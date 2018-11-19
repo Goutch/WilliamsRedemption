@@ -35,7 +35,6 @@ namespace Game.Puzzle.Light
                 }
             }
         }
-
         
         private void Update()
         {

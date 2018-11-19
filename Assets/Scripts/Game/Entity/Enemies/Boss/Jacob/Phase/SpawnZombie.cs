@@ -46,7 +46,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         private void SpawnAZombie()
         {
-            spawnedEnemyManager.SpawnEnemies(zombiePrefab, transform.position, Quaternion.identity);
+            spawnedEnemyManager.SpawnEnemy(zombiePrefab, transform.position, Quaternion.identity);
 
         }
     }

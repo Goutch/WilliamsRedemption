@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 114408198202256926}
   - component: {fileID: 114072906846381546}
   - component: {fileID: 114379991829354728}
+  - component: {fileID: 114823022257222956}
   - component: {fileID: 114412290214006220}
   - component: {fileID: 114889107845127718}
   - component: {fileID: 114355167586666278}
@@ -1096,7 +1097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 5
 --- !u!114 &114109857756450516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1304,6 +1305,17 @@ MonoBehaviour:
   - {fileID: 114830030037052890}
   passiveCapacities: []
   animator: {fileID: 95395829336313276}
+--- !u!114 &114823022257222956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495303630612842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c20fc6c7e4933b4e99935a9f0621e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114830030037052890
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4238448424067888}
   - component: {fileID: 212533896217302658}
   - component: {fileID: 61142713647456928}
-  - component: {fileID: 114510603468628486}
+  - component: {fileID: 114008070414313292}
   m_Layer: 0
   m_Name: Gate (2)
   m_TagString: Untagged
@@ -53,9 +53,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4535770611312634}
-  - component: {fileID: 114066026119764172}
   - component: {fileID: 61865944849602234}
   - component: {fileID: 210622591955205686}
+  - component: {fileID: 114265028353189660}
   m_Layer: 2
   m_Name: EdgarFight
   m_TagString: Untagged
@@ -179,21 +179,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 11.495789, y: 2.8666997}
   m_EdgeRadius: 0
---- !u!114 &114066026119764172
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1619909527582634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73f5500697d14102b6085e9f247a9bd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boss: {fileID: 0}
-  doorToCloseOnBossFightBegin: {fileID: 0}
-  doorToOpenOnBossDeath: {fileID: 114510603468628486}
---- !u!114 &114510603468628486
+--- !u!114 &114008070414313292
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,11 +187,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1596454549725364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc8d4ed4fddfa04f9a6e868024b5f35, type: 3}
+  m_Script: {fileID: 11500000, guid: fd73fd877d8ffc340b28807696e32f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLocked: 0
-  IsOpen: 0
+  isLocked: 0
+  isOpen: 0
+--- !u!114 &114265028353189660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1619909527582634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f0dd62a5d6db5488f4bfe642b6a630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 0}
+  doorToCloseOnBossFightBegin: {fileID: 0}
+  doorToOpenOnBossDeath: {fileID: 0}
 --- !u!210 &210622591955205686
 SortingGroup:
   m_ObjectHideFlags: 1

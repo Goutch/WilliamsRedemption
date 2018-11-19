@@ -215,7 +215,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485973637437590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.8, y: 3.7, z: 0}
+  m_LocalPosition: {x: -21.6, y: 4.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4302502636305752}
@@ -282,7 +282,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.02}
   m_SpriteTilingProperty:
@@ -307,7 +307,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: -0.03, y: -0.02}
   m_SpriteTilingProperty:
@@ -384,7 +384,7 @@ MonoBehaviour:
   gravityMultiplier: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 130871
+    m_Bits: 0
   maxGroundSlopeAngleArctan: 0.35000002
   sleepVelocity: 0.001
   deltaPrecision: 0.01
@@ -407,9 +407,6 @@ MonoBehaviour:
   TeleportationCoolDown: 0.8
   tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
   tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
-  teleportSound: {fileID: 8300000, guid: bc881043d23671e40a8a9e733ceb4a60, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
 --- !u!114 &114202914198825776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -458,8 +455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 0.1
-  dashDistance: 1.28
-  dashSpeed: 12.8
+  dashDistance: 1.6
+  dashSpeed: 16
   projectile: {fileID: 1689002622773110, guid: 91c6616cb3ccb8d48911555a81756f0b, type: 2}
   fireRate: 1
   DashCoolDown: 0.8
@@ -501,10 +498,7 @@ MonoBehaviour:
   jumpSpeed: 4
   playerNoLongerGroundedDelay: 0.1
   amountOfAdditionalJumps: 1
-  additionalJumpVelocity: 0
-  jumpSound: {fileID: 8300000, guid: d3e10c7fb82fbc54ab5e216f49746eae, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
+  additionalJumpVelocity: 0.76
 --- !u!114 &114926903096335436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,14 +512,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   williamLayerMask:
     serializedVersion: 2
-    m_Bits: 122679
+    m_Bits: 384823
   reaperLayerMask:
     serializedVersion: 2
-    m_Bits: 116535
+    m_Bits: 378679
   invincibilitySeconds: 1
-  woundedSound: {fileID: 8300000, guid: afce792d0e1e3a841ab2f4ae603db0a1, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
 --- !u!198 &198314816615773322
 ParticleSystem:
   m_ObjectHideFlags: 1

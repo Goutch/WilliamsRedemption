@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4581862685299062}
   - component: {fileID: 212841506236156552}
   - component: {fileID: 61576194737541872}
-  - component: {fileID: 114378006494093518}
+  - component: {fileID: 114921113587097602}
   m_Layer: 0
   m_Name: Gate (2)
   m_TagString: Untagged
@@ -52,8 +52,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642877496004914}
-  - component: {fileID: 114023647044229048}
   - component: {fileID: 61507511111369908}
+  - component: {fileID: 114610796790259892}
   m_Layer: 0
   m_Name: JacobFight
   m_TagString: Untagged
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 4898256797027346}
   - component: {fileID: 212945924912201110}
   - component: {fileID: 61917843381495594}
-  - component: {fileID: 114660104782414932}
+  - component: {fileID: 114935476344864516}
   m_Layer: 0
   m_Name: Gate (3)
   m_TagString: Untagged
@@ -296,7 +296,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.96}
   m_EdgeRadius: 0
---- !u!114 &114023647044229048
+--- !u!114 &114610796790259892
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,13 +304,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1245355046879918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73f5500697d14102b6085e9f247a9bd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 24f0dd62a5d6db5488f4bfe642b6a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 0}
-  doorToCloseOnBossFightBegin: {fileID: 114378006494093518}
-  doorToOpenOnBossDeath: {fileID: 114660104782414932}
---- !u!114 &114378006494093518
+  doorToCloseOnBossFightBegin: {fileID: 0}
+  doorToOpenOnBossDeath: {fileID: 0}
+--- !u!114 &114921113587097602
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,12 +318,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1146119355026322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc8d4ed4fddfa04f9a6e868024b5f35, type: 3}
+  m_Script: {fileID: 11500000, guid: fd73fd877d8ffc340b28807696e32f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLocked: 0
-  IsOpen: 1
---- !u!114 &114660104782414932
+  isLocked: 0
+  isOpen: 0
+--- !u!114 &114935476344864516
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,11 +331,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1971552648135754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc8d4ed4fddfa04f9a6e868024b5f35, type: 3}
+  m_Script: {fileID: 11500000, guid: fd73fd877d8ffc340b28807696e32f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLocked: 0
-  IsOpen: 0
+  isLocked: 0
+  isOpen: 0
 --- !u!212 &212841506236156552
 SpriteRenderer:
   m_ObjectHideFlags: 1

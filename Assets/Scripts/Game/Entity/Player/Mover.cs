@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using Game.Controller.Events;
+using UnityEngine;
 using XInputDotNetPure;
 
 
@@ -37,6 +38,8 @@ namespace Game.Entity.Player
         private int jumpCount;
         private PlayerController player;
 
+        private PlayerJumpEventChannel jumpEventChannel;
+
         private void Awake()
         {
             kinematicRigidbody2D = GetComponent<KinematicRigidbody2D>();
@@ -47,6 +50,8 @@ namespace Game.Entity.Player
             verticalVelocity = Vector2.zero;
             jumpCount = 0;
             player = GetComponent<PlayerController>();
+            jumpEventChannel = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<PlayerJumpEventChannel>();
         }
 
         private void Update()
@@ -73,16 +78,16 @@ namespace Game.Entity.Player
         {
             horizontalVelocity = Vector2.right;
             player.playerHorizontalDirection = Vector2.right;
-            player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
-            player.DirectionFacingUpDown = FacingSideUpDown.None;
+            //player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
+            //player.DirectionFacingUpDown = FacingSideUpDown.None;
         }
 
         public void MoveLeft()
         {
             horizontalVelocity = Vector2.left;
             player.playerHorizontalDirection = Vector2.left;
-            player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
-            player.DirectionFacingUpDown = FacingSideUpDown.None;
+           // player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
+           // player.DirectionFacingUpDown = FacingSideUpDown.None;
         }
 
         public void Jump()
@@ -100,19 +105,11 @@ namespace Game.Entity.Player
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 jumpCount++;
             }
+            jumpEventChannel.Publish(new OnPlayerJump());
+            
         }
 
-        public void AimUp()
-        {
-            player.DirectionFacingUpDown = FacingSideUpDown.Up;
-            player.playerVerticalDirection = Vector2.up;
-        }
-
-        public void AimDown()
-        {
-            player.DirectionFacingUpDown = FacingSideUpDown.Down;
-            player.playerVerticalDirection = Vector2.down;
-        }
+        
 
         private void ResetJumpCount()
         {

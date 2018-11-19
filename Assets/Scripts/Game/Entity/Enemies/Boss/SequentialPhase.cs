@@ -27,7 +27,7 @@ namespace Game.Entity.Enemies.Boss
 
         protected virtual void TransiteToNextStateIfReady()
         {
-            if (subStates[currentIndex].CanEnter())
+            if (subStates.Length != 0 && subStates[currentIndex].CanEnter())
             {
                 if (IsIdling)
                     ExitIdle();
@@ -100,6 +100,7 @@ namespace Game.Entity.Enemies.Boss
 
         public override void Finish()
         {
+            currentState?.Finish();
             currentState = null;
             base.Finish();
         }

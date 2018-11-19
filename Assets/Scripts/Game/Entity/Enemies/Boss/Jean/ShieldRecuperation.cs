@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.Entity.Enemies.Boss.Jean
 {
-    class ShieldRecuperation : Capacity
+    class ShieldRecuperation : Vulnerable
     {
         private ShieldManager shieldManager;
 
@@ -17,15 +17,14 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         public override void Act()
         {
-            
+            base.Act();
         }
 
-        public override void Enter()
+        public override void Finish()
         {
-            base.Enter();
+            base.Finish();
             shieldManager.ShieldPercent = 1;
             shieldManager.IsShieldActive = true;
-            Finish();
         }
 
         public override bool CanEnter()

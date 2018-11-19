@@ -7,5 +7,6 @@
         public const string Walking = "Walking";
         public const string Jump = "Jump";
         public const string Attack = "Attack";
+        public const string Hurt = "Hurt";
     }
 }
