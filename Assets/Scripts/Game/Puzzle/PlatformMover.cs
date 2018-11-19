@@ -35,6 +35,9 @@ namespace Game.Puzzle
 
         [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")] [SerializeField]
         private bool isHeadingUpwards;
+        
+        [Tooltip("Amount of time before the platform starts moving again after reaching it's destination. Horizontal & Vertical")]
+        [SerializeField] private float DirectionChangeDelay;
 
         [Header("Quadratic function options:")]
         [Tooltip("True when checked. Enables the platform to follow a curving path.")]
@@ -51,9 +54,7 @@ namespace Game.Puzzle
         [Tooltip("Quadratic function coefficient. Value of Y ")] [SerializeField]
         private float quadraticC;
 
-        [Tooltip("Amount of time before the platform starts moving again after reaching it's destination. Horizontal & Vertical")]
-        [SerializeField] private float DirectionChangeDelay;
-
+        
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
@@ -90,8 +91,10 @@ namespace Game.Puzzle
 
         private void Update()
         {
+            if(HorizontalSpeed >0)
             CheckHorizontalDirection();
-            checkVertialDirection();
+            if(VerticalSpeed>0)
+            CheckVerticalDirection();
         }
 
         private void OnEnable()
@@ -127,7 +130,7 @@ namespace Game.Puzzle
         {
             while (isActiveAndEnabled)
             {
-                if (!isUsingQuadraticCurve && CanMove())
+                if (!isUsingQuadraticCurve)
                 {
                     translation =
                         new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
@@ -138,9 +141,12 @@ namespace Game.Puzzle
                     translation = useQuadraticCurve();
                 }
 
-                transform.Translate(translation);
+                if (CanMove())
+                {
+                    transform.Translate(translation);
+                }
 
-                if (transforms.Count > 0)
+                if (transforms.Count > 0 && CanMove())
                 {
                     foreach (var transformer in transforms)
                     {
@@ -179,18 +185,18 @@ namespace Game.Puzzle
             }
         }
 
-        private void checkVertialDirection()
+        private void CheckVerticalDirection()
         {
             if (isHeadingUpwards)
             {
                 if (transform.position.y < initialPositionY + MaxDistanceUp)
                 {
                     verticalDirection = Vector2.up;
-                    timeWhenPlatformFreezed = Time.time;
                 }
                 else
                 {
                     isHeadingUpwards = false;
+                    timeWhenPlatformFreezed = Time.time;
                 }
             }
             else
