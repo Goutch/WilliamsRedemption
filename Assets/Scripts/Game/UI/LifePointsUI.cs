@@ -44,9 +44,13 @@ namespace Game.UI
             {
                 for (int i = 0; i < playerHealth.MaxHealth; i++)
                 {
-                    if (i <= playerHealth.HealthPoints)
+                    if (i < playerHealth.HealthPoints)
                     {
-                        lifePointsImages[playerHealth.HealthPoints].SetActive(false);
+                        lifePointsImages[i].SetActive(true);
+                    }
+                    else
+                    {
+                        lifePointsImages[i].SetActive(false);
                     }
                 }
             }
