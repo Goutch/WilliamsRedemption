@@ -51,6 +51,9 @@ namespace Game.Puzzle
         [Tooltip("Quadratic function coefficient. Value of Y ")] [SerializeField]
         private float quadraticC;
 
+        [Tooltip("Amount of time before the platform starts moving again after reaching it's destination. Horizontal & Vertical")]
+        [SerializeField] private float DirectionChangeDelay;
+
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
@@ -60,12 +63,15 @@ namespace Game.Puzzle
         private float quadraticFunction;
         private float positionX;
         private float verticalCapacityPrecisionOffset;
+        private float timeWhenPlatformFreezed;
+        
         
         
         //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
         private HashSet<Transform> transforms;
         //Translation vector used by the platform and it's colliding objects.
         private Vector2 translation;
+        
 
 
         private void Awake()
@@ -78,6 +84,8 @@ namespace Game.Puzzle
             lastPosition = transform.position;
             translation = new Vector2(0, 0);
             verticalCapacityPrecisionOffset = 0.0001f;
+            timeWhenPlatformFreezed = 0;
+            
         }
 
         private void Update()
@@ -119,13 +127,13 @@ namespace Game.Puzzle
         {
             while (isActiveAndEnabled)
             {
-                if (!isUsingQuadraticCurve)
+                if (!isUsingQuadraticCurve && CanMove())
                 {
                     translation =
                         new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
                         Time.deltaTime;
                 }
-                else
+                else if(isUsingQuadraticCurve)
                 {
                     translation = useQuadraticCurve();
                 }
@@ -154,6 +162,7 @@ namespace Game.Puzzle
                 else
                 {
                     isHeadingRight = false;
+                    timeWhenPlatformFreezed = Time.time;
                 }
             }
             else
@@ -165,6 +174,7 @@ namespace Game.Puzzle
                 else
                 {
                     isHeadingRight = true;
+                    timeWhenPlatformFreezed = Time.time;
                 }
             }
         }
@@ -176,6 +186,7 @@ namespace Game.Puzzle
                 if (transform.position.y < initialPositionY + MaxDistanceUp)
                 {
                     verticalDirection = Vector2.up;
+                    timeWhenPlatformFreezed = Time.time;
                 }
                 else
                 {
@@ -191,6 +202,7 @@ namespace Game.Puzzle
                 else
                 {
                     isHeadingUpwards = true;
+                    timeWhenPlatformFreezed = Time.time;
                 }
             }
         }
@@ -209,6 +221,11 @@ namespace Game.Puzzle
         public float GetVerticalSpeed()
         {
             return VerticalSpeed * Time.deltaTime;
+        }
+
+        private bool CanMove()
+        {
+            return Time.time - timeWhenPlatformFreezed >= DirectionChangeDelay;
         }
     }
 }
