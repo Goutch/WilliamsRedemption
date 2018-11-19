@@ -502,6 +502,9 @@ MonoBehaviour:
   playerNoLongerGroundedDelay: 0.1
   amountOfAdditionalJumps: 1
   additionalJumpVelocity: 0
+  jumpSound: {fileID: 8300000, guid: d3e10c7fb82fbc54ab5e216f49746eae, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114926903096335436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -520,6 +523,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 116535
   invincibilitySeconds: 1
+  woundedSound: {fileID: 8300000, guid: afce792d0e1e3a841ab2f4ae603db0a1, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!198 &198314816615773322
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -200,6 +200,7 @@ namespace Game.Entity.Player
                 CurrentController.sprite.flipX = false;
             }
         }
+        
         private void UseSound()
         {
             soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);

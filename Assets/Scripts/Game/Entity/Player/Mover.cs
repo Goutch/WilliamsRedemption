@@ -20,8 +20,12 @@ namespace Game.Entity.Player
 
         [Tooltip("Jump velocity muliplier. Only effective after the first jump.")] [SerializeField]
         private float additionalJumpVelocity;
+        
+        [SerializeField] private AudioClip jumpSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
 
-
+        
         private PlayerIndex controllerNumber;
         private KinematicRigidbody2D kinematicRigidbody2D;
         private GamePadState controllerState;
@@ -85,11 +89,13 @@ namespace Game.Entity.Player
         {
             if (kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && jumpCount == 0)
             {
+                UseSound();
                 verticalVelocity = Vector2.up;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
+                UseSound();
                 verticalVelocity = Vector2.up * additionalJumpVelocity;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 jumpCount++;
@@ -114,6 +120,13 @@ namespace Game.Entity.Player
             {
                 jumpCount = 0;
             }
+        }
+        
+        private void UseSound()
+        {
+            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(jumpSound, true, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

@@ -69,6 +69,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 100
+  collectableSound: {fileID: 8300000, guid: 1622a24bab55cf34f90d0615624b08d4, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!212 &212453353774752644
 SpriteRenderer:
   m_ObjectHideFlags: 1
