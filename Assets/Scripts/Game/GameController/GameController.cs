@@ -1,16 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Game.Controller.Events;
+﻿using Game.Controller.Events;
 using Game.Entity;
 using Game.Entity.Player;
 using Game.UI;
 using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Game.Controller
 {
@@ -18,6 +12,10 @@ namespace Game.Controller
 
     public class GameController : MonoBehaviour
     {
+        //checkpoint apres mii boss
+        //penaliter au score
+        //perd collectalbes et leurs scores
+        //temp reset au temp du checkpoint
         [SerializeField] private Level startLevel;
         private int score;
         private float time;
@@ -26,11 +24,18 @@ namespace Game.Controller
         private int levelRemainingTime;
         private bool isGamePaused = false;
         private bool isGameStarted = false;
+        private bool isGameInExpertMode = false;
+        public bool ExpertMode => isGameInExpertMode;
+
         private Level currentLevel;
         public event GameControllerEventHandler OnGameEnd;
         public event GameControllerEventHandler OnLevelChange;
 
         private CollectablesEventChannel collectablesEventChannel;
+
+        private Checkpoint currentCheckPoint;
+
+        private PlayerController player;
 
         //UI
         private ScoreUI scoreUI;
@@ -74,6 +79,9 @@ namespace Game.Controller
                 PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
                 lifePointsUI.InitLifePoints();
                 startTime = Time.time;
+                player= GameObject.FindGameObjectWithTag(Values.Tags.Player)
+                    .GetComponent<PlayerController>();
+                player.GetComponent<Health>().OnDeath += OnPlayerDie;
             }
 
             Time.timeScale = 1f;
@@ -98,7 +106,7 @@ namespace Game.Controller
 
             if (!isGamePaused && isGameStarted)
             {
-                time = UnityEngine.Time.time - startTime;
+                time = Time.time - startTime;
                 if (levelRemainingTime > 0)
                     levelRemainingTime = Mathf.RoundToInt((currentLevel.ExpectedTime - CurrentGameTime));
                 else
@@ -199,7 +207,26 @@ namespace Game.Controller
 
         private void OnPlayerDie(GameObject gameObject)
         {
-            GameOver();
+            if (isGameInExpertMode)
+                GameOver();
+            else
+            {
+                if (currentCheckPoint != null)
+                {
+                    Health playerHealth=player.GetComponent<Health>();
+                    playerHealth.HealthPoints = playerHealth.MaxHealth;
+                    player.transform.position = currentCheckPoint.transform.position;
+                    
+                    score = currentCheckPoint.ScoreAtTimeOfTrigger-(collectable*100);
+                    collectable = 0;
+                    startTime = currentCheckPoint.TimeAtTimeOfTrigger+time;
+
+                }
+                else
+                {
+                    GameOver();
+                }
+            }
         }
 
         public void PauseGame()
@@ -214,6 +241,23 @@ namespace Game.Controller
             Debug.Log("Game resumed");
             UnityEngine.Time.timeScale = 1f;
             isGamePaused = false;
+        }
+
+        [UsedImplicitly]
+        public void ActivateExpertMode()
+        {
+            isGameInExpertMode = true;
+        }
+
+        [UsedImplicitly]
+        public void DesactivateExpertMode()
+        {
+            isGameInExpertMode = false;
+        }
+
+        public void OnCheckPointTrigerred(Checkpoint checkpoint)
+        {
+            currentCheckPoint = checkpoint;
         }
     }
 }

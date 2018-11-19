@@ -15,7 +15,7 @@ namespace Game.Controller
 {
     public class AchievementManager : MonoBehaviour
     {
-        [SerializeField] private AchievementUI achievementUi;
+         private AchievementUI achievementUi;
 
 
         [Tooltip("PhantomCanHang number of ghost to kill to unlock Phantoms can hang")] [SerializeField]
@@ -55,6 +55,8 @@ namespace Game.Controller
             acomplishedAchievements = new List<Achievement>();
             gameController = GetComponent<GameController>();
 
+            achievementUi = GetComponent<AchievementUI>();
+            
             gameController.OnGameEnd += OnGameEnd;
             gameController.OnLevelChange += OnLevelChange;
 
@@ -113,7 +115,7 @@ namespace Game.Controller
 
         private void OnGameEnd()
         {
-            if (gameController.TotalTime <= supersonic)
+            if (gameController.CurrentLevel.Scene.name==Values.Scenes.Level3&&gameController.TotalTime <= supersonic)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.SuperSonic]);
             }

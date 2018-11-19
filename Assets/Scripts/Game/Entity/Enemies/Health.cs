@@ -25,7 +25,7 @@ namespace Game.Entity
         public int HealthPoints
         {
             get { return healthPoints; }
-            private set
+            set
             {
                 healthPoints = value;
                 OnHealthChange?.Invoke(gameObject);
