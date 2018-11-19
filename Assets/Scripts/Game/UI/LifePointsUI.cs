@@ -9,6 +9,7 @@ namespace Game.UI
     public class LifePointsUI : MonoBehaviour
     {
         [SerializeField] private GameObject lifePointPrefab;
+        [SerializeField] private GameObject lifePointsParent;
         private GameObject[] lifePointsImages;
         private PlayerController playerController;
         private Health playerHealth;
@@ -32,7 +33,7 @@ namespace Game.UI
             for (int i = 0; i < lifePointsImages.Length; i++)
             {
                 lifePointsImages[i] =
-                    Instantiate(lifePointPrefab, transform.position, Quaternion.identity, this.transform);
+                    Instantiate(lifePointPrefab, transform.position, Quaternion.identity, lifePointsParent.transform);
             }
         }
 
@@ -43,9 +44,13 @@ namespace Game.UI
             {
                 for (int i = 0; i < playerHealth.MaxHealth; i++)
                 {
-                    if (i <= playerHealth.HealthPoints)
+                    if (i < playerHealth.HealthPoints)
                     {
-                        lifePointsImages[playerHealth.HealthPoints].SetActive(false);
+                        lifePointsImages[i].SetActive(true);
+                    }
+                    else
+                    {
+                        lifePointsImages[i].SetActive(false);
                     }
                 }
             }

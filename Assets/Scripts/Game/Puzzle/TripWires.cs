@@ -27,7 +27,7 @@ namespace Game.Puzzle
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(Values.Tags.Player) && !isTripped)
+            if (other.transform.root.CompareTag(Values.Tags.Player) && !isTripped)
             {
                 foreach (var triggerable in triggerables)
                 {
