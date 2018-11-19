@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4955471433240410}
   - component: {fileID: 212822766047242822}
   - component: {fileID: 114061636016576804}
-  - component: {fileID: 114724870126502890}
   - component: {fileID: 60977238315459562}
+  - component: {fileID: 114300505372233390}
   m_Layer: 16
   m_Name: Shield Explosion
   m_TagString: ProjectileEnemy
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxScale: 10
   scaleSpeed: 0.1
---- !u!114 &114724870126502890
+--- !u!114 &114300505372233390
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,10 +119,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1086338758886814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: 2
+  type: 2
+  range: 1
 --- !u!212 &212822766047242822
 SpriteRenderer:
   m_ObjectHideFlags: 1

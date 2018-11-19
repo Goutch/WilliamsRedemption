@@ -33,7 +33,7 @@ namespace Game.UI
 
         }
 
-        public void OnHealthChange(GameObject gameObject)
+        public void OnHealthChange(GameObject receiver, GameObject attacker)
         {
             if (playerHealth.HealthPoints >= 0)
             {

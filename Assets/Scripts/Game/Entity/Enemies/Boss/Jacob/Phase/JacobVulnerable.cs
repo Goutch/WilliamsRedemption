@@ -42,12 +42,12 @@ namespace Game.Entity.Enemies.Boss.Jacob
         }
 
 
-        private void Health_OnHealthChange(GameObject gameObject)
+        private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
             Finish();
         }
 
-        private void Zombie_OnDeath(GameObject gameObject)
+        private void Zombie_OnDeath(GameObject receiver, GameObject attacker)
         {
             if (spawnedEnemyManager.IsAllEnemySpawned() && spawnedEnemyManager.GetNumberOfEnemies() == 0)
             {

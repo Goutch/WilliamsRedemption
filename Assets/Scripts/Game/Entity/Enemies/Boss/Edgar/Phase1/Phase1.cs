@@ -20,7 +20,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             mover = GetComponent<RootMover>();
         }
 
-        private void Health_OnHealthChange(GameObject gameObject)
+        private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
             if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
             {

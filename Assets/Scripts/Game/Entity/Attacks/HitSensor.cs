@@ -7,15 +7,24 @@ using UnityEngine;
 
 namespace Game.Entity.Enemies.Attack
 {
-    public delegate void OnHitEventHandler(HitStimulus hitStimulus);
+    public delegate bool OnHitEventHandler(HitStimulus hitStimulus);
 
     public class HitSensor : MonoBehaviour
     {
         public event OnHitEventHandler OnHit;
 
-        public void Notify(HitStimulus hitStimulus)
+        public bool Notify(HitStimulus hitStimulus)
         {
-            OnHit?.Invoke(hitStimulus);
+            bool hit = false;
+            if(OnHit != null)
+            {
+                foreach (OnHitEventHandler onHitDelegate in OnHit.GetInvocationList())
+                {
+                    hit = hit || onHitDelegate(hitStimulus);
+                }
+            }
+
+            return hit;
         }
     }
 }

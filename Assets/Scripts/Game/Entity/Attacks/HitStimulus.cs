@@ -59,18 +59,18 @@ namespace Game.Entity.Enemies.Attack
             HitSensor sensor;
             if (!collision.GetComponent<MarkerIgnoreStimulus>() && (sensor = collision.transform.root.GetComponent<HitSensor>()))
             {
-                sensor.Notify(this);
-                OnHitStimulusSensed?.Invoke(sensor);
+                if(sensor.Notify(this))
+                    OnHitStimulusSensed?.Invoke(sensor);
             }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             HitSensor sensor;
-            if (sensor = collision.transform.root.GetComponent<HitSensor>())
+            if (!collision.gameObject.GetComponent<MarkerIgnoreStimulus>() && (sensor = collision.transform.root.GetComponent<HitSensor>()))
             {
-                sensor.Notify(this);
-                OnHitStimulusSensed?.Invoke(sensor);
+                if (sensor.Notify(this))
+                    OnHitStimulusSensed?.Invoke(sensor);
             }
         }
     }

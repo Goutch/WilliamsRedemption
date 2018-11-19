@@ -10,7 +10,7 @@ namespace Game.Puzzle
         {
             if (other.gameObject.CompareTag(Values.Tags.Player))
             {
-                other.collider.Root().GetComponent<PlayerController>().DamagePlayer();
+                other.collider.Root().GetComponent<PlayerController>().DamagePlayer(gameObject);
             }
         }
     }

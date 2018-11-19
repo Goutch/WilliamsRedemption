@@ -45,7 +45,7 @@ namespace Game.Entity.Enemies.Boss.Death
             enemyManager.OnEnnemyDied += EnemyManager_OnEnnemyDied;
         }
 
-        private void EnemyManager_OnEnnemyDied(GameObject gameObject)
+        private void EnemyManager_OnEnnemyDied(GameObject receiver, GameObject attacker)
         {
             if(enemyManager.GetNumberOfEnemies() == 0 && enemyManager.IsAllEnemySpawned())
             {

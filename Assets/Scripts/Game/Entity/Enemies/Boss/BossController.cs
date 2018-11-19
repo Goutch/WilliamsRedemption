@@ -22,7 +22,7 @@ namespace Game.Entity.Enemies.Boss
             health.OnDeath += Health_OnDeath;
         }
 
-        private void Health_OnDeath(GameObject gameObject)
+        private void Health_OnDeath(GameObject receiver, GameObject attacker)
         {
             health.OnDeath -= Health_OnDeath;
 

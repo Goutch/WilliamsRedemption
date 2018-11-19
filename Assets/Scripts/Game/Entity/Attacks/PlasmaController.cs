@@ -12,24 +12,39 @@ namespace Game.Entity.Enemies.Attack
         }
 
         private HitStimulus hitStimulus;
+        private HitSensor hitSensor;
 
         private new void Awake()
         {
             base.Awake();
             hitStimulus = GetComponent<HitStimulus>();
+            hitSensor = GetComponent<HitSensor>();
         }
 
-        protected override void OnTriggerEnter2D(Collider2D collision)
+        private void OnEnable()
         {
-            base.OnTriggerEnter2D(collision);
+            hitSensor.OnHit += HitSensor_OnHit;
+        }
 
-            HitStimulus otherHitStimulus;
-            if (CanBeReturned && (otherHitStimulus = collision.GetComponent<HitStimulus>()) && otherHitStimulus.Range == HitStimulus.AttackRange.Melee)
+        private bool HitSensor_OnHit(HitStimulus hitStimulus)
+        {
+            if (CanBeReturned 
+                && hitStimulus.Type == HitStimulus.DamageType.Darkness 
+                && hitStimulus.Range == HitStimulus.AttackRange.Melee)
             {
                 transform.localRotation *= Quaternion.Euler(0, 0, 180);
                 //TODO ARCHIEVEMENT
                 this.hitStimulus.Type = HitStimulus.DamageType.Darkness;
+
+                return false;
             }
+
+            return false;
+        }
+
+        private void OnDisable()
+        {
+            hitSensor.OnHit -= HitSensor_OnHit;
         }
     }
 }

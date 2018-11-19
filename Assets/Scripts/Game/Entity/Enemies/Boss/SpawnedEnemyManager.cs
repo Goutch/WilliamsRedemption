@@ -6,6 +6,7 @@ namespace Game.Entity.Enemies.Boss
     class SpawnedEnemyManager : MonoBehaviour
     {
         [SerializeField] private int numberOfEnemySpawnAllowed;
+        [SerializeField] private bool resetWhenAllEnemyDied = true;
 
         public event HealthEventHandler OnEnnemyDied;
 
@@ -54,12 +55,12 @@ namespace Game.Entity.Enemies.Boss
             return numberOfEnemySpawn == NumberOfEnemySpawnAllowed;
         }
 
-        private void SpawnedEnemyManager_OnDeath(GameObject enemy)
+        private void SpawnedEnemyManager_OnDeath(GameObject receiver, GameObject attacker)
         {
-            enemies.Remove(enemy);
-            OnEnnemyDied?.Invoke(enemy);
+            enemies.Remove(receiver);
+            OnEnnemyDied?.Invoke(receiver, attacker);
 
-            if (IsAllEnemySpawned() && GetNumberOfEnemies() == 0)
+            if (IsAllEnemySpawned() && GetNumberOfEnemies() == 0 && resetWhenAllEnemyDied)
                 ResetEnemySpawnedCount();
         }
 

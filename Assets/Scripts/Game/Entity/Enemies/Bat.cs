@@ -13,8 +13,6 @@ namespace Game.Entity.Enemies
         private int direction = 1;
         private bool isTriggered;
 
-
-
         protected void Fly()
         {
             exponentialFonction.x += 1 * Time.deltaTime;

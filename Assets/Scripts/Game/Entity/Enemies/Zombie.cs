@@ -11,12 +11,37 @@ namespace Game.Entity.Enemies
         [SerializeField] private Vector2 playerKnockBackForce;
 
         private new Rigidbody2D rigidbody;
+        private HitStimulus[] hitStimuli;
         private bool knocked = false;
 
         protected override void Init()
         {
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
+            hitStimuli = GetComponentsInChildren<HitStimulus>();
+        }
+
+        private void OnEnable()
+        {
+            foreach(HitStimulus hitStimulus in hitStimuli)
+                hitStimulus.OnHitStimulusSensed += HitStimulus_OnHitStimulusSensed;
+        }
+
+        private void OnDisable()
+        {
+            foreach (HitStimulus hitStimulus in hitStimuli)
+                hitStimulus.OnHitStimulusSensed -= HitStimulus_OnHitStimulusSensed;
+        }
+
+        private void HitStimulus_OnHitStimulusSensed(HitSensor hitSensor)
+        {
+            if (hitSensor.CompareTag(Values.Tags.Player))
+            {
+                int direction = (transform.root.rotation.y == -1 ? -1 : 1);
+
+                hitSensor.Root().GetComponent<KinematicRigidbody2D>().AddForce(
+                    new Vector2(playerKnockBackForce.x * direction, playerKnockBackForce.y));
+            }
         }
 
         private new void FixedUpdate()
@@ -27,21 +52,26 @@ namespace Game.Entity.Enemies
                     knocked = false;
         }
 
-        protected override void OnHit(HitStimulus hitStimulus)
+        protected override bool OnHit(HitStimulus hitStimulus)
         {
             if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
                 base.OnHit(hitStimulus);
+
+                return true;
             }
-            else
+            else if(hitStimulus.Type == HitStimulus.DamageType.Physical)
             {
-                rootMover.LookAtPlayer();
-                int direction = (transform.rotation.y == 1 ? -1 : 1);
+                int direction = (transform.rotation.y == -1 ? -1 : 1);
 
                 rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction, bulletKnockBackForce.y),
                     ForceMode2D.Impulse);
                 knocked = true;
+
+                return true;
             }
+
+            return false;
         }
     }
 }

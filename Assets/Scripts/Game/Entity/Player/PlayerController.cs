@@ -97,10 +97,15 @@ namespace Game.Entity.Player
             IsMoving = false;
         }
 
-        private void HitSensor_OnHitEnter(HitStimulus hitStimulus)
+        private bool HitSensor_OnHitEnter(HitStimulus hitStimulus)
         {
             if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
-                DamagePlayer();
+            {
+                DamagePlayer(hitStimulus.gameObject);
+                return true;
+            }
+
+            return false;
         }
 
         private void Start()
@@ -113,11 +118,11 @@ namespace Game.Entity.Player
             SetSpriteOrientation();
         }
 
-        public void DamagePlayer()
+        public void DamagePlayer(GameObject attacker)
         {
             if (!IsInvincible)
             {
-                health.Hit();
+                health.Hit(attacker);
                 StartCoroutine(InvincibleRoutine());
             }
         }

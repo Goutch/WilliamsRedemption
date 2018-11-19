@@ -47,14 +47,7 @@ namespace Game.Entity.Enemies.Attack
 
         private void HitStimulus_OnHitStimulusSensed(HitSensor hitSensor)
         {
-            if(hitSensor.gameObject.CompareTag(Values.Tags.Player) && hitStimulus.Type == HitStimulus.DamageType.Enemy)
-            {
-                Destroy(gameObject);
-            }
-            else if(hitSensor.gameObject.CompareTag(Values.Tags.Enemy) && hitStimulus.Type != HitStimulus.DamageType.Enemy)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         void FixedUpdate()

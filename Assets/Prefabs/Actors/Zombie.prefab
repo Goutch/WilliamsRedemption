@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4973207178121200}
   - component: {fileID: 61030294389625766}
   - component: {fileID: 114428076605782380}
+  - component: {fileID: 114735139327729026}
   m_Layer: 0
   m_Name: AttackTrigger
   m_TagString: Untagged
@@ -58,7 +59,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1291848360045852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.640383, y: 4.350492, z: 0}
+  m_LocalPosition: {x: 9.428575, y: 3.9924393, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4973207178121200}
@@ -181,7 +182,7 @@ MonoBehaviour:
   isDumbEnoughToFall: 1
   surroundingRange: 1
   bulletKnockBackForce: {x: 1, y: 1}
-  playerKnockBackForce: {x: 1, y: 1}
+  playerKnockBackForce: {x: 2, y: 1.5}
 --- !u!114 &114428076605782380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,6 +208,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+--- !u!114 &114735139327729026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241562989883340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4596a1c014d03654caaa2b5fef433c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114794896012088490
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -44,7 +44,7 @@ namespace Game.Controller
             this.score += score;
             OnScoreChange?.Invoke();
         }
-        private void OnPlayerDie(GameObject gameObject)
+        private void OnPlayerDie(GameObject receiver, GameObject attacker)
         {
             ShowDeathMenu();
         }

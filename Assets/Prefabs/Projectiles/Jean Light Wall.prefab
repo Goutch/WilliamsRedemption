@@ -22,9 +22,8 @@ GameObject:
   - component: {fileID: 212133748161774644}
   - component: {fileID: 114177295245465040}
   - component: {fileID: 61198899941848050}
-  - component: {fileID: 114479075430162324}
-  - component: {fileID: 114320822825274190}
   - component: {fileID: 50109419396224740}
+  - component: {fileID: 114223434407366266}
   m_Layer: 16
   m_Name: Jean Light Wall
   m_TagString: ProjectileEnemy
@@ -103,9 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   delayBeforeDestruction: 5
-  canBeReturned: 0
   destroyOnPlatformsCollision: 0
---- !u!114 &114320822825274190
+--- !u!114 &114223434407366266
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,21 +111,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1213396422633402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114479075430162324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1213396422633402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
+  type: 2
+  range: 1
 --- !u!212 &212133748161774644
 SpriteRenderer:
   m_ObjectHideFlags: 1

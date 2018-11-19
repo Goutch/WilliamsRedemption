@@ -37,7 +37,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1302658178924928
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +75,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1187563034871314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.514, y: 0.132, z: 0}
+  m_LocalPosition: {x: 27.514, y: -2.77, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4223413739041288}
@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfEnemySpawnAllowed: 4
+  resetWhenAllEnemyDied: 0
 --- !u!114 &114665657003816676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -243,8 +244,9 @@ MonoBehaviour:
   subStates:
   - {fileID: 114386250798373468}
   - {fileID: 114915048040240046}
+  passiveCapacities:
+  - {fileID: 114253204107131226}
   animator: {fileID: 95185587434919710}
-  passiveCapacity: {fileID: 114253204107131226}
 --- !u!114 &114915048040240046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,8 +260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95185587434919710}
   duration: 4
-  disableDamage: 0
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0
+  attackCollider: {fileID: 0}
 --- !u!198 &198004288251760996
 ParticleSystem:
   m_ObjectHideFlags: 1

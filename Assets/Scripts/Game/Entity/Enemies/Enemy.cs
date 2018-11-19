@@ -30,18 +30,21 @@ namespace Game.Entity.Enemies
             Init();
         }
 
-        protected virtual void OnHit(HitStimulus hitStimulus)
+        protected virtual bool OnHit(HitStimulus hitStimulus)
         {
             if(hitStimulus.Type != HitStimulus.DamageType.Enemy)
             {
-                health.Hit();
+                health.Hit(hitStimulus.gameObject);
+                return true;
             }
+
+            return false;
         }
 
         protected abstract void Init();
 
 
-        private void OnDeath(GameObject gameObject)
+        private void OnDeath(GameObject receiver, GameObject attacker)
         {
             Destroy(this.gameObject);
         }

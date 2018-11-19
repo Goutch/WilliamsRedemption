@@ -1,4 +1,5 @@
-﻿using Game.Entity.Player;
+﻿using Game.Entity.Enemies.Attack;
+using Game.Entity.Player;
 using Game.Puzzle.Light;
 using System.Collections;
 using UnityEngine;
@@ -8,59 +9,83 @@ namespace Game.Entity.Enemies
     public class Ghost : Enemy
     {
         [SerializeField] private float damageKnockBackForce = 1;
+        [SerializeField] private float disapearTimeLimitBeforeDespawn = 5;
 
-        [SerializeField] private float disapearTimeLimitBeforeDesSpawn = 5;
+        private GameObject attack;
+        private LightSensor playerLightSensor;
+
         private RootMover rootMover;
         private Rigidbody2D rigidBody;
-        private LightSensor playerLightSensor;
+
         private bool isPlayerReaper = false;
-        private bool aprearing;
-        private bool disapearing;
+        private bool isEnable = true;
 
-        public bool IsPlayerReaper
+        private new void Awake()
         {
-            get { return isPlayerReaper; }
-            set { isPlayerReaper = value; }
-        }
-
-        private void Start()
-        {
+            base.Awake();
             rootMover = GetComponent<RootMover>();
             rigidBody = GetComponent<Rigidbody2D>();
             playerLightSensor = player.GetComponent<LightSensor>();
-            playerLightSensor.OnLightExpositionChange += OnPlayerStateChange;
+
+            attack = transform.GetChild(0).gameObject;
+
+            if (playerLightSensor.InLight != false)
+            {
+                Disable();
+            }
+        }
+
+        protected override bool OnHit(HitStimulus hitStimulus)
+        {
+            if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
+            {
+                health.Hit(hitStimulus.gameObject);
+
+                Vector2 kockBackDir = (this.transform.position - hitStimulus.transform.root.position);
+                rigidBody.AddForce(kockBackDir.normalized * damageKnockBackForce, ForceMode2D.Impulse);
+
+                return true;
+            }
+
+            return false;
         }
 
         private void FixedUpdate()
         {
             if (playerLightSensor.InLight == false)
             {
+                if(!isEnable)
+                {
+                    Enable();
+                }
+
                 rootMover.LookAtPlayer();
                 rootMover.FlyToward(player.transform.position);
             }
             else
             {
-                spriteRenderer.enabled = false;
+                Disable();
             }
         }
 
-        private void OnPlayerStateChange(bool isInLight)
+        private void Enable()
         {
-            IsPlayerReaper = !isInLight;
-            if (IsPlayerReaper)
-            {
-                spriteRenderer.enabled = true;
-            }
-            else
-            {
-                spriteRenderer.enabled = false;
-                StartCoroutine(DisapearRoutine());
-            }
+            spriteRenderer.enabled = true;
+            attack.SetActive(true);
+
+            isEnable = true;
+
+            StopAllCoroutines();
         }
 
-        private void OnDisable()
+        private void Disable()
         {
-            playerLightSensor.OnLightExpositionChange -= OnPlayerStateChange;
+            spriteRenderer.enabled = false;
+            attack.SetActive(false);
+
+            isEnable = false;
+
+            StartCoroutine(DisapearRoutine());
         }
 
         protected override void Init()
@@ -71,22 +96,9 @@ namespace Game.Entity.Enemies
 
         private IEnumerator DisapearRoutine()
         {
-            float disapearTime = Time.time;
-            while (Time.time < disapearTime + disapearTimeLimitBeforeDesSpawn)
-            {
-                //if player is william 
-                if (!isPlayerReaper)
-                    yield return null;
-                else
-                {
-                    //if he is reaper reapear
-                    yield break;
-                }
-            }
-            
-            Destroy(this.gameObject);
-            
+            yield return new WaitForSeconds(disapearTimeLimitBeforeDespawn);
+
+            this.GetComponent<Health>().Kill(gameObject);
         }
-        
     }
 }

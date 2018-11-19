@@ -28,7 +28,7 @@ namespace Game.Entity.Enemies.Boss.Death
             enemyManager.Clear();
         }
 
-        private void Health_OnHealthChange(GameObject gameObject)
+        private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
             if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
             {
