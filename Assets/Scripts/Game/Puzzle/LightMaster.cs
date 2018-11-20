@@ -12,8 +12,8 @@ public class LightMaster : MonoBehaviour
 	[SerializeField] private GameObject [] Lights;
 	[Tooltip("Amount of time in seconds where each light stays open.")]
 	[SerializeField] private float timePerLight;
-	[Tooltip("Checking this box will separate the lights in two groups. Lights in a group all have the same state at the same time.")]
-	[SerializeField] private bool SeparateLightsInGroups;
+	[Tooltip("Checking this box will close every open light and open every closed light.")]
+	[SerializeField] private bool AlternateLights;
 
 	private ITriggerable currentlight;
 	private float timeAtStart;
@@ -23,40 +23,24 @@ public class LightMaster : MonoBehaviour
 	{
 		timeAtStart = 0;
 		currentLightIndex = 0;
-		currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
+		//currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
 	}
 
 	private void Start()
 	{
-		if (!SeparateLightsInGroups)
+		
+		if (!AlternateLights)
 		{
-			
+			currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
 			currentlight.Open();
 		}
-		else
-		{
-			bool open = true;
-			foreach (var l in Lights)
-			{
-				currentlight = l.GetComponent<ITriggerable>();
-				if (open)
-				{
-					currentlight.Open();
-					open = false;
-				}
-				else
-				{
-					currentlight.Close();
-					open = true;
-				}
-			}
-		}	
+		
 		timeAtStart = Time.time;
 	}
 	
 	private void Update () 
 	{
-		if (!SeparateLightsInGroups)
+		if (!AlternateLights)
 		{
 			Cycle();
 		}
