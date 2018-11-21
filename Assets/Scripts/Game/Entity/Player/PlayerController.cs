@@ -1,8 +1,10 @@
-﻿using Game.Entity.Enemies.Attack;
-using Game.Puzzle.Light;
+﻿using Game.Puzzle.Light;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Controller;
+using Game.Controller.Events;
 using UnityEngine;
+using Game.Entity.Enemies.Attack;
 
 namespace Game.Entity.Player
 {
@@ -18,20 +20,19 @@ namespace Game.Entity.Player
 
         [SerializeField] private float invincibilitySeconds;
         private Health health;
+        public static PlayerController instance;
 
         private WilliamController williamController;
         private ReaperController reaperController;
         public EntityController CurrentController { get; private set; }
-        private EntityController currentController;
 
         private LightSensor lightSensor;
         public KinematicRigidbody2D kRigidBody { get; private set; }
-        private Mover mover;
-        private HitSensor hitSensor;
+        private LayerMask layerMask;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
-
-
+        private PlayerHealthEventChannel playerHealthEventChannel;
+        private GameController gameController;
         private int currentLevel;
         private int numbOfLocks = 0;
 
@@ -62,9 +63,7 @@ namespace Game.Entity.Player
 
         public bool IsOnGround => kRigidBody.IsGrounded;
         public bool IsDashing { get; set; }
-        public bool IsMoving { get; set; }
-        public bool IsStun { get; set; }
-        private bool isInvincible = false;
+        private bool isInvincible;
 
         public bool IsInvincible
         {
@@ -72,40 +71,38 @@ namespace Game.Entity.Player
             set
             {
                 isInvincible = value;
-                reaperController.animator.SetBool("Invincible",value);
                 williamController.animator.SetBool("Invincible", value);
+                reaperController.animator.SetBool("Invincible", value);
             }
         }
 
-        public FacingSideUpDown DirectionFacingUpDown { get; set; }
-        public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
-
         private void Awake()
         {
-            currentLevel = 1;
+          
+            if (instance == null)
+            {
+                instance = this;
+            }
 
+            playerHorizontalDirection = Vector2.right;
+            gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<GameController>();
+            playerHorizontalDirection = Vector2.right;
             kRigidBody = GetComponent<KinematicRigidbody2D>();
-            hitSensor = GetComponent<HitSensor>();
-            hitSensor.OnHit += HitSensor_OnHitEnter;
+            layerMask = kRigidBody.LayerMask;
+
+            isInvincible = false;
+            numbOfLocks = 0;
 
             health = GetComponent<Health>();
             williamController = GetComponentInChildren<WilliamController>();
             reaperController = GetComponentInChildren<ReaperController>();
-
+            CurrentController = williamController;
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
-            IsMoving = false;
-        }
-
-        private bool HitSensor_OnHitEnter(HitStimulus hitStimulus)
-        {
-            if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
-            {
-                DamagePlayer(hitStimulus.gameObject);
-                return true;
-            }
-
-            return false;
+            GetComponent<HitSensor>().OnHit += HandleCollision;
+            GetComponent<HitSensor>().OnHit += HandleCollision;
+            playerHealthEventChannel = gameController.GetComponent<PlayerHealthEventChannel>();
         }
 
         private void Start()
@@ -124,6 +121,7 @@ namespace Game.Entity.Player
             {
                 health.Hit(attacker);
                 StartCoroutine(InvincibleRoutine());
+                playerHealthEventChannel.Publish(new OnPlayerTakeDamage());
             }
         }
 
@@ -134,6 +132,15 @@ namespace Game.Entity.Player
             IsInvincible = false;
         }
 
+        private bool HandleCollision(HitStimulus other)
+        {
+            if (other.Type == HitStimulus.DamageType.Enemy)
+            {
+                DamagePlayer(other.gameObject);
+                return true;
+            }
+            return false;
+        }
 
 
         private void OnLightExpositionChanged(bool exposed)
@@ -150,11 +157,10 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                williamController.sprite.flipX = reaperController.sprite.flipX;
-                williamController.gameObject.SetActive(true);
                 reaperController.OnAttackFinish();
-                CurrentController = williamController;
                 reaperController.gameObject.SetActive(false);
+                williamController.gameObject.SetActive(true);
+                CurrentController = williamController;
                 kRigidBody.LayerMask = williamLayerMask;
             }
         }
@@ -163,11 +169,10 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                reaperController.sprite.flipX = williamController.sprite.flipX;
-                reaperController.gameObject.SetActive(true);
                 williamController.OnAttackFinish();
-                CurrentController = reaperController;
                 williamController.gameObject.SetActive(false);
+                reaperController.gameObject.SetActive(true);
+                CurrentController = reaperController;
                 kRigidBody.LayerMask = reaperLayerMask;
             }
         }
@@ -198,16 +203,8 @@ namespace Game.Entity.Player
             }
         }
 
-        public void StunPlayer(float duration)
-        {
-            StartCoroutine(StunPlayerCoroutine(duration));
-        }
+     
 
-        private IEnumerator StunPlayerCoroutine(float duration)
-        {
-            IsStun = true;
-            yield return new WaitForSeconds(duration);
-            IsStun = false;
-        }
+
     }
 }

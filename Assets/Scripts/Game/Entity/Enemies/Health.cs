@@ -31,7 +31,6 @@ namespace Game.Entity
 
             if (animator != null && animator.ContainsParam(Values.AnimationParameters.Enemy.Hurt))
                 animator.SetTrigger(Values.AnimationParameters.Enemy.Hurt);
-
             if (IsDead())
             {
                 OnDeath?.Invoke(transform.root.gameObject, attacker);

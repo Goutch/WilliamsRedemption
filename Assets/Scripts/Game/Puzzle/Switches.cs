@@ -22,7 +22,7 @@ namespace Game.Puzzle
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.transform.root.CompareTag(Values.Tags.Player) && timerHasStarted == false)
+            if (other.CompareTag(Values.Tags.Player) && !timerHasStarted)
             {
                 foreach (var triggerable in triggerables)
                 {
@@ -59,6 +59,10 @@ namespace Game.Puzzle
                         }
                     }
                 }
+            }
+            else if(other.CompareTag(Values.Tags.Player) && timerHasStarted)
+            {
+                timerStartTime = Time.time;
             }
         }
 
