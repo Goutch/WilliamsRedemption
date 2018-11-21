@@ -1,4 +1,5 @@
 ﻿using Game.Entity.Player;
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Entity.Enemies
@@ -10,32 +11,23 @@ namespace Game.Entity.Enemies
 
         private RootMover rootMover;
 
-        private int direction = 1;
         private bool isTriggered;
 
-        protected void Fly()
+        protected IEnumerator Fly()
         {
-            exponentialFonction.x += 1 * Time.deltaTime;
-            exponentialFonction.y = Mathf.Pow(exponentialFonction.x, 2) + fonctionYOffSet;
-            rootMover.FlyToward(
-                new Vector2(exponentialFonction.x * direction + transform.position.x,
-                    exponentialFonction.y + transform.position.y));
-        }
+            rootMover.LookAtPlayer();
 
-        public void OnTriggered()
-        {
-            if (!isTriggered)
+            int direction = (transform.rotation.y == 1 ? -1 : 1);
+            while (true)
             {
-                isTriggered = true;
-                animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
-                Destroy(this.gameObject, 10);
-                direction = player.transform.position.x - transform.root.position.x > 0
-                    ? 1
-                    : -1;
-                if (direction == 1)
-                    spriteRenderer.flipX = false;
-                else
-                    spriteRenderer.flipX = true;
+                exponentialFonction.x += 1 * Time.deltaTime;
+                exponentialFonction.y = Mathf.Pow(exponentialFonction.x, 2) + fonctionYOffSet;
+
+                rootMover.FlyToward(
+                    new Vector2(exponentialFonction.x * direction + transform.position.x,
+                        exponentialFonction.y + transform.position.y));
+
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -45,11 +37,15 @@ namespace Game.Entity.Enemies
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        private void FixedUpdate()
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (isTriggered)
+            if(collision.transform.root.CompareTag(Values.Tags.Player) && !isTriggered)
             {
-                Fly();
+                isTriggered = true;
+                animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
+
+                StartCoroutine(Fly());
+                Destroy(this.gameObject, 10);
             }
         }
     }
