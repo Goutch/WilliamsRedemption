@@ -101,17 +101,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 86
-        width: 42
+        y: 504
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31433818, y: 0.49035498}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d778fc307c9a174bb3755876fce2d27
+      spriteID: 2c352e07e94977047810b21cce5c0eca
       vertices: []
       indices: 
       edges: []
@@ -120,18 +120,18 @@ TextureImporter:
       name: ReaperSpriteSheet_1
       rect:
         serializedVersion: 2
-        x: 42
-        y: 86
-        width: 42
+        x: 0
+        y: 462
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31096253, y: 0.47588748}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6680ea2af9310d46a873cb62c4c3161
+      spriteID: 0ee3f4408473fbf4082060be04bc1063
       vertices: []
       indices: 
       edges: []
@@ -140,18 +140,18 @@ TextureImporter:
       name: ReaperSpriteSheet_2
       rect:
         serializedVersion: 2
-        x: 84
-        y: 86
-        width: 42
+        x: 0
+        y: 420
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.30629352, y: 0.5247069}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e564a9d38fa5cb64f9630df41d9d2323
+      spriteID: f65589d8f26fa9341b48414a98914e5b
       vertices: []
       indices: 
       edges: []
@@ -160,18 +160,18 @@ TextureImporter:
       name: ReaperSpriteSheet_3
       rect:
         serializedVersion: 2
-        x: 126
-        y: 86
-        width: 42
+        x: 0
+        y: 378
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.3122229, y: 0.48357645}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e18f488342f18034682d31a46831a26a
+      spriteID: d76d533d0fe00234982cde4e9e1eadf9
       vertices: []
       indices: 
       edges: []
@@ -180,18 +180,18 @@ TextureImporter:
       name: ReaperSpriteSheet_4
       rect:
         serializedVersion: 2
-        x: 168
-        y: 86
-        width: 42
+        x: 0
+        y: 336
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.3160551, y: 0.5164235}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb59ac2084b8c094ea2b58fff83d4dd2
+      spriteID: 89f2b2fcabae7bc478fad18b000012dc
       vertices: []
       indices: 
       edges: []
@@ -200,18 +200,18 @@ TextureImporter:
       name: ReaperSpriteSheet_5
       rect:
         serializedVersion: 2
-        x: 210
-        y: 86
-        width: 42
+        x: 0
+        y: 294
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31988725, y: 0.48357645}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29d178d0b9dc7f142b333fc3c7a7fc29
+      spriteID: a40db845009868f4b874ba217b4dcd03
       vertices: []
       indices: 
       edges: []
@@ -221,17 +221,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 44
-        width: 42
+        y: 252
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31366432, y: 0.44475156}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f86717757e3f80f46bef990846f02236
+      spriteID: 51d0d5c369ac083448d813a63ee4f88e
       vertices: []
       indices: 
       edges: []
@@ -240,18 +240,18 @@ TextureImporter:
       name: ReaperSpriteSheet_7
       rect:
         serializedVersion: 2
-        x: 42
-        y: 44
-        width: 42
+        x: 0
+        y: 210
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31014857, y: 0.47488695}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90d37ed9043e83248add7dda633c23ee
+      spriteID: b1396fa844f2aba4db38f36746322b94
       vertices: []
       indices: 
       edges: []
@@ -260,18 +260,18 @@ TextureImporter:
       name: ReaperSpriteSheet_8
       rect:
         serializedVersion: 2
-        x: 84
-        y: 44
-        width: 42
+        x: 0
+        y: 168
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.32069585, y: 0.4598196}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7cff565d0955f2e4a8d22a97a10b44da
+      spriteID: 5f43397dc0efbb942a4d32707e8b904f
       vertices: []
       indices: 
       edges: []
@@ -280,18 +280,18 @@ TextureImporter:
       name: ReaperSpriteSheet_9
       rect:
         serializedVersion: 2
-        x: 126
-        y: 44
-        width: 42
+        x: 0
+        y: 126
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.3171801, y: 0.48493195}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74e09f804c857a849bd7fded224df2af
+      spriteID: 8174012893e169f4f892251c7256a83d
       vertices: []
       indices: 
       edges: []
@@ -300,18 +300,18 @@ TextureImporter:
       name: ReaperSpriteSheet_10
       rect:
         serializedVersion: 2
-        x: 168
-        y: 44
-        width: 42
+        x: 0
+        y: 84
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.32069585, y: 0.4397296}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 603d516afc1268e4d929bdd0ccf340b8
+      spriteID: c7557a15a2f2baf468fe2bbf6f03e495
       vertices: []
       indices: 
       edges: []
@@ -320,18 +320,18 @@ TextureImporter:
       name: ReaperSpriteSheet_11
       rect:
         serializedVersion: 2
-        x: 210
-        y: 44
-        width: 42
+        x: 0
+        y: 42
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31366432, y: 0.46484175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46f41c68e28777a43a19d51c6ffbf67b
+      spriteID: 0cbba69ce0aac084682083c3a18cfcaa
       vertices: []
       indices: 
       edges: []
@@ -341,17 +341,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
-        width: 42
+        y: 0
+        width: 60
         height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.303117, y: 0.44977438}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cce98135a0c8c3479cb79a02e23fd70
+      spriteID: 3513e8e16e2996c4387e9529ab0abe24
       vertices: []
       indices: 
       edges: []

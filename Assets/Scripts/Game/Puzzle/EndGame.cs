@@ -15,7 +15,7 @@ namespace Game.Puzzle
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(Values.Tags.Player))
+            if (other.transform.root.CompareTag(Values.Tags.Player))
             {
                 gameController.NextLevel();
             }

@@ -1,6 +1,8 @@
 ﻿using Game.Puzzle.Light;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Controller;
+using Game.Controller.Events;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -16,7 +18,6 @@ namespace Game.Entity.Player
         private LayerMask reaperLayerMask;
 
         [SerializeField] private float invincibilitySeconds;
-        
         private Health health;
         public static PlayerController instance;
 
@@ -29,8 +30,10 @@ namespace Game.Entity.Player
         private LayerMask layerMask;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
-
-        private int numbOfLocks;
+        private PlayerHealthEventChannel playerHealthEventChannel;
+        private GameController gameController;
+        private int currentLevel;
+        private int numbOfLocks = 0;
 
         public LayerMask WilliamLayerMask
         {
@@ -81,6 +84,9 @@ namespace Game.Entity.Player
             }
 
             playerHorizontalDirection = Vector2.right;
+            gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<GameController>();
+            playerHorizontalDirection = Vector2.right;
             kRigidBody = GetComponent<KinematicRigidbody2D>();
             layerMask = kRigidBody.LayerMask;
 
@@ -94,6 +100,8 @@ namespace Game.Entity.Player
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
             GetComponent<HitSensor>().OnHit += HandleCollision;
+            GetComponent<HitSensor>().OnHit += HandleCollision;
+            playerHealthEventChannel = gameController.GetComponent<PlayerHealthEventChannel>();
         }
 
         private void Start()
@@ -112,6 +120,7 @@ namespace Game.Entity.Player
             {
                 health.Hit();
                 StartCoroutine(InvincibleRoutine());
+                playerHealthEventChannel.Publish(new OnPlayerTakeDamage());
             }
         }
 
@@ -130,6 +139,7 @@ namespace Game.Entity.Player
                 DamagePlayer();
             }
         }
+
 
         private void OnLightExpositionChanged(bool exposed)
         {
@@ -190,5 +200,9 @@ namespace Game.Entity.Player
                 CurrentController.sprite.flipX = false;
             }
         }
+
+     
+
+
     }
 }
