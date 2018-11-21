@@ -9,7 +9,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         private Health health;
         private Enemy enemy;
         private float hurtTimeInSecond = .5f;
-
+        
         private void Awake()
         {
             animator = GetComponent<Animator>();
