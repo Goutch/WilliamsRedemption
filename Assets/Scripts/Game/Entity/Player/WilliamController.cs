@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Game.Controller.Events;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -23,6 +24,7 @@ namespace Game.Entity.Player
         private float? lastTimeAttack = null;
         private float timerStartTime;
         private Animator animator;
+        private PlayerShootEventChannel shootEventChannel;
 
         private void Start()
         {
@@ -30,6 +32,9 @@ namespace Game.Entity.Player
             capacityCanBeUsed = true;
             animator = GetComponent<Animator>();
             capacityCanBeUsed = true;
+            shootEventChannel = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<PlayerShootEventChannel>();
+
         }
 
         public override void UseCapacity(PlayerController player)
@@ -91,7 +96,7 @@ namespace Game.Entity.Player
                 player.kRigidBody.Velocity =
                     Vector2.right * direction.x *
                     dashSpeed; //set our rigidbody velocity to a custom velocity every frame.
-                yield return 0;
+                yield return new WaitForFixedUpdate();
             }
 
 
@@ -115,6 +120,7 @@ namespace Game.Entity.Player
                 angle = Quaternion.AngleAxis(90, Vector3.forward);
 
             GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
+            shootEventChannel.Publish(new OnPlayerShoot());
         }
     }
 }

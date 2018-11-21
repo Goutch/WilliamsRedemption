@@ -7,30 +7,18 @@ namespace Game.Puzzle
 {
     public class EndGame : MonoBehaviour
     {
-        private void OnTriggerEnter2D(Collider2D other)
+        private GameController gameController;
+        private void Start()
         {
-            if (other.CompareTag(Values.Tags.Player))
-            {
-                ChooseActionToDo();
-            }
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
         }
 
-        private void ChooseActionToDo()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (SceneManager.GetActiveScene().name == Values.GameObject.Level1)
+            if (other.transform.root.CompareTag(Values.Tags.Player))
             {
-                SceneManager.LoadScene(Game.Values.GameObject.Level2);
-            }
-            else if (SceneManager.GetActiveScene().name == Game.Values.GameObject.Level2)
-            {
-                SceneManager.LoadScene(Game.Values.GameObject.Level3);
-            }
-            else
-            {
-                GameObject.FindWithTag(Values.Tags.GameController).GetComponent<GameController>().OnGameEnd();
+                gameController.NextLevel();
             }
         }
     }
 }
-
-

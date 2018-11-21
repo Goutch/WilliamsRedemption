@@ -10,7 +10,7 @@ public class Gezere : MonoBehaviour
 {
     [SerializeField] private float OpenTime;
     [SerializeField] private float closedTime;
-    private CircleLight light;
+    private new CircleLight light;
     private Collider2D attackColider;
 
     private ParticleSystem particules;

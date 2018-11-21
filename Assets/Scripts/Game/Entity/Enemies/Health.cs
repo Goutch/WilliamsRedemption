@@ -1,5 +1,6 @@
-﻿using AnimatorExtension;
+using AnimatorExtension;
 using Game.Controller;
+using Game.Controller.Events;
 using Game.Entity.Enemies;
 using Game.Entity.Enemies.Attack;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine;
 namespace Game.Entity
 {
     public delegate void HealthEventHandler(GameObject receiver, GameObject attacker);
+
     public class Health : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
@@ -14,6 +16,7 @@ namespace Game.Entity
 
         public event HealthEventHandler OnDeath;
         public event HealthEventHandler OnHealthChange;
+        private GameController gameController;
 
         private Animator animator;
 
@@ -39,6 +42,8 @@ namespace Game.Entity
         {
             HealthPoints = MaxHealth;
             animator = GetComponent<Animator>();
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>();
         }
 
         public void Kill(GameObject killer)
@@ -64,7 +69,10 @@ namespace Game.Entity
         {
             return GetComponent<Enemy>() != null;
         }
+
+        public void ResetHealth()
+        {
+            HealthPoints = MaxHealth;
+        }
     }
 }
-
-

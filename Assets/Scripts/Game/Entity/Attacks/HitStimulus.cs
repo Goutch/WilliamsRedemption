@@ -71,6 +71,7 @@ namespace Game.Entity.Enemies.Attack
             {
                 if (sensor.Notify(this))
                     OnHitStimulusSensed?.Invoke(sensor);
+                
             }
         }
     }

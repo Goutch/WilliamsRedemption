@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4800844599087302}
   - component: {fileID: 212802372452397250}
   - component: {fileID: 61351709984373016}
-  - component: {fileID: 114451173859705918}
+  - component: {fileID: 114102335174454346}
   m_Layer: 1
   m_Name: DoorSwitch
   m_TagString: Untagged
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.06, y: 0.06}
   m_EdgeRadius: 0
---- !u!114 &114451173859705918
+--- !u!114 &114102335174454346
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,13 +75,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1497670692778824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44fa702f9530ee4ca8818b3cb3ef674, type: 3}
+  m_Script: {fileID: 11500000, guid: ffae217b5098f33418e7d02251de80a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerables:
-  - {fileID: 0}
+  triggerables: []
   shutDownTime: 0
   hasTimer: 0
+  lockLinkedObjects: 0
 --- !u!212 &212802372452397250
 SpriteRenderer:
   m_ObjectHideFlags: 1

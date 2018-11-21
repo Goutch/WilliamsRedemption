@@ -16,6 +16,8 @@ TagManager:
   - Light
   - ProjectileEnemy
   - PassThrough
+  - MovingPlatform
+  - Collectable
   layers:
   - Default
   - TransparentFX
@@ -29,7 +31,7 @@ TagManager:
   - Walls
   - Player
   - Platform
-  - 
+  - Obstacles
   - 
   - 
   - 

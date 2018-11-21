@@ -57,7 +57,7 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(Values.Tags.Plateforme) && destroyOnPlatformsCollision)
+            if (collision.gameObject.layer == LayerMask.NameToLayer(Values.Layers.Platform) && destroyOnPlatformsCollision)
             {
                 Destroy(gameObject);
             }

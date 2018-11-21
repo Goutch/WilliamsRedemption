@@ -17,14 +17,16 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 
         private RootMover mover;
         private Rigidbody2D rb;
-
+        private Animator animator;
+            
         private float lastTimeCapacityUsed;
 
         protected override void Init()
         {
             mover = GetComponent<RootMover>();
             rb = GetComponent<Rigidbody2D>();
-
+            animator = GetComponent<Animator>();
+            
             if (capacityUsableAtStart)
                 lastTimeCapacityUsed = -cooldown;
         }
@@ -48,7 +50,6 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         public override void Enter()
         {
             base.Enter();
-
             lastTimeCapacityUsed = Time.time;
 
             mover.Jump();

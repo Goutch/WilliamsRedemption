@@ -1,47 +1,59 @@
-﻿
+﻿using Game.Controller;
 using Game.Entity;
 using Game.Entity.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.UI
 {
     public class LifePointsUI : MonoBehaviour
     {
         [SerializeField] private GameObject lifePointPrefab;
-        public static LifePointsUI instance;
+        [SerializeField] private GameObject lifePointsParent;
         private GameObject[] lifePointsImages;
         private PlayerController playerController;
         private Health playerHealth;
+        private GameController gameController;
 
-        private void Start()
+
+        public void InitLifePoints()
         {
-            if (instance == null)
-                instance = this;
-            else
-            {
-                Destroy(this.gameObject);
-            }
-            GameObject objectS = GameObject.FindGameObjectWithTag(Values.Tags.Player);
+            if (lifePointsImages != null)
+                foreach (var image in lifePointsImages)
+                {
+                    Destroy(image);
+                }
+
+            gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<GameController>();
             playerController = GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<PlayerController>();
             playerHealth = playerController.GetComponent<Health>();
             playerHealth.OnHealthChange += OnHealthChange;
             lifePointsImages = new GameObject[playerHealth.MaxHealth];
             for (int i = 0; i < lifePointsImages.Length; i++)
             {
-                lifePointsImages[i] = Instantiate(lifePointPrefab, transform.position, Quaternion.identity, this.transform);
+                lifePointsImages[i] =
+                    Instantiate(lifePointPrefab, transform.position, Quaternion.identity, lifePointsParent.transform);
             }
-
         }
+
 
         public void OnHealthChange(GameObject receiver, GameObject attacker)
         {
             if (playerHealth.HealthPoints >= 0)
             {
-                lifePointsImages[playerHealth.HealthPoints].SetActive(false);
+                for (int i = 0; i < playerHealth.MaxHealth; i++)
+                {
+                    if (i < playerHealth.HealthPoints)
+                    {
+                        lifePointsImages[i].SetActive(true);
+                    }
+                    else
+                    {
+                        lifePointsImages[i].SetActive(false);
+                    }
+                }
             }
-
         }
-
     }
 }
-

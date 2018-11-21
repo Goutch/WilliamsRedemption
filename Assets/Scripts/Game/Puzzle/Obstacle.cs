@@ -8,7 +8,7 @@ namespace Game.Puzzle
     {
         void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag(Values.Tags.Player))
+            if (other.transform.root.gameObject.CompareTag(Values.Tags.Player))
             {
                 other.collider.Root().GetComponent<PlayerController>().DamagePlayer(gameObject);
             }

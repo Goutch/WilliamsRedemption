@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 namespace Game.Entity.Enemies
 {
     public abstract class WalkTowardPlayerEnnemy : Enemy
@@ -22,6 +21,8 @@ namespace Game.Entity.Enemies
             rootMover.LookAtPlayer();
 
             surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
+            
+            
             UpdateMovement(surrounding);
         }
 
