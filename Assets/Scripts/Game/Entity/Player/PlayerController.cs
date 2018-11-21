@@ -24,7 +24,6 @@ namespace Game.Entity.Player
         private WilliamController williamController;
         private ReaperController reaperController;
         public EntityController CurrentController { get; private set; }
-        private EntityController currentController;
 
         private LightSensor lightSensor;
         public KinematicRigidbody2D kRigidBody { get; private set; }
@@ -76,17 +75,15 @@ namespace Game.Entity.Player
             }
         }
 
-        public FacingSideUpDown DirectionFacingUpDown { get; set; }
-        public FacingSideLeftRight DirectionFacingLeftRight { get; set; }
-
         private void Awake()
         {
-            currentLevel = 1;
+          
             if (instance == null)
             {
                 instance = this;
             }
 
+            playerHorizontalDirection = Vector2.right;
             gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
                 .GetComponent<GameController>();
             playerHorizontalDirection = Vector2.right;
@@ -95,13 +92,14 @@ namespace Game.Entity.Player
 
             isInvincible = false;
             numbOfLocks = 0;
-        
+
             health = GetComponent<Health>();
             williamController = GetComponentInChildren<WilliamController>();
             reaperController = GetComponentInChildren<ReaperController>();
             CurrentController = williamController;
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
+            GetComponent<HitSensor>().OnHit += HandleCollision;
             GetComponent<HitSensor>().OnHit += HandleCollision;
             playerHealthEventChannel = gameController.GetComponent<PlayerHealthEventChannel>();
         }
@@ -157,13 +155,10 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                //williamController.sprite.flipX = reaperController.sprite.flipX;
                 reaperController.OnAttackFinish();
                 reaperController.gameObject.SetActive(false);
                 williamController.gameObject.SetActive(true);
-
                 CurrentController = williamController;
-
                 kRigidBody.LayerMask = williamLayerMask;
             }
         }
@@ -172,14 +167,10 @@ namespace Game.Entity.Player
         {
             if (numbOfLocks == 0)
             {
-                // reaperController.sprite.flipX = williamController.sprite.flipX;
                 williamController.OnAttackFinish();
                 williamController.gameObject.SetActive(false);
                 reaperController.gameObject.SetActive(true);
-                
-
                 CurrentController = reaperController;
-
                 kRigidBody.LayerMask = reaperLayerMask;
             }
         }
@@ -209,5 +200,9 @@ namespace Game.Entity.Player
                 CurrentController.sprite.flipX = false;
             }
         }
+
+     
+
+
     }
 }

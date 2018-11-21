@@ -48,7 +48,6 @@ namespace Game.Entity.Player
                 player.MoveRight();
             }
 
-
             if (Input.GetKeyDown(KeyCode.LeftShift) &&
                 playerController.CurrentController.CapacityUsable(playerController))
             {

@@ -22,7 +22,7 @@ namespace Game.Entity.Player
         [Tooltip("Jump velocity muliplier. Only effective after the first jump.")] [SerializeField]
         private float additionalJumpVelocity;
 
-        
+
         private PlayerIndex controllerNumber;
         private KinematicRigidbody2D kinematicRigidbody2D;
         private GamePadState controllerState;
@@ -41,7 +41,6 @@ namespace Game.Entity.Player
             kinematicRigidbody2D = GetComponent<KinematicRigidbody2D>();
             controllerNumber = PlayerIndex.One;
             controllerState = GamePad.GetState(controllerNumber);
-            jumpButtonPressed = false;
             horizontalVelocity = Vector2.zero;
             verticalVelocity = Vector2.zero;
             jumpCount = 0;
@@ -74,16 +73,12 @@ namespace Game.Entity.Player
         {
             horizontalVelocity = Vector2.right;
             player.playerHorizontalDirection = Vector2.right;
-            //player.DirectionFacingLeftRight = FacingSideLeftRight.Right;
-            //player.DirectionFacingUpDown = FacingSideUpDown.None;
         }
 
         public void MoveLeft()
         {
             horizontalVelocity = Vector2.left;
             player.playerHorizontalDirection = Vector2.left;
-           // player.DirectionFacingLeftRight = FacingSideLeftRight.Left;
-           // player.DirectionFacingUpDown = FacingSideUpDown.None;
         }
 
         public void Jump()

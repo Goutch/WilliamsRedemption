@@ -22,6 +22,12 @@ namespace Game.Puzzle.Light
         private bool isLocked;
         private MeshRenderer renderer;
 
+        public bool UpdateEveryFrame
+        {
+            get { return updateEveryFrame; }
+            private set { updateEveryFrame = value; }
+        }
+
         public bool HasMovingObstaclesInRange
         {
             get { return hasMovingObstaclesInRange; }
