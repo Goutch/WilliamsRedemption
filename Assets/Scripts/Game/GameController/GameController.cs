@@ -17,6 +17,7 @@ namespace Game.Controller
         //perd collectalbes et leurs scores
         //temp reset au temp du checkpoint
         [SerializeField] private Level startLevel;
+        [SerializeField] private AudioClip gameMusic;
         private int score;
         private float time;
         private int collectable;
@@ -44,6 +45,8 @@ namespace Game.Controller
         private LifePointsUI lifePointsUI;
 
         //Getters
+        public AudioClip GameMusic => gameMusic;
+        
         public float CurrentGameTime => time;
 
         public int LevelRemainingTime => levelRemainingTime;

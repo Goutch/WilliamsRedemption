@@ -8,6 +8,7 @@ public class AudioManagerBackgroundSound : MonoBehaviour
 	private AudioSource source;
 	private AudioClip clip;
 	private bool shouldMusicBePlaying;
+	private bool isAMusicTrigger;
 
 	private void Awake()
 	{
@@ -32,6 +33,15 @@ public class AudioManagerBackgroundSound : MonoBehaviour
 		{
 			PlaySound();
 		}
+		else if (!source.isPlaying && !shouldMusicBePlaying)
+		{
+			StopSound();
+		}
+
+		if (isAMusicTrigger)
+		{
+			shouldMusicBePlaying = false;
+		}
 	}
 
 	private void OnPlayerDie(GameObject gameObject)
@@ -48,5 +58,10 @@ public class AudioManagerBackgroundSound : MonoBehaviour
 	{
 		source.Stop();
 		shouldMusicBePlaying = false;
+	}
+
+	public void UpdateMusicTriggers()
+	{
+		isAMusicTrigger = true;
 	}
 }
