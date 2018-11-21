@@ -58,7 +58,7 @@ namespace Game.Entity.Enemies
         private void UseSound()
         {
             soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(batSound, true, this.gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(batSound, true, gameObject);
             soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }

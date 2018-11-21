@@ -21,6 +21,10 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [SerializeField] private GameObject landingEffect;
         [SerializeField] private Transform landingEffectSpawnPoint;
 
+        [Header("Sound")] [SerializeField] private AudioClip landingSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
+
         private Vector3Int[] spawnedTileRelativePositions = new Vector3Int[] {
             new Vector3Int(2, 1 ,0),
             new Vector3Int(-2, 1, 0),
@@ -83,7 +87,8 @@ namespace Game.Entity.Enemies.Boss.Edgar
         }
 
         private IEnumerator landing()
-        {
+        {            
+            CallLandingSound();
             yield return new WaitForSeconds(landingDelay);
             Finish();
             Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
@@ -102,6 +107,13 @@ namespace Game.Entity.Enemies.Boss.Edgar
             cellPos.y += yOffSetTileToSpawn;
 
             spawnedTilesManager.SpawnTiles(cellPos, spawnedTileRelativePositions.ToList<Vector3Int>(), tileToSpawn);
+        }
+
+        private void CallLandingSound()
+        {
+            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(landingSound, false, gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

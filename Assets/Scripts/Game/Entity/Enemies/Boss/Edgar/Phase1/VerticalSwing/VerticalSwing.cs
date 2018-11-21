@@ -14,6 +14,10 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [Header("Projectile")]
         [SerializeField] private GameObject projectile;
         [SerializeField] private GameObject projectileSpawnPoint;
+        
+        [Header("Sound")] [SerializeField] private AudioClip verticalSwingSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
 
         private float lastTimeUsed;
 
@@ -46,6 +50,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         public void OnVerticalSwingFinish()
         {
+            CallVerticalSwingSound();
             ShootProjectile();
             base.Finish();
         }
@@ -55,6 +60,13 @@ namespace Game.Entity.Enemies.Boss.Edgar
             GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
 
             projectileObject.GetComponent<PlasmaGroundController>().Init(spawnedTilesManager);
+        }
+        
+        private void CallVerticalSwingSound()
+        {
+            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(verticalSwingSound, true, gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }
