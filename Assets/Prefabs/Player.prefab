@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114018446814034060}
   m_Layer: 14
   m_Name: RangeTrigger
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 61639566562894936}
   m_Layer: 11
   m_Name: Reaper
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 61365683719780014}
   m_Layer: 1
   m_Name: William
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485973637437590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.6, y: 4.6, z: 0}
+  m_LocalPosition: {x: -11.82, y: 6.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4302502636305752}
@@ -282,7 +282,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.02}
   m_SpriteTilingProperty:
@@ -312,8 +312,8 @@ BoxCollider2D:
   m_Offset: {x: -0.03, y: -0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.42, y: 0.42}
+    pivot: {x: 0.31366432, y: 0.44475156}
+    oldSize: {x: 0.6, y: 0.42}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -389,6 +389,7 @@ MonoBehaviour:
   sleepVelocity: 0.001
   deltaPrecision: 0.01
   showDebugInformation: 0
+  isOnMovingGround: 0
 --- !u!114 &114052410221525620
 MonoBehaviour:
   m_ObjectHideFlags: 1

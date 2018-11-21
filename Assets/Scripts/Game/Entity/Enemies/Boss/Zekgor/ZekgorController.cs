@@ -7,7 +7,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
     {
         protected override void OnHit(HitStimulus other)
         {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
+            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper&&!IsInvulnerable)
             {
                 base.OnHit(other);
             }

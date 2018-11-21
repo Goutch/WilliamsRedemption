@@ -1,4 +1,4 @@
-﻿
+﻿using AnimatorExtension;
 using Game.Entity.Player;
 using UnityEngine;
 
@@ -14,17 +14,12 @@ namespace Game.Entity.Enemies
 
         public bool IsJumping => isJumping;
         private Animator animator;
+
         public float Speed
         {
-            get
-            {
-                return speed;
-            }
+            get { return speed; }
 
-            set
-            {
-                speed = value;
-            }
+            set { speed = value; }
         }
 
         private Rigidbody2D rootRigidBody;
@@ -40,9 +35,9 @@ namespace Game.Entity.Enemies
             if (this.isJumping && this.rootRigidBody.velocity.y == 0.0)
             {
                 this.isJumping = false;
-                animator.SetTrigger(Values.AnimationParameters.Enemy.JumpEnd);
+                if (animator.ContainsParam(Values.AnimationParameters.Enemy.JumpEnd))
+                    animator.SetTrigger(Values.AnimationParameters.Enemy.JumpEnd);
             }
-                
         }
 
         public void WalkToward(int direction)
@@ -50,12 +45,12 @@ namespace Game.Entity.Enemies
             if (direction != 0)
             {
                 rootRigidBody.velocity = Vector2.up * rootRigidBody.velocity + (Vector2.right * direction * speed);
-                animator.SetBool(Values.AnimationParameters.Enemy.Walking,true);
+                animator.SetBool(Values.AnimationParameters.Enemy.Walking, true);
             }
             else
             {
                 animator.SetBool(Values.AnimationParameters.Enemy.Walking, false);
-                rootRigidBody.velocity*=Vector2.up;
+                rootRigidBody.velocity *= Vector2.up;
             }
 
             currentDir = direction;
@@ -69,13 +64,16 @@ namespace Game.Entity.Enemies
 
         public void MoveOnXAxis(int direction)
         {
-            rootRigidBody.velocity = new Vector2(Vector2.up.x * rootRigidBody.velocity.x + (Vector2.right.x * direction * Speed), rootRigidBody.velocity.y);
+            rootRigidBody.velocity =
+                new Vector2(Vector2.up.x * rootRigidBody.velocity.x + (Vector2.right.x * direction * Speed),
+                    rootRigidBody.velocity.y);
         }
 
         public void MoveForward()
         {
-
-            rootRigidBody.MovePosition(new Vector2(transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1), transform.position.y));
+            rootRigidBody.MovePosition(new Vector2(
+                transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1),
+                transform.position.y));
         }
 
         public void MoveOnXAxis()
@@ -86,7 +84,8 @@ namespace Game.Entity.Enemies
         public void Jump()
         {
             this.isJumping = true;
-            this.rootRigidBody.AddForce(new Vector2(currentDir*jumpBoost,jumpForce) , ForceMode2D.Impulse);
+            this.rootRigidBody.AddForce(new Vector2(currentDir * jumpBoost, jumpForce), ForceMode2D.Impulse);
+            
             animator.SetTrigger(Values.AnimationParameters.Enemy.Jump);
         }
 
