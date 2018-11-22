@@ -11,5 +11,6 @@
         public const string Light = "Light";
         public const string Collectable = "Collectable";
         public const string ProjectileEnemy = "ProjectileEnemy";
+        public const string Obstacle = "Obstacle";
     }
 }

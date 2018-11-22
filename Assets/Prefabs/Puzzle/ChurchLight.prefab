@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58823847425721092}
   - component: {fileID: 114268741292721738}
   - component: {fileID: 114214213509386920}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: CircleMeshLight (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1937193433491230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: 10.5, z: -0.04188542}
+  m_LocalPosition: {x: 105.272354, y: -47.888992, z: -0.04188542}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4666710263337060}
@@ -185,10 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53fb9cd9bb68d54dae3eff657632f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 0.75}
+  color: {r: 1, g: 1, b: 1, a: 0.79009}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2560
   debugDraw: 0
   updateEveryFrame: 0
   movingObstacleUpdateStopCooldown: 1
@@ -196,12 +196,12 @@ MonoBehaviour:
   isOpen: 1
   detectionLayers:
     serializedVersion: 2
-    m_Bits: 2051
+    m_Bits: 3584
   coneAngle: 20
   faceAngle: 270
   minAlpha: 0.75
   maxAlpha: 1
-  radius: 10
+  radius: 8
   precisionInDegree: 0.42
   flickerSpeed: 0.02
 --- !u!114 &114295351043446630
@@ -234,7 +234,8 @@ MonoBehaviour:
   VerticalSpeed: 0
   isHeadingRight: 0
   isHeadingUpwards: 0
-  isUsingQuadraticCurve: 1
+  DirectionChangeDelay: 3
+  isUsingQuadraticCurve: 0
   quadraticA: 0.1
   quadraticB: 0
   quadraticC: 0
