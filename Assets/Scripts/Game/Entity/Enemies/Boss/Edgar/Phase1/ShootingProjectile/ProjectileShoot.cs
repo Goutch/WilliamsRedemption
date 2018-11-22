@@ -18,7 +18,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private float lastTimeCapacityUsed;
 
-        private void Awake()
+        protected override void Init()
         {
             if (capacityUsableAtStart)
                 lastTimeCapacityUsed = -cooldown;
@@ -55,14 +55,13 @@ namespace Game.Entity.Enemies.Boss.Edgar
         {
             Quaternion direction = PlayerDirection();
             GameObject projectile = projectileManager.SpawnProjectile(bullet, spawnPoint.position, direction);
-            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
 
             Finish();
         }
 
         private Quaternion PlayerDirection()
         {
-            Vector2 dir = PlayerController.instance.transform.position - transform.position;
+            Vector2 dir = player.transform.position - transform.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion direction = Quaternion.AngleAxis(angle, Vector3.forward);
             return direction;

@@ -23,7 +23,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private SpawnedTilesManager spawnedTilesManager;
 
-        private void Awake()
+        protected override void Init()
         {
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;

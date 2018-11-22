@@ -13,7 +13,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private float lastTimeUsed;
         private int numberProjectileShooted = 0;
 
-        private void Awake()
+        protected override void Init()
         {
             rootMover = GetComponent<RootMover>();
         }

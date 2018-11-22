@@ -10,6 +10,7 @@ namespace Game.Entity.Enemies.Attack
         
         private GameObject soundToPlay;
         
+
         private void Awake()
         {
             UseSound();

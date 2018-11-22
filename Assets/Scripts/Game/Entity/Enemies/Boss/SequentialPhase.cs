@@ -2,7 +2,7 @@
 
 namespace Game.Entity.Enemies.Boss
 {
-    public class SequentialPhase : Phase
+    public abstract class SequentialPhase : Phase
     {
         [SerializeField] protected State[] subStates;
         [SerializeField] protected State[] passiveCapacities;
@@ -66,13 +66,13 @@ namespace Game.Entity.Enemies.Boss
         protected virtual void EnterIdle()
         {
             IsIdling = true;
-            Debug.Log("Enter Idle: " + this);
+            //Debug.Log("Enter Idle: " + this);
         }
 
         protected virtual void ExitIdle()
         {
             IsIdling = false;
-            Debug.Log("Exit Idle: " + this);
+            //Debug.Log("Exit Idle: " + this);
         }
 
         protected virtual void CurrentState_OnStateFinish(State state)

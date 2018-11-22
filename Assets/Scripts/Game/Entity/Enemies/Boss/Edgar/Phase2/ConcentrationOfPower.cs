@@ -25,7 +25,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private GameObject[] particules;
         private bool allParticulesSpawned;
 
-        private void Awake()
+        protected override void Init()
         {
             if (capacityUsableAtStart)
                 lastTimeUsed = -cooldown;
@@ -90,7 +90,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 Vector3 position = GetParticulePosition();
 
                 particules[i] = Instantiate(particulesPrefab, position, BossDirection(position));
-                particules[i].GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
 
                 ProjectileController projectileController = particules[i].GetComponent<ProjectileController>();
                 projectileController.Speed = particulesSpeed;

@@ -16,7 +16,7 @@ namespace Game.Entity.Enemies.Boss.Anna
         private Animator animator;
         private RootMover mover;
 
-        private void Awake()
+        protected override void Init()
         {
             animator = GetComponent<Animator>();
             mover = GetComponent<RootMover>();
@@ -29,7 +29,7 @@ namespace Game.Entity.Enemies.Boss.Anna
 
         public override bool CanEnter()
         {
-            return Vector2.Distance(PlayerController.instance.transform.position, transform.position) < range;
+            return Vector2.Distance(player.transform.position, transform.position) < range;
         }
 
         public override void Enter()

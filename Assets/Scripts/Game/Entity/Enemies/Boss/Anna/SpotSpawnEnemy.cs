@@ -26,7 +26,7 @@ namespace Game.Entity.Enemies.Boss.Anna
             enemyManager.OnEnnemyDied -= EnemyManager_OnEnnemyDied;
         }
 
-        private void EnemyManager_OnEnnemyDied(GameObject gameObject)
+        private void EnemyManager_OnEnnemyDied(GameObject receiver, GameObject attacker)
         {
             timeEnemyDied = Time.time;
         }
@@ -46,6 +46,11 @@ namespace Game.Entity.Enemies.Boss.Anna
             base.Enter();
 
             enemyManager.SpawnEnemy(enemyToSpawn, spawnPoint.position, Quaternion.identity);
+        }
+
+        protected override void Init()
+        {
+            
         }
     }
 }

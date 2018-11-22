@@ -47,7 +47,7 @@ namespace Game.Entity.Enemies.Boss
             }
         }
 
-        private void OnBossDead(GameObject gameObject)
+        private void OnBossDead(GameObject receiver, GameObject attacker)
         {
             doorToOpenOnBossDeath?.Open();
             audioManager.StopSound();

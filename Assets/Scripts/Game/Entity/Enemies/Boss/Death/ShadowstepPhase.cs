@@ -14,6 +14,11 @@ namespace Game.Entity.Enemies.Boss.Death
 
         private float lastCapacityUsed;
 
+        protected override void Init()
+        {
+
+        }
+
         public override void Enter()
         {
             base.Enter();

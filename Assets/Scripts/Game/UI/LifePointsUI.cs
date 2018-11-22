@@ -26,7 +26,7 @@ namespace Game.UI
 
             gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
                 .GetComponent<GameController>();
-            playerController = PlayerController.instance;
+            playerController = GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<PlayerController>();
             playerHealth = playerController.GetComponent<Health>();
             playerHealth.OnHealthChange += OnHealthChange;
             lifePointsImages = new GameObject[playerHealth.MaxHealth];
@@ -38,7 +38,7 @@ namespace Game.UI
         }
 
 
-        public void OnHealthChange(GameObject gameObject)
+        public void OnHealthChange(GameObject receiver, GameObject attacker)
         {
             if (playerHealth.HealthPoints >= 0)
             {

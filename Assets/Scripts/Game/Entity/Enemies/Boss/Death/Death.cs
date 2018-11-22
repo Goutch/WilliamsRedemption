@@ -21,7 +21,7 @@ namespace Game.Entity.Enemies.Boss.Death
             projectileManager = GetComponent<ProjectileManager>();
         }
 
-        private void Health_OnDeath(GameObject gameObject)
+        private void Health_OnDeath(GameObject receiver, GameObject attacker)
         {
             health.OnDeath -= Health_OnDeath;
             floorManager.MoveAllFloorsUp();

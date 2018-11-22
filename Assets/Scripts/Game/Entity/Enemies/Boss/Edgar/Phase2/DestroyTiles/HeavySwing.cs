@@ -22,7 +22,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private float lastTimeCapacityUsed;
 
-        private void Awake()
+        protected override void Init()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
             mover = GetComponent<RootMover>();

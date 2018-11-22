@@ -19,7 +19,6 @@ public class Gezere : MonoBehaviour
     private void Start()
     {
         light = GetComponentInChildren<CircleLight>();
-        attackColider = GetComponentInChildren<HitStimulus>().GetComponent<Collider2D>();
         particules = GetComponentInChildren<ParticleSystem>();
         StartCoroutine(openAndCloseRoutine());
     }

@@ -15,6 +15,11 @@ namespace Game.Entity.Enemies.Boss
 
         private float timeEntered;
 
+        protected override void Init()
+        {
+
+        }
+
         public override void Finish()
         {
             base.Finish();

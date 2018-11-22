@@ -15,7 +15,7 @@ namespace Game.Entity.Enemies.Boss.Death
 
         private float lastTimeUsed;
 
-        private void Awake()
+        protected override void Init()
         {
             animator = GetComponent<Animator>();
         }

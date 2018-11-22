@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 4359819608283174}
   - component: {fileID: 212837627287051278}
   - component: {fileID: 61008279788754550}
-  - component: {fileID: 114384555864270284}
-  m_Layer: 10
+  - component: {fileID: 114506756978966230}
+  - component: {fileID: 114446711733434254}
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -38,7 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4292606003568960}
   - component: {fileID: 212106240114036682}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4366217094764872}
   - component: {fileID: 212586006094960584}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4726574761999690}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Shinbone Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4866865455488142}
   - component: {fileID: 212645891625878368}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4512782456263060}
   - component: {fileID: 212719292729551592}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4760836385381672}
   - component: {fileID: 212093226046495036}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4519589018420852}
   - component: {fileID: 212633243712521894}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4573744787122172}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Arm Right 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4353751534451482}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4049826738712664}
   - component: {fileID: 212928660142014642}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4442787244269322}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Shinbone Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,8 +212,6 @@ GameObject:
   - component: {fileID: 4094774115779156}
   - component: {fileID: 95395829336313276}
   - component: {fileID: 50422024276840000}
-  - component: {fileID: 114149202955879126}
-  - component: {fileID: 114408198202256926}
   - component: {fileID: 114072906846381546}
   - component: {fileID: 114379991829354728}
   - component: {fileID: 114823022257222956}
@@ -225,15 +224,16 @@ GameObject:
   - component: {fileID: 114848836985378804}
   - component: {fileID: 114254634824265624}
   - component: {fileID: 114830030037052890}
-  - component: {fileID: 114504292182497060}
+  - component: {fileID: 114342465840723626}
   - component: {fileID: 114113245451544756}
   - component: {fileID: 114905592222218656}
-  - component: {fileID: 114247593095113172}
+  - component: {fileID: 114209020709614616}
   - component: {fileID: 114009837430279748}
   - component: {fileID: 114145931860855702}
   - component: {fileID: 61042204280920888}
   - component: {fileID: 210165169773877084}
-  m_Layer: 13
+  - component: {fileID: 114032572021285354}
+  m_Layer: 8
   m_Name: Edgar
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4599714490152384}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4559751583792088}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Arm Left 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4907034139394086}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Arm Left 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4154366449839060}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Tight Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4333710583500638}
   - component: {fileID: 212299459482974264}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4916802071379838}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Hand Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4142066065382544}
   - component: {fileID: 212270690574795640}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4560008282624650}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Arm Right 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4342880729813236}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4421483750588946}
   - component: {fileID: 212090779038278720}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4742368167044082}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Foot Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4907272143410600}
   - component: {fileID: 212349625255409126}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4357703916507716}
   - component: {fileID: 212677985122433994}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4640104498542754}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Foot Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,7 +463,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4674675035907468}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Tight Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4879104153461332}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,7 +494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4892101828688724}
   - component: {fileID: 212902422856170344}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4782942097980788}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4275348376859272}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: Mace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1086,6 +1086,17 @@ MonoBehaviour:
   cooldown: 40
   capacityUsableAtStart: 1
   delayBetweenEachParticuleSpawn: 0.1
+--- !u!114 &114032572021285354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495303630612842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114072906846381546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1111,8 +1122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114725212148069990}
-  - {fileID: 114247593095113172}
-  - {fileID: 114504292182497060}
+  - {fileID: 114209020709614616}
+  - {fileID: 114342465840723626}
   passiveCapacities: []
   animator: {fileID: 95395829336313276}
 --- !u!114 &114113245451544756
@@ -1136,9 +1147,6 @@ MonoBehaviour:
   landingEffect: {fileID: 1190503164458826, guid: 1081a34ea78ed7349a55ffd31b1dd0f6,
     type: 2}
   landingEffectSpawnPoint: {fileID: 4342880729813236}
-  landingSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
 --- !u!114 &114145931860855702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1155,7 +1163,7 @@ MonoBehaviour:
   lasePrefab: {fileID: 1497215997032464, guid: 1e37a0040bed28c49a1b0cee4062f188, type: 2}
   delayBetweenEachLaser: 0.5
   numberOfLasersToSpawn: 40
---- !u!114 &114149202955879126
+--- !u!114 &114209020709614616
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1163,18 +1171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1495303630612842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114247593095113172
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1495303630612842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1bd114ef79cbb94fa60c5c5dd1b558c, type: 3}
+  m_Script: {fileID: 11500000, guid: 05a6fbbdfa10ebc489abe261b603b1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   subStates:
@@ -1213,9 +1210,21 @@ MonoBehaviour:
   capacityUsableAtStart: 1
   projectile: {fileID: 1240407763256522, guid: 6a85a6846f2824c4086d02c104cf135e, type: 2}
   projectileSpawnPoint: {fileID: 1282088556014402}
-  verticalSwingSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
+--- !u!114 &114342465840723626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495303630612842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f152e8c22e441f94bb583cb564fcb92d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subStates:
+  - {fileID: 114113245451544756}
+  - {fileID: 114905592222218656}
+  passiveCapacities: []
 --- !u!114 &114355167586666278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1247,29 +1256,6 @@ MonoBehaviour:
   jumpForce: 7
   speed: 3
   jumpBoost: 0
---- !u!114 &114384555864270284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1001131636569994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114408198202256926
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1495303630612842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
 --- !u!114 &114412290214006220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1281,21 +1267,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f91b0d8ccf72c4dadc69c570d7170b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114504292182497060
+--- !u!114 &114446711733434254
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1495303630612842}
+  m_GameObject: {fileID: 1001131636569994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1bd114ef79cbb94fa60c5c5dd1b558c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subStates:
-  - {fileID: 114113245451544756}
-  - {fileID: 114905592222218656}
-  passiveCapacities: []
+  type: 2
+  range: 0
+--- !u!114 &114506756978966230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001131636569994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4596a1c014d03654caaa2b5fef433c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114725212148069990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1336,9 +1331,6 @@ MonoBehaviour:
   animator: {fileID: 95395829336313276}
   test: 
   cooldown: 0.5
-  heavySwingSound: {fileID: 8300000, guid: d3167a9d8b930b943978a85426f763fe, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
 --- !u!114 &114848836985378804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1372,9 +1364,6 @@ MonoBehaviour:
   phases:
   - {fileID: 114355167586666278}
   - {fileID: 114109857756450516}
-  woundedSound: {fileID: 8300000, guid: 680ed7d77a7e6ca478b3d5dceb57c665, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
 --- !u!114 &114905592222218656
 MonoBehaviour:
   m_ObjectHideFlags: 1

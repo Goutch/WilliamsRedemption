@@ -17,6 +17,7 @@ TagManager:
   - ProjectileEnemy
   - PassThrough
   - MovingPlatform
+  - Collectable
   layers:
   - Default
   - TransparentFX
@@ -26,17 +27,17 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Obstacles
-  - NoProjectileColision
-  - Reaper
-  - Walls
   - Enemy
-  - Range
-  - Darkness
-  - Projectile
-  - MeleeAttack
-  - LightOnlyCollision
+  - Walls
+  - Player
+  - Platform
+  - Obstacles
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

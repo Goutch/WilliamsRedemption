@@ -16,7 +16,7 @@ namespace Game.Entity.Enemies.Boss.Jean
         private int numberOfExplosionSpawned = 0;
         private int numberOfExplosionAlive = 0;
 
-        private void Awake()
+        protected override void Init()
         {
             shieldManager = GetComponent<ShieldManager>();
         }

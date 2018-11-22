@@ -47,9 +47,8 @@ GameObject:
   - component: {fileID: 114395644961458362}
   - component: {fileID: 114935588871652824}
   - component: {fileID: 114086748840397258}
-  - component: {fileID: 114751364771349606}
   - component: {fileID: 61061593663777778}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Jean
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -80,9 +79,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4556330282302978}
   - component: {fileID: 212152030587239210}
-  - component: {fileID: 114915091557124466}
   - component: {fileID: 60126747322919268}
-  m_Layer: 9
+  - component: {fileID: 114100981985410178}
+  m_Layer: 0
   m_Name: Jean_Shield
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -256,6 +255,19 @@ MonoBehaviour:
   minScale: {x: 0.15, y: 0.25}
   maxScale: {x: 1, y: 1}
   shield: {fileID: 1561829701515230}
+--- !u!114 &114100981985410178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1561829701515230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  range: 1
 --- !u!114 &114122684241584936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,36 +370,8 @@ MonoBehaviour:
   subStates:
   - {fileID: 114982114051710506}
   - {fileID: 114395644961458362}
-  - {fileID: 114751364771349606}
   - {fileID: 114935588871652824}
   passiveCapacities: []
---- !u!114 &114751364771349606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1064224145319852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74916763ca5050742a766daad76a2cbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 95377748971913308}
-  duration: 2
-  disableDamage: 0
-  delayBeforeDoingDamageToPlayerAfterLeavingState: 0
---- !u!114 &114915091557124466
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1561829701515230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
 --- !u!114 &114935588871652824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,6 +383,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8fecc296d829c4aa70a483aa090f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 95377748971913308}
+  duration: 2
+  delayBeforeDoingDamageToPlayerAfterLeavingState: 0
+  attackCollider: {fileID: 0}
 --- !u!114 &114952871157717710
 MonoBehaviour:
   m_ObjectHideFlags: 1

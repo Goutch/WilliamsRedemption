@@ -10,24 +10,21 @@ using UnityEngine;
 namespace Game.Entity.Enemies.Boss.Anna
 {
     [RequireComponent(typeof(BossController), typeof(SpriteRenderer))]
-    [RequireComponent(typeof(Animator), typeof(HitSensor))]
     class Invulnerable : Capacity
     {
         [SerializeField] private float cooldown;
         [SerializeField] private float duration;
 
         private BossController bossController;
-        private HitSensor hitSensor;
         private Animator animator;
 
         private float lastTimeUsed;
         private bool isCapacityBeingUsed = false;
 
-        private void Awake()
+        protected override void Init()
         {
             bossController = GetComponent<BossController>();
             animator = GetComponent<Animator>();
-            hitSensor = GetComponent<HitSensor>();
         }
 
         public override void Act()
@@ -67,28 +64,10 @@ namespace Game.Entity.Enemies.Boss.Anna
 
             lastTimeUsed = Time.time;
 
-            hitSensor.OnHit += HitSensor_OnHit;
-
             StopAllCoroutines();
             StartCoroutine(RemoveInvulnerablityCoroutine());
 
             isCapacityBeingUsed = false;
-        }
-
-        private void HitSensor_OnHit(HitStimulus otherStimulus)
-        {
-            if(otherStimulus.DamageSource == HitStimulus.DamageSourceType.Enemy)
-            {
-                hitSensor.OnHit -= HitSensor_OnHit;
-
-                Destroy(otherStimulus.gameObject);
-
-                if (isCapacityBeingUsed)
-                    Finish();
-
-                StopAllCoroutines();
-                RemoveInvulnerablity();
-            }
         }
 
         private IEnumerator RemoveInvulnerablityCoroutine()

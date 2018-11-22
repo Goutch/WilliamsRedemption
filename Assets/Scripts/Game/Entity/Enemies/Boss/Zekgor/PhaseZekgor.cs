@@ -11,20 +11,28 @@ namespace Game.Entity.Enemies.Boss.Zekgor
     class PhaseZekgor : SequentialLoopPhase
     {
         private RootMover mover;
-
-        private void Awake()
+        private Animator animator;
+        
+        protected override void Init()
         {
             mover = GetComponent<RootMover>();
+            animator = GetComponent<Animator>();
         }
 
         protected override void Idle()
         {
             base.Idle();
-
+            
             mover.LookAtPlayer();
 
-            if(Mathf.Abs(PlayerController.instance.transform.position.x - transform.position.x) > 0.03f)
+            if(Mathf.Abs(player.transform.position.x - transform.position.x) > 0.03f)
                 mover.MoveOnXAxis(transform.rotation.y == 1 ? -1 : 1);
+        }
+
+        protected override void EnterIdle()
+        {
+            base.EnterIdle();
+            animator.SetTrigger(Values.AnimationParameters.ZekGor.Walk);
         }
     }
 }

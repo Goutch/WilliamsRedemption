@@ -20,7 +20,7 @@ namespace Game.Entity.Enemies.Boss.Death
         private int nextTeleport = 0;
         private float lastTimeUsed;
 
-        private void Awake()
+        protected override void Init()
         {
             mover = GetComponent<RootMover>();
             floorManager = GetComponent<FloorManager>();

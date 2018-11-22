@@ -9,24 +9,20 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 {
     class JumpZekgor : Capacity
     {
-        [SerializeField] private float cooldown;
-        [SerializeField] private bool capacityUsableAtStart;
-
         [SerializeField] private GameObject landingEffect;
         [SerializeField] private Transform landingEffectSpawnPoint;
 
         private RootMover mover;
         private Rigidbody2D rb;
+        private Animator animator;
 
-        private float lastTimeCapacityUsed;
-
-        private void Awake()
+        protected override void Init()
         {
+           
             mover = GetComponent<RootMover>();
             rb = GetComponent<Rigidbody2D>();
-
-            if (capacityUsableAtStart)
-                lastTimeCapacityUsed = -cooldown;
+            animator = GetComponent<Animator>();
+           
         }
 
         public override void Act()
@@ -40,7 +36,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         public override void Finish()
         {
             base.Finish();
-
+            
             if(landingEffect != null && landingEffectSpawnPoint != null)
                 Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
         }
@@ -48,18 +44,16 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         public override void Enter()
         {
             base.Enter();
-
-            lastTimeCapacityUsed = Time.time;
+            
 
             mover.Jump();
         }
 
         public override bool CanEnter()
         {
-            if (Time.time - lastTimeCapacityUsed > cooldown)
-                return true;
-            else
-                return false;
+            return true;
         }
+
+        
     }
 }

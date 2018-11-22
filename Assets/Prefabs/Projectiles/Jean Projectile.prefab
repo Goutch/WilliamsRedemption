@@ -22,9 +22,8 @@ GameObject:
   - component: {fileID: 212615907109435748}
   - component: {fileID: 114735265063286012}
   - component: {fileID: 61114059075075204}
-  - component: {fileID: 114341866676520366}
-  - component: {fileID: 114332004074776588}
   - component: {fileID: 50027822061447214}
+  - component: {fileID: 114417479908213092}
   m_Layer: 16
   m_Name: Jean Projectile
   m_TagString: ProjectileEnemy
@@ -90,7 +89,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &114332004074776588
+--- !u!114 &114417479908213092
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,21 +97,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1047017288053898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114341866676520366
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1047017288053898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
+  type: 2
+  range: 1
 --- !u!114 &114735265063286012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,7 +115,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   delayBeforeDestruction: 5
-  canBeReturned: 0
   destroyOnPlatformsCollision: 0
 --- !u!212 &212615907109435748
 SpriteRenderer:

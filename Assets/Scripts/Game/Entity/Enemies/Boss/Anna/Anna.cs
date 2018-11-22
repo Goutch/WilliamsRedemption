@@ -1,4 +1,5 @@
-﻿using Game.Entity.Enemies.Boss;
+﻿using Game.Entity.Enemies.Attack;
+using Game.Entity.Enemies.Boss;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,17 +8,23 @@ namespace Game.Entity.Enemies.Boss.Anna
 {
     public class Anna : BossController
     {
-        protected override void OnHit(HitStimulus other)
+        protected override bool OnHit(HitStimulus hitStimulus)
         {
-            base.OnHit(other);
-
-            if (!IsInvulnerable && other.DamageSource == HitStimulus.DamageSourceType.Enemy)
+            if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
             {
-                health.Hit();
+                IsInvulnerable = false;
+                animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, false);
+                health.Hit(hitStimulus.gameObject);
+
+                return true;
+            }
+            else if(!IsInvulnerable && (hitStimulus.Type == HitStimulus.DamageType.Darkness || hitStimulus.Type == HitStimulus.DamageType.Physical))
+            {
+                health.Hit(hitStimulus.gameObject);
+                return true;
             }
 
-            if(other.CompareTag(Values.Tags.ProjectileEnemy) && other.DamageSource == HitStimulus.DamageSourceType.Enemy)
-                Destroy(other.gameObject);
+            return false;
         }
     }
 }

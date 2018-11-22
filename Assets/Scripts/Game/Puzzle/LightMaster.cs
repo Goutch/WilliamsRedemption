@@ -8,45 +8,96 @@ using UnityEngine.Analytics;
 public class LightMaster : MonoBehaviour
 {
 
-	[SerializeField] private ITriggerable[] lights;
+	[Tooltip("Array of lights. Add the lights in the order they should light up.")]
+	[SerializeField] private GameObject [] Lights;
+	[Tooltip("Amount of time in seconds where each light stays open.")]
 	[SerializeField] private float timePerLight;
+	[Tooltip("Checking this box will close every open light and open every closed light.")]
+	[SerializeField] private bool AlternateLights;
+
+	private ITriggerable currentlight;
 	private float timeAtStart;
-	private float timeSinceStart;
-	
-	private int index;
+	private int currentLightIndex;
 
 	private void Awake()
 	{
-		index = 0;
 		timeAtStart = 0;
-		timeSinceStart = 0;
+		currentLightIndex = 0;
+		//currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
+	}
+
+	private void Start()
+	{
+		
+		if (!AlternateLights)
+		{
+			currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
+			currentlight.Open();
+		}
+		
+		timeAtStart = Time.time;
 	}
 	
-	private void Update () {
-		
-		KeepTrackOfTime();
-		
-	}
-
-	//TODO:: 
-	private void Cycle()
+	private void Update () 
 	{
-		
-	}
-
-	private void KeepTrackOfTime()
-	{
-		timeSinceStart = Time.time;
-		if (timeAtStart == 0)
+		if (!AlternateLights)
 		{
-			timeAtStart = Time.time;
+			Cycle();
+		}
+		else
+		{
+			Alternate();
 		}
 		
 	}
 
-	//TODO::
-	private void ResetTime()
+	private void Cycle()
 	{
-		
+		if(TimeSinceLit() >= timePerLight)
+		{
+			currentlight.Close();
+			currentLightIndex++;
+			if (currentLightIndex >= Lights.Length)
+			{
+				currentLightIndex = 0;
+				currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
+				currentlight.Open();
+				timeAtStart = Time.time;
+			}
+			else
+			{
+				currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
+				currentlight.Open();
+				timeAtStart = Time.time;
+			}
+		}
+	}
+
+	private void Alternate()
+	{
+		if (TimeSinceLit() >= timePerLight)
+		{
+			foreach (var l in Lights)
+			{
+				currentlight = l.GetComponent<ITriggerable>();
+
+				if (currentlight.IsOpened())
+				{
+					currentlight.Close();
+				}
+				else
+				{
+					currentlight.Open();
+				}
+			}
+
+			timeAtStart = Time.time;
+		}
+	}
+
+	private float TimeSinceLit()
+	{
+		float timeSinceStart = Time.time - timeAtStart;
+		return timeSinceStart;
 	}
 }

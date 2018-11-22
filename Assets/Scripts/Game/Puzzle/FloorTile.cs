@@ -5,20 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Game.Puzzle
 {
-    public delegate void OnDestinationReachedHandler();
 
-    public class FloorTile : MonoBehaviour
+    public class FloorTile : IFloorTile
     {
         [SerializeField] private float distanceMoving;
         [SerializeField] private float speed;
-
-        public event OnDestinationReachedHandler onDestinationReached;
-
+    
         private Vector2 initialePosition;
-        private Transform parent;
-        private bool hasParentAtStart;
         private bool playerOnFloor = false;
-        private FloorTile[] initialChild;
+
+        private PlayerController player;
 
         public bool IsAtInitialPosition
         {
@@ -30,42 +26,19 @@ namespace Game.Puzzle
 
         private void Awake()
         {
-            initialChild = new FloorTile[transform.childCount];
-
-            for (int j = 0; j < transform.childCount; ++j)
-            {
-                initialChild[j] = transform.GetChild(j).GetComponent<FloorTile>();
-            }
-
+            player = GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<PlayerController>();
             initialePosition = transform.position;
-            parent = transform.parent;
-
-            hasParentAtStart = parent?.GetComponent<FloorTile>() != null ? true : false;
         }
 
-        public void MoveUp()
+        public override void MoveUp()
         {
             StopAllCoroutines();
             StartCoroutine(Move(1));
         }
 
-        private void Update()
-        {
-            if(hasParentAtStart && Mathf.Abs(parent.transform.position.y - transform.position.y) < 0.05f)
-            {
-                transform.parent = parent;
-                transform.localPosition = new Vector2(initialePosition.x - parent.transform.position.x, 0);
-            }
-        }
-
         private IEnumerator Move(int directionY)
         {
             Vector2 targetPosition = directionY == 1 ? initialePosition : initialePosition - new Vector2(0, distanceMoving);
-
-            if (hasParentAtStart)
-            {
-                transform.parent = null;
-            }
 
             while (Mathf.Abs(transform.position.y - targetPosition.y) > 0.02f)
             {
@@ -74,12 +47,10 @@ namespace Game.Puzzle
                 transform.Translate(0, deplacementY,0);
 
                 if (playerOnFloor)
-                    PlayerController.instance.transform.position += new Vector3(0, deplacementY,0);
+                    player.transform.position += new Vector3(0, deplacementY,0);
 
                 yield return new WaitForFixedUpdate();
             }
-
-            onDestinationReached?.Invoke();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -94,15 +65,7 @@ namespace Game.Puzzle
                 playerOnFloor = false;
         }
 
-        public void MoveUpAllChild()
-        {
-            foreach (FloorTile floorTile in initialChild)
-            {
-                floorTile.MoveUp();
-            }
-        }
-
-        public void MoveDown()
+        public override void MoveDown()
         {
             StopAllCoroutines();
             StartCoroutine(Move(-1));

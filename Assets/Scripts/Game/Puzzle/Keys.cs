@@ -17,6 +17,7 @@ namespace Game.Puzzle
             {
                 UseSound();
                 door.Unlock();
+                Debug.Log("Unlock");
                 gameObject.SetActive(false);
             }
         }

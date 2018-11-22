@@ -38,7 +38,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private float lastTimeCapacityUsed;
         private float speed;
 
-        private void Awake()
+        protected override void Init()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
 
@@ -73,7 +73,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             animator.SetTrigger(Values.AnimationParameters.Edgar.Jump);
             lastTimeCapacityUsed = Time.time;
 
-            SetNewSpeed(PlayerController.instance.transform.position, jumpDuration);
+            SetNewSpeed(player.transform.position, jumpDuration);
 
             rootMover.LookAtPlayer();
 

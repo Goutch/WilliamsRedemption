@@ -4,19 +4,47 @@ namespace Game.Entity.Enemies.Attack
 {
     public class PlasmaController : ProjectileController
     {
-        [SerializeField] private float delayBeforeBulletCanKillHisShooter;
-
-        private float bulletShotAt;
-
-        protected new void Awake()
+        [SerializeField] private bool canBeReturned;
+        public bool CanBeReturned
         {
-            base.Awake();
-            bulletShotAt = Time.time;
+            get { return canBeReturned; }
+            private set { canBeReturned = value; }
         }
 
-        public bool CanBulletKillHisShooter()
+        private HitStimulus hitStimulus;
+        private HitSensor hitSensor;
+
+        private new void Awake()
         {
-            return Time.time - bulletShotAt > delayBeforeBulletCanKillHisShooter;
+            base.Awake();
+            hitStimulus = GetComponent<HitStimulus>();
+            hitSensor = GetComponent<HitSensor>();
+        }
+
+        private void OnEnable()
+        {
+            hitSensor.OnHit += HitSensor_OnHit;
+        }
+
+        private bool HitSensor_OnHit(HitStimulus hitStimulus)
+        {
+            if (CanBeReturned 
+                && hitStimulus.Type == HitStimulus.DamageType.Darkness 
+                && hitStimulus.Range == HitStimulus.AttackRange.Melee)
+            {
+                transform.localRotation *= Quaternion.Euler(0, 0, 180);
+                //TODO ARCHIEVEMENT
+                this.hitStimulus.Type = HitStimulus.DamageType.Darkness;
+
+                return false;
+            }
+
+            return false;
+        }
+
+        private void OnDisable()
+        {
+            hitSensor.OnHit -= HitSensor_OnHit;
         }
     }
 }

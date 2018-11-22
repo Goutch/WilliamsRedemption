@@ -28,7 +28,7 @@ namespace Game.Entity.Enemies.Boss
             spawnedTilesPosition = new List<Vector3Int>();
         }
 
-        private void Health_OnDeath(GameObject gameObject)
+        private void Health_OnDeath(GameObject receiver, GameObject attacker)
         {
             DestroyTiles(new List<Vector3Int>(spawnedTilesPosition));
         }

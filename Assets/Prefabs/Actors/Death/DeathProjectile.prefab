@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4767219669841834}
   - component: {fileID: 114624495807286966}
   - component: {fileID: 114567970288880728}
-  - component: {fileID: 114905912738016308}
   - component: {fileID: 50311171149562176}
   - component: {fileID: 61391442894971738}
-  m_Layer: 16
+  - component: {fileID: 114841679602737112}
+  m_Layer: 0
   m_Name: DeathProjectile
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4461704948970452}
   - component: {fileID: 212642567867680510}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,9 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   delayBeforeDestruction: 15
-  canBeReturned: 1
   destroyOnPlatformsCollision: 1
---- !u!114 &114905912738016308
+  canBeReturned: 1
+--- !u!114 &114841679602737112
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,10 +153,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1010380849831362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: 2
+  type: 2
+  range: 1
 --- !u!212 &212642567867680510
 SpriteRenderer:
   m_ObjectHideFlags: 1

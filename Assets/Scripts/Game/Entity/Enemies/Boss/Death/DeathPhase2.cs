@@ -19,7 +19,7 @@ namespace Game.Entity.Enemies.Boss.Death
         [SerializeField] private SpawnedEnemyManager enemyManager;
         [SerializeField] private new MeshLight light;
 
-        private void Awake()
+        protected override void Init()
         {
             enemyManager.NumberOfEnemySpawnAllowed = positionsToSpawn.Length;
         }
@@ -45,7 +45,7 @@ namespace Game.Entity.Enemies.Boss.Death
             enemyManager.OnEnnemyDied += EnemyManager_OnEnnemyDied;
         }
 
-        private void EnemyManager_OnEnnemyDied(GameObject gameObject)
+        private void EnemyManager_OnEnnemyDied(GameObject receiver, GameObject attacker)
         {
             if(enemyManager.GetNumberOfEnemies() == 0 && enemyManager.IsAllEnemySpawned())
             {

@@ -1,25 +1,30 @@
-﻿
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Game.Entity
+namespace Game.Entity.Enemies.Attack
 {
-    public delegate void HitSensorEventHandler(HitStimulus otherStimulus);
+    public delegate bool OnHitEventHandler(HitStimulus hitStimulus);
 
     public class HitSensor : MonoBehaviour
     {
-        public event HitSensorEventHandler OnHit;
-        public void Hit(HitStimulus otherStimulus)
-        {
-            NotifyHit(otherStimulus);
-        }
+        public event OnHitEventHandler OnHit;
 
-        public void NotifyHit(HitStimulus otherStimulus)
+        public bool Notify(HitStimulus hitStimulus)
         {
-            OnHit?.Invoke(otherStimulus);
+            bool hit = false;
+            if(OnHit != null)
+            {
+                foreach (OnHitEventHandler onHitDelegate in OnHit.GetInvocationList())
+                {
+                    hit = hit || onHitDelegate(hitStimulus);
+                }
+            }
+
+            return hit;
         }
     }
 }
-
-

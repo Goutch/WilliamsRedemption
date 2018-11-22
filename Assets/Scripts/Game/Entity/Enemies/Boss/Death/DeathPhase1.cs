@@ -14,7 +14,7 @@ namespace Game.Entity.Enemies.Boss.Death
         [SerializeField] private SpawnedEnemyManager enemyManager;
         private Health health;
 
-        private void Awake()
+        protected override void Init()
         {
             animator = GetComponent<Animator>();
             health = GetComponent<Health>();
@@ -28,7 +28,7 @@ namespace Game.Entity.Enemies.Boss.Death
             enemyManager.Clear();
         }
 
-        private void Health_OnHealthChange(GameObject gameObject)
+        private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
             if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
             {

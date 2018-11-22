@@ -12,13 +12,10 @@ namespace Game.Controller
 
     public class GameController : MonoBehaviour
     {
-        //checkpoint apres mii boss
-        //penaliter au score
-        //perd collectalbes et leurs scores
-        //temp reset au temp du checkpoint
         [SerializeField] private Level startLevel;
         [SerializeField] private AudioClip gameMusic;
         private int score;
+        private int bonusScore;
         private float time;
         private int collectable;
         private float startTime;
@@ -27,6 +24,7 @@ namespace Game.Controller
         private bool isGameStarted = false;
         private bool isGameInExpertMode = false;
         public bool ExpertMode => isGameInExpertMode;
+        private bool isGameWinned = false;
 
         private Level currentLevel;
         public event GameControllerEventHandler OnGameEnd;
@@ -53,9 +51,14 @@ namespace Game.Controller
 
         public int Score => score;
 
+        public int TotalScore => score + bonusScore;
+
+        public int BonusScore => bonusScore;
+
         public int CollectableAquiered => collectable;
         public bool IsGameStarted => isGameStarted;
         public bool IsGamePaused => isGamePaused;
+        public bool IsGameWinned => isGameWinned;
 
         public int TotalTime => totalTime;
 
@@ -79,7 +82,6 @@ namespace Game.Controller
         {
             if (scene.name != Values.Scenes.Menu)
             {
-                PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
                 lifePointsUI.InitLifePoints();
                 startTime = Time.time;
                 player= GameObject.FindGameObjectWithTag(Values.Tags.Player)
@@ -125,14 +127,6 @@ namespace Game.Controller
             scoreUI.OnScoreChange();
         }
 
-        public void AddCollectable(int scoreValue)
-        {
-            collectable++;
-            AddScore(scoreValue);
-            collectableUI.AddCollectable();
-            collectablesEventChannel.Publish(new OnCollectableFound(currentLevel));
-        }
-
         public void NextLevel()
         {
             OnLevelChange?.Invoke();
@@ -145,7 +139,7 @@ namespace Game.Controller
             }
             else
             {
-                PlayerController.instance.GetComponent<Health>().OnDeath -= OnPlayerDie;
+                player.GetComponent<Health>().OnDeath -= OnPlayerDie;
                 currentLevel = currentLevel.NextLevel;
                 isGameStarted = true;
                 isGamePaused = false;
@@ -156,6 +150,7 @@ namespace Game.Controller
                 }
                 else
                 {
+                    Win();
                     GameOver();
                 }
             }
@@ -177,6 +172,7 @@ namespace Game.Controller
             SceneManager.LoadSceneAsync(Game.Values.Scenes.Menu, LoadSceneMode.Additive);
             menu.ReturnToMenu();
             score = 0;
+            bonusScore = 0;
             scoreUI.OnScoreChange();
             totalTime = 0;
             collectable = 0;
@@ -188,6 +184,7 @@ namespace Game.Controller
             LoadLevel(currentLevel);
             menu.HideGameOverPanel();
             menu.HidePausePanel();
+            bonusScore = 0;
             score = 0;
             scoreUI.OnScoreChange();
             totalTime = 0;
@@ -203,12 +200,13 @@ namespace Game.Controller
             time = 0;
             isGameStarted = true;
             isGamePaused = false;
+            isGameWinned = false;
             collectable = 0;
             menu.HidePausePanel();
             menu.HideMainMenu();
         }
 
-        private void OnPlayerDie(GameObject gameObject)
+        private void OnPlayerDie(GameObject receiver, GameObject attacker)
         {
             if (isGameInExpertMode)
                 GameOver();
@@ -217,7 +215,8 @@ namespace Game.Controller
                 if (currentCheckPoint != null)
                 {
                     Health playerHealth=player.GetComponent<Health>();
-                    playerHealth.HealthPoints = playerHealth.MaxHealth;
+                    playerHealth.ResetHealth();
+
                     player.transform.position = currentCheckPoint.transform.position;
                     
                     score = currentCheckPoint.ScoreAtTimeOfTrigger-(collectable*100);
@@ -261,6 +260,24 @@ namespace Game.Controller
         public void OnCheckPointTrigerred(Checkpoint checkpoint)
         {
             currentCheckPoint = checkpoint;
+        }
+
+        public void AddCollectable(int scoreValue)
+        {
+            collectable++;
+            AddScore(scoreValue);
+            collectableUI.AddCollectable();
+            collectablesEventChannel.Publish(new OnCollectableFound(currentLevel));
+        }
+
+        private void Win()
+        {
+            isGameWinned = true;
+        }
+
+        public void AddBonusScore(int bonus)
+        {
+            bonusScore += bonus;
         }
     }
 }

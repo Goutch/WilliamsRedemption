@@ -1,4 +1,5 @@
 ﻿using Game.Entity;
+using Game.Entity.Enemies.Attack;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Edgar
@@ -10,6 +11,21 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private GameObject soundToPlay;
 
         private RootMover mover;
+
+        protected override bool OnHit(HitStimulus hitStimulus)
+        {
+            if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
+            {
+                health.Hit(hitStimulus.gameObject);
+                return true;
+            } 
+            else if(hitStimulus.Type == HitStimulus.DamageType.Physical)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         private void OnEnable()
         {
@@ -23,16 +39,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             health.OnHealthChange -= CallWoundedSound;
         }
 
-        protected override void OnHit(HitStimulus other)
-        {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
-            {
-                health.Hit();
-                animator.SetTrigger(Values.AnimationParameters.Edgar.Hurt);
-            }
-        }
-
-        private void CallWoundedSound(GameObject gameObject)
+        private void CallWoundedSound(GameObject gameObject, GameObject gameObject2)
         {
             soundToPlay = Instantiate(soundToPlayPrefab, transform.position, Quaternion.identity);
             soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(woundedSound, true, gameObject);

@@ -56,7 +56,6 @@ namespace Game.Entity.Player
                 capacityCanBeUsed = true;
                 return true;
             }
-
             return false;
         }
 
@@ -120,7 +119,6 @@ namespace Game.Entity.Player
                 angle = Quaternion.AngleAxis(90, Vector3.forward);
 
             GameObject projectileObject = Instantiate(projectile, gameObject.transform.position, angle);
-            projectileObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.William);
             shootEventChannel.Publish(new OnPlayerShoot());
         }
     }

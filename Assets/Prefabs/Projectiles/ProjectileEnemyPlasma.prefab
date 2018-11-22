@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4137110478704378}
   - component: {fileID: 212729438007589278}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
@@ -36,13 +36,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4923380233060010}
   - component: {fileID: 114927962633944356}
-  - component: {fileID: 114853711533109006}
-  - component: {fileID: 114509136821399068}
   - component: {fileID: 50975631865947204}
   - component: {fileID: 61077717344239686}
-  m_Layer: 16
+  - component: {fileID: 114985238522248742}
+  - component: {fileID: 114467410406785678}
+  m_Layer: 0
   m_Name: ProjectileEnemyPlasma
-  m_TagString: ProjectileEnemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.17954254, y: 0.05989337}
   m_EdgeRadius: 0
---- !u!114 &114509136821399068
+--- !u!114 &114467410406785678
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,18 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114853711533109006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1143166288725240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
 --- !u!114 &114927962633944356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,12 +143,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   delayBeforeDestruction: 15
-  canBeReturned: 1
   destroyOnPlatformsCollision: 1
-  projectileSound: {fileID: 8300000, guid: 505f6eec5e90a6146b7986ae441c5088, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
-  delayBeforeBulletCanKillHisShooter: 1
+  canBeReturned: 1
+--- !u!114 &114985238522248742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1143166288725240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  range: 1
 --- !u!212 &212729438007589278
 SpriteRenderer:
   m_ObjectHideFlags: 1

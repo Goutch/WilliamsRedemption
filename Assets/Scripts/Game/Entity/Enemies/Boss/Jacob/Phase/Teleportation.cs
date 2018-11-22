@@ -16,7 +16,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         private BossController bossController;
 
-        private void Awake()
+        protected override void Init()
         {
             bossController = GetComponent<BossController>();
         }
@@ -29,7 +29,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
         public override bool CanEnter()
         {
             if ((Time.time - lastUsed > cooldown ||
-                Vector2.Distance(PlayerController.instance.transform.position, transform.position) <
+                Vector2.Distance(player.transform.position, transform.position) <
                 distanceFromPlayerTeleport) && !(bossController.GetCurrentState() is Vulnerable))
                 return true;
             else
@@ -57,7 +57,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
             do
             {
                 transform.position = teleportPoints[Random.Range(0, teleportPoints.Length)].position;
-            } while (Vector2.Distance(PlayerController.instance.transform.position, transform.position) <
+            } while (Vector2.Distance(player.transform.position, transform.position) <
                      distanceFromPlayerTeleport
                      || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
         }

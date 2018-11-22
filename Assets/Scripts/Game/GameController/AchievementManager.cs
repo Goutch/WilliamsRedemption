@@ -34,7 +34,7 @@ namespace Game.Controller
         private string achievementPath = "Achievements";
         private List<Achievement> acomplishedAchievements;
         private Dictionary<string, Achievement> achievements;
-
+        
         private int zombieKillCount = 0;
         private int ghostKillCount = 0;
         private int batKillCount = 0;
@@ -78,6 +78,8 @@ namespace Game.Controller
             GetComponent<EnemyDeathEventChannel>().OnEventPublished -= OnEnemyDie;
             GetComponent<CollectablesEventChannel>().OnEventPublished -= CollectableFound;
             GetComponent<PlayerJumpEventChannel>().OnEventPublished -= PlayerJump;
+            GetComponent<PlayerHealthEventChannel>().OnEventPublished -= PlayerTakeDamage;
+            GetComponent<PlayerShootEventChannel>().OnEventPublished -= PlayerShoot;
             gameController.OnLevelChange -= OnLevelChange;
         }
 
@@ -115,7 +117,7 @@ namespace Game.Controller
 
         private void OnGameEnd()
         {
-            if (gameController.CurrentLevel.Scene.name==Values.Scenes.Level3&&gameController.TotalTime <= supersonic)
+            if (gameController.IsGameWinned&&gameController.TotalTime <= supersonic)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.SuperSonic]);
             }
@@ -141,8 +143,8 @@ namespace Game.Controller
                 achievementListText += "\n";
                 bonusScoreValue += achievement.ScoreValue;
             }
-
-            achievementUi.DisplayAchievements(achievementListText, bonusScoreValue);
+            achievementUi.DisplayAchievements(achievementListText);
+            gameController.AddBonusScore(bonusScoreValue);
         }
 
         private void OnEnemyDie(OnEnemyDeath enemyDeath)

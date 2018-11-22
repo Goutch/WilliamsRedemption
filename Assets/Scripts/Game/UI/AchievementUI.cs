@@ -23,15 +23,15 @@ namespace Game.UI
             achievementManager = gameController.GetComponent<AchievementManager>();
         }
 
-        public void DisplayAchievements(string achievementListText,int bonusScoreValue)
+        public void DisplayAchievements(string achievementListText)
         {
            
             achievementList.text = achievementListText;
             score.text = "Score:" + gameController.Score;
-            bonus.text = "Bonus:" + bonusScoreValue;
-            total.text = "Total:" + (gameController.Score + bonusScoreValue);
+            bonus.text = "Bonus:" + gameController.BonusScore;
+            total.text = "Total:" + (gameController.TotalScore);
             
-            gameController.AddScore(bonusScoreValue);
+
         }
     }
 }

@@ -9,33 +9,18 @@ using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Death
 {
-    class FloorDestroyerProjectile : ProjectileController
+    class FloorDestroyerProjectile : PlasmaController
     {
-        protected override void OnCollisionEnter2D(Collision2D collision)
+        protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            base.OnCollisionEnter2D(collision);
-            if (collision.gameObject.CompareTag(Values.Tags.Plateforme))
+            if (collision.CompareTag(Values.Tags.Plateforme))
             {
                 FloorTile floorTile;
-                if (floorTile = collision.gameObject.GetComponent<FloorTile>())
-                {
+                if (floorTile = collision.GetComponent<FloorTile>())
                     floorTile.MoveDown();
-                }
             }
-        }
 
-        protected override void OnTriggerEnter2D(Collider2D other)
-        {
-            base.OnTriggerEnter2D(other);
-            if (other.CompareTag(Values.Tags.Plateforme))
-            {
-                FloorTile floorTile;
-                if (floorTile = other.GetComponent<FloorTile>())
-                {
-                    floorTile.MoveDown();
-                }
-
-            }
+            base.OnTriggerEnter2D(collision);
         }
     }
 }

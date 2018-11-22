@@ -15,7 +15,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         private float lastTimeUsed;
 
-        private void Awake()
+        protected override void Init()
         {
 
         }

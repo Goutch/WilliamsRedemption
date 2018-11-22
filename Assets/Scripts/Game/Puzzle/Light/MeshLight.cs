@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game.Puzzle.Light
 {
     [ExecuteInEditMode]
-    public abstract class MeshLight : MonoBehaviour , ITriggerable
+    public abstract class MeshLight : MonoBehaviour, ITriggerable
     {
         [SerializeField] protected Color color = Color.white;
         [SerializeField] protected LayerMask obstacleLayer;
@@ -21,6 +21,12 @@ namespace Game.Puzzle.Light
 
         private bool isLocked;
         private MeshRenderer renderer;
+
+        public bool UpdateEveryFrame
+        {
+            get { return updateEveryFrame; }
+            private set { updateEveryFrame = value; }
+        }
 
         public bool HasMovingObstaclesInRange
         {
@@ -164,7 +170,7 @@ namespace Game.Puzzle.Light
         protected float VectorToDegree(Vector2 dir)
         {
             float AngleRad = Mathf.Atan2(dir.y, dir.x); // jai inverser Y et X
-            float AngleDeg = (180* AngleRad/Mathf.PI );
+            float AngleDeg = (180 * AngleRad / Mathf.PI);
 
             return ClampDegree0To360(AngleDeg); // jai supprimer le +90
         }
@@ -179,7 +185,10 @@ namespace Game.Puzzle.Light
         {
             isOpen = true;
             DrawMesh();
-            renderer.enabled = true;
+            if (renderer != null)
+            {
+                renderer.enabled = true;
+            }
         }
 
         public void Close()
@@ -187,7 +196,8 @@ namespace Game.Puzzle.Light
             isOpen = false;
             mesh.Clear();
             vertices.Clear();
-            renderer.enabled = false;
+            if (renderer != null)
+                renderer.enabled = false;
         }
 
 

@@ -21,5 +21,10 @@ namespace Game.Entity.Enemies.Boss.Jacob
         {
             animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase);
         }
+
+        protected override void Init()
+        {
+
+        }
     }
 }
