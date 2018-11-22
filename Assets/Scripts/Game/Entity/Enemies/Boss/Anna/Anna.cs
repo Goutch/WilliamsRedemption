@@ -24,7 +24,7 @@ namespace Game.Entity.Enemies.Boss.Anna
                 return true;
             }
 
-            return false;
+            return true;
         }
     }
 }

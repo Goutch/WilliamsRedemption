@@ -15,13 +15,13 @@ namespace Game.Puzzle
 
             for (int j = 0; j < transform.childCount; ++j)
             {
-                initialChild[j] = transform.GetChild(j).GetComponent<FloorTile>();
+                initialChild[j] = transform.GetChild(j).GetComponent<IFloorTile>();
             }
         }
 
         public override void MoveUp()
         {
-            foreach (FloorTile floorTile in initialChild)
+            foreach (IFloorTile floorTile in initialChild)
             {
                 floorTile.MoveUp();
             }
@@ -34,7 +34,7 @@ namespace Game.Puzzle
 
         public override void MoveDown()
         {
-            foreach (FloorTile floorTile in initialChild)
+            foreach (IFloorTile floorTile in initialChild)
             {
                 floorTile.MoveDown();
             }
