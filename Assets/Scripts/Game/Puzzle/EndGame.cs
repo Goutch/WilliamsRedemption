@@ -17,7 +17,7 @@ namespace Game.Puzzle
         {
             if (other.transform.root.CompareTag(Values.Tags.Player))
             {
-                gameController.NextLevel();
+                gameController.LevelFinished();
             }
         }
     }
