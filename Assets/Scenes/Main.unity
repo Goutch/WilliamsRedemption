@@ -1090,6 +1090,9 @@ MonoBehaviour:
   scoreText: {fileID: 1923701239}
   remainingTimeText: {fileID: 2053912517}
   totalText: {fileID: 195149432}
+  scoreTextBegin: 'Score:'
+  remainingTimeTextBegin: 'Remaining time:'
+  totalTextBegin: 'Total score:'
 --- !u!1 &670763731
 GameObject:
   m_ObjectHideFlags: 0
