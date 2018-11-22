@@ -5,19 +5,16 @@ namespace Game.Entity.Enemies.Attack
     public class PlasmaController : ProjectileController
     {
         [SerializeField] private bool canBeReturned;
+        private HitSensor hitSensor;
         public bool CanBeReturned
         {
             get { return canBeReturned; }
             private set { canBeReturned = value; }
         }
 
-        private HitStimulus hitStimulus;
-        private HitSensor hitSensor;
-
         private new void Awake()
         {
             base.Awake();
-            hitStimulus = GetComponent<HitStimulus>();
             hitSensor = GetComponent<HitSensor>();
         }
 
