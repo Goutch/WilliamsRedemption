@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Game.Entity.Enemies
 {
@@ -7,6 +8,8 @@ namespace Game.Entity.Enemies
         [SerializeField] private bool isDumbEnoughToFall;
         [SerializeField] private int surroundingRange;
 
+        private PathFinder pathFinder;
+        private Tilemap obstacles;
         public bool[,] surrounding;
 
         protected RootMover rootMover;
@@ -14,13 +17,15 @@ namespace Game.Entity.Enemies
         protected override void Init()
         {
             rootMover = GetComponent<RootMover>();
+            obstacles = GameObject.FindGameObjectWithTag(Values.Tags.Obstacle).GetComponent<Tilemap>();
+            pathFinder = new PathFinder(obstacles);
         }
 
         protected virtual void FixedUpdate()
         {
             rootMover.LookAtPlayer();
 
-            surrounding = PathFinder.instance.GetSurrounding(surroundingRange, transform.position);
+            surrounding = pathFinder.GetSurrounding(surroundingRange, transform.position);
             
             
             UpdateMovement(surrounding);
