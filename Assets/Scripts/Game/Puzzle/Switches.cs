@@ -1,10 +1,13 @@
 ﻿using Harmony;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Puzzle
 {
     public class Switches : MonoBehaviour
     {
+        [SerializeField] private Sprite unToggledSprite;
+        [SerializeField] private Sprite toggledSprite;
         [Tooltip("Objects triggered by this trigger.")] [SerializeField]
         private GameObject[] triggerables;
 
@@ -19,11 +22,11 @@ namespace Game.Puzzle
 
         [SerializeField] private AudioClip switchSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
         
         private float timerStartTime;
         private bool timerHasStarted;
-        private GameObject soundToPlay;
-
+        private SpriteRenderer spriteRenderer;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -36,8 +39,10 @@ namespace Game.Puzzle
                         !triggerable.GetComponent<ITriggerable>().IsOpened())
                     {
                         triggerable.GetComponent<ITriggerable>()?.Open();
+                        spriteRenderer.sprite = toggledSprite;
                         if (hasTimer)
                         {
+                           
                             triggerable.GetComponent<ITriggerable>()?.Lock();
                             timerStartTime = Time.time;
                             timerHasStarted = true;
@@ -52,6 +57,7 @@ namespace Game.Puzzle
                              triggerable.GetComponent<ITriggerable>().IsOpened())
                     {
                         triggerable.GetComponent<ITriggerable>()?.Close();
+                        spriteRenderer.sprite = unToggledSprite;
                         if (hasTimer)
                         {                            
                             triggerable.GetComponent<ITriggerable>()?.Lock();
@@ -74,16 +80,19 @@ namespace Game.Puzzle
 
         private void Start()
         {
+            spriteRenderer = GetComponent<SpriteRenderer>();
             timerStartTime = 0.0f;
             foreach (var triggerable in triggerables)
             {
                 if (triggerable.GetComponent<ITriggerable>().IsOpened())
                 {
                     triggerable.GetComponent<ITriggerable>()?.Open();
+                    spriteRenderer.sprite = toggledSprite;
                 }
                 else
                 {
                     triggerable.GetComponent<ITriggerable>()?.Close();
+                    spriteRenderer.sprite = unToggledSprite;
                 }
             }
 
@@ -119,12 +128,14 @@ namespace Game.Puzzle
                 {
                     triggerable.GetComponent<ITriggerable>()?.Unlock();
                     triggerable.GetComponent<ITriggerable>()?.Close();
+                    spriteRenderer.sprite = unToggledSprite;
                     timerHasStarted = false;
                 }
                 else if (!triggerable.GetComponent<ITriggerable>().IsOpened())
                 {
                     triggerable.GetComponent<ITriggerable>()?.Unlock();
                     triggerable.GetComponent<ITriggerable>()?.Open();
+                    spriteRenderer.sprite = toggledSprite;
                     timerHasStarted = false;
                 }
             }
