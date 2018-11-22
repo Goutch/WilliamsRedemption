@@ -135,12 +135,10 @@ namespace Game.Puzzle
                     translation =
                         new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
                         Time.fixedDeltaTime;
-                    Force = translation;
                 }
                 else if(isUsingQuadraticCurve)
                 {
                     translation = useQuadraticCurve();
-                    Force = translation;
                 }
 
                 if (CanMove())
