@@ -6,15 +6,16 @@ namespace Game.Entity.Enemies
 {
     public class Bat : Enemy
     {     
-        [SerializeField] private AudioClip batSound;
         [SerializeField] private Vector2 exponentialFonction;
         [SerializeField] private float fonctionYOffSet = .32f;
+        
+        [Header("Sound")] [SerializeField] private AudioClip batSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
         
         private RootMover rootMover;
 
         private bool isTriggered;
-        private GameObject soundToPlay;
 
         protected IEnumerator Fly()
         {
@@ -48,11 +49,11 @@ namespace Game.Entity.Enemies
                 animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
 
                 StartCoroutine(Fly());
-                UseSound();
+                CallBatSound();
                 Destroy(this.gameObject, 10);
             }
         }
-        private void UseSound()
+        private void CallBatSound()
         {
             soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
             soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(batSound, true, gameObject);

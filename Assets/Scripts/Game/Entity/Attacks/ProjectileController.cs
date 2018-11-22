@@ -11,7 +11,7 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
         
-        [SerializeField] private AudioClip projectileSound;
+        [Header("Sound")] [SerializeField] private AudioClip projectileSound;
         [SerializeField] private GameObject soundToPlayPrefab;
         private GameObject soundToPlay;
        
@@ -43,7 +43,7 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
-            UseSound();
+            CallProjectileSound();
             hitStimulus = GetComponent<HitStimulus>();
             hitStimulus.OnHitStimulusSensed += HitStimulus_OnHitStimulusSensed;
 
@@ -68,7 +68,7 @@ namespace Game.Entity.Enemies.Attack
             }
         }
 
-        private void UseSound()
+        private void CallProjectileSound()
         {
             soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
             soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(projectileSound, false, this.gameObject);
