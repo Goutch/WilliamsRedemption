@@ -11,7 +11,7 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
 
-        private HitStimulus hitStimulus;
+        protected HitStimulus hitStimulus;
 
         public float Speed
         {

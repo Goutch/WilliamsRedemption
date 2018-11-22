@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4918893311429414}
   - component: {fileID: 60793398698609860}
-  - component: {fileID: 114927670393917638}
+  - component: {fileID: 114204694616118444}
   m_Layer: 17
   m_Name: Attack
   m_TagString: Untagged
@@ -127,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1801009098967474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 90.1, y: -26.83, z: 0}
+  m_LocalPosition: {x: 59.21061, y: -33.839703, z: -0.025909295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4918893311429414}
@@ -222,6 +222,19 @@ PolygonCollider2D:
       - {x: -0.11695221, y: -0.82507104}
       - {x: 0.04354736, y: -0.82774764}
       - {x: 0.84081906, y: 1.423523}
+--- !u!114 &114204694616118444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121335139090150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  range: 0
 --- !u!114 &114452332560498884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -244,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53fb9cd9bb68d54dae3eff657632f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.4168686, b: 0.1745283, a: 0.5320104}
+  color: {r: 1, g: 0.4168686, b: 0.1745283, a: 0.62374556}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -276,18 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenTime: 2
   closedTime: 1.5
---- !u!114 &114927670393917638
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1121335139090150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 3
+  attackCollider: {fileID: 60793398698609860}
 --- !u!198 &198224837194529082
 ParticleSystem:
   m_ObjectHideFlags: 1

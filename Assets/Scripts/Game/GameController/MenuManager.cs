@@ -1,6 +1,7 @@
 ﻿using System.Net.Configuration;
 using Game.Controller;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
@@ -9,18 +10,20 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gameHUD;
+    [SerializeField] private GameObject levelFinishedPanel;
     private GameController gameController;
     private const string gameCompletedTextString = "Congratulations!";
     private const string deathTextString = "Game Over";
 
 
-    private void Start()
+    private void Awake()
     {
         gameController = GetComponent<GameController>();
         SceneManager.sceneLoaded += OnSceneLoaded;
         HideGameOverPanel();
         HidePausePanel();
         HideGameHUD();
+        HideLevelFinishedPanel();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -30,7 +33,7 @@ public class MenuManager : MonoBehaviour
             DisplayMainMenu();
             HideGameHUD();
         }
-        else
+        else 
         {
             HideMainMenu();
             DisplayGameHUD();
@@ -93,5 +96,15 @@ public class MenuManager : MonoBehaviour
     public void HideGameHUD()
     {
         gameHUD.SetActive(false);
+    }
+
+    public void DisplayLevelFinishedPanel()
+    {
+        levelFinishedPanel.SetActive(true);
+    }
+
+    public void HideLevelFinishedPanel()
+    {
+        levelFinishedPanel.SetActive(false);
     }
 }
