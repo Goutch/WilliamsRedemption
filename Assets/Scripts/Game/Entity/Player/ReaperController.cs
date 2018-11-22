@@ -149,8 +149,8 @@ namespace Game.Entity.Player
         
         private void UseSound()
         {
-            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(teleportSound, false, this.gameObject);
+            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(teleportSound, false, gameObject);
             soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
