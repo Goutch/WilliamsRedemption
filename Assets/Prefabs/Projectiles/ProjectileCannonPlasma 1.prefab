@@ -19,12 +19,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4984861040231864}
-  - component: {fileID: 114671059609369048}
   - component: {fileID: 50353353957284432}
   - component: {fileID: 61489732211281932}
   - component: {fileID: 95241385976786418}
   - component: {fileID: 212299359264877820}
   - component: {fileID: 114509343430243426}
+  - component: {fileID: 114684429256983860}
   m_Layer: 0
   m_Name: ProjectileCannonPlasma 1
   m_TagString: Untagged
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   range: 1
---- !u!114 &114671059609369048
+--- !u!114 &114684429256983860
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,13 +159,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1555886954156834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6730589359563df4c80e04f5ce69659a, type: 3}
+  m_Script: {fileID: 11500000, guid: f40adbd409a63444daed395e9a0f1f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  delayBeforeDestruction: 15
+  speed: 2
+  delayBeforeDestruction: 5
   destroyOnPlatformsCollision: 1
-  canBeReturned: 1
 --- !u!212 &212052639631343572
 SpriteRenderer:
   m_ObjectHideFlags: 1
