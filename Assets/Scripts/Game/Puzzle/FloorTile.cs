@@ -43,12 +43,8 @@ namespace Game.Puzzle
 
                 GetComponent<Rigidbody2D>().Translate(new Vector2(0, deplacementY) * Time.fixedDeltaTime);
 
-                Force = new Vector2(0, deplacementY);
-
                 yield return new WaitForFixedUpdate();
             }
-
-            Force = new Vector2(0, 0);
         }
 
         public override void MoveDown()

@@ -11,7 +11,6 @@ namespace Game.Puzzle
 
     public abstract class IFloorTile : MonoBehaviour
     {
-        public Vector2 Force { get; protected set; }
         public abstract void MoveUp();
         public abstract void MoveDown();
     }
