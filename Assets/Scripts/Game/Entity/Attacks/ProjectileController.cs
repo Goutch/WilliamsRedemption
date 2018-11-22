@@ -10,12 +10,12 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float speed;
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
+        
         [SerializeField] private AudioClip projectileSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-
         private GameObject soundToPlay;
        
-        private HitStimulus hitStimulus;
+        protected HitStimulus hitStimulus;
 
         public float Speed
         {
