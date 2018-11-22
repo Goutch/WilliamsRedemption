@@ -229,7 +229,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfEnemySpawnAllowed: 4
-  resetWhenAllEnemyDied: 0
 --- !u!114 &114665657003816676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,6 +261,9 @@ MonoBehaviour:
   duration: 4
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0
   attackCollider: {fileID: 0}
+  woundedSound: {fileID: 8300000, guid: 4079b7ddcc9dc584fa2445b013c5e52c, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!198 &198004288251760996
 ParticleSystem:
   m_ObjectHideFlags: 1

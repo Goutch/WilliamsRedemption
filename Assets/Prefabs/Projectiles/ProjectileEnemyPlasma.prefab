@@ -143,8 +143,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   delayBeforeDestruction: 15
-  destroyOnPlatformsCollision: 1
   canBeReturned: 1
+  destroyOnPlatformsCollision: 1
+  projectileSound: {fileID: 8300000, guid: 505f6eec5e90a6146b7986ae441c5088, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
+  delayBeforeBulletCanKillHisShooter: 0
 --- !u!114 &114985238522248742
 MonoBehaviour:
   m_ObjectHideFlags: 1

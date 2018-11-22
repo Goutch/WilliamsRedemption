@@ -44,7 +44,7 @@ public class AudioManagerBackgroundSound : MonoBehaviour
 		}
 	}
 
-	private void OnPlayerDie(GameObject gameObject)
+	private void OnPlayerDie(GameObject gameObject, GameObject gameObject2)
 	{
 		StopSound();
 	}

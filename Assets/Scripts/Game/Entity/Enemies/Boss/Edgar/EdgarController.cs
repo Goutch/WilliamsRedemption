@@ -42,7 +42,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private void CallWoundedSound(GameObject gameObject, GameObject gameObject2)
         {
             soundToPlay = Instantiate(soundToPlayPrefab, transform.position, Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(woundedSound, true, gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(woundedSound, true, this.gameObject);
             soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }

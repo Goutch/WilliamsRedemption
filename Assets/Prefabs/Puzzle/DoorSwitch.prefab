@@ -82,6 +82,9 @@ MonoBehaviour:
   shutDownTime: 0
   hasTimer: 0
   lockLinkedObjects: 0
+  switchSound: {fileID: 8300000, guid: 4ab1219f6a3baaf4bb56bb6e7ffb8506, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!212 &212802372452397250
 SpriteRenderer:
   m_ObjectHideFlags: 1
