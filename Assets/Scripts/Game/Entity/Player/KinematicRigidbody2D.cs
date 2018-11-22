@@ -200,7 +200,8 @@ namespace Game.Entity.Player
                 for (var i = 0; i < nbRays; i++)
                 {
                     var raycastHit = preallocaRaycastHits[i];
-                    if (!allColliders.Contains(raycastHit.collider))
+
+                    if (!allColliders.Contains(raycastHit.collider) && !raycastHit.collider.CompareTag("PassThrough"))
                     {
                         var floorPosition = raycastHit.point;
                         if (floorPosition.y > bottomY)
