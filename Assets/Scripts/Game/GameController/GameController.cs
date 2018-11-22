@@ -64,7 +64,7 @@ namespace Game.Controller
 
         public Level CurrentLevel => currentLevel;
 
-        private void Awake()
+        void Start()
         {
             menu = GetComponent<MenuManager>();
             collectableUI = GetComponent<CollectablesUI>();
@@ -73,31 +73,15 @@ namespace Game.Controller
             levelFinishUI = GetComponent<LevelFinishedUI>();
             collectablesEventChannel = GetComponent<CollectablesEventChannel>();
             SceneManager.sceneLoaded += OnSceneLoaded;
-
-            Scene[] loadedScenes = SceneManager.GetAllScenes();
-            if (loadedScenes.Length == 1 && SceneManager.GetActiveScene().name == "Main")
-            {
+            if (SceneManager.GetActiveScene().name == "Main")
                 SceneManager.LoadSceneAsync(Values.Scenes.Menu, LoadSceneMode.Additive);
-            }
-            else
-            {
-                foreach (var scene in loadedScenes)
-                {
-                    if (scene.name != Values.Scenes.Menu
-                        || scene.name != Values.Scenes.Main)
-                    {
-                        currentLevel = startLevel;
-                        menu.HideMainMenu();
-                        menu.DisplayGameHUD();
-                    }
-                }
-            }
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name != Values.Scenes.Menu&&scene.name!= Values.Scenes.Main)
+            if (scene.name != Values.Scenes.Menu)
             {
+                lifePointsUI.InitLifePoints();
                 startTime = Time.time;
                 player = GameObject.FindGameObjectWithTag(Values.Tags.Player)
                     .GetComponent<PlayerController>();

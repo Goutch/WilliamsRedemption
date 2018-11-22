@@ -1,7 +1,5 @@
-﻿using Game.Controller;
-using Game.Entity.Enemies.Attack;
+﻿using Game.Entity.Enemies.Attack;
 using Game.Entity.Player;
-using Harmony;
 using UnityEngine;
 
 namespace Game.Entity.Enemies
@@ -9,20 +7,19 @@ namespace Game.Entity.Enemies
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField] private int scoreValue = 0;
-
+        
         protected Health health;
         protected Animator animator;
         protected SpriteRenderer spriteRenderer;
         protected PlayerController player;
         protected HitSensor hitSensor;
-        private GameController gameController;
+
         public int ScoreValue => scoreValue;
         public bool IsInvulnerable { get; set; }
 
         protected void Awake()
         {
             player = GameObject.FindWithTag(Values.Tags.Player).GetComponent<PlayerController>();
-            gameController = GameObject.FindWithTag(Values.Tags.GameController).GetComponent<GameController>();
             health = GetComponent<Health>();
             health.OnDeath += OnDeath;
             animator = GetComponent<Animator>();
@@ -35,7 +32,7 @@ namespace Game.Entity.Enemies
 
         protected virtual bool OnHit(HitStimulus hitStimulus)
         {
-            if (hitStimulus.Type != HitStimulus.DamageType.Enemy)
+            if(hitStimulus.Type != HitStimulus.DamageType.Enemy)
             {
                 health.Hit(hitStimulus.gameObject);
                 return true;
@@ -49,12 +46,6 @@ namespace Game.Entity.Enemies
 
         private void OnDeath(GameObject receiver, GameObject attacker)
         {
-            HitStimulus atackerStimulu = attacker.GetComponent<HitStimulus>();
-
-            if (atackerStimulu != null &&
-                (atackerStimulu.Type == HitStimulus.DamageType.Darkness ||
-                 atackerStimulu.Type == HitStimulus.DamageType.Physical))
-                gameController.AddScore(scoreValue);
             Destroy(this.gameObject);
         }
     }

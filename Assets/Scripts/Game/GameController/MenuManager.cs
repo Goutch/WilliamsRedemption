@@ -1,7 +1,6 @@
 ﻿using System.Net.Configuration;
 using Game.Controller;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
@@ -16,7 +15,7 @@ public class MenuManager : MonoBehaviour
     private const string deathTextString = "Game Over";
 
 
-    private void Awake()
+    private void Start()
     {
         gameController = GetComponent<GameController>();
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -33,7 +32,7 @@ public class MenuManager : MonoBehaviour
             DisplayMainMenu();
             HideGameHUD();
         }
-        else 
+        else
         {
             HideMainMenu();
             DisplayGameHUD();
