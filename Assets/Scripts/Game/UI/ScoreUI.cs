@@ -9,7 +9,7 @@ namespace Game.UI
         [SerializeField] private Text scoreText;
         private GameController gameController;
 
-        private void OnEnable()
+        private void Start()
         {
             gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
                 .GetComponent<GameController>();
