@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Harmony;
+using UnityEngine;
 
 namespace Game.Puzzle
 {
@@ -22,7 +23,7 @@ namespace Game.Puzzle
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(Values.Tags.Player) && !timerHasStarted)
+            if (other.Root().CompareTag(Values.Tags.Player) && !timerHasStarted)
             {
                 foreach (var triggerable in triggerables)
                 {
@@ -60,7 +61,7 @@ namespace Game.Puzzle
                     }
                 }
             }
-            else if(other.CompareTag(Values.Tags.Player) && timerHasStarted)
+            else if(other.Root().CompareTag(Values.Tags.Player) && timerHasStarted)
             {
                 timerStartTime = Time.time;
             }
