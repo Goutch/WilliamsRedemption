@@ -40,6 +40,7 @@ namespace Game.Controller
         private CollectablesUI collectableUI;
         private MenuManager menu;
         private LifePointsUI lifePointsUI;
+        private LevelFinishedUI levelFinishUI;
 
         //Getters
         public float CurrentGameTime => time;
@@ -69,6 +70,7 @@ namespace Game.Controller
             collectableUI = GetComponent<CollectablesUI>();
             scoreUI = GetComponent<ScoreUI>();
             lifePointsUI = GetComponent<LifePointsUI>();
+            levelFinishUI = GetComponent<LevelFinishedUI>();
             collectablesEventChannel = GetComponent<CollectablesEventChannel>();
             SceneManager.sceneLoaded += OnSceneLoaded;
             if (SceneManager.GetActiveScene().name == "Main")
@@ -81,7 +83,7 @@ namespace Game.Controller
             {
                 lifePointsUI.InitLifePoints();
                 startTime = Time.time;
-                player= GameObject.FindGameObjectWithTag(Values.Tags.Player)
+                player = GameObject.FindGameObjectWithTag(Values.Tags.Player)
                     .GetComponent<PlayerController>();
                 player.GetComponent<Health>().OnDeath += OnPlayerDie;
             }
@@ -120,12 +122,36 @@ namespace Game.Controller
 
         public void AddScore(int score)
         {
+            if (ExpertMode)
+                score *= 2;
             this.score += score;
             scoreUI.OnScoreChange();
         }
 
+        public void LevelFinished()
+        {
+            PauseGame();
+            menu.DisplayLevelFinishedPanel();
+            bonusScore += LevelRemainingTime;
+            if (currentLevel.NextLevel != null)
+            {
+                levelFinishUI.OnLevelFinished();
+            }
+            else
+            {
+                Win();
+                GameOver();
+            }
+        }
+
         public void NextLevel()
         {
+            menu.HideLevelFinishedPanel();
+            score += bonusScore;
+            bonusScore = 0;
+            scoreUI.OnScoreChange();
+
+
             OnLevelChange?.Invoke();
             if (SceneManager.GetActiveScene().name == Values.Scenes.Menu)
             {
@@ -211,15 +237,14 @@ namespace Game.Controller
             {
                 if (currentCheckPoint != null)
                 {
-                    Health playerHealth=player.GetComponent<Health>();
+                    Health playerHealth = player.GetComponent<Health>();
                     playerHealth.ResetHealth();
 
                     player.transform.position = currentCheckPoint.transform.position;
-                    
-                    score = currentCheckPoint.ScoreAtTimeOfTrigger-(collectable*100);
-                    collectable = 0;
-                    startTime = currentCheckPoint.TimeAtTimeOfTrigger+time;
 
+                    score = currentCheckPoint.ScoreAtTimeOfTrigger - (collectable * 100);
+                    collectable = 0;
+                    startTime = currentCheckPoint.TimeAtTimeOfTrigger + time;
                 }
                 else
                 {
