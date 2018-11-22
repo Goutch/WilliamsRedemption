@@ -5,6 +5,10 @@ namespace Game.Entity.Enemies.Boss.Jacob
     [RequireComponent(typeof(Health))]
     class JacobVulnerable : Vulnerable
     {
+        [Header("Sound")] [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
+        
         private Health health;
         private SpawnedEnemyManager spawnedEnemyManager;
 
@@ -32,12 +36,14 @@ namespace Game.Entity.Enemies.Boss.Jacob
         private void OnEnable()
         {
             health.OnHealthChange += Health_OnHealthChange;
+            health.OnHealthChange += CallWoundedSound;
             spawnedEnemyManager.OnEnnemyDied += Zombie_OnDeath;
         }
 
         private void OnDisable()
         {
             health.OnHealthChange -= Health_OnHealthChange;
+            health.OnHealthChange -= CallWoundedSound;
             spawnedEnemyManager.OnEnnemyDied -= Zombie_OnDeath;
         }
 
@@ -51,8 +57,15 @@ namespace Game.Entity.Enemies.Boss.Jacob
         {
             if (spawnedEnemyManager.IsAllEnemySpawned() && spawnedEnemyManager.GetNumberOfEnemies() == 0)
             {
-                canEnter = true;
+                canEnter = true;dd
             }
+        }
+        
+        private void CallWoundedSound(GameObject gameObject)
+        {
+            soundToPlay = Instantiate(soundToPlayPrefab, transform.position, Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(woundedSound, true, gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

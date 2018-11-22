@@ -243,8 +243,8 @@ MonoBehaviour:
   subStates:
   - {fileID: 114386250798373468}
   - {fileID: 114915048040240046}
+  passiveCapacities: []
   animator: {fileID: 95185587434919710}
-  passiveCapacity: {fileID: 114253204107131226}
 --- !u!114 &114915048040240046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,8 +258,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95185587434919710}
   duration: 4
-  disableDamage: 0
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0
+  attackCollider: {fileID: 0}
+  woundedSound: {fileID: 8300000, guid: 4079b7ddcc9dc584fa2445b013c5e52c, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!198 &198004288251760996
 ParticleSystem:
   m_ObjectHideFlags: 1
