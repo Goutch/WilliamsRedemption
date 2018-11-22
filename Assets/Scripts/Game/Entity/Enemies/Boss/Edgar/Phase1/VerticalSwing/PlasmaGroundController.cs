@@ -18,6 +18,10 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [Tooltip("The distance between the collision and the tiles spawned on the Y axis.")]
         [SerializeField] private int yOffSetTileToSpawn;
         [SerializeField] private float tilesDuration;
+        
+        [Header("Sound")] [SerializeField] private AudioClip plasmaGroundSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        private GameObject soundToPlay;
 
         private const float RAYCAST_LENGTH = 0.32f;
 
@@ -107,6 +111,8 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 Quaternion.identity);
 
             explosionObject.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
+            
+            CallPlasmaGroundSound();
 
             SpawnTiles();
 
@@ -135,10 +141,18 @@ namespace Game.Entity.Enemies.Boss.Edgar
                     OnFloorCollision();
             }
         }
+        
         private void OnFloorCollision()
         {
             grounded = true;
             rigidbody.constraints = rigidbody.constraints | RigidbodyConstraints2D.FreezePositionY;
+        }
+        
+        private void CallPlasmaGroundSound()
+        {
+            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(plasmaGroundSound, false, gameObject);
+            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

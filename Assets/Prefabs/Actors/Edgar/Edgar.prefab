@@ -1372,6 +1372,9 @@ MonoBehaviour:
   phases:
   - {fileID: 114355167586666278}
   - {fileID: 114109857756450516}
+  woundedSound: {fileID: 8300000, guid: 680ed7d77a7e6ca478b3d5dceb57c665, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114905592222218656
 MonoBehaviour:
   m_ObjectHideFlags: 1
