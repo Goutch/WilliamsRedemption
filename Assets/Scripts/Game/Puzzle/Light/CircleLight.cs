@@ -64,8 +64,9 @@ namespace Game.Puzzle.Light
         private void Update()
         {
             float alpha=Mathf.PerlinNoise(perlinPos,0);
-            alpha = Mathf.Clamp(alpha, minAlpha, maxAlpha);
-                
+            //  alpha = Mathf.Clamp(alpha, minAlpha, maxAlpha);
+            alpha = ((maxAlpha-minAlpha)*alpha)+minAlpha;  
+            
             color.a = alpha;
             perlinPos +=flickerSpeed ;
             UpdateColor();

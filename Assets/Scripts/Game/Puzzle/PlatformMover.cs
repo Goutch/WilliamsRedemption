@@ -8,30 +8,24 @@ using UnityScript.Steps;
 
 namespace Game.Puzzle
 {
-    public class PlatformMover : IFloorTile
+    public class PlatformMover : MonoBehaviour
     {
-        [Tooltip("Distance traveled by the platform when heading left.(From start to this)")]
-        [SerializeField]
+        [Tooltip("Distance traveled by the platform when heading left.(From start to this)")] [SerializeField]
         private float MaxDistanceLeft;
 
-        [Tooltip("Distance traveled by the platform when heading right.(From start to this this)")]
-        [SerializeField]
+        [Tooltip("Distance traveled by the platform when heading right.(From start to this this)")] [SerializeField]
         private float MaxDistanceRight;
 
-        [Tooltip("Distance Travelled by the platform when heading upwards.(From start to this")]
-        [SerializeField]
+        [Tooltip("Distance Travelled by the platform when heading upwards.(From start to this")] [SerializeField]
         private float MaxDistanceUp;
 
-        [Tooltip("Distance traveled by the platform when heading downwards.(From start to this")]
-        [SerializeField]
+        [Tooltip("Distance traveled by the platform when heading downwards.(From start to this")] [SerializeField]
         private float MaxDistanceDown;
 
-        [Tooltip("Speed at which the platform moves horizontaly.")]
-        [SerializeField]
+        [Tooltip("Speed at which the platform moves horizontaly.")] [SerializeField]
         private float HorizontalSpeed;
 
-        [Tooltip("Speed at which the platform moves verticaly.")]
-        [SerializeField]
+        [Tooltip("Speed at which the platform moves verticaly.")] [SerializeField]
         private float VerticalSpeed;
 
         [Tooltip(
@@ -39,10 +33,9 @@ namespace Game.Puzzle
         [SerializeField]
         private bool isHeadingRight;
 
-        [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")]
-        [SerializeField]
+        [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")] [SerializeField]
         private bool isHeadingUpwards;
-
+        
         [Tooltip("Amount of time before the platform starts moving again after reaching it's destination. Horizontal & Vertical")]
         [SerializeField] private float DirectionChangeDelay;
 
@@ -51,19 +44,17 @@ namespace Game.Puzzle
         [SerializeField]
         private bool isUsingQuadraticCurve;
 
-        [Tooltip("Quadratic function coefficient. Affects steepness and narrowness of the curve.")]
-        [SerializeField]
+        [Tooltip("Quadratic function coefficient. Affects steepness and narrowness of the curve.")] [SerializeField]
         private float quadraticA;
 
         [Tooltip("Quadratic function coefficient. Is added to Y everytime the value of X is increased by one. ")]
         [SerializeField]
         private float quadraticB;
 
-        [Tooltip("Quadratic function coefficient. Value of Y ")]
-        [SerializeField]
+        [Tooltip("Quadratic function coefficient. Value of Y ")] [SerializeField]
         private float quadraticC;
 
-
+        
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
@@ -74,11 +65,15 @@ namespace Game.Puzzle
         private float positionX;
         private float verticalCapacityPrecisionOffset;
         private float timeWhenPlatformFreezed;
-
+        
+        
+        
         //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
         private HashSet<Transform> transforms;
         //Translation vector used by the platform and it's colliding objects.
         private Vector2 translation;
+        
+
 
         private void Awake()
         {
@@ -91,15 +86,15 @@ namespace Game.Puzzle
             translation = new Vector2(0, 0);
             verticalCapacityPrecisionOffset = 0.0001f;
             timeWhenPlatformFreezed = 0;
-
+            
         }
 
         private void Update()
         {
-            if (HorizontalSpeed > 0)
-                CheckHorizontalDirection();
-            if (VerticalSpeed > 0)
-                CheckVerticalDirection();
+            if(HorizontalSpeed >0)
+            CheckHorizontalDirection();
+            if(VerticalSpeed>0)
+            CheckVerticalDirection();
         }
 
         private void OnEnable()
@@ -139,21 +134,17 @@ namespace Game.Puzzle
                 {
                     translation =
                         new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
-                        Time.deltaTime;
-                    Force = translation;
+                        Time.fixedDeltaTime;
                 }
-                else if (isUsingQuadraticCurve)
+                else if(isUsingQuadraticCurve)
                 {
                     translation = useQuadraticCurve();
-                    Force = translation;
                 }
 
                 if (CanMove())
                 {
                     transform.Translate(translation);
                 }
-
-
 
                 if (transforms.Count > 0 && CanMove())
                 {
@@ -162,7 +153,6 @@ namespace Game.Puzzle
                         transformer.Translate(translation);
                     }
                 }
-
                 yield return new WaitForFixedUpdate();
             }
         }
@@ -242,16 +232,6 @@ namespace Game.Puzzle
         private bool CanMove()
         {
             return Time.time - timeWhenPlatformFreezed >= DirectionChangeDelay;
-        }
-
-        public override void MoveUp()
-        {
-            
-        }
-
-        public override void MoveDown()
-        {
-            
         }
     }
 }
