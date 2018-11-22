@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1045657933351204
 GameObject:
   m_ObjectHideFlags: 1
@@ -401,13 +401,14 @@ GameObject:
   - component: {fileID: 4655148729547628}
   - component: {fileID: 114351726763380652}
   - component: {fileID: 114576671061313164}
+  - component: {fileID: 114137147069472340}
+  - component: {fileID: 114050076449825396}
   - component: {fileID: 114249420003778732}
   - component: {fileID: 114914983009432734}
+  - component: {fileID: 114092894062548214}
   - component: {fileID: 114892580140467134}
   - component: {fileID: 114189149034687430}
   - component: {fileID: 114380876273433772}
-  - component: {fileID: 114137147069472340}
-  - component: {fileID: 114050076449825396}
   - component: {fileID: 114905848433553954}
   - component: {fileID: 114065069803920612}
   - component: {fileID: 114121882780505760}
@@ -1096,6 +1097,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114092894062548214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1453289080750168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65947cb9d90c44a3bc2a17e242bedcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 114697561187153984}
+  remainingTimeText: {fileID: 114343066943706484}
+  totalText: {fileID: 114299451243708852}
+  scoreTextBegin: 'Score:'
+  remainingTimeTextBegin: 'Remaining time:'
+  totalTextBegin: 'Total score:'
 --- !u!114 &114096452233095216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1771,7 +1789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8b68470a35c294fa6720825d33216b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLevel: {fileID: 11400000, guid: ad3143ee454f23042b4672a61a77871c, type: 2}
+  startLevel: {fileID: 11400000, guid: 25fbb541bbd6a7a4d9664185ca09f786, type: 2}
 --- !u!114 &114364510484665114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2422,7 +2440,7 @@ MonoBehaviour:
   GameOverPanel: {fileID: 1473472390011372}
   mainMenuPanel: {fileID: 1246358192572462}
   gameHUD: {fileID: 1685437547351180}
-  levelFinishedPanel: {fileID: 0}
+  levelFinishedPanel: {fileID: 1014995378078874}
 --- !u!114 &114595004639566152
 MonoBehaviour:
   m_ObjectHideFlags: 1

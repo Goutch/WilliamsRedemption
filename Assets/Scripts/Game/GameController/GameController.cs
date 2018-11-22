@@ -147,8 +147,10 @@ namespace Game.Controller
         public void NextLevel()
         {
             menu.HideLevelFinishedPanel();
+
             score += bonusScore;
             bonusScore = 0;
+            collectable = 0;
             scoreUI.OnScoreChange();
 
 
