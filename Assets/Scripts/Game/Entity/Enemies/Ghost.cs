@@ -9,7 +9,7 @@ namespace Game.Entity.Enemies
     public class Ghost : Enemy
     {
         [SerializeField] private float damageKnockBackForce = 1;
-        [SerializeField] private float disapearTimeLimitBeforeDespawn = 5;
+        [SerializeField] private float disapearTimeLimitBeforeDespawn = 3;
 
         private GameObject attack;
         private LightSensor playerLightSensor;
@@ -17,7 +17,6 @@ namespace Game.Entity.Enemies
         private RootMover rootMover;
         private Rigidbody2D rigidBody;
 
-        private bool isPlayerReaper = false;
         private bool isEnable = true;
 
         private new void Awake()

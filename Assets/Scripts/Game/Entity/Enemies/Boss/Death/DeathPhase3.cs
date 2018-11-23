@@ -10,13 +10,24 @@ namespace Game.Entity.Enemies.Boss.Death
 {
     class DeathPhase3 : NonSequentialPhase
     {
-        [SerializeField] private MeshLight meshLight;
+        [SerializeField] private MeshLight closeLight;
+        [SerializeField] private MeshLight openLight;
 
         private Rigidbody2D rb;
+        private SpawnedEnemyManager[] spawnedEnemyManagers;
 
         protected override void Init()
         {
             rb = GetComponent<Rigidbody2D>();
+            spawnedEnemyManagers = GetComponents<SpawnedEnemyManager>();
+        }
+
+        public override void Finish()
+        {
+            base.Finish();
+
+            foreach(SpawnedEnemyManager spawnedEnemyManager in spawnedEnemyManagers)
+                spawnedEnemyManager.Clear();
         }
 
         public override bool CanEnter()
@@ -28,7 +39,8 @@ namespace Game.Entity.Enemies.Boss.Death
         {
             base.Enter();
 
-            meshLight.Close();
+            closeLight.Close();
+            openLight.Open();
 
             rb.bodyType = RigidbodyType2D.Static;
         }

@@ -172,11 +172,12 @@ namespace Game.Controller
         public void LevelFinished()
         {
             PauseGame();
-            menu.DisplayLevelFinishedPanel();
+
             bonusScore += LevelRemainingTime;
             if (currentLevel.NextLevel != null)
             {
                 levelFinishUI.OnLevelFinished();
+                menu.DisplayLevelFinishedPanel();
             }
             else
             {
