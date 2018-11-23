@@ -1,6 +1,7 @@
 ﻿using Game.Controller;
 using Game.Entity;
 using Game.Entity.Player;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,27 +14,33 @@ namespace Game.UI
         private GameObject[] lifePointsImages;
         private PlayerController playerController;
         private Health playerHealth;
-        private GameController gameController;
-
-
-        public void InitLifePoints()
+        
+        private void OnEnable()
         {
-            if (lifePointsImages != null)
-                foreach (var image in lifePointsImages)
-                {
-                    Destroy(image);
-                }
+            SceneManager.sceneLoaded += InitLifePoints;
+        }
 
-            gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
-                .GetComponent<GameController>();
-            playerController = GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<PlayerController>();
-            playerHealth = playerController.GetComponent<Health>();
-            playerHealth.OnHealthChange += OnHealthChange;
-            lifePointsImages = new GameObject[playerHealth.MaxHealth];
-            for (int i = 0; i < lifePointsImages.Length; i++)
+        public void InitLifePoints(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name != Values.Scenes.Menu && scene.name != Values.Scenes.Main)
             {
-                lifePointsImages[i] =
-                    Instantiate(lifePointPrefab, transform.position, Quaternion.identity, lifePointsParent.transform);
+                if (lifePointsImages != null)
+                    foreach (var image in lifePointsImages)
+                    {
+                        Destroy(image);
+                    }
+
+                playerController = GameObject.FindGameObjectWithTag(Values.Tags.Player)
+                    .GetComponent<PlayerController>();
+                playerHealth = playerController.GetComponent<Health>();
+                playerHealth.OnHealthChange += OnHealthChange;
+                lifePointsImages = new GameObject[playerHealth.MaxHealth];
+                for (int i = 0; i < lifePointsImages.Length; i++)
+                {
+                    lifePointsImages[i] =
+                        Instantiate(lifePointPrefab, transform.position, Quaternion.identity,
+                            lifePointsParent.transform);
+                }
             }
         }
 

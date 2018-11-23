@@ -14,8 +14,6 @@ namespace Game.Puzzle
         private Vector2 initialePosition;
         private bool playerOnFloor = false;
 
-        private PlayerController player;
-
         public bool IsAtInitialPosition
         {
             get
@@ -26,7 +24,6 @@ namespace Game.Puzzle
 
         private void Awake()
         {
-            player = GameObject.FindGameObjectWithTag(Values.Tags.Player).GetComponent<PlayerController>();
             initialePosition = transform.position;
         }
 
@@ -44,25 +41,10 @@ namespace Game.Puzzle
             {
                 float deplacementY = directionY * speed;
 
-                transform.Translate(0, deplacementY,0);
-
-                if (playerOnFloor)
-                    player.transform.position += new Vector3(0, deplacementY,0);
+                GetComponent<Rigidbody2D>().Translate(new Vector2(0, deplacementY) * Time.fixedDeltaTime);
 
                 yield return new WaitForFixedUpdate();
             }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.Root().CompareTag(Game.Values.Tags.Player))
-                playerOnFloor = true;
-        }
-
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            if (other.gameObject.Root().CompareTag(Game.Values.Tags.Player))
-                playerOnFloor = false;
         }
 
         public override void MoveDown()

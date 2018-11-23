@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61198899941848050}
   - component: {fileID: 50109419396224740}
   - component: {fileID: 114223434407366266}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Jean Light Wall
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}

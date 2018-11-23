@@ -188,11 +188,33 @@ namespace Game.Entity.Player
             if (deltaMagnitude >= sleepVelocity)
             {
                 var attachedColliderCount = rigidbody.attachedColliderCount;
-                var selfColliders = new Collider2D[attachedColliderCount];
-                rigidbody.GetAttachedColliders(selfColliders);
+                var allColliders = new Collider2D[attachedColliderCount];
+                rigidbody.GetAttachedColliders(allColliders);
+
+                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
+                var heightHalf = rigidbody.position.y - bottomY;
+
+                Debug.DrawLine(rigidbody.position, rigidbody.position - Vector2.up * heightHalf, Color.magenta);
+
+                var nbRays = Physics2D.Raycast(rigidbody.position, Vector2.down, contactFilter, preallocaRaycastHits);
+                for (var i = 0; i < nbRays; i++)
+                {
+                    var raycastHit = preallocaRaycastHits[i];
+
+                    if (!allColliders.Contains(raycastHit.collider) && !raycastHit.collider.CompareTag("PassThrough"))
+                    {
+                        var floorPosition = raycastHit.point;
+                        if (floorPosition.y > bottomY)
+                        {
+                            var rectifiedPosition = rigidbody.position;
+                            rectifiedPosition.y = floorPosition.y + heightHalf;
+                            rigidbody.position = rectifiedPosition;
+                        }
+                    }
+                }
 
                 // ReSharper disable once LocalVariableHidesMember
-                foreach (var selfCollider in selfColliders.Where(it => !it.isTrigger))
+                foreach (var selfCollider in allColliders.Where(it => !it.isTrigger))
                 {
                     var nbCollidersDetected = selfCollider.Cast(deltaPosition,
                         contactFilter,
@@ -214,7 +236,7 @@ namespace Game.Entity.Player
                         if (raycastHit.collider.CompareTag("MovingPlatform"))
                         {
                             isOnMovingGround = true;
-                            verticalCapacityOffset = raycastHit.collider.GetComponent<PlatformMover>().GetVerticalSpeed();
+                            //verticalCapacityOffset = raycastHit.collider.GetComponent<PlatformMover>().GetVerticalSpeed();
                         }
 
 

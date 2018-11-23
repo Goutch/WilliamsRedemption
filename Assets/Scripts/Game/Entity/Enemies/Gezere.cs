@@ -10,8 +10,9 @@ public class Gezere : MonoBehaviour
 {
     [SerializeField] private float OpenTime;
     [SerializeField] private float closedTime;
+    [SerializeField] private Collider2D attackCollider;
     private new CircleLight light;
-    private Collider2D attackColider;
+
 
     private ParticleSystem particules;
 
@@ -27,14 +28,14 @@ public class Gezere : MonoBehaviour
     {
         light.Open();
         particules.Play();
-        attackColider.enabled = true;
+        attackCollider.enabled = true;
     }
 
     private void Close()
     {
         light.Close();
         particules.Stop();
-        attackColider.enabled = false;
+        attackCollider.enabled = false;
     }
 
     private IEnumerator openAndCloseRoutine()

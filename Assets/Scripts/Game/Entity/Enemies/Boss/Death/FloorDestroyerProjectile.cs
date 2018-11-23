@@ -13,7 +13,7 @@ namespace Game.Entity.Enemies.Boss.Death
     {
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(Values.Tags.Plateforme))
+            if (collision.CompareTag(Values.Tags.MovingPlatform))
             {
                 FloorTile floorTile;
                 if (floorTile = collision.GetComponent<FloorTile>())

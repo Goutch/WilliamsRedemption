@@ -195,7 +195,7 @@ MonoBehaviour:
     type: 2}
   spawnProjectilePoint: {fileID: 1582922546320492}
   sightRange: 10
-  attackCooldown: 1
+  attackCooldown: 1.5
   layerVisibleByTheUnit:
     serializedVersion: 2
     m_Bits: 3072
