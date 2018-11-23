@@ -1,6 +1,7 @@
 ﻿using Harmony;
 using System.Collections;
 using UnityEngine;
+using Game.Entity.Player;
 
 namespace Game.Entity.Enemies.Attack
 {
@@ -13,7 +14,7 @@ namespace Game.Entity.Enemies.Attack
         
         [Header("Sound")] [SerializeField] private AudioClip projectileSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
+        [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
        
         protected HitStimulus hitStimulus;
 
@@ -43,7 +44,11 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
-            CallProjectileSound();
+            if (Vector2.Distance(transform.position, GameObject.FindGameObjectWithTag(Values.Tags.Player)
+                    .transform.position) < maximumDistanceBetweenPlayerAndObjectSound)
+            {
+                SoundCaller.CallSound(projectileSound, soundToPlayPrefab, gameObject, false);
+            }
             hitStimulus = GetComponent<HitStimulus>();
             hitStimulus.OnHitStimulusSensed += HitStimulus_OnHitStimulusSensed;
 
@@ -66,13 +71,6 @@ namespace Game.Entity.Enemies.Attack
             {
                 Destroy(gameObject);
             }
-        }
-
-        private void CallProjectileSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(projectileSound, false, this.gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 

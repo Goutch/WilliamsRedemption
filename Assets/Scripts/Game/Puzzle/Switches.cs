@@ -20,9 +20,8 @@ namespace Game.Puzzle
         [Tooltip("Check this box if you want to lock the objects after being triggered.")] [SerializeField]
         private bool lockLinkedObjects;
 
-        [SerializeField] private AudioClip switchSound;
+        [Header("Sound")] [SerializeField] private AudioClip switchesSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
         
         private float timerStartTime;
         private bool timerHasStarted;
@@ -32,7 +31,7 @@ namespace Game.Puzzle
         {
             if (other.Root().CompareTag(Values.Tags.Player) && !timerHasStarted)
             {
-                UseSound();
+                SoundCaller.CallSound(switchesSound, soundToPlayPrefab, gameObject, false);
                 foreach (var triggerable in triggerables)
                 {
                     if (!triggerable.GetComponent<ITriggerable>().IsLocked() &&
@@ -139,13 +138,6 @@ namespace Game.Puzzle
                     timerHasStarted = false;
                 }
             }
-        }
-        
-        private void UseSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(switchSound, false, this.gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

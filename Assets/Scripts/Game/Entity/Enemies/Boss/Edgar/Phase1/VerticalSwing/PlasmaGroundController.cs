@@ -21,7 +21,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
         
         [Header("Sound")] [SerializeField] private AudioClip plasmaGroundSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
 
         private const float RAYCAST_LENGTH = 0.32f;
 
@@ -110,7 +109,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 explosionEffectSize.y / 2 - originSize.y / 2),
                 Quaternion.identity);
 
-            CallPlasmaGroundSound();
+            SoundCaller.CallSound(plasmaGroundSound, soundToPlayPrefab, gameObject, false);
 
             SpawnTiles();
 
@@ -144,13 +143,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
         {
             grounded = true;
             rigidbody.constraints = rigidbody.constraints | RigidbodyConstraints2D.FreezePositionY;
-        }
-        
-        private void CallPlasmaGroundSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(plasmaGroundSound, false, gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

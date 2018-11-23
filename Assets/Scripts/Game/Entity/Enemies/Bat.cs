@@ -11,7 +11,6 @@ namespace Game.Entity.Enemies
         
         [Header("Sound")] [SerializeField] private AudioClip batSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
         
         private RootMover rootMover;
 
@@ -49,15 +48,9 @@ namespace Game.Entity.Enemies
                 animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
 
                 StartCoroutine(Fly());
-                CallBatSound();
+                SoundCaller.CallSound(batSound, soundToPlayPrefab, gameObject, true);
                 Destroy(this.gameObject, 10);
             }
-        }
-        private void CallBatSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(batSound, true, gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

@@ -15,7 +15,6 @@ namespace Game.Entity.Enemies.Boss.Jacob
         
         [Header("Sound")] [SerializeField] private AudioClip teleportationSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
         
         private float lastUsed;
 
@@ -47,7 +46,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
             Teleport();
             
-            CallTeleportationSound();
+            SoundCaller.CallSound(teleportationSound, soundToPlayPrefab, gameObject, true);
 
             lastUsed = Time.time;
 
@@ -67,13 +66,6 @@ namespace Game.Entity.Enemies.Boss.Jacob
             } while (Vector2.Distance(player.transform.position, transform.position) <
                      distanceFromPlayerTeleport
                      || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
-        }
-        
-        private void CallTeleportationSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(teleportationSound, false, gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

@@ -24,7 +24,6 @@ namespace Game.Entity.Player
         
         [Header("Sound")] [SerializeField] private AudioClip jumpSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
 
 
         private PlayerIndex controllerNumber;
@@ -89,13 +88,13 @@ namespace Game.Entity.Player
         {
             if (kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && jumpCount == 0)
             {
-                CallJumpSound();
+                SoundCaller.CallSound(jumpSound, soundToPlayPrefab, gameObject, true);
                 verticalVelocity = Vector2.up;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
-                CallJumpSound();
+                SoundCaller.CallSound(jumpSound, soundToPlayPrefab, gameObject, true);
                 verticalVelocity = Vector2.up * additionalJumpVelocity;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 jumpCount++;
@@ -112,13 +111,6 @@ namespace Game.Entity.Player
             {
                 jumpCount = 0;
             }
-        }
-        
-        private void CallJumpSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(jumpSound, true, this.gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

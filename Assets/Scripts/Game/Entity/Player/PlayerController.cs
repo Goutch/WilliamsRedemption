@@ -34,7 +34,6 @@ namespace Game.Entity.Player
         
         [SerializeField] private AudioClip woundedSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
 
         private PlayerHealthEventChannel playerHealthEventChannel;
         private GameController gameController;
@@ -123,7 +122,7 @@ namespace Game.Entity.Player
         {
             if (!IsInvincible)
             {
-                UseSound();
+                SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
                 health.Hit(attacker);
                 StartCoroutine(InvincibleRoutine());
                 playerHealthEventChannel.Publish(new OnPlayerTakeDamage());
@@ -206,13 +205,6 @@ namespace Game.Entity.Player
             {
                 CurrentController.sprite.flipX = false;
             }
-        }
-        
-        private void UseSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(woundedSound, true, this.gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

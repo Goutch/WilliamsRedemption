@@ -13,7 +13,7 @@ namespace Game.Entity.Enemies
         [Header("Sound")] [SerializeField] private AudioClip zombieSound;
         [SerializeField] private float timerBetweenZombieMoans;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
+        [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
         private float timeSinceLastMoan;
 
         private new Rigidbody2D rigidbody;
@@ -53,11 +53,15 @@ namespace Game.Entity.Enemies
 
         private new void FixedUpdate()
         {
-            CheckZombieMoans();
             if (!knocked)
                 base.FixedUpdate();
             if (knocked && rigidbody.velocity.y == 0)
                     knocked = false;
+        }
+
+        private void Update()
+        {
+            ZombieMoans();
         }
 
         protected override bool OnHit(HitStimulus hitStimulus)
@@ -81,19 +85,13 @@ namespace Game.Entity.Enemies
 
             return false;
         }
-        
-        private void CallZombieSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,this.transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(zombieSound, true, this.gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
-        }
 
-        private void CheckZombieMoans()
+        private void ZombieMoans()
         {
-            if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans)
+            if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans && 
+                Vector2.Distance(transform.position, player.transform.position)<maximumDistanceBetweenPlayerAndObjectSound)
             {
-                CallZombieSound();
+                SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
                 timeSinceLastMoan = Time.time;
             }
         }

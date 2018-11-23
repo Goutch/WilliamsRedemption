@@ -22,7 +22,6 @@ namespace Game.Entity.Player
         
         [Header("Sound")] [SerializeField] private AudioClip teleportSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
@@ -49,7 +48,7 @@ namespace Game.Entity.Player
 
         public override void UseCapacity(PlayerController player)
         {
-            CallTeleportSound();
+            SoundCaller.CallSound(teleportSound, soundToPlayPrefab, gameObject, false);
             Transform root = transform.parent;
             Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity), 5);
 
@@ -146,13 +145,6 @@ namespace Game.Entity.Player
             meleeAttackObject.transform.localRotation = angle;
             meleeAttackObject.transform.parent = transform;
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
-        }
-        
-        private void CallTeleportSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(teleportSound, false, gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }

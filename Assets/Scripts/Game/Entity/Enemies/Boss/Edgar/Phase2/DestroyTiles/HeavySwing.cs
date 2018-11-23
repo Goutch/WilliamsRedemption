@@ -15,7 +15,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
         
         [Header("Sound")] [SerializeField] private AudioClip heavySwingSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        private GameObject soundToPlay;
 
         private SpawnedTilesManager spawnedTilesManager;
         private RootMover mover;
@@ -57,7 +56,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             animator.SetTrigger(Values.AnimationParameters.Edgar.HeavySwing);
             lastTimeCapacityUsed = Time.time;
-            CallHeavySwingSound();
+            SoundCaller.CallSound(heavySwingSound, soundToPlayPrefab, gameObject, true);
 
             ChangeDirection();
         }
@@ -87,13 +86,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
             {
                 transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
             }
-        }
-        
-        private void CallHeavySwingSound()
-        {
-            soundToPlay=Instantiate(soundToPlayPrefab,transform.position,Quaternion.identity);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().Init(heavySwingSound, true, gameObject);
-            soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
         }
     }
 }
