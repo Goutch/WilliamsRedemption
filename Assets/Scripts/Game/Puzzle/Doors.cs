@@ -10,7 +10,6 @@ namespace Game.Puzzle
         [Tooltip("Check this box if you want the door to start opened.")] [SerializeField]
         private bool isOpen;
 
-
         private void Awake()
         {
             if (isOpen)

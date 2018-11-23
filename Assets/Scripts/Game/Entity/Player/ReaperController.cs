@@ -19,6 +19,9 @@ namespace Game.Entity.Player
 
         [SerializeField] private GameObject tpEffect1;
         [SerializeField] private GameObject tpEffect2;
+        
+        [Header("Sound")] [SerializeField] private AudioClip teleportSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private bool capacityCanBeUsed;
         private float timerStartTime;
@@ -45,6 +48,7 @@ namespace Game.Entity.Player
 
         public override void UseCapacity(PlayerController player)
         {
+            SoundCaller.CallSound(teleportSound, soundToPlayPrefab, gameObject, false);
             Transform root = transform.parent;
             Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity), 5);
 

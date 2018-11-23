@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Entity.Enemies.Attack;
+using UnityEngine;
 
 namespace Game.Entity.Enemies
 {
@@ -44,6 +45,12 @@ namespace Game.Entity.Enemies
             return false;
         }
 
+        protected override bool OnHit(HitStimulus hitStimulus)
+        {
+           if(hitStimulus.Type==HitStimulus.DamageType.Enemy)
+               return false;
+            return true;
+        }
     }
 }
 

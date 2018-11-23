@@ -13,5 +13,6 @@
         public const string ProjectileEnemy = "ProjectileEnemy";
         public const string Obstacle = "Obstacle";
         public const string MovingPlatform = "MovingPlatform";
+        public const string PassThrough = "PassThrough";
     }
 }
