@@ -21,6 +21,9 @@ namespace Game.Entity.Player
 
         [Tooltip("Jump velocity muliplier. Only effective after the first jump.")] [SerializeField]
         private float additionalJumpVelocity;
+        
+        [Header("Sound")] [SerializeField] private AudioClip jumpSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
 
         private PlayerIndex controllerNumber;
@@ -85,11 +88,13 @@ namespace Game.Entity.Player
         {
             if (kinematicRigidbody2D.TimeSinceAirborne < playerNoLongerGroundedDelay && jumpCount == 0)
             {
+                SoundCaller.CallSound(jumpSound, soundToPlayPrefab, gameObject, true);
                 verticalVelocity = Vector2.up;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
             }
             else if (jumpCount < amountOfAdditionalJumps)
             {
+                SoundCaller.CallSound(jumpSound, soundToPlayPrefab, gameObject, true);
                 verticalVelocity = Vector2.up * additionalJumpVelocity;
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 jumpCount++;

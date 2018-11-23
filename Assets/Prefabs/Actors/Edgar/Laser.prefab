@@ -112,6 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed10f5a98ff2d44dbc0f863a6603db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plasmaLaserSound: {fileID: 8300000, guid: 4f396ba69a7a3104a8b81624cb2a98eb, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114865030044673450
 MonoBehaviour:
   m_ObjectHideFlags: 1

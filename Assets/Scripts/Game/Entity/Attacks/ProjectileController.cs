@@ -1,6 +1,7 @@
 ﻿using Harmony;
 using System.Collections;
 using UnityEngine;
+using Game.Entity.Player;
 
 namespace Game.Entity.Enemies.Attack
 {
@@ -10,7 +11,11 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float speed;
         [SerializeField] private float delayBeforeDestruction;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
-
+        
+        [Header("Sound")] [SerializeField] private AudioClip projectileSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
+       
         protected HitStimulus hitStimulus;
 
         public float Speed
@@ -39,6 +44,11 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
+            if (Vector2.Distance(transform.position, GameObject.FindGameObjectWithTag(Values.Tags.Player)
+                    .transform.position) < maximumDistanceBetweenPlayerAndObjectSound)
+            {
+                SoundCaller.CallSound(projectileSound, soundToPlayPrefab, gameObject, false);
+            }
             hitStimulus = GetComponent<HitStimulus>();
             hitStimulus.OnHitStimulusSensed += HitStimulus_OnHitStimulusSensed;
 

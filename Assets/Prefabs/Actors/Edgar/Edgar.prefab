@@ -1147,6 +1147,9 @@ MonoBehaviour:
   landingEffect: {fileID: 1190503164458826, guid: 1081a34ea78ed7349a55ffd31b1dd0f6,
     type: 2}
   landingEffectSpawnPoint: {fileID: 4342880729813236}
+  landingSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114145931860855702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1210,6 +1213,9 @@ MonoBehaviour:
   capacityUsableAtStart: 1
   projectile: {fileID: 1240407763256522, guid: 6a85a6846f2824c4086d02c104cf135e, type: 2}
   projectileSpawnPoint: {fileID: 1282088556014402}
+  verticalSwingSound: {fileID: 8300000, guid: d3167a9d8b930b943978a85426f763fe, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114342465840723626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1331,6 +1337,9 @@ MonoBehaviour:
   animator: {fileID: 95395829336313276}
   test: 
   cooldown: 0.5
+  heavySwingSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114848836985378804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1364,6 +1373,9 @@ MonoBehaviour:
   phases:
   - {fileID: 114355167586666278}
   - {fileID: 114109857756450516}
+  woundedSound: {fileID: 8300000, guid: 680ed7d77a7e6ca478b3d5dceb57c665, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114905592222218656
 MonoBehaviour:
   m_ObjectHideFlags: 1

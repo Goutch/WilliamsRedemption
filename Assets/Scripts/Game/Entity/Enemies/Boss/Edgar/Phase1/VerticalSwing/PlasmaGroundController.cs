@@ -18,6 +18,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [Tooltip("The distance between the collision and the tiles spawned on the Y axis.")]
         [SerializeField] private int yOffSetTileToSpawn;
         [SerializeField] private float tilesDuration;
+        
+        [Header("Sound")] [SerializeField] private AudioClip plasmaGroundSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private const float RAYCAST_LENGTH = 0.32f;
 
@@ -106,6 +109,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 explosionEffectSize.y / 2 - originSize.y / 2),
                 Quaternion.identity);
 
+            SoundCaller.CallSound(plasmaGroundSound, soundToPlayPrefab, gameObject, false);
 
             SpawnTiles();
 
@@ -134,6 +138,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                     OnFloorCollision();
             }
         }
+        
         private void OnFloorCollision()
         {
             grounded = true;

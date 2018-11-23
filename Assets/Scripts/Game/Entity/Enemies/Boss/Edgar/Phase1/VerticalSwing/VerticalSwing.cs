@@ -14,6 +14,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [Header("Projectile")]
         [SerializeField] private GameObject projectile;
         [SerializeField] private GameObject projectileSpawnPoint;
+        
+        [Header("Sound")] [SerializeField] private AudioClip verticalSwingSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private float lastTimeUsed;
 
@@ -46,11 +49,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         public void OnVerticalSwingFinish()
         {
+            SoundCaller.CallSound(verticalSwingSound, soundToPlayPrefab, gameObject, false);
             ShootProjectile();
             base.Finish();
         }
 
-        public void ShootProjectile()
+        private void ShootProjectile()
         {
             GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
 

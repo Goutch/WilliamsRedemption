@@ -12,6 +12,10 @@ namespace Game.Entity.Enemies.Boss.Jacob
         [SerializeField] private Transform[] teleportPoints;
         [SerializeField] private float cooldown;
         [SerializeField] private GameObject spawnParticulePrefab;
+        
+        [Header("Sound")] [SerializeField] private AudioClip teleportationSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
         private float lastUsed;
 
         private BossController bossController;
@@ -41,6 +45,8 @@ namespace Game.Entity.Enemies.Boss.Jacob
             base.Enter();
 
             Teleport();
+            
+            SoundCaller.CallSound(teleportationSound, soundToPlayPrefab, gameObject, true);
 
             lastUsed = Time.time;
 
@@ -61,6 +67,5 @@ namespace Game.Entity.Enemies.Boss.Jacob
                      distanceFromPlayerTeleport
                      || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
         }
-        
     }
 }

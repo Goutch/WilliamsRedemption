@@ -108,6 +108,9 @@ MonoBehaviour:
   numberOfTilesToSpawn: 3
   yOffSetTileToSpawn: 4
   tilesDuration: 6
+  plasmaGroundSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114720704593148086
 MonoBehaviour:
   m_ObjectHideFlags: 1

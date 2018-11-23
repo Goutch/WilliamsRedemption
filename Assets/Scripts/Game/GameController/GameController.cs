@@ -14,6 +14,7 @@ namespace Game.Controller
     public class GameController : MonoBehaviour
     {
         [SerializeField] private Level startLevel;
+        [SerializeField] private AudioClip gameMusic;
         private int score;
         private int bonusScore;
         private float time;
@@ -45,6 +46,8 @@ namespace Game.Controller
         private LevelFinishedUI levelFinishUI;
 
         //Getters
+        public AudioClip GameMusic => gameMusic;
+        
         public float CurrentGameTime => time;
 
         public int LevelRemainingTime => levelRemainingTime;
