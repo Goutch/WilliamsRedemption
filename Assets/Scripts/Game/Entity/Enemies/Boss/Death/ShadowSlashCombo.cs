@@ -18,6 +18,7 @@ namespace Game.Entity.Enemies.Boss.Death
         protected override void Init()
         {
             animator = GetComponent<Animator>();
+            lastTimeUsed = Time.time;
         }
 
         public override bool CanEnter()

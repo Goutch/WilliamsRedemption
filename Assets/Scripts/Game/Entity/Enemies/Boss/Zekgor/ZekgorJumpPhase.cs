@@ -23,7 +23,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 
         protected override void Init()
         {
-            
+            lastTimeUsed = Time.time;
         }
     }
 }

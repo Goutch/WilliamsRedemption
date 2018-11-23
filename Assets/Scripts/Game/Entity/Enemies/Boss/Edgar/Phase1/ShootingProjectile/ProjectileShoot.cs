@@ -49,6 +49,8 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             if(particuleEffect != null)
                 Instantiate(particuleEffect, spawnPoint);
+
+            ShootPlasmaProjectile();
         }
 
         public void ShootPlasmaProjectile()

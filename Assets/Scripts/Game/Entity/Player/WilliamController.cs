@@ -91,13 +91,15 @@ namespace Game.Entity.Player
 
             while (duration > time)
             {
+                Vector2 temp = Vector2.right * direction.x *
+                    dashSpeed;
+                Debug.Log(temp);
                 time += Time.deltaTime;
-                player.kRigidBody.Velocity =
-                    Vector2.right * direction.x *
-                    dashSpeed; //set our rigidbody velocity to a custom velocity every frame.
+                player.kRigidBody.VelocityModifier =
+                    temp; //set our rigidbody velocity to a custom velocity every frame.
                 yield return new WaitForFixedUpdate();
             }
-
+            player.kRigidBody.VelocityModifier = Vector2.zero;
 
             player.IsDashing = false;
             player.UnlockTransformation();

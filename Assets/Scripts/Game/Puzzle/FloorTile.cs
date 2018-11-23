@@ -37,7 +37,7 @@ namespace Game.Puzzle
         {
             Vector2 targetPosition = directionY == 1 ? initialePosition : initialePosition - new Vector2(0, distanceMoving);
 
-            while (Mathf.Abs(transform.position.y - targetPosition.y) > 0.02f)
+            while (Mathf.Abs(transform.position.y - targetPosition.y) > 0.01f)
             {
                 float deplacementY = directionY * speed;
 
