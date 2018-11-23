@@ -25,7 +25,7 @@ namespace Game.Entity.Enemies.Boss
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.transform.root.CompareTag(Values.Tags.Player))
+            if (!other.isTrigger && other.transform.root.CompareTag(Values.Tags.Player))
             {
                 boss.SetActive(true);
 

@@ -47,7 +47,7 @@ namespace Game.Entity.Enemies
         protected abstract void Init();
 
 
-        private void OnDeath(GameObject receiver, GameObject attacker)
+        protected virtual void OnDeath(GameObject receiver, GameObject attacker)
         {
             HitStimulus attackerStimulus = attacker.GetComponent<HitStimulus>();
 

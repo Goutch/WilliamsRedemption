@@ -10,22 +10,29 @@ namespace Game.Entity.Player
     {
         private const int NbPreallocatedRaycastHit = 16;
 
-        [Header("Physics")] [SerializeField] [Tooltip("Gravity force.")]
+        [Header("Physics")]
+        [SerializeField]
+        [Tooltip("Gravity force.")]
         private Vector2 gravity = new Vector2(0, -9.81f);
 
-        [SerializeField] [Tooltip("How much gravity affects this object.")]
+        [SerializeField]
+        [Tooltip("How much gravity affects this object.")]
         private float gravityMultiplier = 1f;
 
-        [SerializeField] [Tooltip("Layers player collides with.")]
+        [SerializeField]
+        [Tooltip("Layers player collides with.")]
         private LayerMask layerMask;
 
-        [SerializeField] [Tooltip("Arctan value of the maximum slope angle considered as ground.")]
+        [SerializeField]
+        [Tooltip("Arctan value of the maximum slope angle considered as ground.")]
         private float maxGroundSlopeAngleArctan = 1 - 0.65f; //About 33°.
 
-        [SerializeField] [Tooltip("Simulation is ignored when velocity is bellow this threshold.")]
+        [SerializeField]
+        [Tooltip("Simulation is ignored when velocity is bellow this threshold.")]
         private float sleepVelocity = 0.001f;
 
-        [SerializeField] [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
+        [SerializeField]
+        [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
         private float deltaPrecision = 0.01f;
 
 #if UNITY_EDITOR
@@ -105,7 +112,7 @@ namespace Game.Entity.Player
             ApplyDeltaPosition(Vector2.left * Time.fixedDeltaTime, false);
             ApplyDeltaPosition(Vector2.right * Time.fixedDeltaTime, false);
             ApplyDeltaPosition(verticalDeltaPosition, true);
-            
+
             VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
 
             latestVelocity = velocity;
@@ -124,7 +131,7 @@ namespace Game.Entity.Player
             isOnMovingGround = false;
             contactFilter.layerMask = layerMask;
         }
-        
+
         private void AddGravityToVelocity()
         {
             velocity += GetGravityDeltaPosition();
@@ -185,34 +192,12 @@ namespace Game.Entity.Player
         {
             var deltaMagnitude = deltaPosition.magnitude;
 
+            var attachedColliderCount = rigidbody.attachedColliderCount;
+            var allColliders = new Collider2D[attachedColliderCount];
+            rigidbody.GetAttachedColliders(allColliders);
+
             if (deltaMagnitude >= sleepVelocity)
             {
-                var attachedColliderCount = rigidbody.attachedColliderCount;
-                var allColliders = new Collider2D[attachedColliderCount];
-                rigidbody.GetAttachedColliders(allColliders);
-
-                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
-                var heightHalf = rigidbody.position.y - bottomY;
-
-                Debug.DrawLine(rigidbody.position, rigidbody.position - Vector2.up * heightHalf, Color.magenta);
-
-                var nbRays = Physics2D.Raycast(rigidbody.position, Vector2.down, contactFilter, preallocaRaycastHits);
-                for (var i = 0; i < nbRays; i++)
-                {
-                    var raycastHit = preallocaRaycastHits[i];
-
-                    if (!allColliders.Contains(raycastHit.collider) && !raycastHit.collider.CompareTag("PassThrough"))
-                    {
-                        var floorPosition = raycastHit.point;
-                        if (floorPosition.y > bottomY)
-                        {
-                            var rectifiedPosition = rigidbody.position;
-                            rectifiedPosition.y = floorPosition.y + heightHalf;
-                            rigidbody.position = rectifiedPosition;
-                        }
-                    }
-                }
-
                 // ReSharper disable once LocalVariableHidesMember
                 foreach (var selfCollider in allColliders.Where(it => !it.isTrigger))
                 {
@@ -283,6 +268,37 @@ namespace Game.Entity.Player
             }
 
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
+
+            if (isVerticalDelta)
+            {
+                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
+                var heightHalf = rigidbody.position.y - bottomY;
+
+#if UNITY_EDITOR
+                if (showDebugInformation)
+                {
+                    Debug.DrawLine(transform.position, transform.position - Vector3.up * heightHalf, Color.magenta);
+                }
+#endif
+
+                var nbRays = Physics2D.Raycast(transform.position, Vector2.down, contactFilter, preallocaRaycastHits);
+                for (var i = 0; i < nbRays; i++)
+                {
+                    var raycastHit = preallocaRaycastHits[i];
+
+                    if (!allColliders.Contains(raycastHit.collider) && !raycastHit.collider.CompareTag("PassThrough"))
+                    {
+                        var floorPosition = raycastHit.point;
+                        if (floorPosition.y > bottomY)
+                        {
+                            var rectifiedPosition = transform.position;
+                            rectifiedPosition.y = floorPosition.y + heightHalf;
+                            rigidbody.position = rectifiedPosition;
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
