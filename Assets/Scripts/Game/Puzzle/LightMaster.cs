@@ -23,7 +23,6 @@ public class LightMaster : MonoBehaviour
 	{
 		timeAtStart = 0;
 		currentLightIndex = 0;
-		//currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
 	}
 
 	private void Start()

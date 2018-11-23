@@ -64,7 +64,6 @@ namespace Game.Puzzle.Light
         private void Update()
         {
             float alpha=Mathf.PerlinNoise(perlinPos,0);
-            //  alpha = Mathf.Clamp(alpha, minAlpha, maxAlpha);
             alpha = ((maxAlpha-minAlpha)*alpha)+minAlpha;  
             
             color.a = alpha;
@@ -123,7 +122,7 @@ namespace Game.Puzzle.Light
             float min = faceAngle - (coneAngle / 2);
             float max = faceAngle + (coneAngle / 2);
 
-            return (degree >= min && degree <= max); //ajout de la deuxieme condition et les =
+            return (degree >= min && degree <= max);
         }
 
         protected override void UpdateUVs()
@@ -173,7 +172,6 @@ namespace Game.Puzzle.Light
                     }
                 }
             }
-
             return null;
         }
     }

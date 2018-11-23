@@ -27,11 +27,6 @@ namespace Game.Puzzle
             }
         }
 
-        private void Update()
-        {
-
-        }
-
         public override void MoveDown()
         {
             foreach (IFloorTile floorTile in initialChild)
