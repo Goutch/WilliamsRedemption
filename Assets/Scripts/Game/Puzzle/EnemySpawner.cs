@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Harmony;
 using UnityEngine;
 
 namespace Game.Puzzle
@@ -19,8 +20,11 @@ namespace Game.Puzzle
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (!spawned)
-                SpawnEnemy();
+            if (other.Root().CompareTag(Values.Tags.Player))
+            {
+                if (!spawned)
+                    SpawnEnemy();
+            }     
         }
     }
 }

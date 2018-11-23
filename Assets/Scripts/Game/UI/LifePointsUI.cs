@@ -3,6 +3,7 @@ using Game.Entity;
 using Game.Entity.Player;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 namespace Game.UI
@@ -44,8 +45,7 @@ namespace Game.UI
             }
         }
 
-
-        public void OnHealthChange(GameObject receiver, GameObject attacker)
+        public void UpdateHealth()
         {
             if (playerHealth.HealthPoints >= 0)
             {
@@ -61,6 +61,11 @@ namespace Game.UI
                     }
                 }
             }
+        }
+
+        public void OnHealthChange(GameObject receiver, GameObject attacker)
+        {
+            UpdateHealth();
         }
     }
 }
