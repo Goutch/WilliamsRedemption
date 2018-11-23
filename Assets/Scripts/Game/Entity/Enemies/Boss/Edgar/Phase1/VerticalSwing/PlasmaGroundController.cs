@@ -85,7 +85,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             RaycastHit2D hit = Physics2D.Linecast(
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale, flipFactor * originSize.y),
-                1 << LayerMask.NameToLayer(Values.Layers.TransparentFX) | 1 << LayerMask.NameToLayer(Values.Layers.Default));
+                 1 << LayerMask.NameToLayer(Values.Layers.Platform));
 
             Debug.DrawLine(
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
