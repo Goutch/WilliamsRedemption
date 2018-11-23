@@ -6,6 +6,7 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private Transform projectileSpawnPoint;
+        [SerializeField] private float ProjectileLifeSpanInSeconds;
         private float timeJustAfterShooting;
         private const float TIME_BEFORE_SHOOTING_AGAIN = 2;
 
@@ -24,7 +25,7 @@ namespace Game.Entity.Enemies
 
         private void Shoot()
         {
-            GameObject projectile = Instantiate(bulletPrefab, projectileSpawnPoint.position, this.transform.rotation);
+           Destroy(Instantiate(bulletPrefab, projectileSpawnPoint.position, this.transform.rotation),ProjectileLifeSpanInSeconds);
             animator.SetTrigger("Shoot");
         }
 
