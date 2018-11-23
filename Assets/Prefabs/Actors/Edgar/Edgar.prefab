@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 20
 --- !u!114 &114109857756450516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   - {fileID: 114249678001657846}
   passiveCapacities: []
   animator: {fileID: 95395829336313276}
-  percentageHealthTransitionCondition: 0.7
+  percentageHealthTransitionCondition: 0.6
 --- !u!114 &114379991829354728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95395829336313276}
-  cooldown: 0.7
+  cooldown: 0.2
   capacityUsableAtStart: 1
   bullet: {fileID: 1143166288725240, guid: d7cb82c9e5cce9842b0119c0e11adcbf, type: 2}
   particuleEffect: {fileID: 1787833085147490, guid: 258d4082178fbea45aa2267c9eae993b,
@@ -1378,7 +1378,7 @@ MonoBehaviour:
   animator: {fileID: 95395829336313276}
   duration: 3
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0.5
-  attackCollider: {fileID: 0}
+  attackCollider: {fileID: 61008279788754550}
 --- !u!210 &210165169773877084
 SortingGroup:
   m_ObjectHideFlags: 1
