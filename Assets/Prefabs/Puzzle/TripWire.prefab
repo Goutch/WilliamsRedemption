@@ -80,3 +80,6 @@ MonoBehaviour:
   triggerables:
   - {fileID: 0}
   IsOpened: 0
+  doorSound: {fileID: 8300000, guid: e5c19d507c0c8a34cbe0f9d5801530c7, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}

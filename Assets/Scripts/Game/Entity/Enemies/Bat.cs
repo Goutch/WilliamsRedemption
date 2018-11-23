@@ -5,10 +5,13 @@ using UnityEngine;
 namespace Game.Entity.Enemies
 {
     public class Bat : Enemy
-    {
+    {     
         [SerializeField] private Vector2 exponentialFonction;
         [SerializeField] private float fonctionYOffSet = .32f;
-
+        
+        [Header("Sound")] [SerializeField] private AudioClip batSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
         private RootMover rootMover;
 
         private bool isTriggered;
@@ -45,6 +48,7 @@ namespace Game.Entity.Enemies
                 animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
 
                 StartCoroutine(Fly());
+                SoundCaller.CallSound(batSound, soundToPlayPrefab, gameObject, true);
                 Destroy(this.gameObject, 10);
             }
         }

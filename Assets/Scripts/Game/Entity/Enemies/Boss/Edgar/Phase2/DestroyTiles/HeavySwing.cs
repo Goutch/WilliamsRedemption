@@ -12,6 +12,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [SerializeField] private bool[] test;
 
         [SerializeField] private float cooldown;
+        
+        [Header("Sound")] [SerializeField] private AudioClip heavySwingSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private SpawnedTilesManager spawnedTilesManager;
         private RootMover mover;
@@ -32,8 +35,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
         public void HeavySwingFinish()
         {
             spawnedTilesManager.DestroyAllTilesInFront();
-
             Finish();
+        }
+
+        public override void Finish()
+        {
+            base.Finish();
         }
 
         public override bool CanEnter()
@@ -49,6 +56,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             animator.SetTrigger(Values.AnimationParameters.Edgar.HeavySwing);
             lastTimeCapacityUsed = Time.time;
+            SoundCaller.CallSound(heavySwingSound, soundToPlayPrefab, gameObject, true);
 
             ChangeDirection();
         }

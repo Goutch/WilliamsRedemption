@@ -9,6 +9,12 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
+        
+        [Header("Sound")] [SerializeField] private AudioClip zombieSound;
+        [SerializeField] private float timerBetweenZombieMoans;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
+        private float timeSinceLastMoan;
 
         private new Rigidbody2D rigidbody;
         private HitStimulus[] hitStimuli;
@@ -19,6 +25,7 @@ namespace Game.Entity.Enemies
             base.Init();
             rigidbody = GetComponent<Rigidbody2D>();
             hitStimuli = GetComponentsInChildren<HitStimulus>();
+            timeSinceLastMoan = Time.time;
         }
 
         private void OnEnable()
@@ -52,6 +59,11 @@ namespace Game.Entity.Enemies
                     knocked = false;
         }
 
+        private void Update()
+        {
+            ZombieMoans();
+        }
+
         protected override bool OnHit(HitStimulus hitStimulus)
         {
             if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
@@ -72,6 +84,16 @@ namespace Game.Entity.Enemies
             }
 
             return false;
+        }
+
+        private void ZombieMoans()
+        {
+            if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans && 
+                Vector2.Distance(transform.position, player.transform.position)<maximumDistanceBetweenPlayerAndObjectSound)
+            {
+                SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
+                timeSinceLastMoan = Time.time;
+            }
         }
     }
 }
