@@ -9,7 +9,7 @@ namespace Game.Entity.Enemies
         [SerializeField] private int surroundingRange;
 
         private PathFinder pathFinder;
-        private Tilemap obstacles;
+        private Tilemap[] obstacles;
         public bool[,] surrounding;
 
         protected RootMover rootMover;
@@ -17,7 +17,11 @@ namespace Game.Entity.Enemies
         protected override void Init()
         {
             rootMover = GetComponent<RootMover>();
-            obstacles = GameObject.FindGameObjectWithTag(Values.Tags.Obstacle).GetComponent<Tilemap>();
+            obstacles=new Tilemap[]
+            {
+                GameObject.FindGameObjectWithTag(Values.Tags.Plateforme).GetComponent<Tilemap>(),
+                GameObject.FindGameObjectWithTag(Values.Tags.PassThrough).GetComponent<Tilemap>()
+            };
             pathFinder = new PathFinder(obstacles);
         }
 

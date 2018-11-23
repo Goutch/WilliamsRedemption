@@ -13,7 +13,7 @@ namespace Game.UI
             gameController=GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
         }
 
-        public void AddCollectable()
+        public void UpdateCollectableUI()
         {
             numberText.text=gameController.CollectableAquiered.ToString();
         }

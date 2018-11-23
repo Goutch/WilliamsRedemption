@@ -3,6 +3,7 @@ using Game.Entity;
 using Game.Entity.Player;
 using Game.UI;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +25,7 @@ namespace Game.Controller
         private bool isGameInExpertMode = false;
         public bool ExpertMode => isGameInExpertMode;
         private bool isGameWinned = false;
+        private bool spawnAtCheckPoint = false;
 
         private Level currentLevel;
         public event GameControllerEventHandler OnGameEnd;
@@ -31,7 +33,7 @@ namespace Game.Controller
 
         private CollectablesEventChannel collectablesEventChannel;
 
-        private Checkpoint currentCheckPoint;
+        private Checkpoint.CheckPointData currentCheckPointdata;
 
         private PlayerController player;
 
@@ -96,12 +98,16 @@ namespace Game.Controller
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name != Values.Scenes.Menu&&scene.name!= Values.Scenes.Main)
+            if (scene.name != Values.Scenes.Menu && scene.name != Values.Scenes.Main)
             {
                 startTime = Time.time;
                 player = GameObject.FindGameObjectWithTag(Values.Tags.Player)
                     .GetComponent<PlayerController>();
                 player.GetComponent<Health>().OnDeath += OnPlayerDie;
+                if (!isGameInExpertMode && spawnAtCheckPoint)
+                {
+                    ReturnCheckPoint();
+                }
             }
 
             Time.timeScale = 1f;
@@ -142,6 +148,22 @@ namespace Game.Controller
                 score *= 2;
             this.score += score;
             scoreUI.OnScoreChange();
+        }
+
+        private void ReturnCheckPoint()
+        {
+            spawnAtCheckPoint = false;
+            score = currentCheckPointdata.ScoreAtTimeOfTrigger;
+            collectable = 0;
+            collectableUI.UpdateCollectableUI();
+            scoreUI.OnScoreChange();
+            Health playerHealth = player.GetComponent<Health>();
+            playerHealth.ResetHealth();
+            lifePointsUI.UpdateHealth();
+
+            player.transform.position = currentCheckPointdata.PositionAtTimeOfTrigger;
+
+            startTime = time - currentCheckPointdata.TimeAtTimeOfTrigger;
         }
 
         public void LevelFinished()
@@ -237,7 +259,6 @@ namespace Game.Controller
             SceneManager.LoadSceneAsync(level.Scene.name, LoadSceneMode.Additive);
             levelRemainingTime = level.ExpectedTime;
             startTime = Time.time;
-            time = 0;
             isGameStarted = true;
             isGamePaused = false;
             isGameWinned = false;
@@ -252,21 +273,8 @@ namespace Game.Controller
                 GameOver();
             else
             {
-                if (currentCheckPoint != null)
-                {
-                    Health playerHealth = player.GetComponent<Health>();
-                    playerHealth.ResetHealth();
-
-                    player.transform.position = currentCheckPoint.transform.position;
-
-                    score = currentCheckPoint.ScoreAtTimeOfTrigger - (collectable * 100);
-                    collectable = 0;
-                    startTime = currentCheckPoint.TimeAtTimeOfTrigger + time;
-                }
-                else
-                {
-                    GameOver();
-                }
+                spawnAtCheckPoint = true;
+                Restart();
             }
         }
 
@@ -296,16 +304,16 @@ namespace Game.Controller
             isGameInExpertMode = false;
         }
 
-        public void OnCheckPointTrigerred(Checkpoint checkpoint)
+        public void OnCheckPointTrigerred(Checkpoint.CheckPointData checkpoint)
         {
-            currentCheckPoint = checkpoint;
+            currentCheckPointdata = checkpoint;
         }
 
         public void AddCollectable(int scoreValue)
         {
             collectable++;
             AddScore(scoreValue);
-            collectableUI.AddCollectable();
+            collectableUI.UpdateCollectableUI();
             collectablesEventChannel.Publish(new OnCollectableFound(currentLevel));
         }
 
