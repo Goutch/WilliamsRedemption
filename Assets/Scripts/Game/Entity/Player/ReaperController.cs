@@ -19,7 +19,7 @@ namespace Game.Entity.Player
 
         [SerializeField] private GameObject tpEffect1;
         [SerializeField] private GameObject tpEffect2;
-        
+
         [Header("Sound")] [SerializeField] private AudioClip teleportSound;
         [SerializeField] private GameObject soundToPlayPrefab;
 
@@ -64,32 +64,34 @@ namespace Game.Entity.Player
 
             if (hit.collider == null)
             {
-                if(!player.kRigidBody.isOnMovingGround)
-                tpPosition =
-                    new Vector2(
-                        player.transform.position.x + teleportationDistance * player.playerHorizontalDirection.x -
-                        (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y);
+                if (!player.kRigidBody.isOnMovingGround)
+                    tpPosition =
+                        new Vector2(
+                            player.transform.position.x + teleportationDistance * player.playerHorizontalDirection.x -
+                            (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y);
                 else
                 {
                     tpPosition =
                         new Vector2(
                             player.transform.position.x + teleportationDistance * player.playerHorizontalDirection.x -
-                            (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y+player.kRigidBody.GetVerticalOffset());
+                            (tpOffset.x * player.playerHorizontalDirection.x),
+                            player.transform.position.y + player.kRigidBody.GetVerticalOffset());
                 }
             }
             else
             {
-                if(!player.kRigidBody.isOnMovingGround)
-                tpPosition =
-                    new Vector2(
-                        player.transform.position.x + hit.distance * player.playerHorizontalDirection.x -
-                        (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y);
+                if (!player.kRigidBody.isOnMovingGround)
+                    tpPosition =
+                        new Vector2(
+                            player.transform.position.x + hit.distance * player.playerHorizontalDirection.x -
+                            (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y);
                 else
                 {
                     tpPosition =
                         new Vector2(
                             player.transform.position.x + hit.distance * player.playerHorizontalDirection.x -
-                            (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y+player.kRigidBody.GetVerticalOffset());
+                            (tpOffset.x * player.playerHorizontalDirection.x),
+                            player.transform.position.y + player.kRigidBody.GetVerticalOffset());
                 }
             }
 

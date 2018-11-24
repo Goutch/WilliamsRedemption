@@ -6,11 +6,12 @@ namespace Game.Audio
     public class MusicTriggers : MonoBehaviour
     {
         [SerializeField] private bool isTriggerStartingMusic;
+
         private AudioManagerBackgroundSound audioManager;
-        //Valeur temporaire
+
         private AudioClip levelMusic;
         private bool isMusicPlaying = false;
-        
+
         private void Awake()
         {
             audioManager = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera)
@@ -23,8 +24,10 @@ namespace Game.Audio
             {
                 if (!isMusicPlaying)
                 {
-                    audioManager.Init(GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>().GameMusic);
+                    audioManager.Init(GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                        .GetComponent<GameController>().GameMusic);
                 }
+
                 audioManager.UpdateMusicTriggers();
                 gameObject.SetActive(false);
             }

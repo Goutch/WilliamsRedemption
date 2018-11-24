@@ -6,6 +6,7 @@ namespace Game.Entity.Enemies.Attack
     {
         [SerializeField] private bool canBeReturned;
         private HitSensor hitSensor;
+
         public bool CanBeReturned
         {
             get { return canBeReturned; }
@@ -25,12 +26,11 @@ namespace Game.Entity.Enemies.Attack
 
         private bool HitSensor_OnHit(HitStimulus hitStimulus)
         {
-            if (CanBeReturned 
-                && hitStimulus.Type == HitStimulus.DamageType.Darkness 
+            if (CanBeReturned
+                && hitStimulus.Type == HitStimulus.DamageType.Darkness
                 && hitStimulus.Range == HitStimulus.AttackRange.Melee)
             {
                 transform.localRotation *= Quaternion.Euler(0, 0, 180);
-                //TODO ARCHIEVEMENT
                 this.hitStimulus.Type = HitStimulus.DamageType.Darkness;
 
                 return false;
@@ -45,4 +45,3 @@ namespace Game.Entity.Enemies.Attack
         }
     }
 }
-

@@ -10,29 +10,22 @@ namespace Game.Entity.Player
     {
         private const int NbPreallocatedRaycastHit = 16;
 
-        [Header("Physics")]
-        [SerializeField]
-        [Tooltip("Gravity force.")]
+        [Header("Physics")] [SerializeField] [Tooltip("Gravity force.")]
         private Vector2 gravity = new Vector2(0, -9.81f);
 
-        [SerializeField]
-        [Tooltip("How much gravity affects this object.")]
+        [SerializeField] [Tooltip("How much gravity affects this object.")]
         private float gravityMultiplier = 1f;
 
-        [SerializeField]
-        [Tooltip("Layers player collides with.")]
+        [SerializeField] [Tooltip("Layers player collides with.")]
         private LayerMask layerMask;
 
-        [SerializeField]
-        [Tooltip("Arctan value of the maximum slope angle considered as ground.")]
+        [SerializeField] [Tooltip("Arctan value of the maximum slope angle considered as ground.")]
         private float maxGroundSlopeAngleArctan = 1 - 0.65f; //About 33°.
 
-        [SerializeField]
-        [Tooltip("Simulation is ignored when velocity is bellow this threshold.")]
+        [SerializeField] [Tooltip("Simulation is ignored when velocity is bellow this threshold.")]
         private float sleepVelocity = 0.001f;
 
-        [SerializeField]
-        [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
+        [SerializeField] [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
         private float deltaPrecision = 0.01f;
 
 #if UNITY_EDITOR
@@ -212,16 +205,15 @@ namespace Game.Entity.Player
                         var colliderNormal = raycastHit.normal;
 
                         //Pass through Platforms.
-                        if (raycastHit.collider.CompareTag("PassThrough"))
+                        if (raycastHit.collider.CompareTag(Values.Tags.PassThrough))
                         {
                             if (CanPassThrough(rigidbody.position, raycastHit.point))
                                 continue;
                         }
 
-                        if (raycastHit.collider.CompareTag("MovingPlatform"))
+                        if (raycastHit.collider.CompareTag(Values.Tags.MovingPlatform))
                         {
                             isOnMovingGround = true;
-                            //verticalCapacityOffset = raycastHit.collider.GetComponent<PlatformMover>().GetVerticalSpeed();
                         }
 
 
@@ -286,7 +278,8 @@ namespace Game.Entity.Player
                 {
                     var raycastHit = preallocaRaycastHits[i];
 
-                    if (!allColliders.Contains(raycastHit.collider) && !raycastHit.collider.CompareTag("PassThrough"))
+                    if (!allColliders.Contains(raycastHit.collider) &&
+                        !raycastHit.collider.CompareTag(Values.Tags.PassThrough))
                     {
                         var floorPosition = raycastHit.point;
                         if (floorPosition.y > bottomY)
@@ -298,7 +291,6 @@ namespace Game.Entity.Player
                     }
                 }
             }
-
         }
     }
 }

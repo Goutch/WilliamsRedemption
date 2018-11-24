@@ -26,7 +26,8 @@ namespace Game.Entity.Enemies
 
         private void Shoot()
         {
-           Destroy(Instantiate(bulletPrefab, projectileSpawnPoint.position, this.transform.rotation),ProjectileLifeSpanInSeconds);
+            Destroy(Instantiate(bulletPrefab, projectileSpawnPoint.position, this.transform.rotation),
+                ProjectileLifeSpanInSeconds);
             animator.SetTrigger("Shoot");
         }
 
@@ -42,16 +43,15 @@ namespace Game.Entity.Enemies
                 timeJustAfterShooting = Time.time;
                 return true;
             }
+
             return false;
         }
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
-           if(hitStimulus.Type==HitStimulus.DamageType.Enemy)
-               return false;
+            if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
+                return false;
             return true;
         }
     }
 }
-
-

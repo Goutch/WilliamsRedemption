@@ -4,13 +4,14 @@ namespace Game.Entity.Enemies.Boss.Jacob
 {
     public class JacobPhase : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase + "' ")] [SerializeField]
+        private Animator animator;
 
         public override bool CanEnter()
         {
             return true;
         }
+
         public override void Enter()
         {
             base.Enter();
@@ -24,7 +25,6 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         protected override void Init()
         {
-
         }
     }
 }

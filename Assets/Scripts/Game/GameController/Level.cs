@@ -4,13 +4,13 @@ using UnityEngine;
 namespace Game.Controller
 {
     [CreateAssetMenu]
-    public class Level:ScriptableObject
+    public class Level : ScriptableObject
     {
         [SerializeField] private int numberCollectables;
         [SerializeField] private int _expectedTime;
         [SerializeField] private SceneAsset scene;
         [SerializeField] private Level nextLevel;
-        
+
 
         public int NumberCollectables => numberCollectables;
 
@@ -19,6 +19,5 @@ namespace Game.Controller
         public SceneAsset Scene => scene;
 
         public Level NextLevel => nextLevel;
-        
     }
 }

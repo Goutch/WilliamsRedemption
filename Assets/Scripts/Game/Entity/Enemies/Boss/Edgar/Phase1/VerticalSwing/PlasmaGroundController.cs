@@ -7,18 +7,20 @@ namespace Game.Entity.Enemies.Boss.Edgar
 {
     public class PlasmaGroundController : MonoBehaviour
     {
-        [Header("Config")]
-        [SerializeField] private float speed;
+        [Header("Config")] [SerializeField] private float speed;
         [SerializeField] private float maxWidth;
 
-        [Header("Collision effect")]
-        [SerializeField] private GameObject explosionEffect;
+        [Header("Collision effect")] [SerializeField]
+        private GameObject explosionEffect;
+
         [SerializeField] private Tile tileToSpawn;
         [SerializeField] private int numberOfTilesToSpawn;
-        [Tooltip("The distance between the collision and the tiles spawned on the Y axis.")]
-        [SerializeField] private int yOffSetTileToSpawn;
+
+        [Tooltip("The distance between the collision and the tiles spawned on the Y axis.")] [SerializeField]
+        private int yOffSetTileToSpawn;
+
         [SerializeField] private float tilesDuration;
-        
+
         [Header("Sound")] [SerializeField] private AudioClip plasmaGroundSound;
         [SerializeField] private GameObject soundToPlayPrefab;
 
@@ -77,6 +79,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                     transform.localScale.y);
             }
         }
+
         private void MoveForward()
         {
             rigidbody.Translate(new Vector3(flipFactor * speed * Time.deltaTime * (originSize.x / 2),
@@ -86,12 +89,14 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private bool IsCollidingWall()
         {
             RaycastHit2D hit = Physics2D.Linecast(
-                rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
+                rigidbody.position + flipFactor *
+                new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale, flipFactor * originSize.y),
-                 1 << LayerMask.NameToLayer(Values.Layers.Platform));
+                1 << LayerMask.NameToLayer(Values.Layers.Platform));
 
             Debug.DrawLine(
-                rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
+                rigidbody.position + flipFactor *
+                new Vector2(originSize.x / 2 * scale - RAYCAST_LENGTH, flipFactor * originSize.y),
                 rigidbody.position + flipFactor * new Vector2(originSize.x / 2 * scale, flipFactor * originSize.y),
                 Color.blue);
 
@@ -102,11 +107,15 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             return false;
         }
+
         private void OnWallCollision()
         {
             GameObject explosionObject = Instantiate(explosionEffect, rigidbody.position +
-                new Vector2(flipFactor * (originSize.x / 2 * scale - explosionEffectSize.x / 2),
-                explosionEffectSize.y / 2 - originSize.y / 2),
+                                                                      new Vector2(
+                                                                          flipFactor *
+                                                                          (originSize.x / 2 * scale -
+                                                                           explosionEffectSize.x / 2),
+                                                                          explosionEffectSize.y / 2 - originSize.y / 2),
                 Quaternion.identity);
 
             SoundCaller.CallSound(plasmaGroundSound, soundToPlayPrefab, gameObject, false);
@@ -115,11 +124,16 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             Destroy(gameObject);
         }
+
         private void SpawnTiles()
         {
             Vector3Int cellPos = spawnedTilesManager.ConvertLocalToCell(rigidbody.position +
-                new Vector2(flipFactor * (originSize.x / 2 * scale - explosionEffectSize.x / 2),
-                explosionEffectSize.y / 2 - originSize.y / 2));
+                                                                        new Vector2(
+                                                                            flipFactor *
+                                                                            (originSize.x / 2 * scale -
+                                                                             explosionEffectSize.x / 2),
+                                                                            explosionEffectSize.y / 2 -
+                                                                            originSize.y / 2));
 
             cellPos.y += yOffSetTileToSpawn;
 
@@ -138,7 +152,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                     OnFloorCollision();
             }
         }
-        
+
         private void OnFloorCollision()
         {
             grounded = true;
@@ -146,4 +160,3 @@ namespace Game.Entity.Enemies.Boss.Edgar
         }
     }
 }
-

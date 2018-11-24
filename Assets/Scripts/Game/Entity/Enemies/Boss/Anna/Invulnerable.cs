@@ -29,7 +29,6 @@ namespace Game.Entity.Enemies.Boss.Anna
 
         public override void Act()
         {
-            
         }
 
         public override bool CanEnter()
@@ -45,7 +44,7 @@ namespace Game.Entity.Enemies.Boss.Anna
             animator.SetTrigger(Values.AnimationParameters.Anna.CastInvulnerability);
             animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, true);
 
-            bossController.IsInvulnerable = true; 
+            bossController.IsInvulnerable = true;
             isCapacityBeingUsed = true;
         }
 

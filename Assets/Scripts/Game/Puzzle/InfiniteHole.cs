@@ -16,6 +16,7 @@ namespace Game.Puzzle
                 other.Root().transform.position = respawnPoint.position;
                 other.transform.root.GetComponent<PlayerController>().DamagePlayer(gameObject);
             }
+
             if (other.CompareTag(Values.Tags.Enemy))
             {
                 other.GetComponent<Health>().Kill(gameObject);
@@ -23,4 +24,3 @@ namespace Game.Puzzle
         }
     }
 }
-

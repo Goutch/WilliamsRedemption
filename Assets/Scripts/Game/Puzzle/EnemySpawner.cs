@@ -24,8 +24,7 @@ namespace Game.Puzzle
             {
                 if (!spawned)
                     SpawnEnemy();
-            }     
+            }
         }
     }
 }
-

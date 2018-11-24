@@ -14,7 +14,6 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         protected override void Init()
         {
-
         }
 
         public override void Enter()
@@ -38,8 +37,6 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         public override void Act()
         {
-
-
         }
 
         public override bool CanEnter()

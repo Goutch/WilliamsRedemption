@@ -25,13 +25,10 @@ namespace Game.UI
 
         public void DisplayAchievements(string achievementListText)
         {
-           
             achievementList.text = achievementListText;
             score.text = "Score:" + gameController.Score;
             bonus.text = "Bonus:" + gameController.BonusScore;
             total.text = "Total:" + (gameController.TotalScore);
-            
-
         }
     }
 }

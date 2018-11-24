@@ -17,12 +17,10 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         protected override void Init()
         {
-
         }
 
         public override void Act()
         {
-
         }
 
         public override void Enter()
@@ -32,13 +30,14 @@ namespace Game.Entity.Enemies.Boss.Jean
             shieldManager = GetComponent<ShieldManager>();
 
             int random = Random.Range(0, 100);
-            Vector2 spawnPosition = random < probabilitySpawn1 ? projectileSpawnPoint1.transform.position : projectileSpawnPoint2.transform.position;
+            Vector2 spawnPosition = random < probabilitySpawn1
+                ? projectileSpawnPoint1.transform.position
+                : projectileSpawnPoint2.transform.position;
             Instantiate(projectile, spawnPosition, transform.rotation);
 
             shieldManager.UseShield(shieldCost);
 
             Finish();
-
         }
 
         public override bool CanEnter()

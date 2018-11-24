@@ -7,14 +7,17 @@ namespace Game.Entity.Enemies.Boss.Edgar
     {
         [Header("Config")]
         [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.VerticalSwing + "' ")]
-        [SerializeField] private Animator animator;
+        [SerializeField]
+        private Animator animator;
+
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
 
-        [Header("Projectile")]
-        [SerializeField] private GameObject projectile;
+        [Header("Projectile")] [SerializeField]
+        private GameObject projectile;
+
         [SerializeField] private GameObject projectileSpawnPoint;
-        
+
         [Header("Sound")] [SerializeField] private AudioClip verticalSwingSound;
         [SerializeField] private GameObject soundToPlayPrefab;
 
@@ -30,7 +33,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
         }
 
-        public override void Act() { }
+        public override void Act()
+        {
+        }
 
         public override bool CanEnter()
         {
@@ -39,6 +44,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
@@ -56,7 +62,8 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private void ShootProjectile()
         {
-            GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
+            GameObject projectileObject =
+                Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
 
             projectileObject.GetComponent<PlasmaGroundController>().Init(spawnedTilesManager);
         }

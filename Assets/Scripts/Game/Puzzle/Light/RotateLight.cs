@@ -4,26 +4,29 @@ namespace Game.Puzzle.Light
 {
     public class RotateLight : MonoBehaviour
     {
-        [Tooltip("Angle at which the light will change its direction once reached. (RIGHT)")]
-        [SerializeField] private float MaxRightAngle;
-        [Tooltip("Angle at which the light will change its direction once reached. (LEFT)")]
-        [SerializeField] private float MaxLeftAngle;
-        [Tooltip("Speed at which the light rotates.")]
-        [SerializeField] private float RotatingSpeed;
-        [Tooltip("True if the light is currently rotating towards the right.")]
-        [SerializeField] private bool goingRight;
+        [Tooltip("Angle at which the light will change its direction once reached. (RIGHT)")] [SerializeField]
+        private float MaxRightAngle;
+
+        [Tooltip("Angle at which the light will change its direction once reached. (LEFT)")] [SerializeField]
+        private float MaxLeftAngle;
+
+        [Tooltip("Speed at which the light rotates.")] [SerializeField]
+        private float RotatingSpeed;
+
+        [Tooltip("True if the light is currently rotating towards the right.")] [SerializeField]
+        private bool goingRight;
 
         private CircleLight light;
 
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             light = gameObject.GetComponent<CircleLight>();
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             Rotate();
         }
@@ -54,6 +57,4 @@ namespace Game.Puzzle.Light
             }
         }
     }
-
 }
-

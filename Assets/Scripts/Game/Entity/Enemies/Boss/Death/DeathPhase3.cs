@@ -26,7 +26,7 @@ namespace Game.Entity.Enemies.Boss.Death
         {
             base.Finish();
 
-            foreach(SpawnedEnemyManager spawnedEnemyManager in spawnedEnemyManagers)
+            foreach (SpawnedEnemyManager spawnedEnemyManager in spawnedEnemyManagers)
                 spawnedEnemyManager.Clear();
         }
 

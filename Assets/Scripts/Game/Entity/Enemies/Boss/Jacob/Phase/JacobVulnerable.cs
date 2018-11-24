@@ -7,7 +7,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
     {
         [Header("Sound")] [SerializeField] private AudioClip woundedSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        
+
         private Health health;
         private SpawnedEnemyManager spawnedEnemyManager;
 
@@ -59,7 +59,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
                 canEnter = true;
             }
         }
-        
+
         private void CallWoundedSound(GameObject gameObject, GameObject gameObject2)
         {
             SoundCaller.CallSound(woundedSound, soundToPlayPrefab, this.gameObject, false);

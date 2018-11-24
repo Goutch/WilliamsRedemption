@@ -7,12 +7,13 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(SpawnedTilesManager), typeof(RootMover))]
     class HeavySwing : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.HeavySwing + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.HeavySwing + "' ")] [SerializeField]
+        private Animator animator;
+
         [SerializeField] private bool[] test;
 
         [SerializeField] private float cooldown;
-        
+
         [Header("Sound")] [SerializeField] private AudioClip heavySwingSound;
         [SerializeField] private GameObject soundToPlayPrefab;
 
@@ -29,7 +30,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         public override void Act()
         {
-
         }
 
         public void HeavySwingFinish()
@@ -50,6 +50,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
@@ -60,6 +61,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             ChangeDirection();
         }
+
         private void ChangeDirection()
         {
             Vector3Int cellBossPosition = spawnedTilesManager.ConvertLocalToCell(transform.position);

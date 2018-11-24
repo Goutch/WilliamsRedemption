@@ -47,7 +47,7 @@ namespace Game.Controller
 
         //Getters
         public AudioClip GameMusic => gameMusic;
-        
+
         public float CurrentGameTime => time;
 
         public int LevelRemainingTime => levelRemainingTime;

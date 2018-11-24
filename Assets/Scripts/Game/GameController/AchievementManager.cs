@@ -15,7 +15,7 @@ namespace Game.Controller
 {
     public class AchievementManager : MonoBehaviour
     {
-         private AchievementUI achievementUi;
+        private AchievementUI achievementUi;
 
 
         [Tooltip("PhantomCanHang number of ghost to kill to unlock Phantoms can hang")] [SerializeField]
@@ -28,13 +28,13 @@ namespace Game.Controller
         private int supersonic = 600;
 
         [Tooltip("Number of shoot to unlock trigger happy")] [SerializeField]
-        private int triggerHappy=1;
+        private int triggerHappy = 1;
 
         private GameController gameController;
         private string achievementPath = "Achievements";
         private List<Achievement> acomplishedAchievements;
         private Dictionary<string, Achievement> achievements;
-        
+
         private int zombieKillCount = 0;
         private int ghostKillCount = 0;
         private int batKillCount = 0;
@@ -56,7 +56,7 @@ namespace Game.Controller
             gameController = GetComponent<GameController>();
 
             achievementUi = GetComponent<AchievementUI>();
-            
+
             gameController.OnGameEnd += OnGameEnd;
             gameController.OnLevelChange += OnLevelChange;
 
@@ -117,7 +117,7 @@ namespace Game.Controller
 
         private void OnGameEnd()
         {
-            if (gameController.IsGameWinned&&gameController.TotalTime <= supersonic)
+            if (gameController.IsGameWinned && gameController.TotalTime <= supersonic)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.SuperSonic]);
             }
@@ -126,6 +126,7 @@ namespace Game.Controller
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.TriggerHappy]);
             }
+
             if (acomplishedAchievements.Count == achievements.Count - 1)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.Perfection]);
@@ -143,6 +144,7 @@ namespace Game.Controller
                 achievementListText += "\n";
                 bonusScoreValue += achievement.ScoreValue;
             }
+
             achievementUi.DisplayAchievements(achievementListText);
             gameController.AddBonusScore(bonusScoreValue);
         }

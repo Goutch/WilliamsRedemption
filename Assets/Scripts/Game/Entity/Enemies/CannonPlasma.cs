@@ -14,9 +14,6 @@ namespace Game.Entity.Enemies
             }
 
             return false;
-
         }
     }
 }
-
-

@@ -9,7 +9,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
     {
         [Header("Sound")] [SerializeField] private AudioClip plasmaLaserSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        
+
         public event LaserEventHandler OnLaserFinish;
 
         public void LaserFinish()
@@ -20,4 +20,3 @@ namespace Game.Entity.Enemies.Boss.Edgar
         }
     }
 }
-

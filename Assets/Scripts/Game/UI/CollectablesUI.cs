@@ -4,18 +4,20 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class CollectablesUI:MonoBehaviour
+    public class CollectablesUI : MonoBehaviour
     {
         [SerializeField] private Text numberText;
         private GameController gameController;
+
         private void Start()
         {
-            gameController=GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>();
         }
 
         public void UpdateCollectableUI()
         {
-            numberText.text=gameController.CollectableAquiered.ToString();
+            numberText.text = gameController.CollectableAquiered.ToString();
         }
     }
 }

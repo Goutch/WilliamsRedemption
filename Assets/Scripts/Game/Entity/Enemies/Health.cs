@@ -37,7 +37,7 @@ namespace Game.Entity
             }
         }
 
-        void Awake()
+        private void Awake()
         {
             HealthPoints = MaxHealth;
             animator = GetComponent<Animator>();

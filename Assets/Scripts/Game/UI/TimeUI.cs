@@ -8,6 +8,7 @@ namespace Game.UI
     {
         [SerializeField] private Text timeText;
         [SerializeField] private string remainingTimeText = "Remaining Time : ";
+        
         private GameController gameController;
 
 

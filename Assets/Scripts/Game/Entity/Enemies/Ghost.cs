@@ -36,7 +36,7 @@ namespace Game.Entity.Enemies
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
-            if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
+            if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
                 health.Hit(hitStimulus.gameObject);
 
@@ -53,7 +53,7 @@ namespace Game.Entity.Enemies
         {
             if (playerLightSensor.InLight == false)
             {
-                if(!isEnable)
+                if (!isEnable)
                 {
                     Enable();
                 }
@@ -89,7 +89,6 @@ namespace Game.Entity.Enemies
 
         protected override void Init()
         {
-            
         }
 
 

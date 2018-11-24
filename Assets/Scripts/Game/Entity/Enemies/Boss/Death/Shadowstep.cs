@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Game.Entity.Enemies.Boss.Death
 {
     [RequireComponent(typeof(RootMover), typeof(SpriteRenderer))]
@@ -29,7 +30,6 @@ namespace Game.Entity.Enemies.Boss.Death
 
         public override void Act()
         {
-
         }
 
         private void TeleportBehindPlayer()
@@ -41,11 +41,12 @@ namespace Game.Entity.Enemies.Boss.Death
             int playerDirectionFacing = currentPlayerSpriteRenderer.flipX ? -1 : 1;
             int direction = (tpInFront ? 1 : -1) * playerDirectionFacing;
 
-            RaycastHit2D hit = Physics2D.Raycast(playerPosition, new Vector2(direction, 0), distanceFromPlayer + collider.bounds.size.x / 2, 1 << LayerMask.NameToLayer(Values.Layers.Default));
+            RaycastHit2D hit = Physics2D.Raycast(playerPosition, new Vector2(direction, 0),
+                distanceFromPlayer + collider.bounds.size.x / 2, 1 << LayerMask.NameToLayer(Values.Layers.Default));
 
             Vector2 newPosition;
 
-            if(hit.collider == null)
+            if (hit.collider == null)
             {
                 newPosition = playerPosition + new Vector2(distanceFromPlayer * direction, 0);
             }
@@ -55,7 +56,8 @@ namespace Game.Entity.Enemies.Boss.Death
                 newPosition = playerPosition + new Vector2(distanceToTeleport * direction, 0);
             }
 
-            RaycastHit2D hitFloor = Physics2D.Raycast(newPosition, Vector2.down, float.MaxValue, 1 << LayerMask.NameToLayer(Values.Layers.Default));
+            RaycastHit2D hitFloor = Physics2D.Raycast(newPosition, Vector2.down, float.MaxValue,
+                1 << LayerMask.NameToLayer(Values.Layers.Default));
 
             if (hitFloor.collider != null)
             {

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Game.Entity.Enemies.Boss.Zekgor
 {
     public class ZekgorController : BossController
@@ -13,7 +14,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
                 base.OnHit(other);
                 return true;
             }
-            else if(other.Type == HitStimulus.DamageType.Physical)
+            else if (other.Type == HitStimulus.DamageType.Physical)
             {
                 return true;
             }

@@ -5,8 +5,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(Health), typeof(RootMover))]
     class Phase1 : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")] [SerializeField]
+        private Animator animator;
+
         [SerializeField] private float percentageHealthTransitionCondition;
 
         private Health health;
@@ -22,7 +23,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
-            if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
+            if (health.HealthPoints / (float) health.MaxHealth <= percentageHealthTransitionCondition)
             {
                 health.OnHealthChange -= Health_OnHealthChange;
                 Finish();
@@ -41,6 +42,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             mover.LookAtPlayer();
         }
+
         protected override void Idle()
         {
             base.Idle();

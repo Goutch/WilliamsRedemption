@@ -6,8 +6,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(ProjectileManager))]
     class ProjectileShoot : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")] [SerializeField]
+        private Animator animator;
+
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private GameObject bullet;
@@ -28,7 +29,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         public override void Act()
         {
-
         }
 
         public override bool CanEnter()
@@ -38,16 +38,17 @@ namespace Game.Entity.Enemies.Boss.Edgar
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
 
             lastTimeCapacityUsed = Time.time;
 
-            if(animator != null)
+            if (animator != null)
                 animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
 
-            if(particuleEffect != null)
+            if (particuleEffect != null)
                 Instantiate(particuleEffect, spawnPoint);
 
             ShootPlasmaProjectile();

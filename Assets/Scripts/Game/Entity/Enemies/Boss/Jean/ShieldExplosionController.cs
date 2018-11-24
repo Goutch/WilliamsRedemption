@@ -5,6 +5,7 @@ namespace Game.Entity.Enemies.Boss.Jean
     class ShieldExplosionController : MonoBehaviour
     {
         public delegate void OnDestroyHandler(GameObject gameObject);
+
         public event OnDestroyHandler OnDestroy;
 
         [SerializeField] private float maxScale;
@@ -21,8 +22,6 @@ namespace Game.Entity.Enemies.Boss.Jean
             {
                 transform.localScale = transform.localScale + new Vector3(scaleSpeed, scaleSpeed, 0);
             }
-
         }
     }
-
 }
