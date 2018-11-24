@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Timers;
 using Game.Entity.Player;
 using Harmony;
@@ -65,6 +66,7 @@ namespace Game.Puzzle
         private float positionX;
         private float verticalCapacityPrecisionOffset;
         private float timeWhenPlatformFreezed;
+        private bool isCalled;
         
         
         
@@ -86,7 +88,8 @@ namespace Game.Puzzle
             translation = new Vector2(0, 0);
             verticalCapacityPrecisionOffset = 0.0001f;
             timeWhenPlatformFreezed = 0;
-            
+            isCalled = false;
+
         }
 
         private void Update()
@@ -224,14 +227,19 @@ namespace Game.Puzzle
             return curve - lastPosition;
         }
 
-        public float GetVerticalSpeed()
-        {
-            return VerticalSpeed * Time.deltaTime;
-        }
-
         private bool CanMove()
         {
             return Time.time - timeWhenPlatformFreezed >= DirectionChangeDelay;
+        }
+
+        public void SetVerticalDirection(bool goingUp)
+        {
+            isHeadingUpwards = goingUp;
+        }
+
+        public void SetHorizontalDirection(bool goingRight)
+        {
+            isHeadingRight = goingRight;   
         }
     }
 }
