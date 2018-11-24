@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e21b8fd2082440a85d0cfd645223e82, type: 3}
   m_Name: Level3
   m_EditorClassIdentifier: 
-  numberCollectables: 0
-  _expectedTime: 240
+  numberCollectables: 3
+  _expectedTime: 350
   scene: {fileID: 102900000, guid: c7c3486d7b9e2ba46ac274b4a750383f, type: 3}
   nextLevel: {fileID: 0}
