@@ -90,7 +90,7 @@ namespace Game.Controller
                 return;
             }
 
-            if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level1)
+            if (gameController.CurrentLevel.Scene == Values.Scenes.Level1)
             {
                 if (Level1PlayerDamageCount == 0)
                 {
@@ -98,7 +98,7 @@ namespace Game.Controller
                 }
             }
 
-            else if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level2)
+            else if (gameController.CurrentLevel.Scene == Values.Scenes.Level2)
             {
                 if (Level2PlayerDamageCount == 0)
                 {
@@ -106,7 +106,7 @@ namespace Game.Controller
                 }
             }
 
-            else if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level3)
+            else if (gameController.CurrentLevel.Scene == Values.Scenes.Level3)
             {
                 if (Level3PlayerDamageCount == 0)
                 {
@@ -207,7 +207,7 @@ namespace Game.Controller
 
         private void CollectableFound(OnCollectableFound collectableEvent)
         {
-            if (collectableEvent.Level.Scene.name == Values.GameObject.Level1)
+            if (collectableEvent.Level.Scene == Values.GameObject.Level1)
             {
                 collectableLevel1Count++;
                 if (collectableLevel1Count == collectableEvent.Level.NumberCollectables)
@@ -216,7 +216,7 @@ namespace Game.Controller
                 }
             }
 
-            if (collectableEvent.Level.Scene.name == Values.GameObject.Level2)
+            if (collectableEvent.Level.Scene == Values.GameObject.Level2)
             {
                 collectableLevel2Count++;
                 if (collectableLevel2Count == collectableEvent.Level.NumberCollectables)
@@ -225,7 +225,7 @@ namespace Game.Controller
                 }
             }
 
-            if (collectableEvent.Level.Scene.name == Values.GameObject.Level3)
+            if (collectableEvent.Level.Scene == Values.GameObject.Level3)
             {
                 collectableLevel3Count++;
                 if (collectableLevel3Count == collectableEvent.Level.NumberCollectables)
@@ -246,17 +246,17 @@ namespace Game.Controller
 
         private void PlayerTakeDamage(OnPlayerTakeDamage onPlayerTakeDamageEvent)
         {
-            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level1)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level1)
             {
                 Level1PlayerDamageCount++;
             }
 
-            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level2)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level2)
             {
                 Level2PlayerDamageCount++;
             }
 
-            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level2)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level2)
             {
                 Level3PlayerDamageCount++;
             }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberCollectables: 11
   _expectedTime: 500
-  scene: {fileID: 102900000, guid: be522d05100bfb44fb4ebf2f68af8a01, type: 3}
+  sceneName: Level2
   nextLevel: {fileID: 11400000, guid: b523f614d601f5049a396edcd8b567b3, type: 2}

@@ -259,7 +259,7 @@ namespace Game.Controller
         public void LoadLevel(Level level)
         {
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
-            SceneManager.LoadSceneAsync(level.Scene.name, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(level.Scene, LoadSceneMode.Additive);
             levelRemainingTime = level.ExpectedTime;
             startTime = Time.time;
             isGameStarted = true;

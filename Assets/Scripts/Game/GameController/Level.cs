@@ -8,7 +8,7 @@ namespace Game.Controller
     {
         [SerializeField] private int numberCollectables;
         [SerializeField] private int _expectedTime;
-        [SerializeField] private SceneAsset scene;
+        [SerializeField] private string sceneName;
         [SerializeField] private Level nextLevel;
 
 
@@ -16,7 +16,7 @@ namespace Game.Controller
 
         public int ExpectedTime => _expectedTime;
 
-        public SceneAsset Scene => scene;
+        public string Scene => sceneName;
 
         public Level NextLevel => nextLevel;
     }
