@@ -17,12 +17,12 @@ public struct PlayerData
     public int score;
     public float time;
 
-     public PlayerData(string name,int score,float time)
-     {
-         this.name = name;
-         this.score = score;
-         this.time = time;
-     }
+    public PlayerData(string name, int score, float time)
+    {
+        this.name = name;
+        this.score = score;
+        this.time = time;
+    }
 }
 
 public class LeaderBoard : MonoBehaviour
@@ -35,6 +35,7 @@ public class LeaderBoard : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag(Game.Values.Tags.GameController)
             .GetComponent<GameController>();
     }
+
     [UsedImplicitly]
     public void SendScoreToWebApi()
     {
@@ -43,9 +44,9 @@ public class LeaderBoard : MonoBehaviour
 
     private void InsertDataToDatabase(string name, int score, float time)
     {
-        PlayerData myPlayerData = new PlayerData(name,score,time);
+        PlayerData myPlayerData = new PlayerData(name, score, time);
 
-       if (myPlayerData.name != "")
+        if (myPlayerData.name != "")
         {
             SendDataToServer(myPlayerData);
         }

@@ -16,7 +16,7 @@ namespace Game.Entity.Enemies.Attack
         public bool Notify(HitStimulus hitStimulus)
         {
             bool hit = false;
-            if(OnHit != null)
+            if (OnHit != null)
             {
                 foreach (OnHitEventHandler onHitDelegate in OnHit.GetInvocationList())
                 {

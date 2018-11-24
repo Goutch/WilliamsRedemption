@@ -37,7 +37,7 @@ namespace Game.Entity.Enemies.Boss.Death
 
         public void MoveAllFloorsUp()
         {
-            for(int i = 0; i < floors.Length; i++)
+            for (int i = 0; i < floors.Length; i++)
             {
                 floors[i].MoveUp();
             }

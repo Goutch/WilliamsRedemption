@@ -9,7 +9,7 @@ namespace Game.Entity.Enemies.Boss.Death
 {
     class DeathPhase1 : NonSequentialPhase
     {
-        [Range(0,1)][SerializeField] private float percentageHealthTransitionCondition;
+        [Range(0, 1)] [SerializeField] private float percentageHealthTransitionCondition;
         [SerializeField] private SpawnedEnemyManager[] enemyManagers;
 
         private Health health;
@@ -33,7 +33,7 @@ namespace Game.Entity.Enemies.Boss.Death
 
         private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
-            if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
+            if (health.HealthPoints / (float) health.MaxHealth <= percentageHealthTransitionCondition)
             {
                 health.OnHealthChange -= Health_OnHealthChange;
                 Finish();

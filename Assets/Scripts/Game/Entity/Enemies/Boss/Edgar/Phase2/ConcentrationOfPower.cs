@@ -7,8 +7,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(RootMover))]
     public class ConcentrationOfPower : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaConcentration + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaConcentration + "' ")] [SerializeField]
+        private Animator animator;
+
         [SerializeField] private int numberOfParticules;
         [SerializeField] private GameObject particulesPrefab;
         [SerializeField] private float radiusOfRingWhereParticulesSpawn;
@@ -48,7 +49,8 @@ namespace Game.Entity.Enemies.Boss.Edgar
             {
                 if (particules[i] != null)
                 {
-                    if (Vector2.Distance(particules[i].transform.position, transform.position) < EQUALITY_DISTANCE_SENSIBILITY)
+                    if (Vector2.Distance(particules[i].transform.position, transform.position) <
+                        EQUALITY_DISTANCE_SENSIBILITY)
                     {
                         Destroy(particules[i].gameObject);
                     }
@@ -70,6 +72,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
@@ -103,8 +106,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private Vector3 GetParticulePosition()
         {
-            float randomAngle = Random.Range(0,360);
-            Vector2 randomAngleVector = new Vector2(Mathf.Cos(randomAngle) * radiusOfRingWhereParticulesSpawn, Mathf.Sin(randomAngle) * radiusOfRingWhereParticulesSpawn);
+            float randomAngle = Random.Range(0, 360);
+            Vector2 randomAngleVector = new Vector2(Mathf.Cos(randomAngle) * radiusOfRingWhereParticulesSpawn,
+                Mathf.Sin(randomAngle) * radiusOfRingWhereParticulesSpawn);
             Vector3 position = transform.position + new Vector3(randomAngleVector.x, randomAngleVector.y);
 
             return position;
@@ -119,4 +123,3 @@ namespace Game.Entity.Enemies.Boss.Edgar
         }
     }
 }
-

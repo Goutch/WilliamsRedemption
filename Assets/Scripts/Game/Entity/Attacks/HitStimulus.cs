@@ -13,6 +13,9 @@ namespace Game.Entity.Enemies.Attack
     {
         public event OnHitStimulusSensedEventHandler OnHitStimulusSensed;
 
+        [SerializeField] private DamageType type;
+        [SerializeField] private AttackRange range;
+
         public enum DamageType
         {
             Darkness,
@@ -26,40 +29,28 @@ namespace Game.Entity.Enemies.Attack
             Ranger
         }
 
-        [SerializeField] private DamageType type;
-        [SerializeField] private AttackRange range;
 
         public DamageType Type
         {
-            get
-            {
-                return type;
-            }
+            get { return type; }
 
-            set
-            {
-                type = value;
-            }
+            set { type = value; }
         }
+
         public AttackRange Range
         {
-            get
-            {
-                return range;
-            }
+            get { return range; }
 
-            set
-            {
-                range = value;
-            }
+            set { range = value; }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             HitSensor sensor;
-            if (!collision.GetComponent<MarkerIgnoreStimulus>() && (sensor = collision.transform.root.GetComponent<HitSensor>()))
+            if (!collision.GetComponent<MarkerIgnoreStimulus>() &&
+                (sensor = collision.transform.root.GetComponent<HitSensor>()))
             {
-                if(sensor.Notify(this))
+                if (sensor.Notify(this))
                     OnHitStimulusSensed?.Invoke(sensor);
             }
         }
@@ -67,11 +58,11 @@ namespace Game.Entity.Enemies.Attack
         private void OnCollisionEnter2D(Collision2D collision)
         {
             HitSensor sensor;
-            if (!collision.gameObject.GetComponent<MarkerIgnoreStimulus>() && (sensor = collision.transform.root.GetComponent<HitSensor>()))
+            if (!collision.gameObject.GetComponent<MarkerIgnoreStimulus>() &&
+                (sensor = collision.transform.root.GetComponent<HitSensor>()))
             {
                 if (sensor.Notify(this))
                     OnHitStimulusSensed?.Invoke(sensor);
-                
             }
         }
     }

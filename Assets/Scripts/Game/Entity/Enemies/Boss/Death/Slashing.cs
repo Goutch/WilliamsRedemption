@@ -20,7 +20,6 @@ namespace Game.Entity.Enemies.Boss.Death
 
         public override void Act()
         {
-            
         }
 
         public override void Enter()

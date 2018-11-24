@@ -11,10 +11,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         public float ShieldPercent
         {
-            get
-            {
-                return shieldPercent;
-            }
+            get { return shieldPercent; }
             set
             {
                 shieldPercent = value;
@@ -24,17 +21,12 @@ namespace Game.Entity.Enemies.Boss.Jean
                 shield.transform.localScale = (maxScale * ShieldPercent) + (minScale - minScale * ShieldPercent);
             }
         }
+
         public bool IsShieldActive
         {
-            get
-            {
-                return shield.activeSelf;
-            }
+            get { return shield.activeSelf; }
 
-            set
-            {
-                shield.SetActive(value);
-            }
+            set { shield.SetActive(value); }
         }
 
         public void UseShield(float percentageUsed)
@@ -48,5 +40,3 @@ namespace Game.Entity.Enemies.Boss.Jean
         }
     }
 }
-
-

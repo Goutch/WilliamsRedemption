@@ -13,12 +13,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
-            if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
+            if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
                 health.Hit(hitStimulus.gameObject);
                 return true;
-            } 
-            else if(hitStimulus.Type == HitStimulus.DamageType.Physical)
+            }
+            else if (hitStimulus.Type == HitStimulus.DamageType.Physical)
             {
                 return true;
             }

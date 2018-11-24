@@ -18,11 +18,9 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 
         protected override void Init()
         {
-           
             mover = GetComponent<RootMover>();
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
-           
         }
 
         public override void Act()
@@ -36,15 +34,15 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         public override void Finish()
         {
             base.Finish();
-            
-            if(landingEffect != null && landingEffectSpawnPoint != null)
+
+            if (landingEffect != null && landingEffectSpawnPoint != null)
                 Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
         }
 
         public override void Enter()
         {
             base.Enter();
-            
+
 
             mover.Jump();
         }
@@ -53,7 +51,5 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         {
             return true;
         }
-
-        
     }
 }

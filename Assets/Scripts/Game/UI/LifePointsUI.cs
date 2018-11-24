@@ -12,10 +12,11 @@ namespace Game.UI
     {
         [SerializeField] private GameObject lifePointPrefab;
         [SerializeField] private GameObject lifePointsParent;
+
         private GameObject[] lifePointsImages;
         private PlayerController playerController;
         private Health playerHealth;
-        
+
         private void OnEnable()
         {
             SceneManager.sceneLoaded += InitLifePoints;
