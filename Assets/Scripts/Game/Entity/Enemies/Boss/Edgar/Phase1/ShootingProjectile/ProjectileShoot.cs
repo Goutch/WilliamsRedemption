@@ -3,27 +3,32 @@ using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Edgar
 {
+    [RequireComponent(typeof(ProjectileManager))]
     class ProjectileShoot : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.PlasmaShoot + "' ")] [SerializeField]
+        private Animator animator;
+
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
         [SerializeField] private GameObject bullet;
         [SerializeField] private GameObject particuleEffect;
         [SerializeField] private Transform spawnPoint;
 
+        private ProjectileManager projectileManager;
+
         private float lastTimeCapacityUsed;
 
-        private void Awake()
+        protected override void Init()
         {
             if (capacityUsableAtStart)
                 lastTimeCapacityUsed = -cooldown;
+
+            projectileManager = GetComponent<ProjectileManager>();
         }
 
         public override void Act()
         {
-
         }
 
         public override bool CanEnter()
@@ -33,29 +38,33 @@ namespace Game.Entity.Enemies.Boss.Edgar
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
 
             lastTimeCapacityUsed = Time.time;
 
-            animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
+            if (animator != null)
+                animator.SetTrigger(Values.AnimationParameters.Edgar.PlasmaShoot);
 
-            Instantiate(particuleEffect, spawnPoint);
+            if (particuleEffect != null)
+                Instantiate(particuleEffect, spawnPoint);
+
+            ShootPlasmaProjectile();
         }
 
         public void ShootPlasmaProjectile()
         {
             Quaternion direction = PlayerDirection();
-            GameObject projectile = Instantiate(bullet, spawnPoint.position, direction);
-            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
+            GameObject projectile = projectileManager.SpawnProjectile(bullet, spawnPoint.position, direction);
 
             Finish();
         }
 
         private Quaternion PlayerDirection()
         {
-            Vector2 dir = PlayerController.instance.transform.position - transform.position;
+            Vector2 dir = player.transform.position - transform.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion direction = Quaternion.AngleAxis(angle, Vector3.forward);
             return direction;

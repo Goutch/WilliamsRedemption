@@ -4,10 +4,12 @@ namespace Game.Entity.Enemies.Boss.Jacob
 {
     class SpawnZombie : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase + "' ")]
-        [SerializeField] private Animator animator;
-        [Tooltip("Require health component")]
-        [SerializeField] private GameObject zombiePrefab;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Jacob.IdlePhase + "' ")] [SerializeField]
+        private Animator animator;
+
+        [Tooltip("Require health component")] [SerializeField]
+        private GameObject zombiePrefab;
+
         [SerializeField] private float cooldown;
 
 
@@ -15,14 +17,13 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         private SpawnedEnemyManager spawnedEnemyManager;
 
-        private void Awake()
+        protected override void Init()
         {
             spawnedEnemyManager = GetComponent<SpawnedEnemyManager>();
         }
 
         public override void Act()
-        {    
-
+        {
         }
 
         public override bool CanEnter()
@@ -32,6 +33,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
@@ -40,12 +42,13 @@ namespace Game.Entity.Enemies.Boss.Jacob
             animator.SetTrigger(Values.AnimationParameters.Jacob.IdlePhase);
 
             SpawnAZombie();
+
+            Finish();
         }
 
         private void SpawnAZombie()
         {
-            spawnedEnemyManager.SpawnEnemies(zombiePrefab, transform.position, Quaternion.identity);
-
+            spawnedEnemyManager.SpawnEnemy(zombiePrefab, transform.position, Quaternion.identity);
         }
     }
 }

@@ -4,13 +4,16 @@ namespace Game.Entity.Enemies
 {
     public class CannonPlasma : Cannon
     {
-
-        protected override void OnHit(HitStimulus other)
+        protected override bool OnHit(HitStimulus hitStimulus)
         {
-            if(other.GetComponent<PlasmaController>() != null)
-                base.OnHit(other);
+            if (hitStimulus.Type == HitStimulus.DamageType.Darkness &&
+                hitStimulus.Range == HitStimulus.AttackRange.Ranger)
+            {
+                health.Hit(hitStimulus.gameObject);
+                return true;
+            }
+
+            return false;
         }
     }
 }
-
-

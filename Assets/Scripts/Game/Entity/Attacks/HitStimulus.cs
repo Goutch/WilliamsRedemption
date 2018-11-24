@@ -1,84 +1,69 @@
-﻿using Game.Entity.Enemies;
-using Game.Entity.Enemies.Attack;
-using Harmony;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Game.Entity
+namespace Game.Entity.Enemies.Attack
 {
-    public delegate void HitEventHandler(HitSensor other);
+    public delegate void OnHitStimulusSensedEventHandler(HitSensor hitSensor);
+
     public class HitStimulus : MonoBehaviour
     {
-        private new bool enabled = true;
-        public event HitEventHandler OnHitOther;
-        public enum DamageSourceType
+        public event OnHitStimulusSensedEventHandler OnHitStimulusSensed;
+
+        [SerializeField] private DamageType type;
+        [SerializeField] private AttackRange range;
+
+        public enum DamageType
         {
-            Reaper,
-            William,
-            Enemy,
-            Obstacle,
-            None,
+            Darkness,
+            Physical,
+            Enemy
         }
 
-        [SerializeField] private DamageSourceType damageSource;
-
-        public DamageSourceType DamageSource => damageSource;
-
-        public bool Enabled
+        public enum AttackRange
         {
-            get
-            {
-                return enabled;
-            }
-
-            set
-            {
-                enabled = value;
-            }
+            Melee,
+            Ranger
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+
+        public DamageType Type
         {
-            if (!other.collider.GetComponent<IgnoreStimulus>() && enabled)
-            {
-                HitSensor hitSensor = other.collider.Root().GetComponent<HitSensor>();
+            get { return type; }
 
-                if (hitSensor != null)
-                {
-                    OnHitOther?.Invoke(hitSensor);
-                    hitSensor.Hit(this);
-
-                }
-            }
+            set { type = value; }
         }
 
-        private void Awake()
+        public AttackRange Range
         {
-            if (GetComponent<Enemy>())
+            get { return range; }
+
+            set { range = value; }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            HitSensor sensor;
+            if (!collision.GetComponent<MarkerIgnoreStimulus>() &&
+                (sensor = collision.transform.root.GetComponent<HitSensor>()))
             {
-                damageSource = DamageSourceType.Enemy;
+                if (sensor.Notify(this))
+                    OnHitStimulusSensed?.Invoke(sensor);
             }
         }
 
-        public void SetDamageSource(DamageSourceType newType)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            damageSource = newType;
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!other.GetComponent<IgnoreStimulus>() && enabled)
+            HitSensor sensor;
+            if (!collision.gameObject.GetComponent<MarkerIgnoreStimulus>() &&
+                (sensor = collision.transform.root.GetComponent<HitSensor>()))
             {
-                HitSensor hitSensor = other.Root().GetComponent<HitSensor>();
-
-                if (hitSensor != null)
-                {
-                    OnHitOther?.Invoke(hitSensor);
-                    hitSensor.Hit(this);
-                }
+                if (sensor.Notify(this))
+                    OnHitStimulusSensed?.Invoke(sensor);
             }
         }
     }
-
-
 }
-

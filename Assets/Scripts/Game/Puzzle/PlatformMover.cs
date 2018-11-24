@@ -1,102 +1,163 @@
-﻿using Game.Entity.Player;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Timers;
+using Game.Entity.Player;
+using Harmony;
 using UnityEngine;
+using UnityScript.Steps;
 
 namespace Game.Puzzle
 {
     public class PlatformMover : MonoBehaviour
     {
+        [Tooltip("Distance traveled by the platform when heading left.(From start to this)")] [SerializeField]
+        private float MaxDistanceLeft;
 
-        [Tooltip("Distance traveled by the platform when heading left.(From start to this)")]
-        [SerializeField] private float MaxDistanceLeft;
-        [Tooltip("Distance traveled by the platform when heading right.(From start to this this)")]
-        [SerializeField] private float MaxDistanceRight;
-        [Tooltip("Distance Travelled by the platform when heading upwards.(From start to this")]
-        [SerializeField] private float MaxDistanceUp;
-        [Tooltip("Distance traveled by the platform when heading downwards.(From start to this")]
-        [SerializeField] private float MaxDistanceDown;
-        [Tooltip("Speed at which the platform moves horizontaly.")]
-        [SerializeField] private float HorizontalSpeed;
-        [Tooltip("Speed at which the platform moves verticaly.")]
-        [SerializeField] private float VerticalSpeed;
-        [Tooltip("True when heading towards the right. (Checking this will make the platform head towards the right first.")]
-        [SerializeField] private bool isHeadingRight;
-        [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")]
-        [SerializeField] private bool isHeadingUpwards;
+        [Tooltip("Distance traveled by the platform when heading right.(From start to this this)")] [SerializeField]
+        private float MaxDistanceRight;
+
+        [Tooltip("Distance Travelled by the platform when heading upwards.(From start to this")] [SerializeField]
+        private float MaxDistanceUp;
+
+        [Tooltip("Distance traveled by the platform when heading downwards.(From start to this")] [SerializeField]
+        private float MaxDistanceDown;
+
+        [Tooltip("Speed at which the platform moves horizontaly.")] [SerializeField]
+        private float HorizontalSpeed;
+
+        [Tooltip("Speed at which the platform moves verticaly.")] [SerializeField]
+        private float VerticalSpeed;
+
+        [Tooltip(
+            "True when heading towards the right. (Checking this will make the platform head towards the right first.")]
+        [SerializeField]
+        private bool isHeadingRight;
+
+        [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")] [SerializeField]
+        private bool isHeadingUpwards;
+
+        [Tooltip(
+            "Amount of time before the platform starts moving again after reaching it's destination. Horizontal & Vertical")]
+        [SerializeField]
+        private float DirectionChangeDelay;
+
         [Header("Quadratic function options:")]
         [Tooltip("True when checked. Enables the platform to follow a curving path.")]
-        [SerializeField] private bool isUsingQuadraticCurve;
-        [Tooltip("Quadratic function coefficient. Affects steepness and narrowness of the curve.")]
-        [SerializeField] private float quadraticA;
+        [SerializeField]
+        private bool isUsingQuadraticCurve;
+
+        [Tooltip("Quadratic function coefficient. Affects steepness and narrowness of the curve.")] [SerializeField]
+        private float quadraticA;
+
         [Tooltip("Quadratic function coefficient. Is added to Y everytime the value of X is increased by one. ")]
-        [SerializeField] private float quadraticB;
-        [Tooltip("Quadratic function coefficient. Value of Y ")]
-        [SerializeField] private float quadraticC;
+        [SerializeField]
+        private float quadraticB;
+
+        [Tooltip("Quadratic function coefficient. Value of Y ")] [SerializeField]
+        private float quadraticC;
+
 
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
-        private Rigidbody2D rb;
+        private Vector2 lastPosition;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
-        private float quadraticFucntion;
+        private float quadraticFunction;
         private float positionX;
+        private float verticalCapacityPrecisionOffset;
+        private float timeWhenPlatformFreezed;
+        private bool isCalled;
 
 
+        //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
+        private HashSet<Transform> transforms;
 
-        // Use this for initialization
-        void Start()
+        //Translation vector used by the platform and it's colliding objects.
+        private Vector2 translation;
+
+
+        private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
-            initialPositionX = rb.position.x;
-            initialPositionY = rb.position.y;
+            initialPositionX = transform.position.x;
+            initialPositionY = transform.position.y;
             positionX = initialPositionX;
             quadraticX = 0;
+            transforms = new HashSet<Transform>();
+            lastPosition = transform.position;
+            translation = new Vector2(0, 0);
+            verticalCapacityPrecisionOffset = 0.0001f;
+            timeWhenPlatformFreezed = 0;
+            isCalled = false;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            CheckHorizontalDirection();
-            checkVertialDirection();
+            if (HorizontalSpeed > 0)
+                CheckHorizontalDirection();
+            if (VerticalSpeed > 0)
+                CheckVerticalDirection();
         }
 
-
-
-        private void FixedUpdate()
+        private void OnEnable()
         {
-            if (!isUsingQuadraticCurve)
-            {
-                rb.velocity = new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed);
-            }
-            else
-            {
-                useQuadraticCurve();
-            }
-
+            StartCoroutine(FollowPlatform());
         }
 
-        private void OnCollisionStay2D(Collision2D other)
+        private void OnDisable()
         {
-            if (other.collider.CompareTag(Values.Tags.Player))
+            StopCoroutine(FollowPlatform());
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag(Values.Tags.Player))
             {
-                if (!other.gameObject.GetComponent<PlayerController>().IsMoving)
+                if (!transforms.Contains(other.transform))
                 {
-                    other.transform.parent = gameObject.transform;
+                    transforms.Add(other.transform);
                 }
-                else
-                {
-                    other.transform.parent = null;
-                }
-
             }
-
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.collider.CompareTag(Values.Tags.Player))
+            if (transforms.Contains(other.transform))
             {
-                other.transform.parent = null;
+                transforms.Remove(other.transform);
+            }
+        }
+
+        private IEnumerator FollowPlatform()
+        {
+            while (isActiveAndEnabled)
+            {
+                if (!isUsingQuadraticCurve)
+                {
+                    translation =
+                        new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
+                        Time.fixedDeltaTime;
+                }
+                else if (isUsingQuadraticCurve)
+                {
+                    translation = useQuadraticCurve();
+                }
+
+                if (CanMove())
+                {
+                    transform.Translate(translation);
+                }
+
+                if (transforms.Count > 0 && CanMove())
+                {
+                    foreach (var transformer in transforms)
+                    {
+                        transformer.Translate(translation);
+                    }
+                }
+
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -111,8 +172,8 @@ namespace Game.Puzzle
                 else
                 {
                     isHeadingRight = false;
+                    timeWhenPlatformFreezed = Time.time;
                 }
-
             }
             else
             {
@@ -123,11 +184,12 @@ namespace Game.Puzzle
                 else
                 {
                     isHeadingRight = true;
+                    timeWhenPlatformFreezed = Time.time;
                 }
             }
         }
 
-        private void checkVertialDirection()
+        private void CheckVerticalDirection()
         {
             if (isHeadingUpwards)
             {
@@ -138,6 +200,7 @@ namespace Game.Puzzle
                 else
                 {
                     isHeadingUpwards = false;
+                    timeWhenPlatformFreezed = Time.time;
                 }
             }
             else
@@ -149,18 +212,35 @@ namespace Game.Puzzle
                 else
                 {
                     isHeadingUpwards = true;
+                    timeWhenPlatformFreezed = Time.time;
                 }
             }
         }
 
-        private void useQuadraticCurve()
+        private Vector2 useQuadraticCurve()
         {
-            quadraticX = rb.position.x - initialPositionX;
-            positionX += HorizontalSpeed * horizontalDirection.x * Time.fixedDeltaTime;
-            quadraticFucntion = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
-            Vector2 curve = new Vector2(positionX, quadraticFucntion + initialPositionY);
-            rb.MovePosition(curve);
+            lastPosition = transform.position;
+            quadraticX = transform.position.x - initialPositionX;
+            positionX += HorizontalSpeed * horizontalDirection.x * Time.deltaTime;
+            quadraticFunction = (quadraticA * (quadraticX * quadraticX) + quadraticB * (quadraticX) + quadraticC);
+            Vector2 curve = new Vector2(positionX, quadraticFunction + initialPositionY);
+
+            return curve - lastPosition;
+        }
+
+        private bool CanMove()
+        {
+            return Time.time - timeWhenPlatformFreezed >= DirectionChangeDelay;
+        }
+
+        public void SetVerticalDirection(bool goingUp)
+        {
+            isHeadingUpwards = goingUp;
+        }
+
+        public void SetHorizontalDirection(bool goingRight)
+        {
+            isHeadingRight = goingRight;
         }
     }
 }
-

@@ -1,56 +1,61 @@
-﻿using Game.Controller;
+using AnimatorExtension;
+using Game.Controller;
+using Game.Controller.Events;
 using Game.Entity.Enemies;
+using Game.Entity.Enemies.Attack;
 using UnityEngine;
 
 namespace Game.Entity
 {
-    public delegate void HealthEventHandler(GameObject gameObject);
+    public delegate void HealthEventHandler(GameObject receiver, GameObject attacker);
+
     public class Health : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
-        private bool isKilledByPlayer = true;
         public int MaxHealth => maxHealth;
-        private int healthPoints;
+
         public event HealthEventHandler OnDeath;
         public event HealthEventHandler OnHealthChange;
+        private GameController gameController;
 
-        public int HealthPoints
+        private Animator animator;
+
+        private bool isKilledByPlayer = true;
+        public int HealthPoints { get; set; }
+
+        public void Hit(GameObject attacker)
         {
-            get { return healthPoints; }
-            private set
+            HealthPoints = HealthPoints - 1;
+
+            OnHealthChange?.Invoke(gameObject, attacker);
+
+            if (animator != null && animator.ContainsParam(Values.AnimationParameters.Enemy.Hurt))
+                animator.SetTrigger(Values.AnimationParameters.Enemy.Hurt);
+            if (IsDead())
             {
-                healthPoints = value;
-                OnHealthChange?.Invoke(gameObject);
-                if (IsDead())
-                {
-                    if (isKilledByPlayer && IsAnEnemy())
-                    {
-                        AddEnemyScoreToGameScore();
-                    }
-                    OnDeath?.Invoke(transform.root.gameObject);
-                }
+                OnDeath?.Invoke(transform.root.gameObject, attacker);
             }
         }
 
-        void Awake()
+        private void Awake()
         {
-            healthPoints = MaxHealth;
+            HealthPoints = MaxHealth;
+            animator = GetComponent<Animator>();
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>();
         }
 
-        public void Hit()
+        public void Kill(GameObject killer)
         {
-            HealthPoints -= 1;
-        }
-
-        public void Kill()
-        {
-            isKilledByPlayer = false;
             HealthPoints = 0;
+
+            OnHealthChange?.Invoke(gameObject, killer);
+            OnDeath?.Invoke(transform.root.gameObject, killer);
         }
 
         private bool IsDead()
         {
-            return healthPoints <= 0;
+            return HealthPoints <= 0;
         }
 
         private void AddEnemyScoreToGameScore()
@@ -63,7 +68,10 @@ namespace Game.Entity
         {
             return GetComponent<Enemy>() != null;
         }
+
+        public void ResetHealth()
+        {
+            HealthPoints = MaxHealth;
+        }
     }
 }
-
-

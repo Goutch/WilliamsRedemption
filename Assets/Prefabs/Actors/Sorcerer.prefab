@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1545161308005982}
   m_IsPrefabAsset: 1
+--- !u!1 &1408236923699132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4490182846327922}
+  m_Layer: 0
+  m_Name: SpawnProjectilePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1545161308005982
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,8 +42,8 @@ GameObject:
   - component: {fileID: 114866177961309394}
   - component: {fileID: 114689533996660742}
   - component: {fileID: 61871927213290918}
-  - component: {fileID: 114437278911515354}
-  m_Layer: 13
+  - component: {fileID: 114979766900876248}
+  m_Layer: 8
   m_Name: Sorcerer
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -41,11 +56,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1545161308005982}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40.03, y: 3.69, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 97.64392, y: 2.0428486, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4490182846327922}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4490182846327922
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408236923699132}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.073, y: -0.081, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4243956723408452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50936423862801266
@@ -111,18 +140,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114437278911515354
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1545161308005982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 4
 --- !u!114 &114666089055966140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,8 +170,12 @@ MonoBehaviour:
   surroundingRange: 2
   projectilePrefab: {fileID: 1689002622773110, guid: 9f9b92c56ac471a4e98c7bb616735709,
     type: 2}
+  spawnProjectilePoint: {fileID: 1408236923699132}
   sightRange: 2
-  attackCooldown: 2
+  attackCooldown: 1
+  layerVisibleByTheUnit:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!114 &114799244635330762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +189,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
 --- !u!114 &114866177961309394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545161308005982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114979766900876248
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

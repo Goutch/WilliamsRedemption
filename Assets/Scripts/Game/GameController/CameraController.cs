@@ -4,7 +4,6 @@ namespace Game.Controller
 {
     public class CameraController : MonoBehaviour
     {
-
         [SerializeField] private Transform followPoint;
         [SerializeField] private float positionZ;
         private bool follow = true;
@@ -12,15 +11,9 @@ namespace Game.Controller
 
         public bool Follow
         {
-            get
-            {
-                return follow;
-            }
+            get { return follow; }
 
-            set
-            {
-                follow = value;
-            }
+            set { follow = value; }
         }
 
         private void Awake()
@@ -36,7 +29,7 @@ namespace Game.Controller
             }
         }
 
-        public void FixePoint(Vector2 point, float size)
+        public void FixPoint(Vector2 point, float size)
         {
             Camera.main.transform.position = new Vector3(point.x, point.y, positionZ);
             Camera.main.orthographicSize = size;
@@ -49,6 +42,4 @@ namespace Game.Controller
             Camera.main.orthographicSize = initialSize;
         }
     }
-
 }
-

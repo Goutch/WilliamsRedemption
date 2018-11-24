@@ -1,18 +1,46 @@
 ﻿using Game.Entity;
+using Game.Entity.Enemies.Attack;
+using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Edgar
 {
     public class EdgarController : BossController
     {
-        protected override void OnHit(HitStimulus other)
+        [Header("Sound")] [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+
+        private RootMover mover;
+
+        protected override bool OnHit(HitStimulus hitStimulus)
         {
-            if (other.DamageSource == HitStimulus.DamageSourceType.Reaper)
+            if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
-                health.Hit();
-                animator.SetTrigger(Values.AnimationParameters.Edgar.Hurt);
+                health.Hit(hitStimulus.gameObject);
+                return true;
             }
+            else if (hitStimulus.Type == HitStimulus.DamageType.Physical)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void OnEnable()
+        {
+            mover = GetComponent<RootMover>();
+            mover.LookAtPlayer();
+            health.OnHealthChange += CallWoundedSound;
+        }
+
+        private void OnDisable()
+        {
+            health.OnHealthChange -= CallWoundedSound;
+        }
+
+        private void CallWoundedSound(GameObject gameObject, GameObject gameObject2)
+        {
+            SoundCaller.CallSound(woundedSound, soundToPlayPrefab, this.gameObject, true);
         }
     }
 }
-
-

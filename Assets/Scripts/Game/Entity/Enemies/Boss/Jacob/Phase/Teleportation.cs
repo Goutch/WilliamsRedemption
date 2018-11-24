@@ -1,5 +1,4 @@
-﻿
-using Game.Entity.Player;
+﻿using Game.Entity.Player;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Jacob
@@ -12,7 +11,18 @@ namespace Game.Entity.Enemies.Boss.Jacob
         [SerializeField] private Transform[] teleportPoints;
         [SerializeField] private float cooldown;
         [SerializeField] private GameObject spawnParticulePrefab;
+
+        [Header("Sound")] [SerializeField] private AudioClip teleportationSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+
         private float lastUsed;
+
+        private BossController bossController;
+
+        protected override void Init()
+        {
+            bossController = GetComponent<BossController>();
+        }
 
         public override void Act()
         {
@@ -20,9 +30,9 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         public override bool CanEnter()
         {
-            if (Time.time - lastUsed > cooldown ||
-                Vector2.Distance(PlayerController.instance.transform.position, transform.position) <
-                distanceFromPlayerTeleport)
+            if ((Time.time - lastUsed > cooldown ||
+                 Vector2.Distance(player.transform.position, transform.position) <
+                 distanceFromPlayerTeleport) && !(bossController.GetCurrentState() is Vulnerable))
                 return true;
             else
                 return false;
@@ -30,24 +40,30 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         public override void Enter()
         {
+            base.Enter();
+
             Teleport();
+
+            SoundCaller.CallSound(teleportationSound, soundToPlayPrefab, gameObject, true);
 
             lastUsed = Time.time;
 
             Finish();
         }
 
-        private void Teleport()
+        protected virtual void Teleport()
         {
             Vector2 oldPosition = transform.position;
-            Destroy(Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity),3);
+
+            if (spawnParticulePrefab != null)
+                Destroy(Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity), 3);
+
             do
             {
                 transform.position = teleportPoints[Random.Range(0, teleportPoints.Length)].position;
-            } while (Vector2.Distance(PlayerController.instance.transform.position, transform.position) <
+            } while (Vector2.Distance(player.transform.position, transform.position) <
                      distanceFromPlayerTeleport
                      || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
         }
-        
     }
 }

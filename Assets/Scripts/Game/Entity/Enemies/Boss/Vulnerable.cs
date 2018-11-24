@@ -1,30 +1,30 @@
 ﻿using Harmony;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss
 {
-    class Vulnerable : State
+    class Vulnerable : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.Vulnerable + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.Vulnerable + "' ")] [SerializeField]
+        private Animator animator;
+
         [SerializeField] private float duration;
-        [SerializeField] private bool disableDamage = false;
         [SerializeField] private float delayBeforeDoingDamageToPlayerAfterLeavingState;
-        private HitStimulus[] hitStimuli;
+        [SerializeField] private Collider2D attackCollider;
 
         private float timeEntered;
 
-        private void Start()
+        protected override void Init()
         {
-            hitStimuli = this.GetComponentsInObject<HitStimulus>();
-            Debug.Log(hitStimuli.Length);
         }
+
         public override void Finish()
         {
             base.Finish();
 
-            if(disableDamage)
+            if (delayBeforeDoingDamageToPlayerAfterLeavingState != 0)
                 StartCoroutine(enableStimulus());
         }
 
@@ -38,14 +38,16 @@ namespace Game.Entity.Enemies.Boss
         {
             return true;
         }
+
         public override void Enter()
         {
             base.Enter();
 
-            if(disableDamage)
+            if (delayBeforeDoingDamageToPlayerAfterLeavingState != 0 && attackCollider != null)
             {
-                foreach (HitStimulus hitStimulus in hitStimuli)
-                    hitStimulus.Enabled = false;
+                attackCollider.enabled = false;
+
+                StopAllCoroutines();
             }
 
             timeEntered = Time.time;
@@ -56,8 +58,7 @@ namespace Game.Entity.Enemies.Boss
         {
             yield return new WaitForSeconds(delayBeforeDoingDamageToPlayerAfterLeavingState);
 
-            foreach (HitStimulus hitStimulus in hitStimuli)
-                hitStimulus.Enabled = true;
+            attackCollider.enabled = true;
         }
     }
 }

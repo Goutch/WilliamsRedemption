@@ -1,16 +1,23 @@
-﻿using UnityEngine;
+﻿using Game.Controller;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class CollectablesUI:MonoBehaviour
+    public class CollectablesUI : MonoBehaviour
     {
         [SerializeField] private Text numberText;
-        private int numberOfCollectable=0;
-        public void AddCollectable()
+        private GameController gameController;
+
+        private void Start()
         {
-            numberOfCollectable++;
-            numberText.text=numberOfCollectable.ToString();
+            gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>();
+        }
+
+        public void UpdateCollectableUI()
+        {
+            numberText.text = gameController.CollectableAquiered.ToString();
         }
     }
 }

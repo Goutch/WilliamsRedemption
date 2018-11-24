@@ -13,7 +13,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private float lastTimeUsed;
         private int numberProjectileShooted = 0;
 
-        private void Awake()
+        protected override void Init()
         {
             rootMover = GetComponent<RootMover>();
         }
@@ -32,15 +32,17 @@ namespace Game.Entity.Enemies.Boss.Edgar
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
             numberProjectileShooted = 0;
             lastTimeUsed = Time.time;
         }
+
         protected override void EnterIdle()
         {
-
+            base.EnterIdle();
         }
 
         protected override void CurrentState_OnStateFinish(State state)
@@ -53,6 +55,5 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 Finish();
             }
         }
-
     }
 }

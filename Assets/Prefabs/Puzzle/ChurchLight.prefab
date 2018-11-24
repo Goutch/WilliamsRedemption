@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114268741292721738}
   - component: {fileID: 114214213509386920}
   m_Layer: 2
-  m_Name: CircleMeshLight (2)
+  m_Name: ChurchLightCircleMeshLight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,10 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4490575477924524}
   - component: {fileID: 212523607364921480}
-  - component: {fileID: 61899704678645508}
-  - component: {fileID: 114771697988774578}
-  - component: {fileID: 50604881038958506}
-  m_Layer: 0
+  - component: {fileID: 114592918827092106}
+  - component: {fileID: 61397406662226746}
+  m_Layer: 11
   m_Name: ChurchLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,8 +57,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1937193433491230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.996, y: 11.464, z: -0.04188542}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -23, y: 10.5, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4666710263337060}
   m_Father: {fileID: 0}
@@ -71,9 +70,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1133829104553462}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.007, y: -0.625, z: 0.04188542}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 4490575477924524}
   m_RootOrder: 0
@@ -120,26 +119,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1133829104553462}
   m_Mesh: {fileID: 0}
---- !u!50 &50604881038958506
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1937193433491230}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!58 &58823847425721092
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -154,8 +133,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 11.3
---- !u!61 &61899704678645508
+  m_Radius: 11
+--- !u!61 &61397406662226746
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.71957636}
+  m_Offset: {x: 0, y: -0.71949196}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -178,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2, y: 0.4751482}
+  m_Size: {x: 3.2, y: 0.47959518}
   m_EdgeRadius: 0
 --- !u!114 &114214213509386920
 MonoBehaviour:
@@ -188,12 +167,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1133829104553462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30329f9c6238d4f42a43686e56a09753, type: 3}
+  m_Script: {fileID: 11500000, guid: 34ad1d1ddd480694ea320a8867ae72c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxRightAngle: 275
   MaxLeftAngle: 265
-  RotatingSpeed: 1
+  RotatingSpeed: 0.8
   goingRight: 1
 --- !u!114 &114268741292721738
 MonoBehaviour:
@@ -203,9 +182,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1133829104553462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ae77f77a924f38adb3f5c143c9cf58, type: 3}
+  m_Script: {fileID: 11500000, guid: d53fb9cd9bb68d54dae3eff657632f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 0.75}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2560
+  debugDraw: 0
+  updateEveryFrame: 1
+  movingObstacleUpdateStopCooldown: 1
+  hasMovingObstaclesInRange: 0
+  isOpen: 1
+  detectionLayers:
+    serializedVersion: 2
+    m_Bits: 3584
+  coneAngle: 20
+  faceAngle: 270
+  minAlpha: 0.75
+  maxAlpha: 1
+  radius: 11
+  precisionInDegree: 0.42
+  flickerSpeed: 0.02
 --- !u!114 &114295351043446630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,21 +212,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1133829104553462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96322cc578191774497f2104925b4065, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a78ab3256393844f90dcde3b95d99a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
-  obstacleLayerIndex: 1
-  debugDraw: 0
-  updateEveryFrame: 1
-  movingObstacleUpdateStopCooldown: 1
-  hasMovingObstaclesInRange: 0
-  isOpen: 1
-  coneAngle: 17
-  faceAngle: 270
-  radius: 11.3
-  precisionInDegree: 1
---- !u!114 &114771697988774578
+--- !u!114 &114592918827092106
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,17 +223,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937193433491230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d829a340c6a9ee479fc37542cf2bfa0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d2b63ca2eb1a27468f4bcb748c7f2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDistanceLeft: 1
-  MaxDistanceRight: 2
+  MaxDistanceLeft: 2.5
+  MaxDistanceRight: 2.5
   MaxDistanceUp: 0
   MaxDistanceDown: 0
-  HorizontalSpeed: 0.3
-  VerticalSpeed: 2
+  HorizontalSpeed: 0.4
+  VerticalSpeed: 0
   isHeadingRight: 1
   isHeadingUpwards: 0
+  DirectionChangeDelay: 3
+  isUsingQuadraticCurve: 0
+  quadraticA: 0.1
+  quadraticB: 0
+  quadraticC: 0
 --- !u!212 &212523607364921480
 SpriteRenderer:
   m_ObjectHideFlags: 1

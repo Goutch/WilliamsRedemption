@@ -20,7 +20,7 @@ namespace Game.Entity.Player
             Collider = GetComponent<Collider2D>();
         }
 
-        public abstract void UseCapacity(PlayerController player, Vector2 direction);
+        public abstract void UseCapacity(PlayerController player);
         public abstract bool CapacityUsable(PlayerController player);
 
         public bool CanUseBasicAttack()
@@ -30,10 +30,11 @@ namespace Game.Entity.Player
                 Attacking = true;
                 return true;
             }
+
             return false;
         }
 
-        public abstract void UseBasicAttack(PlayerController player, Vector2 direction);
+        public abstract void UseBasicAttack(PlayerController player);
 
         [UsedImplicitly]
         public void OnAttackFinish()
@@ -43,4 +44,3 @@ namespace Game.Entity.Player
         }
     }
 }
-

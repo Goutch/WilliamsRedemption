@@ -22,10 +22,9 @@ GameObject:
   - component: {fileID: 212303321489881524}
   - component: {fileID: 114547147151601884}
   - component: {fileID: 61604760642167842}
-  - component: {fileID: 114723521952318934}
-  - component: {fileID: 114994215859580316}
   - component: {fileID: 50267951309390268}
-  m_Layer: 16
+  - component: {fileID: 114760868896215078}
+  m_Layer: 0
   m_Name: SorcererProjectile
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
@@ -40,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 1689002622773110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.078578, y: 3.849238, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -101,10 +100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40adbd409a63444daed395e9a0f1f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2
   delayBeforeDestruction: 5
-  canBeReturned: 0
---- !u!114 &114723521952318934
+  destroyOnPlatformsCollision: 1
+  projectileSound: {fileID: 8300000, guid: 31d43461da62d144c9d69404fe7999a1, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
+  maximumDistanceBetweenPlayerAndObjectSound: 15
+--- !u!114 &114760868896215078
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,21 +115,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1689002622773110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: 2
---- !u!114 &114994215859580316
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689002622773110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  type: 2
+  range: 1
 --- !u!212 &212303321489881524
 SpriteRenderer:
   m_ObjectHideFlags: 1

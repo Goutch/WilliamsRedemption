@@ -5,13 +5,13 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(SpawnedTilesManager), typeof(RootMover))]
     class Phase2 : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")] [SerializeField]
+        private Animator animator;
 
         private SpawnedTilesManager spawnedTilesManager;
         private RootMover mover;
 
-        private void Awake()
+        protected override void Init()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
             mover = GetComponent<RootMover>();

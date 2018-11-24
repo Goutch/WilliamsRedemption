@@ -15,6 +15,10 @@ TagManager:
   - LightManager
   - Light
   - ProjectileEnemy
+  - PassThrough
+  - MovingPlatform
+  - Collectable
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -24,16 +28,16 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Obstacles
-  - NoProjectileColision
-  - Reaper
-  - Walls
   - Enemy
-  - Range
-  - Darkness
-  - Projectile
-  - MeleeAttack
+  - Walls
+  - Player
+  - Platform
+  - Obstacles
+  - LightZone
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -51,6 +55,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 3595444823
+    locked: 0
+  - name: Decoration
+    uniqueID: 848824259
     locked: 0
   - name: Default
     uniqueID: 0

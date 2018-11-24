@@ -20,10 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4973207178121200}
   - component: {fileID: 61030294389625766}
-  - component: {fileID: 114294219723639196}
-  m_Layer: 17
+  - component: {fileID: 114428076605782380}
+  - component: {fileID: 114735139327729026}
+  m_Layer: 0
   m_Name: AttackTrigger
-  m_TagString: ProjectileEnemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,8 +45,7 @@ GameObject:
   - component: {fileID: 114216607206163880}
   - component: {fileID: 61713765814383116}
   - component: {fileID: 114854751574253946}
-  - component: {fileID: 114602427331176794}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1291848360045852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.640383, y: 4.350492, z: 0}
+  m_LocalPosition: {x: 9.428575, y: 3.9924393, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4973207178121200}
@@ -182,8 +182,13 @@ MonoBehaviour:
   isDumbEnoughToFall: 1
   surroundingRange: 1
   bulletKnockBackForce: {x: 1, y: 1}
-  playerKnockBackForce: {x: 1, y: 1}
---- !u!114 &114294219723639196
+  playerKnockBackForce: {x: 2, y: 1.5}
+  zombieSound: {fileID: 8300000, guid: 4ce2afae967de5c4b8b8f981ac0439d1, type: 3}
+  timerBetweenZombieMoans: 2
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
+  maximumDistanceBetweenPlayerAndObjectSound: 6
+--- !u!114 &114428076605782380
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,21 +196,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1241562989883340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114602427331176794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1291848360045852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
+  type: 2
+  range: 0
 --- !u!114 &114653092132304700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,6 +213,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+--- !u!114 &114735139327729026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241562989883340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4596a1c014d03654caaa2b5fef433c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114794896012088490
 MonoBehaviour:
   m_ObjectHideFlags: 1

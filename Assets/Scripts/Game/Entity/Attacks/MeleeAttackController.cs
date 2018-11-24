@@ -6,13 +6,13 @@ namespace Game.Entity.Enemies.Attack
     {
         [SerializeField] private float delayBeforeDestruction;
 
+        [Header("Sound")] [SerializeField] private AudioClip meleeSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private void Awake()
         {
-            Destroy(this.gameObject, delayBeforeDestruction);
+            SoundCaller.CallSound(meleeSound, soundToPlayPrefab, gameObject, true);
+            Destroy(gameObject, delayBeforeDestruction);
         }
-
     }
 }
-
-

@@ -11,7 +11,7 @@ namespace Game.Entity.Player
         private GamePadState controllerState;
         private bool jumpButtonPressed;
 
-        void Start()
+        private void Start()
         {
             player = GetComponent<Mover>();
             playerController = GetComponent<PlayerController>();
@@ -20,7 +20,7 @@ namespace Game.Entity.Player
             jumpButtonPressed = false;
         }
 
-        void Update()
+        private void Update()
         {
             if (!controllerState.IsConnected)
             {
@@ -34,7 +34,6 @@ namespace Game.Entity.Player
 
         private void ManageKeyBoardInputs()
         {
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 player.Jump();
@@ -48,31 +47,17 @@ namespace Game.Entity.Player
             {
                 player.MoveRight();
             }
-            else
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) &&
+                playerController.CurrentController.CapacityUsable(playerController))
             {
-                playerController.IsMoving = false;
+                playerController.CurrentController.UseCapacity(playerController);
             }
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.Return) && playerController.CurrentController.CanUseBasicAttack())
             {
-                player.AimUp();
+                playerController.CurrentController.UseBasicAttack(playerController);
             }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                player.AimDown();
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                player.UseCapacity();
-            }
-
-            if (Input.GetKey(KeyCode.Return) && PlayerController.instance.CurrentController.CanUseBasicAttack())
-            {
-                player.Attack();
-            }
-
         }
 
         private void ManageControllerInputs()
@@ -83,12 +68,11 @@ namespace Game.Entity.Player
             {
                 player.Jump();
                 jumpButtonPressed = true;
-
             }
+
             if (controllerState.Buttons.A == ButtonState.Released)
             {
                 jumpButtonPressed = false;
-                playerController.IsMoving = false;
             }
 
             if (controllerState.ThumbSticks.Left.X <= -0.5)
@@ -99,32 +83,18 @@ namespace Game.Entity.Player
             {
                 player.MoveRight();
             }
-            else
+
+            if (controllerState.Buttons.X == ButtonState.Pressed &&
+                playerController.CurrentController.CapacityUsable(playerController))
             {
-                playerController.IsMoving = false;
+                playerController.CurrentController.UseCapacity(playerController);
             }
 
-            if (controllerState.ThumbSticks.Left.Y >= 0.5)
+            if (controllerState.Buttons.B == ButtonState.Pressed &&
+                playerController.CurrentController.CanUseBasicAttack())
             {
-                player.AimUp();
+                playerController.CurrentController.UseBasicAttack(playerController);
             }
-
-            if (controllerState.ThumbSticks.Left.Y <= -0.5)
-            {
-                player.AimDown();
-            }
-
-            if (controllerState.Buttons.X == ButtonState.Pressed)
-            {
-                player.UseCapacity();
-            }
-
-            if (controllerState.Buttons.B == ButtonState.Pressed)
-            {
-                player.Attack();
-            }
-
         }
     }
 }
-

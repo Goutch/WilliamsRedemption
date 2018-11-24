@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212627868195854014}
   - component: {fileID: 61379255185565938}
   - component: {fileID: 114454651203016214}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,6 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
+  keySound: {fileID: 8300000, guid: 7c8f9baf8acf8fa428f573713cabfceb, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!212 &212627868195854014
 SpriteRenderer:
   m_ObjectHideFlags: 1

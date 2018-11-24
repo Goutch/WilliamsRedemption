@@ -14,13 +14,13 @@ namespace Game.Puzzle
             if (other.Root().CompareTag(Values.Tags.Player))
             {
                 other.Root().transform.position = respawnPoint.position;
-                other.transform.root.GetComponent<PlayerController>().DamagePlayer();
+                other.transform.root.GetComponent<PlayerController>().DamagePlayer(gameObject);
             }
+
             if (other.CompareTag(Values.Tags.Enemy))
             {
-                other.GetComponent<Health>().Kill();
+                other.GetComponent<Health>().Kill(gameObject);
             }
         }
     }
 }
-

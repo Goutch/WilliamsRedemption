@@ -5,12 +5,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(SpawnedTilesManager))]
     class DestroyTilesPhase : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase2 + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase2 + "' ")] [SerializeField]
+        private Animator animator;
 
         private SpawnedTilesManager spawnedTilesManager;
 
-        private void Awake()
+        protected override void Init()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
         }
@@ -25,6 +25,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         protected override void EnterIdle()
         {
+            base.EnterIdle();
             if (!spawnedTilesManager.IsAnySpawnedTiles())
                 Finish();
 

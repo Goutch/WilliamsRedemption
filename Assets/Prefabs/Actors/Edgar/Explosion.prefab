@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 95774624501472188}
   - component: {fileID: 61769857843432776}
   - component: {fileID: 114234958694586244}
-  - component: {fileID: 114374996920402852}
+  - component: {fileID: 114864960145146524}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -99,18 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077d5e727e0eebc498bef4f12a3a7623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114374996920402852
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1551881614248408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 0
 --- !u!114 &114858946166125630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +111,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageSource: 0
+--- !u!114 &114864960145146524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551881614248408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  range: 1
 --- !u!212 &212207399418768660
 SpriteRenderer:
   m_ObjectHideFlags: 1

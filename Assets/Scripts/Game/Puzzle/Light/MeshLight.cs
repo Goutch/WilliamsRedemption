@@ -5,10 +5,10 @@ using UnityEngine;
 namespace Game.Puzzle.Light
 {
     [ExecuteInEditMode]
-    public abstract class MeshLight : MonoBehaviour , ITriggerable
+    public abstract class MeshLight : MonoBehaviour, ITriggerable
     {
         [SerializeField] protected Color color = Color.white;
-        [SerializeField] protected int obstacleLayerIndex = 1;
+        [SerializeField] protected LayerMask obstacleLayer;
 
         [Tooltip("Draw the triangles of the mesh in blue in the scene tab")] [SerializeField]
         protected bool debugDraw = false;
@@ -16,10 +16,17 @@ namespace Game.Puzzle.Light
         [SerializeField] private bool updateEveryFrame = false;
         [SerializeField] private float movingObstacleUpdateStopCooldown = 1;
         [SerializeField] private bool hasMovingObstaclesInRange = false;
-        [SerializeField] private bool isOpen;
+        [SerializeField] protected bool isOpen;
         [SerializeField] protected LayerMask detectionLayers;
 
         private bool isLocked;
+        private MeshRenderer renderer;
+
+        public bool UpdateEveryFrame
+        {
+            get { return updateEveryFrame; }
+            private set { updateEveryFrame = value; }
+        }
 
         public bool HasMovingObstaclesInRange
         {
@@ -55,6 +62,11 @@ namespace Game.Puzzle.Light
             this.gameObject.layer = 2;
             GetComponent<MeshFilter>().mesh = mesh;
             isLocked = false;
+            renderer = GetComponent<MeshRenderer>();
+            if (isOpen)
+                Open();
+            else
+                Close();
         }
 
         public void DrawMesh()
@@ -67,6 +79,7 @@ namespace Game.Puzzle.Light
             UpdateColor();
             if (debugDraw)
                 DebugDraw(Color.red, 0.1f);
+            transform.localRotation = transform.root.localRotation;
         }
 
         protected void DebugDraw(Color color, float time)
@@ -157,7 +170,7 @@ namespace Game.Puzzle.Light
         protected float VectorToDegree(Vector2 dir)
         {
             float AngleRad = Mathf.Atan2(dir.y, dir.x); // jai inverser Y et X
-            float AngleDeg = (180* AngleRad/Mathf.PI );
+            float AngleDeg = (180 * AngleRad / Mathf.PI);
 
             return ClampDegree0To360(AngleDeg); // jai supprimer le +90
         }
@@ -172,7 +185,10 @@ namespace Game.Puzzle.Light
         {
             isOpen = true;
             DrawMesh();
-            GetComponent<LightStimulu>().enabled = true;
+            if (renderer != null)
+            {
+                renderer.enabled = true;
+            }
         }
 
         public void Close()
@@ -180,7 +196,8 @@ namespace Game.Puzzle.Light
             isOpen = false;
             mesh.Clear();
             vertices.Clear();
-            GetComponent<LightStimulu>().enabled = false;
+            if (renderer != null)
+                renderer.enabled = false;
         }
 
 

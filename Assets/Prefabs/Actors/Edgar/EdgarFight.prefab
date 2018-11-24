@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1575901231779952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96.55, y: 2.65, z: 0}
+  m_LocalPosition: {x: 107.41, y: 6.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4801194519182980}
@@ -133,9 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f0dd62a5d6db5488f4bfe642b6a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 0}
+  boss: {fileID: 1495303630612842, guid: e792e992ee9b40d4aa85c2645ff4a298, type: 2}
   doorToCloseOnBossFightBegin: {fileID: 0}
   doorToOpenOnBossDeath: {fileID: 0}
+  bossMusic: {fileID: 8300000, guid: 008656a5796cfd5418c8b989c7ba57ba, type: 3}
 --- !u!210 &210502156331533738
 SortingGroup:
   m_ObjectHideFlags: 1

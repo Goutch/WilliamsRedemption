@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using Game.Entity.Enemies.Attack;
+using UnityEngine;
 
 namespace Game.Entity.Enemies
 {
     public class Cannon : Enemy
     {
-        [SerializeField] private int rotationCannon;
         [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private Transform projectileSpawnPoint;
+        [SerializeField] private float ProjectileLifeSpanInSeconds;
         private float timeJustAfterShooting;
         private const float TIME_BEFORE_SHOOTING_AGAIN = 2;
 
@@ -24,8 +26,9 @@ namespace Game.Entity.Enemies
 
         private void Shoot()
         {
-            GameObject projectile = Instantiate(bulletPrefab, transform.position, Quaternion.AngleAxis(rotationCannon, Vector3.back));
-            projectile.GetComponent<HitStimulus>().SetDamageSource(HitStimulus.DamageSourceType.Enemy);
+            Destroy(Instantiate(bulletPrefab, projectileSpawnPoint.position, this.transform.rotation),
+                ProjectileLifeSpanInSeconds);
+            animator.SetTrigger("Shoot");
         }
 
         private void ResetTimeToShoot()
@@ -40,10 +43,15 @@ namespace Game.Entity.Enemies
                 timeJustAfterShooting = Time.time;
                 return true;
             }
+
             return false;
         }
 
+        protected override bool OnHit(HitStimulus hitStimulus)
+        {
+            if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
+                return false;
+            return true;
+        }
     }
 }
-
-

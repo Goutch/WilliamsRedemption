@@ -4,13 +4,13 @@ namespace Game.Puzzle
 {
     public class Doors : MonoBehaviour, ITriggerable
     {
-        [Tooltip("Locks the door.")]
-        [SerializeField] private bool isLocked;
-        [Tooltip("Check this box if you want the door to start opened.")]
-        [SerializeField] private bool isOpen;
+        [Tooltip("Locks the door.")] [SerializeField]
+        private bool isLocked;
 
+        [Tooltip("Check this box if you want the door to start opened.")] [SerializeField]
+        private bool isOpen;
 
-        void Awake()
+        private void Awake()
         {
             if (isOpen)
             {
@@ -45,8 +45,5 @@ namespace Game.Puzzle
         public bool IsOpened() => isOpen;
 
         public bool IsLocked() => isLocked;
-
-
     }
 }
-

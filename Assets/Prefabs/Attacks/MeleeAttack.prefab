@@ -21,11 +21,11 @@ GameObject:
   - component: {fileID: 4203984633217050}
   - component: {fileID: 60878567254945878}
   - component: {fileID: 114605237879513318}
-  - component: {fileID: 114986324099716190}
-  - component: {fileID: 114502933365827592}
-  m_Layer: 17
+  - component: {fileID: 114386997457628738}
+  - component: {fileID: 114478790137500476}
+  m_Layer: 0
   m_Name: MeleeAttack
-  m_TagString: ProjectilePlayer
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,7 +72,7 @@ PolygonCollider2D:
       - {x: 0.1567831, y: 0.03341174}
       - {x: 0.0752306, y: -0.22791171}
       - {x: 0.3758831, y: -0.20313835}
---- !u!114 &114502933365827592
+--- !u!114 &114386997457628738
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,7 +80,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1296230141094148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  range: 0
+--- !u!114 &114478790137500476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296230141094148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4596a1c014d03654caaa2b5fef433c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114605237879513318
@@ -95,15 +108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeDestruction: 0.2
---- !u!114 &114986324099716190
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1296230141094148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 0
+  meleeSound: {fileID: 8300000, guid: d3c598914439a5a4f8f1e4ccc1ffb2d1, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}

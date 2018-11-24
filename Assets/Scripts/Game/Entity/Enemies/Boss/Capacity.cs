@@ -2,7 +2,10 @@
 {
     public abstract class Capacity : State
     {
-
+        public override State GetCurrentState()
+        {
+            return this;
+        }
     }
 }
 

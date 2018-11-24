@@ -2,6 +2,9 @@
 {
     class JumpPhase : SequentialPhase
     {
+        protected override void Init()
+        {
 
+        }
     }
 }
