@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
             DisplayMainMenu();
             HideGameHUD();
         }
-        else 
+        else
         {
             HideMainMenu();
             DisplayGameHUD();

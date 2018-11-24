@@ -9,8 +9,8 @@ namespace Game.Puzzle.Light
     {
         [Range(0, 360)] [SerializeField] private float coneAngle;
         [Range(0, 360)] [SerializeField] private float faceAngle;
-        [Range(0,1)][SerializeField] private float minAlpha=.75f;
-        [Range(0,1)][SerializeField] private float maxAlpha=1f;
+        [Range(0, 1)] [SerializeField] private float minAlpha = .75f;
+        [Range(0, 1)] [SerializeField] private float maxAlpha = 1f;
         [SerializeField] private float radius = 3;
         [SerializeField] [Range(0.1f, 2)] private float precisionInDegree = 1;
         [SerializeField] private float flickerSpeed = .02f;
@@ -63,11 +63,11 @@ namespace Game.Puzzle.Light
 
         private void Update()
         {
-            float alpha=Mathf.PerlinNoise(perlinPos,0);
-            alpha = ((maxAlpha-minAlpha)*alpha)+minAlpha;  
-            
+            float alpha = Mathf.PerlinNoise(perlinPos, 0);
+            alpha = ((maxAlpha - minAlpha) * alpha) + minAlpha;
+
             color.a = alpha;
-            perlinPos +=flickerSpeed ;
+            perlinPos += flickerSpeed;
             UpdateColor();
             base.Update();
         }
@@ -172,6 +172,7 @@ namespace Game.Puzzle.Light
                     }
                 }
             }
+
             return null;
         }
     }

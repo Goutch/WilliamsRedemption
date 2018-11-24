@@ -21,7 +21,7 @@ namespace Game.Entity.Player
 
         [Tooltip("Jump velocity muliplier. Only effective after the first jump.")] [SerializeField]
         private float additionalJumpVelocity;
-        
+
         [Header("Sound")] [SerializeField] private AudioClip jumpSound;
         [SerializeField] private GameObject soundToPlayPrefab;
 
@@ -99,11 +99,10 @@ namespace Game.Entity.Player
                 player.CurrentController.animator.SetTrigger(Values.AnimationParameters.Player.Jump);
                 jumpCount++;
             }
+
             jumpEventChannel.Publish(new OnPlayerJump());
-            
         }
 
-        
 
         private void ResetJumpCount()
         {

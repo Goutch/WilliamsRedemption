@@ -24,7 +24,7 @@ namespace Game.Controller
 
             public Vector3 PositionAtTimeOfTrigger => positionAtTimeOfTrigger;
 
-            public CheckPointData(int health,int score,float time,Vector3 position)
+            public CheckPointData(int health, int score, float time, Vector3 position)
             {
                 healthPointAtTimeOfTrigger = health;
                 scoreAtTimeOfTrigger = score;
@@ -37,7 +37,7 @@ namespace Game.Controller
         private GameController gamecontroller;
         private PlayerController player;
         private CheckPointData data;
-        public CheckPointData Data=>data;
+        public CheckPointData Data => data;
 
         private void Awake()
         {
@@ -49,10 +49,11 @@ namespace Game.Controller
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!trigerred && gamecontroller.ExpertMode == false && other.Root().tag == Values.Tags.Player)
+            if (!trigerred && gamecontroller.ExpertMode == false && other.Root().CompareTag(Values.Tags.Player))
             {
                 trigerred = true;
-                data=new CheckPointData(player.GetComponent<Health>().HealthPoints,gamecontroller.Score,Time.time,transform.position);
+                data = new CheckPointData(player.GetComponent<Health>().HealthPoints, gamecontroller.Score, Time.time,
+                    transform.position);
                 gamecontroller.OnCheckPointTrigerred(data);
             }
         }

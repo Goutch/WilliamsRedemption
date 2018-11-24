@@ -36,9 +36,11 @@ namespace Game.Puzzle
 
         [Tooltip("True when heading up. (Checking this will make the platform head upwards first.")] [SerializeField]
         private bool isHeadingUpwards;
-        
-        [Tooltip("Amount of time before the platform starts moving again after reaching it's destination. Horizontal & Vertical")]
-        [SerializeField] private float DirectionChangeDelay;
+
+        [Tooltip(
+            "Amount of time before the platform starts moving again after reaching it's destination. Horizontal & Vertical")]
+        [SerializeField]
+        private float DirectionChangeDelay;
 
         [Header("Quadratic function options:")]
         [Tooltip("True when checked. Enables the platform to follow a curving path.")]
@@ -55,7 +57,7 @@ namespace Game.Puzzle
         [Tooltip("Quadratic function coefficient. Value of Y ")] [SerializeField]
         private float quadraticC;
 
-        
+
         private float initialPositionX;
         private float initialPositionY;
         private float quadraticX;
@@ -67,14 +69,13 @@ namespace Game.Puzzle
         private float verticalCapacityPrecisionOffset;
         private float timeWhenPlatformFreezed;
         private bool isCalled;
-        
-        
-        
+
+
         //Contains every transform from colliding objects. (Named transformers to avoid conflict with transform.)
         private HashSet<Transform> transforms;
+
         //Translation vector used by the platform and it's colliding objects.
         private Vector2 translation;
-        
 
 
         private void Awake()
@@ -89,15 +90,14 @@ namespace Game.Puzzle
             verticalCapacityPrecisionOffset = 0.0001f;
             timeWhenPlatformFreezed = 0;
             isCalled = false;
-
         }
 
         private void Update()
         {
-            if(HorizontalSpeed >0)
-            CheckHorizontalDirection();
-            if(VerticalSpeed>0)
-            CheckVerticalDirection();
+            if (HorizontalSpeed > 0)
+                CheckHorizontalDirection();
+            if (VerticalSpeed > 0)
+                CheckVerticalDirection();
         }
 
         private void OnEnable()
@@ -139,7 +139,7 @@ namespace Game.Puzzle
                         new Vector2(horizontalDirection.x * HorizontalSpeed, verticalDirection.y * VerticalSpeed) *
                         Time.fixedDeltaTime;
                 }
-                else if(isUsingQuadraticCurve)
+                else if (isUsingQuadraticCurve)
                 {
                     translation = useQuadraticCurve();
                 }
@@ -156,6 +156,7 @@ namespace Game.Puzzle
                         transformer.Translate(translation);
                     }
                 }
+
                 yield return new WaitForFixedUpdate();
             }
         }
@@ -239,7 +240,7 @@ namespace Game.Puzzle
 
         public void SetHorizontalDirection(bool goingRight)
         {
-            isHeadingRight = goingRight;   
+            isHeadingRight = goingRight;
         }
     }
 }

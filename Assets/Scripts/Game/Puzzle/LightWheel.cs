@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class LightWheel : MonoBehaviour
 {
-	[SerializeField] private List<CircleLight> lights = new List<CircleLight>(4);
-	[SerializeField] private float rotatingSpeed;
+    [SerializeField] private List<CircleLight> lights = new List<CircleLight>(4);
+    [SerializeField] private float rotatingSpeed;
 
-	
-	private void Update ()
-	{
-		RotateWheel();
-	}
-	
-	private void RotateWheel()
-	{	
-		foreach (var l in lights)
-		{
-			l.FaceAngle += rotatingSpeed*Time.deltaTime;
-		}
-	}
+
+    private void Update()
+    {
+        RotateWheel();
+    }
+
+    private void RotateWheel()
+    {
+        foreach (var light in lights)
+        {
+            light.FaceAngle += rotatingSpeed * Time.deltaTime;
+        }
+    }
 }

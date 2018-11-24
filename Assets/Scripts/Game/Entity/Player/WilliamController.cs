@@ -34,7 +34,6 @@ namespace Game.Entity.Player
             capacityCanBeUsed = true;
             shootEventChannel = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
                 .GetComponent<PlayerShootEventChannel>();
-
         }
 
         public override void UseCapacity(PlayerController player)
@@ -56,10 +55,11 @@ namespace Game.Entity.Player
                 capacityCanBeUsed = true;
                 return true;
             }
+
             return false;
         }
 
-        IEnumerator Dash(PlayerController player, Vector2 direction)
+        private IEnumerator Dash(PlayerController player, Vector2 direction)
         {
             animator.SetTrigger(Values.AnimationParameters.Player.Dash);
             player.LockTransformation();
@@ -92,15 +92,15 @@ namespace Game.Entity.Player
             while (duration > time)
             {
                 Vector2 temp = Vector2.right * direction.x *
-                    dashSpeed;
+                               dashSpeed;
                 Debug.Log(temp);
                 time += Time.deltaTime;
                 player.kRigidBody.VelocityModifier =
                     temp; //set our rigidbody velocity to a custom velocity every frame.
                 yield return new WaitForFixedUpdate();
             }
-            player.kRigidBody.VelocityModifier = Vector2.zero;
 
+            player.kRigidBody.VelocityModifier = Vector2.zero;
             player.IsDashing = false;
             player.UnlockTransformation();
             animator.SetTrigger(Values.AnimationParameters.Player.DashEnd);

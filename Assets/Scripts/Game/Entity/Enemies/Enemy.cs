@@ -51,12 +51,13 @@ namespace Game.Entity.Enemies
         {
             HitStimulus attackerStimulus = attacker.GetComponent<HitStimulus>();
 
-            if (attackerStimulus != null&&
+            if (attackerStimulus != null &&
                 (attackerStimulus.Type == HitStimulus.DamageType.Darkness ||
                  attackerStimulus.Type == HitStimulus.DamageType.Physical))
             {
                 gameController.AddScore(scoreValue);
             }
+
             Destroy(this.gameObject);
         }
     }

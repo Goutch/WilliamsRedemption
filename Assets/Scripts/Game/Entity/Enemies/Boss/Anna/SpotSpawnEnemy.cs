@@ -33,7 +33,6 @@ namespace Game.Entity.Enemies.Boss.Anna
 
         public override void Act()
         {
-
         }
 
         public override bool CanEnter()
@@ -50,7 +49,6 @@ namespace Game.Entity.Enemies.Boss.Anna
 
         protected override void Init()
         {
-            
         }
     }
 }

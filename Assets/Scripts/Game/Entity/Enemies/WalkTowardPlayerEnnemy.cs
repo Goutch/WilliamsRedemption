@@ -17,7 +17,7 @@ namespace Game.Entity.Enemies
         protected override void Init()
         {
             rootMover = GetComponent<RootMover>();
-            obstacles=new Tilemap[]
+            obstacles = new Tilemap[]
             {
                 GameObject.FindGameObjectWithTag(Values.Tags.Plateforme).GetComponent<Tilemap>(),
                 GameObject.FindGameObjectWithTag(Values.Tags.PassThrough).GetComponent<Tilemap>()
@@ -30,8 +30,8 @@ namespace Game.Entity.Enemies
             rootMover.LookAtPlayer();
 
             surrounding = pathFinder.GetSurrounding(surroundingRange, transform.position);
-            
-            
+
+
             UpdateMovement(surrounding);
         }
 
@@ -76,10 +76,14 @@ namespace Game.Entity.Enemies
                     for (int x = -surroundingRange; x < surroundingRange + 1; x++)
                     {
                         if (surrounding[x + surroundingRange, y + surroundingRange] == true)
-                            Gizmos.DrawCube(new Vector3(transform.position.x + (x * .32f), transform.position.y + (y * .32f), 0), Vector3.one * .16f);
+                            Gizmos.DrawCube(
+                                new Vector3(transform.position.x + (x * .32f), transform.position.y + (y * .32f), 0),
+                                Vector3.one * .16f);
                         else
                         {
-                            Gizmos.DrawSphere(new Vector3(transform.position.x + (x * .32f), transform.position.y + (y * .32f), 0), .16f);
+                            Gizmos.DrawSphere(
+                                new Vector3(transform.position.x + (x * .32f), transform.position.y + (y * .32f), 0),
+                                .16f);
                         }
                     }
                 }

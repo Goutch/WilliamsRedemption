@@ -11,7 +11,7 @@ namespace Game.Puzzle.Light
         public event LightSensorEventHandler OnLightExpositionChange;
 
         private float lastLightExposure;
-        [SerializeField]   private bool inLight;
+        [SerializeField] private bool inLight;
 
         public bool InLight
         {
@@ -20,13 +20,13 @@ namespace Game.Puzzle.Light
             {
                 if (inLight != value)
                 {
-                    if(value)
+                    if (value)
                     {
-                        Debug.Log(name+" is now in light");
+                        Debug.Log(name + " is now in light");
                     }
                     else
                     {
-                        Debug.Log(name+" is now in darkness");
+                        Debug.Log(name + " is now in darkness");
                     }
 
                     inLight = value;
@@ -35,10 +35,10 @@ namespace Game.Puzzle.Light
                 }
             }
         }
-        
+
         private void Update()
         {
-            if (Time.time-lastLightExposure > Time.deltaTime + timeWithoutLightLimit)
+            if (Time.time - lastLightExposure > Time.deltaTime + timeWithoutLightLimit)
             {
                 InLight = false;
             }

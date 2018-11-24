@@ -24,7 +24,8 @@ namespace Game.Entity.Enemies.Boss
             audioManager = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera)
                 .GetComponent<AudioManagerBackgroundSound>();
 
-            cameraController = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera).GetComponent<CameraController>();
+            cameraController = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera)
+                .GetComponent<CameraController>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -32,8 +33,8 @@ namespace Game.Entity.Enemies.Boss
             if (!other.isTrigger && other.transform.root.CompareTag(Values.Tags.Player))
             {
                 boss.SetActive(true);
-                
-                if(bossMusic != null)
+
+                if (bossMusic != null)
                 {
                     audioManager?.Init(bossMusic);
 
@@ -44,7 +45,7 @@ namespace Game.Entity.Enemies.Boss
 
                 doorToOpenOnBossDeath?.Close();
 
-                cameraController.FixePoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
+                cameraController.FixPoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
 
                 Destroy(GetComponent<BoxCollider2D>());
             }

@@ -35,7 +35,7 @@ namespace Game.Entity.Enemies.Boss.Anna
 
         private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
-            if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
+            if (health.HealthPoints / (float) health.MaxHealth <= percentageHealthTransitionCondition)
             {
                 health.OnHealthChange -= Health_OnHealthChange;
                 Finish();
@@ -72,7 +72,6 @@ namespace Game.Entity.Enemies.Boss.Anna
             {
                 animator.SetBool(Values.AnimationParameters.Anna.Walking, false);
             }
-
         }
 
         public override bool CanEnter()

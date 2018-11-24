@@ -9,7 +9,7 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
-        
+
         [Header("Sound")] [SerializeField] private AudioClip zombieSound;
         [SerializeField] private float timerBetweenZombieMoans;
         [SerializeField] private GameObject soundToPlayPrefab;
@@ -30,7 +30,7 @@ namespace Game.Entity.Enemies
 
         private void OnEnable()
         {
-            foreach(HitStimulus hitStimulus in hitStimuli)
+            foreach (HitStimulus hitStimulus in hitStimuli)
                 hitStimulus.OnHitStimulusSensed += HitStimulus_OnHitStimulusSensed;
         }
 
@@ -56,7 +56,7 @@ namespace Game.Entity.Enemies
             if (!knocked)
                 base.FixedUpdate();
             if (knocked && rigidbody.velocity.y == 0)
-                    knocked = false;
+                knocked = false;
         }
 
         private void Update()
@@ -66,13 +66,13 @@ namespace Game.Entity.Enemies
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
-            if(hitStimulus.Type == HitStimulus.DamageType.Darkness)
+            if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
                 base.OnHit(hitStimulus);
 
                 return true;
             }
-            else if(hitStimulus.Type == HitStimulus.DamageType.Physical)
+            else if (hitStimulus.Type == HitStimulus.DamageType.Physical)
             {
                 int direction = (transform.rotation.y == -1 ? -1 : 1);
 
@@ -88,8 +88,9 @@ namespace Game.Entity.Enemies
 
         private void ZombieMoans()
         {
-            if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans && 
-                Vector2.Distance(transform.position, player.transform.position)<maximumDistanceBetweenPlayerAndObjectSound)
+            if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans &&
+                Vector2.Distance(transform.position, player.transform.position) <
+                maximumDistanceBetweenPlayerAndObjectSound)
             {
                 SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
                 timeSinceLastMoan = Time.time;

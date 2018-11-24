@@ -1,5 +1,4 @@
-﻿
-using Game.Entity.Player;
+﻿using Game.Entity.Player;
 using UnityEngine;
 
 namespace Game.Entity.Enemies
@@ -48,7 +47,7 @@ namespace Game.Entity.Enemies
 
         private Quaternion PlayerDirection()
         {
-            Vector2 dir =player.transform.position - transform.position;
+            Vector2 dir = player.transform.position - transform.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion direction = Quaternion.AngleAxis(angle, Vector3.forward);
             return direction;

@@ -39,7 +39,7 @@ namespace Game.Entity.Enemies.Boss
         {
             phases[currentPhaseIndex].OnStateFinish -= BossController_OnStateFinish;
 
-            if(currentPhaseIndex == phases.Length - 1)
+            if (currentPhaseIndex == phases.Length - 1)
             {
                 phases[currentPhaseIndex].Finish();
                 Destroy(this.gameObject);
@@ -59,5 +59,3 @@ namespace Game.Entity.Enemies.Boss
         }
     }
 }
-
-

@@ -4,9 +4,9 @@ namespace Game.Puzzle
 {
     public class Keys : MonoBehaviour
     {
-        [Tooltip("Door tied to this key.")]
-        [SerializeField] private Doors door;
-        
+        [Tooltip("Door tied to this key.")] [SerializeField]
+        private Doors door;
+
         [Header("Sound")] [SerializeField] private AudioClip keySound;
         [SerializeField] private GameObject soundToPlayPrefab;
 
@@ -22,4 +22,3 @@ namespace Game.Puzzle
         }
     }
 }
-
