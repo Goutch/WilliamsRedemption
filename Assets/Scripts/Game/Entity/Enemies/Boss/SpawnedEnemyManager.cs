@@ -16,15 +16,9 @@ namespace Game.Entity.Enemies.Boss
 
         public int NumberOfEnemySpawnAllowed
         {
-            get
-            {
-                return numberOfEnemySpawnAllowed;
-            }
+            get { return numberOfEnemySpawnAllowed; }
 
-            set
-            {
-                numberOfEnemySpawnAllowed = value;
-            }
+            set { numberOfEnemySpawnAllowed = value; }
         }
 
         private void Awake()
@@ -34,7 +28,7 @@ namespace Game.Entity.Enemies.Boss
 
         public void SpawnEnemy(GameObject prefab, Vector3 position, Quaternion quaternion)
         {
-            if(numberOfEnemySpawn < NumberOfEnemySpawnAllowed)
+            if (numberOfEnemySpawn < NumberOfEnemySpawnAllowed)
             {
                 GameObject enemy = Instantiate(prefab, position, quaternion);
 
@@ -77,7 +71,7 @@ namespace Game.Entity.Enemies.Boss
 
         public void Clear()
         {
-            foreach(GameObject enemy in enemies)
+            foreach (GameObject enemy in enemies)
             {
                 if (enemy != null)
                     Destroy(enemy);

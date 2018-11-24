@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4230905013816908}
   - component: {fileID: 61289720600422376}
-  m_Layer: 18
+  m_Layer: 1
   m_Name: Light Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,8 +36,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4479728469856094}
   - component: {fileID: 61571351620049780}
-  - component: {fileID: 114304593424773270}
-  m_Layer: 17
+  - component: {fileID: 114766713406565336}
+  m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,15 +63,15 @@ GameObject:
   - component: {fileID: 95154003209031214}
   - component: {fileID: 114508702252441522}
   - component: {fileID: 114878588810971664}
-  - component: {fileID: 114147539206804284}
   - component: {fileID: 114225958639329370}
-  m_Layer: 13
+  - component: {fileID: 114538616596867882}
+  m_Layer: 8
   m_Name: Zekgor 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1826675314671122
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 33493912083036850}
   - component: {fileID: 58825218769572598}
   - component: {fileID: 114398947951889462}
-  - component: {fileID: 114363557469398430}
+  - component: {fileID: 114367434440583304}
   m_Layer: 2
   m_Name: CircleMeshLight (2)
   m_TagString: Untagged
@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1241197894905338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.167, z: 0}
+  m_LocalPosition: {x: 0, y: -0.209, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4505790105742558}
@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 1826675314671122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.305, y: -0.168, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -0.666, y: 0.666, z: 1}
   m_Children: []
   m_Father: {fileID: 4505790105742558}
   m_RootOrder: 0
@@ -139,8 +139,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820791260871808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 52.52402, y: -0.011947855, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 52.52402, y: 0.66, z: 0}
+  m_LocalScale: {x: -1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 4357100913929990}
   - {fileID: 4230905013816908}
@@ -237,7 +237,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.020031333}
+  m_Offset: {x: 0, y: 0.037740268}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -248,7 +248,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.62487054}
+  m_Size: {x: 0.01, y: 0.45323002}
   m_EdgeRadius: 0
 --- !u!61 &61571351620049780
 BoxCollider2D:
@@ -330,22 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subStates:
-  - {fileID: 114147539206804284}
-  passiveCapacities: []
---- !u!114 &114147539206804284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1820791260871808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1bd114ef79cbb94fa60c5c5dd1b558c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subStates:
-  - {fileID: 114793784798458114}
-  - {fileID: 114225958639329370}
+  - {fileID: 114538616596867882}
   passiveCapacities: []
 --- !u!114 &114225958639329370
 MonoBehaviour:
@@ -362,19 +347,7 @@ MonoBehaviour:
   duration: 2
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0.5
   attackCollider: {fileID: 61571351620049780}
---- !u!114 &114304593424773270
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1721915351378076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fcbd9c12074345bc7c1d5c68302eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: 2
---- !u!114 &114363557469398430
+--- !u!114 &114367434440583304
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -382,7 +355,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1826675314671122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ce9881553a0c44792499baba4efe2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4596a1c014d03654caaa2b5fef433c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114372833117261446
@@ -410,7 +383,7 @@ MonoBehaviour:
   color: {r: 0.9245283, g: 0.4531821, b: 0.25729796, a: 0.3573203}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 282625
+    m_Bits: 2562
   debugDraw: 0
   updateEveryFrame: 1
   movingObstacleUpdateStopCooldown: 1
@@ -418,7 +391,7 @@ MonoBehaviour:
   isOpen: 1
   detectionLayers:
     serializedVersion: 2
-    m_Bits: 416003
+    m_Bits: 3586
   coneAngle: 0
   faceAngle: 292
   minAlpha: 0.3
@@ -449,6 +422,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+--- !u!114 &114538616596867882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820791260871808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120489ed7f194a329544e2e6200c34bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subStates:
+  - {fileID: 114793784798458114}
+  - {fileID: 114225958639329370}
+  passiveCapacities: []
+  cooldown: 2
 --- !u!114 &114605340533145770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -463,6 +452,19 @@ MonoBehaviour:
   scoreValue: 0
   phases:
   - {fileID: 114109206625813964}
+--- !u!114 &114766713406565336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721915351378076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d47113219385504498afbfcb074a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  range: 0
 --- !u!114 &114793784798458114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -474,8 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865738d0d7759b45b889c67921d75ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 4
-  capacityUsableAtStart: 1
   landingEffect: {fileID: 0}
   landingEffectSpawnPoint: {fileID: 0}
 --- !u!114 &114878588810971664
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ccd79bce0f487eb54d9b4e57cb01fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 4
+  jumpForce: 5
   speed: 1
   jumpBoost: 0
 --- !u!212 &212799050329188220

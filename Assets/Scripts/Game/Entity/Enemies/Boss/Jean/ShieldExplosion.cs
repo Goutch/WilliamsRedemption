@@ -5,7 +5,6 @@ namespace Game.Entity.Enemies.Boss.Jean
 {
     public class ShieldExplosion : Capacity
     {
-
         [SerializeField] private float delayBeforeUse;
         [SerializeField] private GameObject shieldExplosion;
         [SerializeField] private float delayBetweenExplosion;
@@ -20,6 +19,7 @@ namespace Game.Entity.Enemies.Boss.Jean
         {
             shieldManager = GetComponent<ShieldManager>();
         }
+
         public override void Finish()
         {
             base.Finish();
@@ -27,7 +27,6 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         public override void Act()
         {
-
         }
 
         public override bool CanEnter()
@@ -61,7 +60,8 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         private void SpawnShieldExplosion()
         {
-            GameObject explosion = Instantiate(shieldExplosion, shieldManager.transform.position, shieldManager.transform.rotation);
+            GameObject explosion = Instantiate(shieldExplosion, shieldManager.transform.position,
+                shieldManager.transform.rotation);
 
 
             explosion.GetComponent<ShieldExplosionController>().OnDestroy += ShieldExplosion_OnDestroy;

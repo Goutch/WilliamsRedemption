@@ -105,7 +105,7 @@ namespace Game.Entity.Player
             ApplyDeltaPosition(Vector2.left * Time.fixedDeltaTime, false);
             ApplyDeltaPosition(Vector2.right * Time.fixedDeltaTime, false);
             ApplyDeltaPosition(verticalDeltaPosition, true);
-            
+
             VelocityModifier = Vector2.Lerp(VelocityModifier, Vector2.zero, Time.fixedDeltaTime * 2);
 
             latestVelocity = velocity;
@@ -124,7 +124,7 @@ namespace Game.Entity.Player
             isOnMovingGround = false;
             contactFilter.layerMask = layerMask;
         }
-        
+
         private void AddGravityToVelocity()
         {
             velocity += GetGravityDeltaPosition();
@@ -185,14 +185,14 @@ namespace Game.Entity.Player
         {
             var deltaMagnitude = deltaPosition.magnitude;
 
+            var attachedColliderCount = rigidbody.attachedColliderCount;
+            var allColliders = new Collider2D[attachedColliderCount];
+            rigidbody.GetAttachedColliders(allColliders);
+
             if (deltaMagnitude >= sleepVelocity)
             {
-                var attachedColliderCount = rigidbody.attachedColliderCount;
-                var selfColliders = new Collider2D[attachedColliderCount];
-                rigidbody.GetAttachedColliders(selfColliders);
-
                 // ReSharper disable once LocalVariableHidesMember
-                foreach (var selfCollider in selfColliders.Where(it => !it.isTrigger))
+                foreach (var selfCollider in allColliders.Where(it => !it.isTrigger))
                 {
                     var nbCollidersDetected = selfCollider.Cast(deltaPosition,
                         contactFilter,
@@ -205,16 +205,15 @@ namespace Game.Entity.Player
                         var colliderNormal = raycastHit.normal;
 
                         //Pass through Platforms.
-                        if (raycastHit.collider.CompareTag("PassThrough"))
+                        if (raycastHit.collider.CompareTag(Values.Tags.PassThrough))
                         {
                             if (CanPassThrough(rigidbody.position, raycastHit.point))
                                 continue;
                         }
 
-                        if (raycastHit.collider.CompareTag("MovingPlatform"))
+                        if (raycastHit.collider.CompareTag(Values.Tags.MovingPlatform))
                         {
                             isOnMovingGround = true;
-                            verticalCapacityOffset = raycastHit.collider.GetComponent<PlatformMover>().GetVerticalSpeed();
                         }
 
 
@@ -261,6 +260,37 @@ namespace Game.Entity.Player
             }
 
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
+
+            if (isVerticalDelta)
+            {
+                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
+                var heightHalf = rigidbody.position.y - bottomY;
+
+#if UNITY_EDITOR
+                if (showDebugInformation)
+                {
+                    Debug.DrawLine(transform.position, transform.position - Vector3.up * heightHalf, Color.magenta);
+                }
+#endif
+
+                var nbRays = Physics2D.Raycast(transform.position, Vector2.down, contactFilter, preallocaRaycastHits);
+                for (var i = 0; i < nbRays; i++)
+                {
+                    var raycastHit = preallocaRaycastHits[i];
+
+                    if (!allColliders.Contains(raycastHit.collider) &&
+                        !raycastHit.collider.CompareTag(Values.Tags.PassThrough))
+                    {
+                        var floorPosition = raycastHit.point;
+                        if (floorPosition.y > bottomY)
+                        {
+                            var rectifiedPosition = transform.position;
+                            rectifiedPosition.y = floorPosition.y + heightHalf;
+                            rigidbody.position = rectifiedPosition;
+                        }
+                    }
+                }
+            }
         }
     }
 }

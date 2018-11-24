@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RootMover))]
-public class DeathClone : Enemy {
-
+public class DeathClone : Enemy
+{
     [SerializeField] private GameObject projectile;
     [SerializeField] private float delayBetweenShot;
 
@@ -27,14 +27,13 @@ public class DeathClone : Enemy {
 
     protected override void Init()
     {
-
     }
 
     private void Update()
     {
         mover.LookAtPlayer();
 
-        if(Time.time - lastShot > delayBetweenShot)
+        if (Time.time - lastShot > delayBetweenShot)
         {
             ShootProjectile();
             lastShot = Time.time;

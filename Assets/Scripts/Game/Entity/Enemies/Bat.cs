@@ -9,6 +9,9 @@ namespace Game.Entity.Enemies
         [SerializeField] private Vector2 exponentialFonction;
         [SerializeField] private float fonctionYOffSet = .32f;
 
+        [Header("Sound")] [SerializeField] private AudioClip batSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+
         private RootMover rootMover;
 
         private bool isTriggered;
@@ -39,15 +42,15 @@ namespace Game.Entity.Enemies
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.transform.root.CompareTag(Values.Tags.Player) && !isTriggered)
+            if (collision.transform.root.CompareTag(Values.Tags.Player) && !isTriggered)
             {
                 isTriggered = true;
                 animator.SetTrigger(Values.AnimationParameters.Enemy.Fly);
 
                 StartCoroutine(Fly());
+                SoundCaller.CallSound(batSound, soundToPlayPrefab, gameObject, true);
                 Destroy(this.gameObject, 10);
             }
         }
     }
 }
-

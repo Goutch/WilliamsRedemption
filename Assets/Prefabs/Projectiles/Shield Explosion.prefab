@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114061636016576804}
   - component: {fileID: 60977238315459562}
   - component: {fileID: 114300505372233390}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Shield Explosion
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}

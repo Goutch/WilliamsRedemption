@@ -5,6 +5,7 @@ namespace Game.Entity.Enemies.Attack
     public class PlasmaController : ProjectileController
     {
         [SerializeField] private bool canBeReturned;
+        private HitSensor hitSensor;
 
         public bool CanBeReturned
         {
@@ -12,19 +13,15 @@ namespace Game.Entity.Enemies.Attack
             private set { canBeReturned = value; }
         }
 
-        private HitStimulus hitStimulus;
-        private HitSensor hitSensor;
-
-        private void Awake()
+        private new void Awake()
         {
             base.Awake();
-            hitStimulus = GetComponent<HitStimulus>();
             hitSensor = GetComponent<HitSensor>();
-            hitSensor.OnHit += HitSensor_OnHit;
         }
 
         private void OnEnable()
         {
+            hitSensor.OnHit += HitSensor_OnHit;
         }
 
         private bool HitSensor_OnHit(HitStimulus hitStimulus)
@@ -34,7 +31,6 @@ namespace Game.Entity.Enemies.Attack
                 && hitStimulus.Range == HitStimulus.AttackRange.Melee)
             {
                 transform.localRotation *= Quaternion.Euler(0, 0, 180);
-                //TODO ARCHIEVEMENT
                 this.hitStimulus.Type = HitStimulus.DamageType.Darkness;
 
                 return false;

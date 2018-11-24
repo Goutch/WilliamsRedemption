@@ -32,12 +32,14 @@ namespace Game.Entity.Enemies.Boss.Edgar
             else
                 return false;
         }
+
         public override void Enter()
         {
             base.Enter();
             numberProjectileShooted = 0;
             lastTimeUsed = Time.time;
         }
+
         protected override void EnterIdle()
         {
             base.EnterIdle();
@@ -53,6 +55,5 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 Finish();
             }
         }
-
     }
 }

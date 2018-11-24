@@ -35,5 +35,3 @@ namespace Game.Entity.Enemies.Boss
         }
     }
 }
-
-

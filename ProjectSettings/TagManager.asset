@@ -18,6 +18,7 @@ TagManager:
   - PassThrough
   - MovingPlatform
   - Collectable
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - Player
   - Platform
   - Obstacles
-  - 
+  - LightZone
   - 
   - 
   - 

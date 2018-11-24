@@ -31,6 +31,10 @@ namespace Game.Entity.Player
         private LayerMask layerMask;
         private Vector2 horizontalDirection;
         private Vector2 verticalDirection;
+
+        [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+
         private PlayerHealthEventChannel playerHealthEventChannel;
         private GameController gameController;
         private int currentLevel;
@@ -78,7 +82,6 @@ namespace Game.Entity.Player
 
         private void Awake()
         {
-          
             if (instance == null)
             {
                 instance = this;
@@ -101,7 +104,6 @@ namespace Game.Entity.Player
             lightSensor = GetComponent<LightSensor>();
             lightSensor.OnLightExpositionChange += OnLightExpositionChanged;
             GetComponent<HitSensor>().OnHit += HandleCollision;
-            GetComponent<HitSensor>().OnHit += HandleCollision;
             playerHealthEventChannel = gameController.GetComponent<PlayerHealthEventChannel>();
         }
 
@@ -119,6 +121,7 @@ namespace Game.Entity.Player
         {
             if (!IsInvincible)
             {
+                SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
                 health.Hit(attacker);
                 StartCoroutine(InvincibleRoutine());
                 playerHealthEventChannel.Publish(new OnPlayerTakeDamage());
@@ -139,6 +142,7 @@ namespace Game.Entity.Player
                 DamagePlayer(other.gameObject);
                 return true;
             }
+
             return false;
         }
 
@@ -202,9 +206,5 @@ namespace Game.Entity.Player
                 CurrentController.sprite.flipX = false;
             }
         }
-
-     
-
-
     }
 }

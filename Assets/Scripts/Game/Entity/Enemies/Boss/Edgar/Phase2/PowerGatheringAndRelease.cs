@@ -10,7 +10,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
     {
         protected override void Init()
         {
-
         }
     }
 }

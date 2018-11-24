@@ -1,9 +1,6 @@
-﻿
-
-namespace Game.Entity.Enemies.Boss.Jacob
+﻿namespace Game.Entity.Enemies.Boss.Jacob
 {
     class JacobController : BossController
     {
-
     }
 }

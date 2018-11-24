@@ -7,8 +7,9 @@ namespace Game.Entity.Enemies.Boss
 {
     class Vulnerable : Capacity
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.Vulnerable + "' ")]
-        [SerializeField] private Animator animator;
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.Vulnerable + "' ")] [SerializeField]
+        private Animator animator;
+
         [SerializeField] private float duration;
         [SerializeField] private float delayBeforeDoingDamageToPlayerAfterLeavingState;
         [SerializeField] private Collider2D attackCollider;
@@ -17,14 +18,13 @@ namespace Game.Entity.Enemies.Boss
 
         protected override void Init()
         {
-
         }
 
         public override void Finish()
         {
             base.Finish();
 
-            if(delayBeforeDoingDamageToPlayerAfterLeavingState != 0)
+            if (delayBeforeDoingDamageToPlayerAfterLeavingState != 0)
                 StartCoroutine(enableStimulus());
         }
 
@@ -38,11 +38,12 @@ namespace Game.Entity.Enemies.Boss
         {
             return true;
         }
+
         public override void Enter()
         {
             base.Enter();
 
-            if(delayBeforeDoingDamageToPlayerAfterLeavingState != 0 && attackCollider != null)
+            if (delayBeforeDoingDamageToPlayerAfterLeavingState != 0 && attackCollider != null)
             {
                 attackCollider.enabled = false;
 

@@ -58,7 +58,8 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         protected override void TransiteToNextStateIfReady()
         {
-            if (Time.time - lastAttack > cooldownBetweenAttacks && subStates[currentIndex].CanEnter() && currentState == null)
+            if (Time.time - lastAttack > cooldownBetweenAttacks && subStates[currentIndex].CanEnter() &&
+                currentState == null)
             {
                 if (IsIdling)
                     ExitIdle();

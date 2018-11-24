@@ -1,5 +1,4 @@
-﻿
-using Game.Entity.Player;
+﻿using Game.Entity.Player;
 using UnityEngine;
 
 namespace Game.Entity.Enemies
@@ -12,16 +11,11 @@ namespace Game.Entity.Enemies
 
         public float Speed
         {
-            get
-            {
-                return speed;
-            }
+            get { return speed; }
 
-            set
-            {
-                speed = value;
-            }
+            set { speed = value; }
         }
+
         private int currentDir;
         private bool isJumping = false;
         public bool IsJumping => isJumping;
@@ -44,7 +38,6 @@ namespace Game.Entity.Enemies
                 this.isJumping = false;
                 animator.SetTrigger(Values.AnimationParameters.Enemy.JumpEnd);
             }
-
         }
 
         public void Walk()
@@ -62,18 +55,22 @@ namespace Game.Entity.Enemies
 
         public void FlyToward(Vector2 targetPosition)
         {
-            this.transform.root.position = Vector3.MoveTowards(this.transform.root.position, (Vector3)targetPosition,
+            this.transform.root.position = Vector3.MoveTowards(this.transform.root.position, (Vector3) targetPosition,
                 Speed * Time.deltaTime);
         }
 
         public void MoveOnXAxis(int direction)
         {
-            rootRigidBody.velocity = new Vector2(Vector2.up.x * rootRigidBody.velocity.x + (Vector2.right.x * direction * Speed), rootRigidBody.velocity.y);
+            rootRigidBody.velocity =
+                new Vector2(Vector2.up.x * rootRigidBody.velocity.x + (Vector2.right.x * direction * Speed),
+                    rootRigidBody.velocity.y);
         }
 
         public void MoveForward()
         {
-            rootRigidBody.MovePosition(new Vector2(transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1), transform.position.y));
+            rootRigidBody.MovePosition(new Vector2(
+                transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1),
+                transform.position.y));
         }
 
         public void MoveOnXAxis()

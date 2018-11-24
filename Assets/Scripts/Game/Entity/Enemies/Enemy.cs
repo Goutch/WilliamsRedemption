@@ -1,7 +1,6 @@
 ﻿using Game.Controller;
 using Game.Entity.Enemies.Attack;
 using Game.Entity.Player;
-using Harmony;
 using UnityEngine;
 
 namespace Game.Entity.Enemies
@@ -22,7 +21,8 @@ namespace Game.Entity.Enemies
         protected void Awake()
         {
             player = GameObject.FindWithTag(Values.Tags.Player).GetComponent<PlayerController>();
-            gameController = GameObject.FindWithTag(Values.Tags.GameController).GetComponent<GameController>();
+            gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
+                .GetComponent<GameController>();
             health = GetComponent<Health>();
             health.OnDeath += OnDeath;
             animator = GetComponent<Animator>();
@@ -47,14 +47,17 @@ namespace Game.Entity.Enemies
         protected abstract void Init();
 
 
-        private void OnDeath(GameObject receiver, GameObject attacker)
+        protected virtual void OnDeath(GameObject receiver, GameObject attacker)
         {
-            HitStimulus atackerStimulu = attacker.GetComponent<HitStimulus>();
+            HitStimulus attackerStimulus = attacker.GetComponent<HitStimulus>();
 
-            if (atackerStimulu != null &&
-                (atackerStimulu.Type == HitStimulus.DamageType.Darkness ||
-                 atackerStimulu.Type == HitStimulus.DamageType.Physical))
+            if (attackerStimulus != null &&
+                (attackerStimulus.Type == HitStimulus.DamageType.Darkness ||
+                 attackerStimulus.Type == HitStimulus.DamageType.Physical))
+            {
                 gameController.AddScore(scoreValue);
+            }
+
             Destroy(this.gameObject);
         }
     }

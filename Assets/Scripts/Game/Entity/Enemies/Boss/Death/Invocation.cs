@@ -25,7 +25,6 @@ namespace Game.Entity.Enemies.Boss.Death
 
         public override void Act()
         {
-
         }
 
         public override bool CanEnter()
@@ -40,7 +39,7 @@ namespace Game.Entity.Enemies.Boss.Death
         {
             base.Enter();
 
-            foreach(Transform spawnPoint in invocationPoints)
+            foreach (Transform spawnPoint in invocationPoints)
             {
                 enemyManager.SpawnEnemy(enemyToInvoque, spawnPoint.position, Quaternion.identity);
             }

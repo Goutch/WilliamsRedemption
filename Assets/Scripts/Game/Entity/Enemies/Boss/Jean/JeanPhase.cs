@@ -27,7 +27,6 @@
 
         protected override void EnterIdle()
         {
-            
         }
     }
 }

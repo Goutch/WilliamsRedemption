@@ -30,8 +30,8 @@ namespace Game.Entity.Player
                 Attacking = true;
                 return true;
             }
+
             return false;
-            
         }
 
         public abstract void UseBasicAttack(PlayerController player);
@@ -42,8 +42,5 @@ namespace Game.Entity.Player
             Attacking = false;
             timeSinceLastAttack = Time.time;
         }
-        
-        
     }
 }
-

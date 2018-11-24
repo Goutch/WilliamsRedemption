@@ -18,13 +18,14 @@ namespace Game.Entity.Enemies.Boss.Anna
 
                 return true;
             }
-            else if(!IsInvulnerable && (hitStimulus.Type == HitStimulus.DamageType.Darkness || hitStimulus.Type == HitStimulus.DamageType.Physical))
+            else if (!IsInvulnerable && (hitStimulus.Type == HitStimulus.DamageType.Darkness ||
+                                         hitStimulus.Type == HitStimulus.DamageType.Physical))
             {
                 health.Hit(hitStimulus.gameObject);
                 return true;
             }
 
-            return false;
+            return true;
         }
     }
 }

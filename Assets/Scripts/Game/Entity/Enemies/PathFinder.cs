@@ -3,39 +3,36 @@ using UnityEngine.Tilemaps;
 
 namespace Game.Entity.Enemies
 {
-    public class PathFinder : MonoBehaviour
+    public class PathFinder
     {
-        [SerializeField] private Tilemap obstacles;
-        public static PathFinder instance;
+        public Tilemap[] Obstacles { get; set; }
 
-        private void Awake()
+        public PathFinder(Tilemap[] obstacles)
         {
-            if (instance == null)
-                instance = this;
-            else
-            {
-                Destroy(this.gameObject);
-            }
+            Obstacles = obstacles;
         }
 
         public bool[,] GetSurrounding(int range, Vector2 myPosition)
         {
             bool[,] surrounding = new bool[range * 2 + 1, range * 2 + 1];
-            Vector3Int StartPos = obstacles.WorldToCell(myPosition);
 
-            for (int y = -range; y <= range; y++)
+            for (int i = 0; i < Obstacles.Length; i++)
             {
-                for (int x = -range; x <= range; x++)
+                Vector3Int StartPos = Obstacles[i].WorldToCell(myPosition);
+                for (int y = -range; y <= range; y++)
                 {
-                    int cellPosX = StartPos.x + x;
-                    int cellPosY = StartPos.y + y;
-                    surrounding[x + range, y + range] = obstacles.GetTile(new Vector3Int(cellPosX, cellPosY, 0));
+                    for (int x = -range; x <= range; x++)
+                    {
+                        int cellPosX = StartPos.x + x;
+                        int cellPosY = StartPos.y + y;
+                        surrounding[x + range, y + range] |=
+                            Obstacles[i].GetTile(new Vector3Int(cellPosX, cellPosY, 0));
+                    }
                 }
             }
 
+
             return surrounding;
         }
-
-
     }
 }

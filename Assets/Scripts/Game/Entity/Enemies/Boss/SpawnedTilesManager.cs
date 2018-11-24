@@ -18,11 +18,12 @@ namespace Game.Entity.Enemies.Boss
 
         private void Awake()
         {
-            lightController = GameObject.FindGameObjectWithTag(Values.Tags.LightManager).GetComponent<LightController>();
+            lightController = GameObject.FindGameObjectWithTag(Values.Tags.LightManager)
+                .GetComponent<LightController>();
             platforms = GameObject.FindGameObjectWithTag(Values.Tags.Plateforme).GetComponent<Tilemap>();
             health = GetComponent<Health>();
 
-            if(health != null)
+            if (health != null)
                 health.OnDeath += Health_OnDeath;
 
             spawnedTilesPosition = new List<Vector3Int>();
@@ -38,16 +39,20 @@ namespace Game.Entity.Enemies.Boss
             return platforms.LocalToCell(position);
         }
 
-        public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn, float? tilesLifeTime = null)
+        public void SpawnTiles(Vector3Int center, List<Vector3Int> tilesPositionRelative, Tile tileToSpawn,
+            float? tilesLifeTime = null)
         {
             List<Vector3Int> platformPositions = new List<Vector3Int>();
 
             foreach (Vector3Int relativePosition in tilesPositionRelative)
             {
-                if (platforms.GetTile(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y, 0)) == null)
+                if (platforms.GetTile(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y,
+                        0)) == null)
                 {
-                    platforms.SetTile(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y, 0), tileToSpawn);
-                    platformPositions.Add(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y, 0));
+                    platforms.SetTile(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y, 0),
+                        tileToSpawn);
+                    platformPositions.Add(new Vector3Int(relativePosition.x + center.x, relativePosition.y + center.y,
+                        0));
                 }
             }
 
@@ -63,12 +68,14 @@ namespace Game.Entity.Enemies.Boss
         {
             DestroyTiles(new List<Vector3Int>(spawnedTilesPosition));
         }
+
         private IEnumerator DestroyTiles(List<Vector3Int> cellToDestroy, float delayBeforeDestruction)
         {
             yield return new WaitForSeconds(delayBeforeDestruction);
 
             DestroyTiles(cellToDestroy);
         }
+
         private void DestroyTiles(List<Vector3Int> cellToDestroy)
         {
             foreach (Vector3Int cellPos in cellToDestroy)
@@ -90,6 +97,7 @@ namespace Game.Entity.Enemies.Boss
             else
                 return false;
         }
+
         public bool IsAnySpawnedTiles()
         {
             return spawnedTilesPosition.Count > 0;
@@ -103,11 +111,11 @@ namespace Game.Entity.Enemies.Boss
 
             foreach (Vector3Int tilesPosition in spawnedTilesPosition)
             {
-                if(directionX > 0 && tilesPosition.x >= positionInCell.x)
+                if (directionX > 0 && tilesPosition.x >= positionInCell.x)
                 {
                     positonTilesToDestroy.Add(tilesPosition);
-                } 
-                else if(directionX < 0 && tilesPosition.x <= positionInCell.x)
+                }
+                else if (directionX < 0 && tilesPosition.x <= positionInCell.x)
                 {
                     positonTilesToDestroy.Add(tilesPosition);
                 }
@@ -117,4 +125,3 @@ namespace Game.Entity.Enemies.Boss
         }
     }
 }
-

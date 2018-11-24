@@ -1,5 +1,4 @@
-﻿
-using Game.Entity.Player;
+﻿using Game.Entity.Player;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Jacob
@@ -12,6 +11,10 @@ namespace Game.Entity.Enemies.Boss.Jacob
         [SerializeField] private Transform[] teleportPoints;
         [SerializeField] private float cooldown;
         [SerializeField] private GameObject spawnParticulePrefab;
+
+        [Header("Sound")] [SerializeField] private AudioClip teleportationSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+
         private float lastUsed;
 
         private BossController bossController;
@@ -23,14 +26,13 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
         public override void Act()
         {
-            
         }
 
         public override bool CanEnter()
         {
             if ((Time.time - lastUsed > cooldown ||
-                Vector2.Distance(player.transform.position, transform.position) <
-                distanceFromPlayerTeleport) && !(bossController.GetCurrentState() is Vulnerable))
+                 Vector2.Distance(player.transform.position, transform.position) <
+                 distanceFromPlayerTeleport) && !(bossController.GetCurrentState() is Vulnerable))
                 return true;
             else
                 return false;
@@ -42,6 +44,8 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
             Teleport();
 
+            SoundCaller.CallSound(teleportationSound, soundToPlayPrefab, gameObject, true);
+
             lastUsed = Time.time;
 
             Finish();
@@ -51,8 +55,8 @@ namespace Game.Entity.Enemies.Boss.Jacob
         {
             Vector2 oldPosition = transform.position;
 
-            if(spawnParticulePrefab != null)
-                Destroy(Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity),3);
+            if (spawnParticulePrefab != null)
+                Destroy(Instantiate(spawnParticulePrefab, transform.position, Quaternion.identity), 3);
 
             do
             {
@@ -61,6 +65,5 @@ namespace Game.Entity.Enemies.Boss.Jacob
                      distanceFromPlayerTeleport
                      || Vector2.Distance(oldPosition, transform.position) < EQUALITY_POSITION_SENSIBILITY);
         }
-        
     }
 }

@@ -11,7 +11,7 @@ namespace Game.Entity.Player
         private GamePadState controllerState;
         private bool jumpButtonPressed;
 
-        void Start()
+        private void Start()
         {
             player = GetComponent<Mover>();
             playerController = GetComponent<PlayerController>();
@@ -20,7 +20,7 @@ namespace Game.Entity.Player
             jumpButtonPressed = false;
         }
 
-        void Update()
+        private void Update()
         {
             if (!controllerState.IsConnected)
             {

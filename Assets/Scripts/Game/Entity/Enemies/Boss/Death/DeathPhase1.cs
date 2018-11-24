@@ -9,28 +9,31 @@ namespace Game.Entity.Enemies.Boss.Death
 {
     class DeathPhase1 : NonSequentialPhase
     {
-        private Animator animator;
-        [Range(0,1)][SerializeField] private float percentageHealthTransitionCondition;
-        [SerializeField] private SpawnedEnemyManager enemyManager;
+        [Range(0, 1)] [SerializeField] private float percentageHealthTransitionCondition;
+        [SerializeField] private SpawnedEnemyManager[] enemyManagers;
+
         private Health health;
+        private Animator animator;
 
         protected override void Init()
         {
             animator = GetComponent<Animator>();
             health = GetComponent<Health>();
+            enemyManagers = GetComponents<SpawnedEnemyManager>();
             health.OnHealthChange += Health_OnHealthChange;
         }
 
         public override void Finish()
         {
-            base.Finish();
+            foreach (SpawnedEnemyManager spawnedEnemyManager in enemyManagers)
+                spawnedEnemyManager.Clear();
 
-            enemyManager.Clear();
+            base.Finish();
         }
 
         private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
-            if (health.HealthPoints / (float)health.MaxHealth <= percentageHealthTransitionCondition)
+            if (health.HealthPoints / (float) health.MaxHealth <= percentageHealthTransitionCondition)
             {
                 health.OnHealthChange -= Health_OnHealthChange;
                 Finish();

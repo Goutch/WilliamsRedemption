@@ -7,9 +7,10 @@ namespace Game.UI
     public class ScoreUI : MonoBehaviour
     {
         [SerializeField] private Text scoreText;
+
         private GameController gameController;
 
-        private void OnEnable()
+        private void Start()
         {
             gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
                 .GetComponent<GameController>();

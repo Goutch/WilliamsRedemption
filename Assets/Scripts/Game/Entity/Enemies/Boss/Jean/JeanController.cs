@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Entity.Enemies.Attack;
+using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Jean
 {
@@ -10,6 +11,14 @@ namespace Game.Entity.Enemies.Boss.Jean
         {
             shieldManager = GetComponent<ShieldManager>();
             base.Awake();
+        }
+
+        protected override bool OnHit(HitStimulus hitStimulus)
+        {
+            if (!shieldManager.IsShieldActive)
+                return base.OnHit(hitStimulus);
+            else
+                return false;
         }
     }
 }

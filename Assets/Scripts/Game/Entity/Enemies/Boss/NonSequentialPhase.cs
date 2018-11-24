@@ -21,13 +21,11 @@ namespace Game.Entity.Enemies.Boss
         protected virtual void EnterIdle()
         {
             IsIdling = true;
-            //Debug.Log("Enter Idle: " + this);
         }
 
         protected virtual void ExitIdle()
         {
             IsIdling = false;
-            //Debug.Log("Exit Idle: " + this);
         }
 
         public override void Act()
@@ -61,11 +59,11 @@ namespace Game.Entity.Enemies.Boss
 
         protected virtual void TransiteToNextStateIfReady()
         {
-            foreach(State state in subStates)
+            foreach (State state in subStates)
             {
-                if(state.CanEnter())
+                if (state.CanEnter())
                 {
-                    if(IsIdling)
+                    if (IsIdling)
                         ExitIdle();
 
                     currentState = state;
@@ -89,5 +87,3 @@ namespace Game.Entity.Enemies.Boss
         }
     }
 }
-
-

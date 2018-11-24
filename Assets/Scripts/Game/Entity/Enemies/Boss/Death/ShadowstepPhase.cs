@@ -16,7 +16,6 @@ namespace Game.Entity.Enemies.Boss.Death
 
         protected override void Init()
         {
-
         }
 
         public override void Enter()

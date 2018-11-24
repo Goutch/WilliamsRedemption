@@ -23,7 +23,6 @@ public class LightMaster : MonoBehaviour
 	{
 		timeAtStart = 0;
 		currentLightIndex = 0;
-		//currentlight = Lights[currentLightIndex].GetComponent<ITriggerable>();
 	}
 
 	private void Start()
@@ -77,9 +76,9 @@ public class LightMaster : MonoBehaviour
 	{
 		if (TimeSinceLit() >= timePerLight)
 		{
-			foreach (var l in Lights)
+			foreach (var light in Lights)
 			{
-				currentlight = l.GetComponent<ITriggerable>();
+				currentlight = light.GetComponent<ITriggerable>();
 
 				if (currentlight.IsOpened())
 				{

@@ -15,7 +15,7 @@ namespace Game.Controller
 {
     public class AchievementManager : MonoBehaviour
     {
-         private AchievementUI achievementUi;
+        private AchievementUI achievementUi;
 
 
         [Tooltip("PhantomCanHang number of ghost to kill to unlock Phantoms can hang")] [SerializeField]
@@ -28,13 +28,13 @@ namespace Game.Controller
         private int supersonic = 600;
 
         [Tooltip("Number of shoot to unlock trigger happy")] [SerializeField]
-        private int triggerHappy=1;
+        private int triggerHappy = 1;
 
         private GameController gameController;
         private string achievementPath = "Achievements";
         private List<Achievement> acomplishedAchievements;
         private Dictionary<string, Achievement> achievements;
-        
+
         private int zombieKillCount = 0;
         private int ghostKillCount = 0;
         private int batKillCount = 0;
@@ -56,7 +56,7 @@ namespace Game.Controller
             gameController = GetComponent<GameController>();
 
             achievementUi = GetComponent<AchievementUI>();
-            
+
             gameController.OnGameEnd += OnGameEnd;
             gameController.OnLevelChange += OnLevelChange;
 
@@ -90,7 +90,7 @@ namespace Game.Controller
                 return;
             }
 
-            if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level1)
+            if (gameController.CurrentLevel.Scene == Values.Scenes.Level1)
             {
                 if (Level1PlayerDamageCount == 0)
                 {
@@ -98,7 +98,7 @@ namespace Game.Controller
                 }
             }
 
-            else if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level2)
+            else if (gameController.CurrentLevel.Scene == Values.Scenes.Level2)
             {
                 if (Level2PlayerDamageCount == 0)
                 {
@@ -106,7 +106,7 @@ namespace Game.Controller
                 }
             }
 
-            else if (gameController.CurrentLevel.Scene.name == Values.Scenes.Level3)
+            else if (gameController.CurrentLevel.Scene == Values.Scenes.Level3)
             {
                 if (Level3PlayerDamageCount == 0)
                 {
@@ -117,7 +117,7 @@ namespace Game.Controller
 
         private void OnGameEnd()
         {
-            if (gameController.IsGameWinned&&gameController.TotalTime <= supersonic)
+            if (gameController.IsGameWinned && gameController.TotalTime <= supersonic)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.SuperSonic]);
             }
@@ -126,6 +126,7 @@ namespace Game.Controller
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.TriggerHappy]);
             }
+
             if (acomplishedAchievements.Count == achievements.Count - 1)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.Perfection]);
@@ -143,6 +144,7 @@ namespace Game.Controller
                 achievementListText += "\n";
                 bonusScoreValue += achievement.ScoreValue;
             }
+
             achievementUi.DisplayAchievements(achievementListText);
             gameController.AddBonusScore(bonusScoreValue);
         }
@@ -205,7 +207,7 @@ namespace Game.Controller
 
         private void CollectableFound(OnCollectableFound collectableEvent)
         {
-            if (collectableEvent.Level.Scene.name == Values.GameObject.Level1)
+            if (collectableEvent.Level.Scene == Values.GameObject.Level1)
             {
                 collectableLevel1Count++;
                 if (collectableLevel1Count == collectableEvent.Level.NumberCollectables)
@@ -214,7 +216,7 @@ namespace Game.Controller
                 }
             }
 
-            if (collectableEvent.Level.Scene.name == Values.GameObject.Level2)
+            if (collectableEvent.Level.Scene == Values.GameObject.Level2)
             {
                 collectableLevel2Count++;
                 if (collectableLevel2Count == collectableEvent.Level.NumberCollectables)
@@ -223,7 +225,7 @@ namespace Game.Controller
                 }
             }
 
-            if (collectableEvent.Level.Scene.name == Values.GameObject.Level3)
+            if (collectableEvent.Level.Scene == Values.GameObject.Level3)
             {
                 collectableLevel3Count++;
                 if (collectableLevel3Count == collectableEvent.Level.NumberCollectables)
@@ -244,17 +246,17 @@ namespace Game.Controller
 
         private void PlayerTakeDamage(OnPlayerTakeDamage onPlayerTakeDamageEvent)
         {
-            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level1)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level1)
             {
                 Level1PlayerDamageCount++;
             }
 
-            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level2)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level2)
             {
                 Level2PlayerDamageCount++;
             }
 
-            if (gameController.CurrentLevel.Scene.name == Values.GameObject.Level2)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level2)
             {
                 Level3PlayerDamageCount++;
             }

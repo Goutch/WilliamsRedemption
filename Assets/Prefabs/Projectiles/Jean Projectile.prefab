@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61114059075075204}
   - component: {fileID: 50027822061447214}
   - component: {fileID: 114417479908213092}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Jean Projectile
   m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}

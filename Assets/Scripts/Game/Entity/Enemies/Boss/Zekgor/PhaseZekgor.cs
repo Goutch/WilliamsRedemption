@@ -12,7 +12,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
     {
         private RootMover mover;
         private Animator animator;
-        
+
         protected override void Init()
         {
             mover = GetComponent<RootMover>();
@@ -22,10 +22,10 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         protected override void Idle()
         {
             base.Idle();
-            
+
             mover.LookAtPlayer();
 
-            if(Mathf.Abs(player.transform.position.x - transform.position.x) > 0.03f)
+            if (Mathf.Abs(player.transform.position.x - transform.position.x) > 0.03f)
                 mover.MoveOnXAxis(transform.rotation.y == 1 ? -1 : 1);
         }
 

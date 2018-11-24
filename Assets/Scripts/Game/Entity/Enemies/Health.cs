@@ -21,7 +21,7 @@ namespace Game.Entity
         private Animator animator;
 
         private bool isKilledByPlayer = true;
-        public int HealthPoints { get; private set; }
+        public int HealthPoints { get; set; }
 
         public void Hit(GameObject attacker)
         {
@@ -37,7 +37,7 @@ namespace Game.Entity
             }
         }
 
-        void Awake()
+        private void Awake()
         {
             HealthPoints = MaxHealth;
             animator = GetComponent<Animator>();
