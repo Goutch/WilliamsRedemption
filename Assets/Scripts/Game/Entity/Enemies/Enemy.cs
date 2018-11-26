@@ -1,4 +1,5 @@
 ﻿using Game.Controller;
+using Game.Controller.Events;
 using Game.Entity.Enemies.Attack;
 using Game.Entity.Player;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Game.Entity.Enemies
         protected PlayerController player;
         protected HitSensor hitSensor;
         private GameController gameController;
+        private EnemyDeathEventChannel deathEventChannel;
         public int ScoreValue => scoreValue;
         public bool IsInvulnerable { get; set; }
 
@@ -23,6 +25,7 @@ namespace Game.Entity.Enemies
             player = GameObject.FindWithTag(Values.Tags.Player).GetComponent<PlayerController>();
             gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
                 .GetComponent<GameController>();
+            deathEventChannel = gameController.GetComponent<EnemyDeathEventChannel>();
             health = GetComponent<Health>();
             health.OnDeath += OnDeath;
             animator = GetComponent<Animator>();
@@ -55,6 +58,7 @@ namespace Game.Entity.Enemies
                 (attackerStimulus.Type == HitStimulus.DamageType.Darkness ||
                  attackerStimulus.Type == HitStimulus.DamageType.Physical))
             {
+                deathEventChannel.Publish(new OnEnemyDeath(this));
                 gameController.AddScore(scoreValue);
             }
 
