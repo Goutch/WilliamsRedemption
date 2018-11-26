@@ -1,6 +1,6 @@
 ﻿namespace Game.Entity.Enemies.Boss.Jean
 {
-    class JeanPhase : SequentialLoopPhase
+    class JeanPhase : NonSequentialPhase
     {
         private RootMover mover;
 

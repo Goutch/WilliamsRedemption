@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Game.Entity.Player;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Jean
 {
     class ShieldRecuperation : Vulnerable
     {
+        [SerializeField] private Vector2 endForceAddToPlayer;
+
         private ShieldManager shieldManager;
 
         private void Awake()
@@ -25,6 +29,7 @@ namespace Game.Entity.Enemies.Boss.Jean
             base.Finish();
             shieldManager.ShieldPercent = 1;
             shieldManager.IsShieldActive = true;
+            player.GetComponent<KinematicRigidbody2D>().AddForce(endForceAddToPlayer);
         }
 
         public override bool CanEnter()

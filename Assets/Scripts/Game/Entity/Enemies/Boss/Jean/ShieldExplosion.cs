@@ -5,13 +5,11 @@ namespace Game.Entity.Enemies.Boss.Jean
 {
     public class ShieldExplosion : Capacity
     {
-        [SerializeField] private float delayBeforeUse;
         [SerializeField] private GameObject shieldExplosion;
         [SerializeField] private float delayBetweenExplosion;
         [SerializeField] private int numberOfExplosion;
         private ShieldManager shieldManager;
 
-        private float lastTimeUsed;
         private int numberOfExplosionSpawned = 0;
         private int numberOfExplosionAlive = 0;
 
@@ -31,7 +29,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         public override bool CanEnter()
         {
-            if (shieldManager.ShieldPercent == 0 && Time.time - lastTimeUsed > delayBeforeUse)
+            if (shieldManager.ShieldPercent == 0)
                 return true;
             else
                 return false;

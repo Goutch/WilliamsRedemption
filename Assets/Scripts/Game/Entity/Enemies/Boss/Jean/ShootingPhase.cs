@@ -13,7 +13,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         public override bool CanEnter()
         {
-            return base.CanEnter() && shieldManager.ShieldPercent > 0;
+            return base.CanEnter() && shieldManager.ShieldPercent > 0 && Time.time - lastAttack > cooldownBetweenAttacks;
         }
 
         protected override void Init()
@@ -22,55 +22,31 @@ namespace Game.Entity.Enemies.Boss.Jean
             shieldManager = GetComponent<ShieldManager>();
         }
 
+        protected override bool CanSwitchState()
+        {
+            return Time.time - lastAttack > cooldownBetweenAttacks && base.CanSwitchState();
+        }
+
+        protected override void CurrentState_OnStateFinish(State state)
+        {
+            base.CurrentState_OnStateFinish(state);
+            lastAttack = Time.time;
+        }
+
         public override void Enter()
         {
             mover.LookAtPlayer();
             base.Enter();
-
-            lastAttack = Time.time;
         }
 
         public override void Act()
         {
             mover.LookAtPlayer();
 
-            TransiteToNextStateIfReady();
             base.Act();
 
-            if (shieldManager.ShieldPercent == 0 && currentState == null)
+            if (shieldManager.ShieldPercent == 0)
                 Finish();
-        }
-
-        protected override void CurrentState_OnStateFinish(State state)
-        {
-            state.OnStateFinish -= CurrentState_OnStateFinish;
-
-            currentState = null;
-
-            currentIndex++;
-
-            if (currentIndex == subStates.Length)
-            {
-                Finish();
-            }
-        }
-
-
-        protected override void TransiteToNextStateIfReady()
-        {
-            if (Time.time - lastAttack > cooldownBetweenAttacks && subStates[currentIndex].CanEnter() &&
-                currentState == null)
-            {
-                if (IsIdling)
-                    ExitIdle();
-
-                lastAttack = Time.time;
-
-                currentState = subStates[currentIndex];
-
-                currentState.OnStateFinish += CurrentState_OnStateFinish;
-                currentState.Enter();
-            }
         }
     }
 }
