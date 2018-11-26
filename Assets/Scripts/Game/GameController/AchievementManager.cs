@@ -10,6 +10,8 @@ using Game.UI;
 using Game.Values.AnimationParameters;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
+using Anna = Game.Entity.Enemies.Boss.Anna.Anna;
+using Death = Game.Entity.Enemies.Boss.Death.Death;
 
 namespace Game.Controller
 {
@@ -165,19 +167,19 @@ namespace Game.Controller
                 {
                     acomplishedAchievements.Add(achievements[Values.Achievements.PriestSlayer]);
                 }
-                // else if(enemyDeath.Enemy is AnnaController)
-                // {
-                //     acomplishedAchievements.Add(achievements[Values.Achievements.KnightSlayer]);
-                // }
+                else if(enemyDeath.Enemy is Anna)
+                {
+                    acomplishedAchievements.Add(achievements[Values.Achievements.TangledChains]);
+                }
                 else if (enemyDeath.Enemy is ZekgorController)
                 {
                     acomplishedAchievements.Add(achievements[Values.Achievements.DemonSlayer]);
                 }
 
-                // else if(enemyDeath.Enemy is DeathController)
-                // {
-                //     acomplishedAchievements.Add(achievements[Values.Achievements.KnightSlayer]);
-                // }
+                else if(enemyDeath.Enemy is Death)
+                {
+                    acomplishedAchievements.Add(achievements[Values.Achievements.DeathByDeath]);
+                }
             }
             else
             {
