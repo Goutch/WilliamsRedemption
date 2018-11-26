@@ -8,7 +8,6 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private float shieldCost;
         [SerializeField] private GameObject projectile;
         [SerializeField] private GameObject projectileSpawnPoint;
-        [SerializeField] private float delayAfterCapacityUsed;
 
         private ShieldManager shieldManager;
 
@@ -26,12 +25,6 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             shieldManager.UseShield(shieldCost);
 
-            StartCoroutine(WaitBeforeFinish());
-        }
-
-        private IEnumerator WaitBeforeFinish()
-        {
-            yield return new WaitForSeconds(delayAfterCapacityUsed);
             Finish();
         }
 
