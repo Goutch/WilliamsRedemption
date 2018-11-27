@@ -27,7 +27,7 @@ namespace Game.Entity.Enemies.Boss
 
         protected virtual void TransiteToNextStateIfReady()
         {
-            if (subStates.Length != 0 && subStates[currentIndex].CanEnter())
+            if (subStates.Length != 0 && subStates[currentIndex].CanEnter() && CanSwitchState())
             {
                 if (IsIdling)
                     ExitIdle();
@@ -37,6 +37,11 @@ namespace Game.Entity.Enemies.Boss
                 currentState.OnStateFinish += CurrentState_OnStateFinish;
                 currentState.Enter();
             }
+        }
+
+        protected virtual bool CanSwitchState()
+        {
+            return true;
         }
 
         protected virtual void Idle()
