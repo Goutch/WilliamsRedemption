@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39658e9268a5a4d41b52fe51093fda18, type: 3}
   m_Name: DirtBackground
   m_EditorClassIdentifier: 
-  spriteSheet: {fileID: 2800000, guid: 0c6510f3341792346a46f59f5b7be414, type: 3}
+  spriteSheetPath: SmartTiles/dirtBackground
