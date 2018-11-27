@@ -3,12 +3,12 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Goutch2D.Tiles
+namespace Tiles
 {
     [CreateAssetMenu(fileName = "NewSmartTile", menuName = "Tiles/SmartTile")]
     public class SmartTile : TileBase
     {
-        [SerializeField] private Texture2D spriteSheet;
+        [SerializeField] private string spriteSheetPath="SmartTiles/";
 
         private Sprite[] sprites;
         //Sprite indexes
@@ -287,8 +287,7 @@ namespace Goutch2D.Tiles
 
         private void GetSpritesFromTexture()
         {
-            string spriteSheetPath = AssetDatabase.GetAssetPath(this.spriteSheet);
-            sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetPath)
+            sprites = Resources.LoadAll<Sprite>(spriteSheetPath)
                 .OfType<Sprite>().ToArray();
         }
     }
