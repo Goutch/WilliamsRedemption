@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Goutch2D.Tiles
+namespace Tiles
 {
     [CreateAssetMenu(fileName = "NewSmartTile", menuName = "Tiles/SmartTile")]
     public class SmartTile : TileBase
