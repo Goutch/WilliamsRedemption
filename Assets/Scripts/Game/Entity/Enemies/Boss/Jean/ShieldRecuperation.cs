@@ -15,11 +15,14 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private float delayBeforeBeingActive;
 
         private ShieldManager shieldManager;
+        private Animator animator;
+
         private bool isFinishing = false;
 
         private void Awake()
         {
             shieldManager = GetComponent<ShieldManager>();
+            animator = GetComponent<Animator>();
         }
 
         public override void Act()
@@ -31,6 +34,8 @@ namespace Game.Entity.Enemies.Boss.Jean
         {
             base.Enter();
             isFinishing = false;
+
+            animator.SetTrigger(Values.AnimationParameters.Jean.Idle);
         }
 
         public override void Finish()

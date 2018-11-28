@@ -10,9 +10,11 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private GameObject projectileSpawnPoint;
 
         private ShieldManager shieldManager;
+        private Animator animator;
 
         protected override void Init()
         {
+            animator = GetComponent<Animator>();
         }
 
         public override void Enter()
@@ -20,6 +22,8 @@ namespace Game.Entity.Enemies.Boss.Jean
             base.Enter();
 
             shieldManager = GetComponent<ShieldManager>();
+
+            animator.SetTrigger(Values.AnimationParameters.Jean.BothHandShoot);
 
             Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
 
