@@ -10,11 +10,22 @@ namespace Game.Puzzle
         [Tooltip("Check this box if you want the door to start opened.")] [SerializeField]
         private bool isOpen;
 
+        [Tooltip("Displayed when door is unlocked.")]
+        [SerializeField]private Sprite UnlockedSprite;
+        
+        [Tooltip("Displayed when door is locked.")]
+        [SerializeField]private Sprite LockedSprite;
+
         private void Awake()
         {
             if (isOpen)
             {
                 Open();
+            }
+
+            if (isLocked)
+            {
+                GetComponent<SpriteRenderer>().sprite = LockedSprite;
             }
         }
 
@@ -40,6 +51,7 @@ namespace Game.Puzzle
         public void Unlock()
         {
             isLocked = false;
+            GetComponent<SpriteRenderer>().sprite = UnlockedSprite;
         }
 
         public bool IsOpened() => isOpen;
