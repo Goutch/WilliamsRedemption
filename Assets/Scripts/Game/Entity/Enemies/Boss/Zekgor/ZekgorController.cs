@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Zekgor
-{
+{   
     public class ZekgorController : BossController
     {
+        [Header("Sound")] [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
         protected override bool OnHit(HitStimulus other)
         {
             if (other.Type == HitStimulus.DamageType.Darkness && !IsInvulnerable)
@@ -20,6 +23,21 @@ namespace Game.Entity.Enemies.Boss.Zekgor
             }
 
             return false;
+        }
+        
+        private void OnEnable()
+        {
+            health.OnHealthChange += CallWoundedSound;
+        }
+
+        private void OnDisable()
+        {
+            health.OnHealthChange -= CallWoundedSound;
+        }
+
+        private void CallWoundedSound(GameObject receiver, GameObject attacker)
+        {
+            SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
         }
     }
 }
