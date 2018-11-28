@@ -21,7 +21,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         [SerializeField] private Tile tileToSpawn;
         [SerializeField] private float jumpDuration;
-        [SerializeField] private float landingDelay;
         [SerializeField] private GameObject landingEffect;
         [SerializeField] private Transform landingEffectSpawnPoint;
 
@@ -60,7 +59,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             if (rb.velocity.y == 0)
             {
-                StartCoroutine(landing());
+                Land();
             }
         }
 
@@ -93,10 +92,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
             rootMover.Speed = speed;
         }
 
-        private IEnumerator landing()
+        private void Land()
         {
             SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
-            yield return new WaitForSeconds(landingDelay);
             Finish();
             Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
         }

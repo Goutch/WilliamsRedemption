@@ -239,7 +239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1496525009655606
 GameObject:
   m_ObjectHideFlags: 1
@@ -1035,7 +1035,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.026439667, y: -0.065185726}
+  m_Offset: {x: -0.026439667, y: -0.047172964}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1046,7 +1046,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3548355, y: 0.86962855}
+  m_Size: {x: 0.3548355, y: 0.833603}
   m_EdgeRadius: 0
 --- !u!95 &95395829336313276
 Animator:
@@ -1140,7 +1140,7 @@ MonoBehaviour:
   animator: {fileID: 95395829336313276}
   cooldown: 5
   capacityUsableAtStart: 1
-  yOffSetTileToSpawn: 2
+  yOffSetTileToSpawn: 4
   tileToSpawn: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
   jumpDuration: 1.2
   landingDelay: 0

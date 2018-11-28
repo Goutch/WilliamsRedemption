@@ -5,13 +5,15 @@ namespace Game.Entity.Enemies.Boss.Edgar
     [RequireComponent(typeof(Health), typeof(RootMover))]
     class Phase1 : NonSequentialPhase
     {
-        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")] [SerializeField]
-        private Animator animator;
-
+        [Tooltip("Use Trigger '" + Values.AnimationParameters.Edgar.IdlePhase1 + "' ")]
+        [SerializeField] private Animator animator;
         [SerializeField] private float percentageHealthTransitionCondition;
+        [SerializeField] private float globalCooldown;
 
         private Health health;
         private RootMover mover;
+
+        private float lastTimeCapacityUsed;
 
         protected override void Init()
         {
@@ -30,6 +32,11 @@ namespace Game.Entity.Enemies.Boss.Edgar
             }
         }
 
+        protected override bool CanSwitchState()
+        {
+            return base.CanSwitchState() && Time.time - lastTimeCapacityUsed > globalCooldown;
+        }
+
         public override bool CanEnter()
         {
             return true;
@@ -46,6 +53,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
         protected override void Idle()
         {
             base.Idle();
+        }
+
+        protected override void CurrentState_OnStateFinish(State state)
+        {
+            base.CurrentState_OnStateFinish(state);
+            lastTimeCapacityUsed = Time.time;
         }
     }
 }

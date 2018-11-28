@@ -16,7 +16,7 @@ namespace Game.Entity.Enemies.Boss
         {
             UsePassiveCapacity();
 
-            if (currentState == null)
+            if (currentState == null && CanSwitchState())
                 TransiteToNextStateIfReady();
 
             if (currentState != null)
@@ -27,7 +27,7 @@ namespace Game.Entity.Enemies.Boss
 
         protected virtual void TransiteToNextStateIfReady()
         {
-            if (subStates.Length != 0 && subStates[currentIndex].CanEnter() && CanSwitchState())
+            if (subStates.Length != 0 && subStates[currentIndex].CanEnter())
             {
                 if (IsIdling)
                     ExitIdle();
