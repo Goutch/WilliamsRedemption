@@ -347,6 +347,9 @@ MonoBehaviour:
   duration: 2
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0.5
   attackCollider: {fileID: 61571351620049780}
+  exhaustedSound: {fileID: 8300000, guid: 6a8e81ddc622a3b4fb2e5c536a3e2499, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114367434440583304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,6 +455,9 @@ MonoBehaviour:
   scoreValue: 0
   phases:
   - {fileID: 114109206625813964}
+  woundedSound: {fileID: 8300000, guid: 44d980eea1bba1a439e53ddd8432807f, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114766713406565336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,6 +484,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   landingEffect: {fileID: 0}
   landingEffectSpawnPoint: {fileID: 0}
+  landingSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114878588810971664
 MonoBehaviour:
   m_ObjectHideFlags: 1

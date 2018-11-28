@@ -756,6 +756,9 @@ MonoBehaviour:
   phases:
   - {fileID: 114316374265905198}
   - {fileID: 114970165815894016}
+  woundedSound: {fileID: 8300000, guid: 73e739a8dea1ab04285d38f0bb8858db, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114175444526573284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -866,6 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfEnemySpawnAllowed: 1
+  resetWhenAllEnemyDied: 1
 --- !u!114 &114675376059317226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -953,6 +957,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0.5
+  attackSound: {fileID: 8300000, guid: 74a4a52e4a6aba24dac0c8cf9aadddd2, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114970165815894016
 MonoBehaviour:
   m_ObjectHideFlags: 1
