@@ -12,11 +12,14 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private float probabilitySpawn1;
 
         private ShieldManager shieldManager;
+        private Animator animator;
 
         private float lastTimeUsed;
+        private bool isLeftHandShootTurn = true;
 
         protected override void Init()
         {
+            animator = GetComponent<Animator>();
         }
 
         public override void Act()
@@ -28,6 +31,13 @@ namespace Game.Entity.Enemies.Boss.Jean
             base.Enter();
 
             shieldManager = GetComponent<ShieldManager>();
+
+            if(isLeftHandShootTurn)
+                animator.SetTrigger(Values.AnimationParameters.Jean.LeftShoot);
+            else
+                animator.SetTrigger(Values.AnimationParameters.Jean.RightShoot);
+
+            isLeftHandShootTurn = !isLeftHandShootTurn;
 
             int random = Random.Range(0, 100);
             Vector2 spawnPosition = random < probabilitySpawn1
