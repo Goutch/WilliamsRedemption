@@ -60,9 +60,9 @@ namespace Game.Entity.Enemies.Boss.Jacob
             }
         }
 
-        private void CallWoundedSound(GameObject gameObject, GameObject gameObject2)
+        private void CallWoundedSound(GameObject receiver, GameObject attacker)
         {
-            SoundCaller.CallSound(woundedSound, soundToPlayPrefab, this.gameObject, false);
+            SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, false);
         }
     }
 }
