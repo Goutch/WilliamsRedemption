@@ -37,14 +37,14 @@ namespace Game.Entity.Enemies
                 Vector2 dir = player.transform.position - transform.position;
                 hit2D = Physics2D.Raycast(transform.position, dir, sightRange, layerVisibleByTheUnit);
 
-                if (hit2D.collider != null && hit2D.collider.transform.root.CompareTag(Values.Tags.Player))
-                {
+                //if (hit2D.collider != null && hit2D.collider.transform.root.CompareTag(Values.Tags.Player))
+                //{
                     if (Time.time - timeSinceLastAttack > attackCooldown)
                     {
                         ShootProjectile(PlayerDirection());
                         timeSinceLastAttack = Time.time;
                     }
-                }
+                //}
             }
 
             else if (knocked && rigidbody.velocity.y == 0)
