@@ -194,6 +194,7 @@ MonoBehaviour:
   scoreValue: 10
   damageKnockBackForce: 1
   disapearTimeLimitBeforeDespawn: 3
+  lifeDuration: 12
 --- !u!114 &114653092132304700
 MonoBehaviour:
   m_ObjectHideFlags: 1

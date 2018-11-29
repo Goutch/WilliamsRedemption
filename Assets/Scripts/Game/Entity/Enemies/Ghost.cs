@@ -10,6 +10,7 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private float damageKnockBackForce = 1;
         [SerializeField] private float disapearTimeLimitBeforeDespawn = 3;
+        [SerializeField] private float lifeDuration;
 
         private GameObject attack;
         private LightSensor playerLightSensor;
@@ -18,6 +19,7 @@ namespace Game.Entity.Enemies
         private Rigidbody2D rigidBody;
 
         private bool isEnable = true;
+        private float birth;
 
         private new void Awake()
         {
@@ -32,6 +34,14 @@ namespace Game.Entity.Enemies
             {
                 Disable();
             }
+
+            birth = Time.time;
+        }
+
+        private void Update()
+        {
+            if (Time.time - birth > lifeDuration)
+                health.Kill(gameObject);
         }
 
         protected override bool OnHit(HitStimulus hitStimulus)

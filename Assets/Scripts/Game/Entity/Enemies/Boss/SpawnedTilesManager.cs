@@ -16,6 +16,8 @@ namespace Game.Entity.Enemies.Boss
         private Tilemap platforms;
         private Health health;
 
+        private GameObject player;
+
         private void Awake()
         {
             lightController = GameObject.FindGameObjectWithTag(Values.Tags.LightManager)
@@ -27,6 +29,11 @@ namespace Game.Entity.Enemies.Boss
                 health.OnDeath += Health_OnDeath;
 
             spawnedTilesPosition = new List<Vector3Int>();
+        }
+
+        private void Start()
+        {
+            player = GameObject.FindGameObjectWithTag(Values.Tags.Player);
         }
 
         private void Health_OnDeath(GameObject receiver, GameObject attacker)
@@ -56,7 +63,7 @@ namespace Game.Entity.Enemies.Boss
                 }
             }
 
-            lightController.UpdateLightAtEndOfFrame();
+            lightController.UpdateLightAtEndOfFrame(player.transform.position);
 
             spawnedTilesPosition.AddRange(platformPositions);
 
@@ -83,7 +90,7 @@ namespace Game.Entity.Enemies.Boss
                 platforms.SetTile(cellPos, null);
             }
 
-            lightController.UpdateLightAtEndOfFrame();
+            lightController.UpdateLightAtEndOfFrame(player.transform.position);
 
             foreach (Vector3Int position in cellToDestroy)
                 spawnedTilesPosition.Remove(position);

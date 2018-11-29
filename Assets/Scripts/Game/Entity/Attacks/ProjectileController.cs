@@ -9,7 +9,7 @@ namespace Game.Entity.Enemies.Attack
     public class ProjectileController : MonoBehaviour
     {
         [SerializeField] private float speed;
-        [SerializeField] private float delayBeforeDestruction;
+        [SerializeField] public float delayBeforeDestruction;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
 
         [Header("Sound")] [SerializeField] private AudioClip projectileSound;
@@ -17,6 +17,7 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
 
         protected HitStimulus hitStimulus;
+        protected float birth;
 
         public float Speed
         {
@@ -42,7 +43,13 @@ namespace Game.Entity.Enemies.Attack
             hitStimulus = GetComponent<HitStimulus>();
             hitStimulus.OnHitStimulusSensed += HitStimulus_OnHitStimulusSensed;
 
-            Destroy(gameObject, delayBeforeDestruction);
+            birth = Time.time;
+        }
+
+        private void Update()
+        {
+            if (Time.time - birth > delayBeforeDestruction)
+                Destroy(gameObject);
         }
 
         private void HitStimulus_OnHitStimulusSensed(HitSensor hitSensor)
