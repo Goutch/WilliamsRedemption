@@ -245,8 +245,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subStates:
-  - {fileID: 114386250798373468}
   - {fileID: 114915048040240046}
+  - {fileID: 114386250798373468}
+  - {fileID: 114253204107131226}
   passiveCapacities:
   - {fileID: 114253204107131226}
   animator: {fileID: 95185587434919710}

@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f0dd62a5d6db5488f4bfe642b6a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 1495303630612842, guid: e792e992ee9b40d4aa85c2645ff4a298, type: 2}
+  boss: {fileID: 0}
   doorToCloseOnBossFightBegin: {fileID: 0}
   doorToOpenOnBossDeath: {fileID: 0}
   bossMusic: {fileID: 8300000, guid: 008656a5796cfd5418c8b989c7ba57ba, type: 3}
