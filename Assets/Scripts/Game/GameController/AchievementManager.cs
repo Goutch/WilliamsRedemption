@@ -147,8 +147,8 @@ namespace Game.Controller
                 bonusScoreValue += achievement.ScoreValue;
             }
 
-            achievementUi.DisplayAchievements(achievementListText);
             gameController.AddBonusScore(bonusScoreValue);
+            achievementUi.DisplayAchievements(achievementListText);
         }
 
         private void OnEnemyDie(OnEnemyDeath enemyDeath)
@@ -167,7 +167,7 @@ namespace Game.Controller
                 {
                     acomplishedAchievements.Add(achievements[Values.Achievements.PriestSlayer]);
                 }
-                else if(enemyDeath.Enemy is Anna)
+                else if (enemyDeath.Enemy is Anna)
                 {
                     acomplishedAchievements.Add(achievements[Values.Achievements.TangledChains]);
                 }
@@ -176,7 +176,7 @@ namespace Game.Controller
                     acomplishedAchievements.Add(achievements[Values.Achievements.DemonSlayer]);
                 }
 
-                else if(enemyDeath.Enemy is Death)
+                else if (enemyDeath.Enemy is Death)
                 {
                     acomplishedAchievements.Add(achievements[Values.Achievements.DeathByDeath]);
                 }
