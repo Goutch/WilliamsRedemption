@@ -123,17 +123,18 @@ namespace Game.Puzzle
         {
             foreach (var triggerable in triggerables)
             {
-                if (triggerable.GetComponent<ITriggerable>().IsOpened())
+                ITriggerable linkedTriggerable = triggerable.GetComponent<ITriggerable>();
+                if (linkedTriggerable.IsOpened()&&!linkedTriggerable.StateIsPermanentlyLocked())
                 {
-                    triggerable.GetComponent<ITriggerable>()?.Unlock();
-                    triggerable.GetComponent<ITriggerable>()?.Close();
+                    linkedTriggerable?.Unlock();
+                    linkedTriggerable?.Close();
                     spriteRenderer.sprite = unToggledSprite;
                     timerHasStarted = false;
                 }
-                else if (!triggerable.GetComponent<ITriggerable>().IsOpened())
+                else if (!linkedTriggerable.IsOpened()&& !linkedTriggerable.StateIsPermanentlyLocked())
                 {
-                    triggerable.GetComponent<ITriggerable>()?.Unlock();
-                    triggerable.GetComponent<ITriggerable>()?.Open();
+                    linkedTriggerable?.Unlock();
+                    linkedTriggerable?.Open();
                     spriteRenderer.sprite = toggledSprite;
                     timerHasStarted = false;
                 }

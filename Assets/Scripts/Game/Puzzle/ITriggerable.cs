@@ -8,6 +8,8 @@
         void Lock();
         bool IsLocked();
         bool IsOpened();
+        bool StateIsPermanentlyLocked();
+        void PermanentlyLock();
     }
 }
 
