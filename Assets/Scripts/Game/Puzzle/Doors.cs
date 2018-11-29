@@ -16,6 +16,8 @@ namespace Game.Puzzle
         [Tooltip("Displayed when door is locked.")]
         [SerializeField]private Sprite LockedSprite;
 
+        private bool permanentlyLocked;
+
         private void Awake()
         {
             if (isOpen)
@@ -27,6 +29,8 @@ namespace Game.Puzzle
             {
                 GetComponent<SpriteRenderer>().sprite = LockedSprite;
             }
+
+            permanentlyLocked = false;
         }
 
         public void Open()
@@ -54,8 +58,19 @@ namespace Game.Puzzle
             GetComponent<SpriteRenderer>().sprite = UnlockedSprite;
         }
 
+        public void PermanentlyLock()
+        {
+            isLocked = true;
+            permanentlyLocked = true;
+        }
+
         public bool IsOpened() => isOpen;
 
         public bool IsLocked() => isLocked;
+
+        public bool StateIsPermanentlyLocked() => permanentlyLocked;
+
+
+
     }
 }
