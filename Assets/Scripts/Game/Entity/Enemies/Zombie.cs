@@ -8,6 +8,7 @@ namespace Game.Entity.Enemies
     public class Zombie : WalkTowardPlayerEnnemy
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
+        [SerializeField] private Vector2 DarknessKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
 
         [Header("Sound")] [SerializeField] private AudioClip zombieSound;
@@ -66,10 +67,15 @@ namespace Game.Entity.Enemies
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
+            
             if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
                 base.OnHit(hitStimulus);
+                int direction = (transform.rotation.y == -1 ? -1 : 1);
 
+                rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction*2, bulletKnockBackForce.y),
+                    ForceMode2D.Impulse);
+                knocked = true;
                 return true;
             }
             else if (hitStimulus.Type == HitStimulus.DamageType.Physical)
@@ -79,7 +85,6 @@ namespace Game.Entity.Enemies
                 rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction, bulletKnockBackForce.y),
                     ForceMode2D.Impulse);
                 knocked = true;
-
                 return true;
             }
 

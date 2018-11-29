@@ -1,4 +1,6 @@
-﻿using Game.Controller;
+﻿using System.Collections;
+using System.Runtime.Remoting.Messaging;
+using Game.Controller;
 using Game.Controller.Events;
 using Game.Entity.Enemies.Attack;
 using Game.Entity.Player;
@@ -41,6 +43,7 @@ namespace Game.Entity.Enemies
             if (hitStimulus.Type != HitStimulus.DamageType.Enemy)
             {
                 health.Hit(hitStimulus.gameObject);
+                StartCoroutine(OnDamageTakenRoutine());
                 return true;
             }
 
@@ -63,6 +66,13 @@ namespace Game.Entity.Enemies
             }
 
             Destroy(this.gameObject);
+        }
+
+        IEnumerator OnDamageTakenRoutine()
+        {
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(.3f);
+            spriteRenderer.color = Color.white;
         }
     }
 }

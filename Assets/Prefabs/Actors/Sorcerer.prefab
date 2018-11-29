@@ -168,6 +168,8 @@ MonoBehaviour:
   scoreValue: 15
   isDumbEnoughToFall: 0
   surroundingRange: 2
+  bulletKnockBackForce: {x: 1, y: 1}
+  DarknessKnockBackForce: {x: 2, y: 1}
   projectilePrefab: {fileID: 1689002622773110, guid: 9f9b92c56ac471a4e98c7bb616735709,
     type: 2}
   spawnProjectilePoint: {fileID: 1408236923699132}
@@ -187,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
 --- !u!114 &114866177961309394
 MonoBehaviour:
   m_ObjectHideFlags: 1
