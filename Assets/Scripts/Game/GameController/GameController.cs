@@ -63,7 +63,7 @@ namespace Game.Controller
         public bool IsGamePaused => isGamePaused;
         public bool IsGameWinned => isGameWinned;
 
-        public int TotalTime => totalTime;
+        public int TotalTime => totalTime+(int)time;
 
         private int totalTime = 0;
 
