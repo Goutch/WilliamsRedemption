@@ -20,7 +20,9 @@ namespace Game.Puzzle.Light
         [SerializeField] protected LayerMask detectionLayers;
 
         private bool isLocked;
+        private bool permanentlyLocked;
         private MeshRenderer renderer;
+        
 
         public bool UpdateEveryFrame
         {
@@ -54,6 +56,7 @@ namespace Game.Puzzle.Light
             vertices = new List<Vector3>();
             triangles = new List<int>();
             mesh = new Mesh();
+            permanentlyLocked = false;
         }
 
         protected void Start()
@@ -219,6 +222,14 @@ namespace Game.Puzzle.Light
         public bool IsLocked()
         {
             return isLocked;
+        }
+        
+        public bool StateIsPermanentlyLocked() => permanentlyLocked;
+        
+        public void PermanentlyLock()
+        {
+            isLocked = true;
+            permanentlyLocked = true;
         }
     }
 }

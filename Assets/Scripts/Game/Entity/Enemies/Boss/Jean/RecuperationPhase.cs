@@ -11,10 +11,12 @@ namespace Game.Entity.Enemies.Boss.Jean
     {
         [SerializeField] private float inactiveTimeBeforeUseCapacity;
 
+        private Animator animator;
+
         private float lastTimeUsed;
         protected override void Init()
         {
-            
+            animator = GetComponent<Animator>();
         }
 
         public override void Act()
@@ -23,9 +25,17 @@ namespace Game.Entity.Enemies.Boss.Jean
                 base.Act();
         }
 
+        protected override void EnterIdle()
+        {
+            base.EnterIdle();
+            animator.SetTrigger(Values.AnimationParameters.Jean.Idle);
+        }
+
         public override void Enter()
         {
             base.Enter();
+
+            animator.SetTrigger(Values.AnimationParameters.Jean.Idle);
             lastTimeUsed = Time.time;
         }
     }

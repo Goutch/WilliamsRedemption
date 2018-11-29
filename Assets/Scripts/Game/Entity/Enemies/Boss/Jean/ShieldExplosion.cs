@@ -8,7 +8,9 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private GameObject shieldExplosion;
         [SerializeField] private float delayBetweenExplosion;
         [SerializeField] private int numberOfExplosion;
+
         private ShieldManager shieldManager;
+        private Animator animator;
 
         private int numberOfExplosionSpawned = 0;
         private int numberOfExplosionAlive = 0;
@@ -16,6 +18,7 @@ namespace Game.Entity.Enemies.Boss.Jean
         protected override void Init()
         {
             shieldManager = GetComponent<ShieldManager>();
+            animator = GetComponent<Animator>();
         }
 
         public override void Finish()
@@ -43,6 +46,8 @@ namespace Game.Entity.Enemies.Boss.Jean
             numberOfExplosionSpawned = 0;
 
             shieldManager.IsShieldActive = false;
+
+            animator.SetTrigger(Values.AnimationParameters.Jean.ShieldExplosion);
 
             StartCoroutine(SpawnShieldExplosions());
         }

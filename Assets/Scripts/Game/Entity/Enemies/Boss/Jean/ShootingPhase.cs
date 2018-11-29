@@ -6,7 +6,9 @@ namespace Game.Entity.Enemies.Boss.Jean
     class ShootingPhase : SequentialPhase
     {
         [SerializeField] private float cooldownBetweenAttacks;
+
         private ShieldManager shieldManager;
+        private Animator animator;
         private RootMover mover;
 
         private float lastAttack;
@@ -20,6 +22,7 @@ namespace Game.Entity.Enemies.Boss.Jean
         {
             mover = GetComponent<RootMover>();
             shieldManager = GetComponent<ShieldManager>();
+            animator = GetComponent<Animator>();
         }
 
         protected override bool CanSwitchState()
@@ -47,6 +50,12 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             if (shieldManager.ShieldPercent == 0)
                 Finish();
+        }
+
+        protected override void EnterIdle()
+        {
+            base.EnterIdle();
+            animator.SetTrigger(Values.AnimationParameters.Jean.Idle);
         }
     }
 }
