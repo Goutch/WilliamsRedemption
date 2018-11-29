@@ -8,6 +8,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
     public class ZekgorController : BossController
     {
         [Header("Sound")] [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private AudioClip walkSound;
         [SerializeField] private GameObject soundToPlayPrefab;
         
         protected override bool OnHit(HitStimulus other)
@@ -38,6 +39,11 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         private void CallWoundedSound(GameObject receiver, GameObject attacker)
         {
             SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
+        }
+
+        public void SoundDuringWalk()
+        {
+            SoundCaller.CallSound(walkSound, soundToPlayPrefab, gameObject, true);
         }
     }
 }
