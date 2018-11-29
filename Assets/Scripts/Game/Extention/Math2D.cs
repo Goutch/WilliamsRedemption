@@ -24,5 +24,15 @@ namespace Math
             float radian = degree * Mathf.Deg2Rad;
             return RadianToVector(radian);
         }
+
+        public static float DegreeToRadian(float degree)
+        {
+            return degree * Mathf.Deg2Rad;
+        }
+
+        public static float RadianToDegree(float radian)
+        {
+            return radian * Mathf.Rad2Deg;
+        }
     }
 }
