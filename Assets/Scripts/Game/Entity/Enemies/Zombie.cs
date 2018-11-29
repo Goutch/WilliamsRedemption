@@ -73,7 +73,7 @@ namespace Game.Entity.Enemies
                 base.OnHit(hitStimulus);
                 int direction = (transform.rotation.y == -1 ? -1 : 1);
 
-                rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction*2, bulletKnockBackForce.y),
+                rigidbody.AddForce(new Vector2(DarknessKnockBackForce.x * -direction, DarknessKnockBackForce.y),
                     ForceMode2D.Impulse);
                 knocked = true;
                 return true;

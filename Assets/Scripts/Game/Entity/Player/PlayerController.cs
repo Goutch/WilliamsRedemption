@@ -137,7 +137,7 @@ namespace Game.Entity.Player
 
         private bool HandleCollision(HitStimulus other)
         {
-            if (other.Type == HitStimulus.DamageType.Enemy)
+            if (!IsInvincible&&other.Type == HitStimulus.DamageType.Enemy)
             {
                 DamagePlayer(other.gameObject);
                 return true;
