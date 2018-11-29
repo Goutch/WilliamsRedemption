@@ -10,6 +10,9 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private GameObject projectileSpawnPoint1;
         [SerializeField] private GameObject projectileSpawnPoint2;
         [SerializeField] private float probabilitySpawn1;
+        
+        [Header("Sound")] [SerializeField] private AudioClip shootLaserSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private ShieldManager shieldManager;
         private Animator animator;
@@ -44,6 +47,8 @@ namespace Game.Entity.Enemies.Boss.Jean
                 ? projectileSpawnPoint1.transform.position
                 : projectileSpawnPoint2.transform.position;
             Instantiate(projectile, spawnPosition, transform.rotation);
+            
+            SoundCaller.CallSound(shootLaserSound, soundToPlayPrefab, gameObject, false);
 
             shieldManager.UseShield(shieldCost);
 
