@@ -24,12 +24,14 @@ namespace Game.Entity.Player
         [SerializeField] private GameObject soundToPlayPrefab;
 
         private bool capacityCanBeUsed;
+        private bool finishTpEffect;
         private float timerStartTime;
         private BoxCollider2D bc;
         private Vector2 tpOffset;
         private Vector2 tpPosition;
         private bool mustTeleport;
         private Rigidbody2D rb;
+        
 
         private void Start()
         {
@@ -39,11 +41,13 @@ namespace Game.Entity.Player
             tpOffset = bc.size;
             mustTeleport = false;
             rb = GetComponentInParent<Rigidbody2D>();
+            finishTpEffect = false;
         }
 
         private void OnDisable()
         {
             mustTeleport = false;
+            finishTpEffect = false;
         }
 
         public override void UseCapacity(PlayerController player)
@@ -97,8 +101,7 @@ namespace Game.Entity.Player
 
             mustTeleport = true;
             capacityCanBeUsed = false;
-            timerStartTime = Time.time;
-            Destroy(Instantiate(tpEffect2, root.position, Quaternion.identity), 5);
+            timerStartTime = Time.time;            
             OnAttackFinish();
         }
 
@@ -106,10 +109,20 @@ namespace Game.Entity.Player
         {
             if (mustTeleport)
             {
-                Vector2 test = transform.position;
                 rb.MovePosition(tpPosition);
                 mustTeleport = false;
+                finishTpEffect = true;
             }
+        }
+
+        private void Update()
+        {
+            if (finishTpEffect)
+            {
+                Destroy(Instantiate(tpEffect2, rb.position, Quaternion.identity), 5);
+                finishTpEffect = false;
+            }
+            
         }
 
         public override bool CapacityUsable(PlayerController player)

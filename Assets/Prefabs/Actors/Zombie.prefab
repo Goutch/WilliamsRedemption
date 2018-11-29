@@ -186,7 +186,7 @@ MonoBehaviour:
     m_Bits: 2560
   sightRange: 3
   bulletKnockBackForce: {x: 1, y: 1}
-  DarknessKnockBackForce: {x: 2, y: 1}
+  DarknessKnockBackForce: {x: 3, y: 1}
   playerKnockBackForce: {x: 1, y: 1.5}
   zombieSound: {fileID: 8300000, guid: 4ce2afae967de5c4b8b8f981ac0439d1, type: 3}
   timerBetweenZombieMoans: 2
