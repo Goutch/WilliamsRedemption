@@ -21,11 +21,19 @@ namespace Game.Puzzle
         private bool lockLinkedObjects;
 
         [Header("Sound")] [SerializeField] private AudioClip switchesSound;
+        [SerializeField] private AudioClip timerSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        private AudioManagerBackgroundSound audioManagerForTimer;
         
         private float timerStartTime;
         private bool timerHasStarted;
         private SpriteRenderer spriteRenderer;
+
+        private void Awake()
+        {
+            audioManagerForTimer = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera)
+                .GetComponent<AudioManagerBackgroundSound>();
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -45,6 +53,9 @@ namespace Game.Puzzle
                             triggerable.GetComponent<ITriggerable>()?.Lock();
                             timerStartTime = Time.time;
                             timerHasStarted = true;
+                            
+                            audioManagerForTimer?.Init(timerSound);
+                            audioManagerForTimer?.PlaySound();
                         }
 
                         if (lockLinkedObjects)
@@ -62,6 +73,9 @@ namespace Game.Puzzle
                             triggerable.GetComponent<ITriggerable>()?.Lock();
                             timerStartTime = Time.time;
                             timerHasStarted = true;
+                            
+                            audioManagerForTimer?.Init(timerSound);
+                            audioManagerForTimer?.PlaySound();
                         }
 
                         if (lockLinkedObjects)
@@ -105,6 +119,7 @@ namespace Game.Puzzle
                 if (TimeIsUp())
                 {
                     ChangeSate();
+                    audioManagerForTimer?.StopSound();
                 }
             }
         }
