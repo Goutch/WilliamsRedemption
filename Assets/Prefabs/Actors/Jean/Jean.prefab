@@ -318,6 +318,10 @@ MonoBehaviour:
     type: 2}
   delayBetweenExplosion: 2
   numberOfExplosion: 1
+  shieldExplosionSound: {fileID: 8300000, guid: 6c10ce99731570140b28439405bed912,
+    type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114530282841922372
 MonoBehaviour:
   m_ObjectHideFlags: 1
