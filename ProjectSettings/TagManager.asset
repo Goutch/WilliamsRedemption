@@ -74,3 +74,6 @@ TagManager:
   - name: Edgar
     uniqueID: 4250622967
     locked: 0
+  - name: ForeGround
+    uniqueID: 1807051657
+    locked: 0
