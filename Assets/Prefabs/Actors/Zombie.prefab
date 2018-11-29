@@ -180,7 +180,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreValue: 10
   isDumbEnoughToFall: 1
-  surroundingRange: 1
+  surroundingRange: 2
+  layerVisibleByTheUnit:
+    serializedVersion: 2
+    m_Bits: 2560
+  sightRange: 3
   bulletKnockBackForce: {x: 1, y: 1}
   DarknessKnockBackForce: {x: 2, y: 1}
   playerKnockBackForce: {x: 1, y: 1.5}

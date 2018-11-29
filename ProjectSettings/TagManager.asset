@@ -19,6 +19,8 @@ TagManager:
   - MovingPlatform
   - Collectable
   - Obstacle
+  - PhysicObjectAI
+  - Wall
   layers:
   - Default
   - TransparentFX

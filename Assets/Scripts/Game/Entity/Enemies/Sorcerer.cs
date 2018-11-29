@@ -11,13 +11,15 @@ namespace Game.Entity.Enemies
         [SerializeField] private Vector2 DarknessKnockBackForce;
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private GameObject spawnProjectilePoint;
-        [SerializeField] private float sightRange;
+        [SerializeField] private float delayBeforeShootingAfterSeeingPlayer;
         [SerializeField] private float attackCooldown;
 
-        [SerializeField] private LayerMask layerVisibleByTheUnit;
-        private Rigidbody2D rigidbody;
+
+        private new Rigidbody2D rigidbody;
         private float timeSinceLastAttack;
         private bool knocked;
+
+        private float? lastTimePlayerSeeing = null;
 
         protected override void Init()
         {
@@ -26,25 +28,37 @@ namespace Game.Entity.Enemies
             rigidbody = GetComponent<Rigidbody2D>();
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            OnPlayerSightEnter += Sorcerer_OnPlayerSightEnter;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            OnPlayerSightEnter -= Sorcerer_OnPlayerSightEnter;
+        }
+
+        private void Sorcerer_OnPlayerSightEnter()
+        {
+            lastTimePlayerSeeing = Time.time;
+        }
+
         protected override void FixedUpdate()
         {
             if (!knocked)
             {
                 base.FixedUpdate();
 
-                RaycastHit2D hit2D = new RaycastHit2D();
-
-                Vector2 dir = player.transform.position - transform.position;
-                hit2D = Physics2D.Raycast(transform.position, dir, sightRange, layerVisibleByTheUnit);
-
-                //if (hit2D.collider != null && hit2D.collider.transform.root.CompareTag(Values.Tags.Player))
-                //{
-                    if (Time.time - timeSinceLastAttack > attackCooldown)
+                if (IsPlayerInSight())
+                {
+                    if ((Time.time - timeSinceLastAttack > attackCooldown ) && lastTimePlayerSeeing.HasValue && (Time.time - delayBeforeShootingAfterSeeingPlayer > lastTimePlayerSeeing.Value))
                     {
                         ShootProjectile(PlayerDirection());
                         timeSinceLastAttack = Time.time;
                     }
-                //}
+                }
             }
 
             else if (knocked && rigidbody.velocity.y == 0)

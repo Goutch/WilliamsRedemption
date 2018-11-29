@@ -93,7 +93,6 @@ namespace Game.Entity.Player
             {
                 Vector2 temp = Vector2.right * direction.x *
                                dashSpeed;
-                Debug.Log(temp);
                 time += Time.deltaTime;
                 player.kRigidBody.VelocityModifier =
                     temp; //set our rigidbody velocity to a custom velocity every frame.

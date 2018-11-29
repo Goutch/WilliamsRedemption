@@ -42,7 +42,7 @@ namespace Game.Entity.Enemies
 
         public void Walk()
         {
-            int direction = (transform.rotation.y == 1 ? -1 : 1);
+            int direction = (transform.rotation.y == 1 || transform.rotation.y == -1 ? -1 : 1);
 
             rootRigidBody.velocity = new Vector2(speed * direction, rootRigidBody.velocity.y);
             animator.SetBool(Values.AnimationParameters.Enemy.Walking, true);
