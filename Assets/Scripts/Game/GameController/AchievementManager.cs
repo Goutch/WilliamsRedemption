@@ -92,6 +92,11 @@ namespace Game.Controller
                 return;
             }
 
+            CheckIfPlayerIsLegendaryAndAddIt();
+        }
+
+        private void CheckIfPlayerIsLegendaryAndAddIt()
+        {
             if (gameController.CurrentLevel.Scene == Values.Scenes.Level1)
             {
                 if (Level1PlayerDamageCount == 0)
@@ -116,9 +121,9 @@ namespace Game.Controller
                 }
             }
         }
-
         private void OnGameEnd()
         {
+            CheckIfPlayerIsLegendaryAndAddIt();
             if (gameController.IsGameWinned && gameController.TotalTime <= supersonic)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.SuperSonic]);
