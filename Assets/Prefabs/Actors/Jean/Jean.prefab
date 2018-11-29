@@ -283,6 +283,9 @@ MonoBehaviour:
   scoreValue: 0
   phases:
   - {fileID: 114709575273337866}
+  woundedSound: {fileID: 8300000, guid: 18e776f2c13ec3e4fb5c05c302d3a7e1, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114337954919764314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,6 +303,9 @@ MonoBehaviour:
   projectileSpawnPoint1: {fileID: 1499245767565336}
   projectileSpawnPoint2: {fileID: 1022768048566138}
   probabilitySpawn1: 70
+  shootLaserSound: {fileID: 8300000, guid: 22d7bb93f53b5b74185088f659033f8a, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114395644961458362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,6 +321,10 @@ MonoBehaviour:
     type: 2}
   delayBetweenExplosion: 2
   numberOfExplosion: 1
+  shieldExplosionSound: {fileID: 8300000, guid: 6c10ce99731570140b28439405bed912,
+    type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114530282841922372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,6 +367,9 @@ MonoBehaviour:
   shieldCost: 0.2
   projectile: {fileID: 1213396422633402, guid: 6946085c8e4e9074e8584f35d96f1116, type: 2}
   projectileSpawnPoint: {fileID: 1499245767565336}
+  shootLaserSound: {fileID: 8300000, guid: 22d7bb93f53b5b74185088f659033f8a, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114647329472817938
 MonoBehaviour:
   m_ObjectHideFlags: 1

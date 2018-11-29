@@ -8,6 +8,9 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private float shieldCost;
         [SerializeField] private GameObject projectile;
         [SerializeField] private GameObject projectileSpawnPoint;
+        
+        [Header("Sound")] [SerializeField] private AudioClip shootLaserSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private ShieldManager shieldManager;
         private Animator animator;
@@ -26,6 +29,8 @@ namespace Game.Entity.Enemies.Boss.Jean
             animator.SetTrigger(Values.AnimationParameters.Jean.BothHandShoot);
 
             Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
+            
+            SoundCaller.CallSound(shootLaserSound, soundToPlayPrefab, gameObject, false);
 
             shieldManager.UseShield(shieldCost);
 

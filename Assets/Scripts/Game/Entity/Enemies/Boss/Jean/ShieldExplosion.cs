@@ -8,6 +8,9 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private GameObject shieldExplosion;
         [SerializeField] private float delayBetweenExplosion;
         [SerializeField] private int numberOfExplosion;
+        
+        [Header("Sound")] [SerializeField] private AudioClip shieldExplosionSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private ShieldManager shieldManager;
         private Animator animator;
@@ -49,6 +52,8 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             animator.SetTrigger(Values.AnimationParameters.Jean.ShieldExplosion);
 
+            SoundCaller.CallSound(shieldExplosionSound, soundToPlayPrefab, gameObject, false);
+            
             StartCoroutine(SpawnShieldExplosions());
         }
 
