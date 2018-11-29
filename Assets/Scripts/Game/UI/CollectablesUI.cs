@@ -13,6 +13,7 @@ namespace Game.UI
         {
             gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
                 .GetComponent<GameController>();
+            gameController.OnLevelChange += UpdateCollectableUI;
         }
 
         public void UpdateCollectableUI()
