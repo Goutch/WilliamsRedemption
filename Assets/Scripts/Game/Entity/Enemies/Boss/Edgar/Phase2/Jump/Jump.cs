@@ -62,9 +62,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1, 1 << LayerMask.NameToLayer(Values.Layers.Platform));
             Debug.DrawLine(transform.position, (Vector2)transform.position + Vector2.down* 1, Color.blue);
 
-            Debug.Log(hit.collider);
-            Debug.Log(rb.velocity.y);
-
             if (rb.velocity.y == 0)
                 collideWithWall = true;
 

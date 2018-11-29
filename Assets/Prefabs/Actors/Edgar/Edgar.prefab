@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 114254634824265624}
   - component: {fileID: 114830030037052890}
   - component: {fileID: 114342465840723626}
+  - component: {fileID: 114296090163949990}
   - component: {fileID: 114113245451544756}
   - component: {fileID: 114905592222218656}
   - component: {fileID: 114209020709614616}
@@ -1142,7 +1143,7 @@ MonoBehaviour:
   capacityUsableAtStart: 1
   yOffSetTileToSpawn: 4
   tileToSpawn: {fileID: 11400000, guid: 3a21b3379e234d143bc291523db0c967, type: 2}
-  jumpDuration: 1.2
+  jumpDuration: 1.5
   landingEffect: {fileID: 1190503164458826, guid: 1081a34ea78ed7349a55ffd31b1dd0f6,
     type: 2}
   landingEffectSpawnPoint: {fileID: 4342880729813236}
@@ -1218,6 +1219,30 @@ MonoBehaviour:
   verticalSwingSound: {fileID: 8300000, guid: d3167a9d8b930b943978a85426f763fe, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
+--- !u!114 &114296090163949990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495303630612842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c735fcb57ef5345a8a590221f71e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 9
+  duration: 2.2
+  landingEffect: {fileID: 1190503164458826, guid: 1081a34ea78ed7349a55ffd31b1dd0f6,
+    type: 2}
+  landingEffectSpawnPoint: {fileID: 4342880729813236}
+  landingAreaOfEffectDamage: {fileID: 1778719444928282, guid: d84bc7570684de040b32c3def115294b,
+    type: 2}
+  projectileSpawning: {fileID: 1240407763256522, guid: 6a85a6846f2824c4086d02c104cf135e,
+    type: 2}
+  areaEffectDuration: 0.3
+  landingSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114342465840723626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1245,11 +1270,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subStates:
+  - {fileID: 114296090163949990}
   - {fileID: 114254634824265624}
   - {fileID: 114249678001657846}
   passiveCapacities: []
   animator: {fileID: 95395829336313276}
-  percentageHealthTransitionCondition: 0.6
+  percentageHealthTransitionCondition: 0.65
   globalCooldown: 1
 --- !u!114 &114379991829354728
 MonoBehaviour:
