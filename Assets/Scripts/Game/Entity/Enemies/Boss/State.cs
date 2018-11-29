@@ -25,12 +25,12 @@ namespace Game.Entity.Enemies.Boss
 
         public virtual void Enter()
         {
-            //Debug.Log(this);
+            Debug.Log(this);
         }
 
         public virtual void Finish()
         {
-            //Debug.Log("Finish: " + this);
+            Debug.Log("Finish: " + this);
             OnStateFinish?.Invoke(this);
         }
     }

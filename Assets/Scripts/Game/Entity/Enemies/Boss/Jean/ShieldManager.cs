@@ -38,5 +38,10 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             shield.transform.localScale = (maxScale * ShieldPercent) + (minScale - minScale * ShieldPercent);
         }
+
+        public Collider2D ShieldCollider()
+        {
+            return shield.GetComponent<PolygonCollider2D>();
+        }
     }
 }
