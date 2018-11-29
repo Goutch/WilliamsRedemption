@@ -39,7 +39,7 @@ public class LeaderBoard : MonoBehaviour
     [UsedImplicitly]
     public void SendScoreToWebApi()
     {
-        InsertDataToDatabase(nameField.text, gameController.Score, gameController.TotalTime);
+        InsertDataToDatabase(nameField.text, gameController.TotalScore, gameController.TotalTime);
     }
 
     private void InsertDataToDatabase(string name, int score, float time)
