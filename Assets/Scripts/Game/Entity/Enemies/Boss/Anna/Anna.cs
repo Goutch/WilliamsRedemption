@@ -13,10 +13,15 @@ namespace Game.Entity.Enemies.Boss.Anna
         
         protected override bool OnHit(HitStimulus hitStimulus)
         {
-            if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
+            if (IsInvulnerable && hitStimulus.Type == HitStimulus.DamageType.Enemy)
             {
                 IsInvulnerable = false;
                 animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, false);
+
+                return true;
+            }
+            else if(hitStimulus.Type == HitStimulus.DamageType.Enemy)
+            {
                 health.Hit(hitStimulus.gameObject);
 
                 return true;
