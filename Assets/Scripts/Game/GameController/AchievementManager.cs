@@ -95,6 +95,23 @@ namespace Game.Controller
             CheckIfPlayerIsLegendaryAndAddIt();
         }
 
+        public void Reset()
+        {
+            acomplishedAchievements.Clear();
+            zombieKillCount = 0;
+            ghostKillCount = 0;
+            batKillCount = 0;
+            sorcererKillCount = 0;
+            collectableLevel1Count = 0;
+            collectableLevel2Count = 0;
+            collectableLevel3Count = 0;
+            Level1PlayerDamageCount = 0;
+            Level2PlayerDamageCount = 0;
+            Level3PlayerDamageCount = 0;
+            playerJumpCount = 0;
+            playerShootCount = 0;
+        }
+
         private void CheckIfPlayerIsLegendaryAndAddIt()
         {
             if (gameController.CurrentLevel.Scene == Values.Scenes.Level1)
@@ -121,6 +138,7 @@ namespace Game.Controller
                 }
             }
         }
+
         private void OnGameEnd()
         {
             CheckIfPlayerIsLegendaryAndAddIt();

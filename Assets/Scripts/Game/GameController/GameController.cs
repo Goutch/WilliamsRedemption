@@ -27,6 +27,7 @@ namespace Game.Controller
         public bool ExpertMode => isGameInExpertMode;
         private bool isGameWinned = false;
         private bool spawnAtCheckPoint = false;
+        private AchievementManager achievementManager;
 
         private Level currentLevel;
         public event GameControllerEventHandler OnGameEnd;
@@ -78,7 +79,7 @@ namespace Game.Controller
             levelFinishUI = GetComponent<LevelFinishedUI>();
             collectablesEventChannel = GetComponent<CollectablesEventChannel>();
             SceneManager.sceneLoaded += OnSceneLoaded;
-
+            achievementManager = GetComponent<AchievementManager>();
             Scene[] loadedScenes = SceneManager.GetAllScenes();
             if (loadedScenes.Length == 1 && SceneManager.GetActiveScene().name == "Main")
             {
@@ -191,6 +192,7 @@ namespace Game.Controller
             menu.HideLevelFinishedPanel();
             score += bonusScore;
             bonusScore = 0;
+            collectable = 0;
             scoreUI.OnScoreChange();
 
 
@@ -233,6 +235,7 @@ namespace Game.Controller
         {
             currentLevel = null;
             isGameStarted = false;
+            achievementManager.Reset();
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
             SceneManager.LoadSceneAsync(Game.Values.Scenes.Menu, LoadSceneMode.Additive);
             menu.ReturnToMenu();
