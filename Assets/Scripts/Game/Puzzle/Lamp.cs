@@ -16,6 +16,8 @@ namespace Game.Puzzle
         [SerializeField] private CircleLight linkedLight;
 
         private SpriteRenderer spriteRenderer;
+        private bool isLocked;
+        
 
         private void Update()
         {
@@ -39,6 +41,8 @@ namespace Game.Puzzle
             {
                 Close();
             }
+
+            isLocked = false;
         }
 
         public void Open()
@@ -56,15 +60,17 @@ namespace Game.Puzzle
 
         public void Unlock()
         {
+            isLocked = false;
         }
 
         public void Lock()
         {
+            isLocked = true;
         }
 
         public bool IsLocked()
         {
-            return false;
+            return isLocked;
         }
 
         public bool IsOpened()
