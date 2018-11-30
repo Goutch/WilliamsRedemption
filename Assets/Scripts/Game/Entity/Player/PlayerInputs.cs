@@ -18,6 +18,7 @@ namespace Game.Entity.Player
             controllerNumber = PlayerIndex.One;
             controllerState = GamePad.GetState(controllerNumber);
             jumpButtonPressed = false;
+            
         }
 
         private void Update()
@@ -84,17 +85,19 @@ namespace Game.Entity.Player
                 player.MoveRight();
             }
 
-            if (controllerState.Buttons.X == ButtonState.Pressed &&
+            if ((controllerState.Buttons.X == ButtonState.Pressed||controllerState.Triggers.Left>0) &&
                 playerController.CurrentController.CapacityUsable(playerController))
             {
                 playerController.CurrentController.UseCapacity(playerController);
+                
             }
 
-            if (controllerState.Buttons.B == ButtonState.Pressed &&
+            if ((controllerState.Buttons.B == ButtonState.Pressed||controllerState.Triggers.Right >0.1) &&
                 playerController.CurrentController.CanUseBasicAttack())
             {
                 playerController.CurrentController.UseBasicAttack(playerController);
             }
+
         }
     }
 }
