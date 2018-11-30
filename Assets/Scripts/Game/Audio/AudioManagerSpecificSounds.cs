@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class AudioManagerSpecificSounds : MonoBehaviour
 {
+    [SerializeField] private float soundValue;
+    
     private AudioSource source;
     private AudioClip clip;
     private GameObject linkedObject;
     private bool doesSoundStopOnObjectDestroy;
-    private float soundValue = 1F;
 
     private void Awake()
     {
