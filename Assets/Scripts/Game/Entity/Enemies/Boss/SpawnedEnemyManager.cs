@@ -49,6 +49,7 @@ namespace Game.Entity.Enemies.Boss
             return numberOfEnemySpawn == NumberOfEnemySpawnAllowed;
         }
 
+        //BEN_CORRECTION : Nommage.
         private void SpawnedEnemyManager_OnDeath(GameObject receiver, GameObject attacker)
         {
             enemies.Remove(receiver);
@@ -58,6 +59,7 @@ namespace Game.Entity.Enemies.Boss
                 ResetEnemySpawnedCount();
         }
 
+        //BEN_REVIEW : Aurait pu être une propriété.
         public int GetNumberOfEnemies()
         {
             return enemies.Count;

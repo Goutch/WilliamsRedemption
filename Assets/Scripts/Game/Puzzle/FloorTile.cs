@@ -14,6 +14,7 @@ namespace Game.Puzzle
         private Vector2 initialePosition;
         private bool playerOnFloor = false;
 
+        //BEN_REVIEW : Code mort.
         public bool IsAtInitialPosition
         {
             get { return Mathf.Abs(transform.position.y - initialePosition.y) < 0.02f; }
@@ -37,7 +38,7 @@ namespace Game.Puzzle
 
             while (Mathf.Abs(transform.position.y - targetPosition.y) > 0.01f)
             {
-                float deplacementY = directionY * speed;
+                float deplacementY = directionY * speed; //BEN_REVIEW : Aurait pu être calculé rien qu'une fois.
 
                 GetComponent<Rigidbody2D>().Translate(new Vector2(0, deplacementY) * Time.fixedDeltaTime);
 

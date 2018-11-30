@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Game.Puzzle
 {
+    //BEN_REVIEW : On a un léger problème de conception ici. Voir mes commentaires dans "EnemySpawner".
+    //
+    //             À mon avis, c'est pas uniquement relié au "Ghosts". Cela pourait être reliés à n'importe
+    //             quel autre type d'ennemi.
     class GhostSpawner : EnemySpawner
     {
         protected override void SpawnEnemy()

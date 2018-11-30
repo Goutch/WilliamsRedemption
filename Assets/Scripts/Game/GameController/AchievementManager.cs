@@ -60,6 +60,7 @@ namespace Game.Controller
             gameController.OnGameEnd += OnGameEnd;
             gameController.OnLevelChange += OnLevelChange;
 
+            //BEN_REVIEW : Lire ceci : https://unity3d.com/fr/learn/tutorials/topics/best-practices/resources-folder
             foreach (var achievement in Resources.LoadAll<Achievement>(achievementPath))
             {
                 achievements.Add(achievement.name, achievement);

@@ -7,6 +7,7 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private bool canBeReturned;
         private HitSensor hitSensor;
 
+        //BEN_REVIEW : Peut être carrément supprimé. Non utilisé à l'extérieur.
         public bool CanBeReturned
         {
             get { return canBeReturned; }

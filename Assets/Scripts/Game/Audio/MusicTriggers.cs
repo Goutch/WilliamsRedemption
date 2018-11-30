@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace Game.Audio
 {
+    //BEN_REVIEW : Devrait être au singulier non ?
     public class MusicTriggers : MonoBehaviour
     {
+        //BEN_CORRECTION : Inutilisé.
         [SerializeField] private bool isTriggerStartingMusic;
 
         private AudioManagerBackgroundSound audioManager;

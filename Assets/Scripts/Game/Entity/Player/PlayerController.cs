@@ -75,6 +75,7 @@ namespace Game.Entity.Player
             set
             {
                 isInvincible = value;
+                //BEN_REVIEW : N'avez vous pas des constantes pour ça ?
                 williamController.animator.SetBool("Invincible", value);
                 reaperController.animator.SetBool("Invincible", value);
             }

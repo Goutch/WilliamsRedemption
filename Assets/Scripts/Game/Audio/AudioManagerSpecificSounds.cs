@@ -8,7 +8,7 @@ public class AudioManagerSpecificSounds : MonoBehaviour
     private AudioClip clip;
     private GameObject linkedObject;
     private bool doesSoundStopOnObjectDestroy;
-    private float soundValue = 1F;
+    private float soundValue = 1F; //BEN_CORRECTION : Jamais modifié.
 
     private void Awake()
     {

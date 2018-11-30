@@ -9,6 +9,8 @@ using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Death
 {
+    //BEN_REVIEW : Aurait pu (dû ?) être dans son propre dossier avec tout ce qui est "FloorMachinChouette".
+    //BEN_CORRECTION : Nommage pas clair. C'est un "ShiftingFloor", ça devrait donc s'appeller ainsi.
     class FloorManager : MonoBehaviour
     {
         [SerializeField] private IFloorTile[] floors;
@@ -25,6 +27,8 @@ namespace Game.Entity.Enemies.Boss.Death
             nextFloorUp = ++nextFloorUp % floors.Length;
         }
 
+        //BEN_CORRECTION : Cette fonction assume qu'il y a exactement 2 floors à bouger.
+        //                 Conception pas assez souple pouvant causer des bogues.
         public IEnumerator MoveDownExcept(int index)
         {
             yield return new WaitForSeconds(delayBeforeMoveDown);

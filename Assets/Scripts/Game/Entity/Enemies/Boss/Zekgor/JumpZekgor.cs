@@ -14,7 +14,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 
         private RootMover mover;
         private Rigidbody2D rb;
-        private Animator animator;
+        private Animator animator; //BEN_CORRECTION : Inutilisé. Incomplet ?
 
         protected override void Init()
         {

@@ -10,6 +10,7 @@ namespace Game.Entity.Enemies.Boss.Death
     class DeathPhase1 : NonSequentialPhase
     {
         [Range(0, 1)] [SerializeField] private float percentageHealthTransitionCondition;
+        //BEN_REVIEW : J'ai pas été capable de comprendre pourquoi tu en avais plusieurs sur le même GameObject.
         [SerializeField] private SpawnedEnemyManager[] enemyManagers;
 
         private Health health;
@@ -31,6 +32,7 @@ namespace Game.Entity.Enemies.Boss.Death
             base.Finish();
         }
 
+        //BEN_CORRECTION : Nommage. Tu as utilisé le nom proposé par Visual Studio sans te poser de quesiton ?
         private void Health_OnHealthChange(GameObject receiver, GameObject attacker)
         {
             if (health.HealthPoints / (float) health.MaxHealth <= percentageHealthTransitionCondition)

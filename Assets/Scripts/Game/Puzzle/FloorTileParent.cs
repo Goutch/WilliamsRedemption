@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Game.Puzzle
 {
+    //BEN_REVIEW : Usage du patron "Composite".
     public class FloorTileParent : IFloorTile
     {
         private IFloorTile[] initialChild;

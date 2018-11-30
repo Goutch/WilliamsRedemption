@@ -34,6 +34,9 @@ namespace Game.Entity.Enemies.Boss.Death
 
         private void TeleportBehindPlayer()
         {
+            //BEN_CORRECTION : Tout cela juste pour se téléporter derrière le joueur ?
+            //                 Il y a certainement une façon de réduire cela en de plus petites méthodes.
+            
             Vector2 playerPosition = player.transform.position;
             EntityController currentPlayerController = player.CurrentController;
             SpriteRenderer currentPlayerSpriteRenderer = currentPlayerController.GetComponent<SpriteRenderer>();

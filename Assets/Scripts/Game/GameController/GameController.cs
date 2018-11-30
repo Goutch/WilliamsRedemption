@@ -14,6 +14,7 @@ namespace Game.Controller
     public class GameController : MonoBehaviour
     {
         [SerializeField] private Level startLevel;
+        //BEN_CORRECTION : "GameMusic" devrait pas être ici. À placer dans un autre composant Global.
         [SerializeField] private AudioClip gameMusic;
         private int score;
         private int bonusScore;
@@ -34,6 +35,7 @@ namespace Game.Controller
 
         private CollectablesEventChannel collectablesEventChannel;
 
+        //BEN_REVIEW : Typo. "currentCheckPointData".
         private Checkpoint.CheckPointData currentCheckPointdata;
 
         private PlayerController player;
@@ -80,12 +82,15 @@ namespace Game.Controller
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             Scene[] loadedScenes = SceneManager.GetAllScenes();
+            //BEN_CORRECTION : Vous avez fait des constantes pour vos noms de scènes. Utilisez-les.
             if (loadedScenes.Length == 1 && SceneManager.GetActiveScene().name == "Main")
             {
                 SceneManager.LoadSceneAsync(Values.Scenes.Menu, LoadSceneMode.Additive);
             }
             else
-            {
+            { 
+                //BEN_REVIEW : Semble être du code pour l'éditeur seulement. Aurait été bien de le mentionne ou de le placer
+                //             dans un "#if UNITY_EDITOR". Juste pour une question de clarté.
                 foreach (var scene in loadedScenes)
                 {
                     if (scene.name != Values.Scenes.Menu
@@ -309,6 +314,11 @@ namespace Game.Controller
 
         public void OnCheckPointTrigerred(Checkpoint.CheckPointData checkpoint)
         {
+            //BEN_REVIEW : Pourquoi ne pas juste avoir stocké le "Checkpoint"? Il contient déjà une propriété "Data"
+            //             qui représente le "Data" du Checkpoint.
+            //
+            //             En fait, je constante que c'était comme cela aussi avant. Est-ce que cela causait un problème quelconque ?
+            //             Un bogue ?
             currentCheckPointdata = checkpoint;
         }
 

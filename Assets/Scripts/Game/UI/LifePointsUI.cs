@@ -21,7 +21,7 @@ namespace Game.UI
         {
             SceneManager.sceneLoaded += InitLifePoints;
         }
-
+        
         public void InitLifePoints(Scene scene, LoadSceneMode mode)
         {
             if (scene.name != Values.Scenes.Menu && scene.name != Values.Scenes.Main)
@@ -43,7 +43,7 @@ namespace Game.UI
                         Instantiate(lifePointPrefab, transform.position, Quaternion.identity,
                             lifePointsParent.transform);
                 }
-            }
+            } //BEN_REVIEW : Pas de else ?
         }
 
         public void UpdateHealth()

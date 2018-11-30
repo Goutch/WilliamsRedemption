@@ -49,6 +49,11 @@ namespace Game.Entity.Enemies
 
         protected virtual void OnDeath(GameObject receiver, GameObject attacker)
         {
+            //BEN_CORRECTION : Ce boute de code là a été supprimé, puis remis en place environ 40 minutes plus tard.
+            //
+            //                 De toute façon, c'est pas de la responsabilité de l'ennemi d'incrémenter le score. Il aurait
+            //                 pu avertir quelque chose qu'il est mort, et ce quelque chose aurait incrémenté le score. Ça,
+            //                 j'aurais accepté.
             HitStimulus attackerStimulus = attacker.GetComponent<HitStimulus>();
 
             if (attackerStimulus != null &&

@@ -27,6 +27,13 @@ namespace Game.Puzzle
         private bool timerHasStarted;
         private SpriteRenderer spriteRenderer;
 
+        //BEN_REVIEw : Cette classe a été faite à l'ALPHA, mais je ne l'avais pas vu.
+        //
+        //             Je me permets donc quelques commentaires :
+        //
+        //                1. Il y a des "GetComponent" à répétition pour obtenir le même objet au final.
+        //                2. Beaucoup de code ici pourrait être remplacé par des "Coroutines".
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.Root().CompareTag(Values.Tags.Player) && !timerHasStarted)
@@ -71,6 +78,14 @@ namespace Game.Puzzle
                     }
                 }
             }
+            //BEN_REVIEW : IL Y A UN TIMER ICI ?!?!
+            //
+            //             Sincèrement, cela a été une révélation pour moi, car je l'aurait jamais deviné si j'avais pas vu cela.
+            //             Trois choses :
+            //
+            //                1. Dans votre jeu, les Timers sont bien trop courts.
+            //                2. Dans votre jeu, on ne sait pas du tout que c'est une Switch avec un "Timer". Manque de "Feedback".
+            //                3. Dans votre code, on ne sait pas que cette "Switch" a un "Timer".
             else if(other.Root().CompareTag(Values.Tags.Player) && timerHasStarted)
             {
                 timerStartTime = Time.time;
@@ -119,6 +134,7 @@ namespace Game.Puzzle
             return false;
         }
 
+        //BEN_REVIEW : Typo. "State" au lieu de "Sate".
         private void ChangeSate()
         {
             foreach (var triggerable in triggerables)

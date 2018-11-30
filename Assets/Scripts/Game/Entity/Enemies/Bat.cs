@@ -30,7 +30,11 @@ namespace Game.Entity.Enemies
                     new Vector2(exponentialFonction.x * direction + transform.position.x,
                         exponentialFonction.y + transform.position.y));
 
-                yield return new WaitForFixedUpdate();
+                //BEN_REVIEW : Pourquoi pas au Update ? Surtout que "FlyToward" utilise "Time.deltaTime" et non pas
+                //             "Time.fixedDeltaTime".
+                //
+                //             Pour attendre au prochain "Update", retourne "null".
+                yield return new WaitForFixedUpdate(); 
             }
         }
 

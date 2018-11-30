@@ -21,6 +21,7 @@ namespace Game.Entity
         private Animator animator;
 
         private bool isKilledByPlayer = true;
+        //BEN_CORRECTION : Pourquoi avoir mis le "set" public ? Il est pas utilisé à l'extérieur.
         public int HealthPoints { get; set; }
 
         public void Hit(GameObject attacker)

@@ -36,14 +36,14 @@ namespace Game.Entity.Enemies.Boss
 
                 if (bossMusic != null)
                 {
-                    audioManager?.Init(bossMusic);
+                    audioManager?.Init(bossMusic); //BEN_CORRECTION : Patch. Bogue non résolu à la source.
 
-                    audioManager?.PlaySound();
+                    audioManager?.PlaySound(); //BEN_CORRECTION : Patch. Bogue non résolu à la source.
                 }
 
-                doorToCloseOnBossFightBegin?.Close();
+                doorToCloseOnBossFightBegin?.Close(); //BEN_CORRECTION : Patch. Bogue non résolu à la source.
 
-                doorToOpenOnBossDeath?.Close();
+                doorToOpenOnBossDeath?.Close(); //BEN_CORRECTION : Patch. Bogue non résolu à la source.
 
                 cameraController.FixPoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
 
@@ -54,7 +54,7 @@ namespace Game.Entity.Enemies.Boss
         private void OnBossDead(GameObject receiver, GameObject attacker)
         {
             doorToOpenOnBossDeath?.Open();
-            audioManager?.StopSound();
+            audioManager?.StopSound(); //BEN_CORRECTION : Patch. Bogue non résolu à la source.
             cameraController.ResumeFollow();
         }
     }

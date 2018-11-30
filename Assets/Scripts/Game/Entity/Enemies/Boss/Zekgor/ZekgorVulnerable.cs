@@ -37,6 +37,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
             base.Finish();
         }
 
+        //BEN_CORRECTION : Nommage.
         private IEnumerator hurtRoutine()
         {
             enemy.IsInvulnerable = true;

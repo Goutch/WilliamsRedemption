@@ -8,6 +8,9 @@ namespace Game.Puzzle
     {
         [SerializeField] protected GameObject enemyPrefab;
 
+        //BEN_REVIEW : Utilisé que par la classe enfant "GhostSpawner".
+        //             Pourquoi est-ce que "SpawnEnemy" ne retourne pas l'ennemi qui vient d'être créé
+        //             à la place ?
         protected GameObject spawnedEnemy;
         protected bool spawned = false;
 
@@ -18,6 +21,7 @@ namespace Game.Puzzle
             spawned = true;
         }
 
+        //BEN_CORRECTION : Aucune raison d'être virtual.
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             if (other.Root().CompareTag(Values.Tags.Player))

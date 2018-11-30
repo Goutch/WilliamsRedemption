@@ -49,6 +49,7 @@ namespace Game.Entity.Enemies
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
+            //BEN_REVIEW : Aurait pu être simplifié (une seule ligne).
             if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
                 return false;
             return true;

@@ -13,6 +13,7 @@ namespace Game.Entity.Enemies.Boss.Death
         [SerializeField] private MeshLight closeLight;
         [SerializeField] private MeshLight openLight;
 
+        //BEN_CORRECTION : Nommage.
         private Rigidbody2D rb;
         private SpawnedEnemyManager[] spawnedEnemyManagers;
 

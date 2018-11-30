@@ -13,6 +13,7 @@ namespace Game.Entity.Enemies.Attack
     {
         public event OnHitEventHandler OnHit;
 
+        //BEN_REVIEW : J'aurais appellé ça "Hit" non ?
         public bool Notify(HitStimulus hitStimulus)
         {
             bool hit = false;

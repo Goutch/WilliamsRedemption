@@ -185,6 +185,7 @@ namespace Game.Puzzle.Light
         {
             isOpen = true;
             DrawMesh();
+            //BEN_CORRECTION : Ce "if" là ressemble plus à une patch qu'à autre chose. La source de votre bogue est ailleurs à mon avis.
             if (renderer != null)
             {
                 renderer.enabled = true;
@@ -196,6 +197,7 @@ namespace Game.Puzzle.Light
             isOpen = false;
             mesh.Clear();
             vertices.Clear();
+            //BEN_CORRECTION : Ce "if" là ressemble plus à une patch qu'à autre chose. La source de votre bogue est ailleurs à mon avis.
             if (renderer != null)
                 renderer.enabled = false;
         }

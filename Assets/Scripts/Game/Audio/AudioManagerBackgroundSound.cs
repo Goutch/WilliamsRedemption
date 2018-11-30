@@ -2,6 +2,10 @@
 using Game.Entity.Player;
 using UnityEngine;
 
+//BEN_CORRECTION : Toute l'équipe a utilisé des "namespace" sauf toi. Non respect du standard d'équipe.
+//BEN_CORRECTION : Classe à reconcevoir. Il y a des façons beaucoup plus simple de faire ce qu'elle fait.
+//BEN_CORRECTION : Concerne uniquement la musique, mais le nom ne le reflète pas. Contient aussi le terme
+//                 "Manager", ce qui n'est pas une bonne pratique (considéré comme un "bad smell").
 public class AudioManagerBackgroundSound : MonoBehaviour
 {
     private AudioSource source;
@@ -48,6 +52,7 @@ public class AudioManagerBackgroundSound : MonoBehaviour
         StopSound();
     }
 
+    //BEN_CORRECTION : Nommage. Stop music non ?
     public void PlaySound()
     {
         source.PlayOneShot(clip, 1F);

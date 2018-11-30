@@ -62,11 +62,14 @@ public class LeaderBoard : MonoBehaviour
 
         var formData = System.Text.Encoding.UTF8.GetBytes(json);
 
+        //BEN_CORRECTION : Aucune gestion des erreur.
+        //BEN_CORRECTION : Constante (pour l'URL) manquante.
         WWW www = new WWW("http://35.188.160.44/api/insert", formData, postHeader);
     }
 
     public void GoToLeaderboardOnWeb()
     {
+        //BEN_CORRECTION : Constante (pour l'URL) manquante.
         Application.OpenURL("http://35.188.160.44/leaderboardPage");
     }
 }
