@@ -119,7 +119,7 @@ namespace Game.Puzzle
                 if (TimeIsUp())
                 {
                     ChangeSate();
-                    audioManagerForTimer?.StopSound();
+                    audioManagerForTimer?.TimerSoundStop();
                 }
             }
         }
