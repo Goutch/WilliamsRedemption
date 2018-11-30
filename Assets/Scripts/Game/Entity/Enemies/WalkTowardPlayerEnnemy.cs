@@ -17,7 +17,7 @@ namespace Game.Entity.Enemies
 
         private PathFinder pathFinder;
         private Tilemap[] obstacles;
-
+        private BoxCollider2D colider;
         public bool[,] surrounding;
         protected RootMover rootMover;
         private bool playerInSight = false;
@@ -27,10 +27,7 @@ namespace Game.Entity.Enemies
 
         public bool PlayerInSight
         {
-            get
-            {
-                return playerInSight;
-            }
+            get { return playerInSight; }
 
             set
             {
@@ -46,6 +43,7 @@ namespace Game.Entity.Enemies
         protected override void Init()
         {
             rootMover = GetComponent<RootMover>();
+            colider = GetComponent<BoxCollider2D>();
             obstacles = new Tilemap[]
             {
                 GameObject.FindGameObjectWithTag(Values.Tags.Plateforme).GetComponent<Tilemap>(),
@@ -76,8 +74,8 @@ namespace Game.Entity.Enemies
 
         private void WalkTowardPlayerEnnemy_OnPlayerSightEnter()
         {
-            if(savedState == null)
-                savedState = transform.rotation; 
+            if (savedState == null)
+                savedState = transform.rotation;
         }
 
         protected virtual void FixedUpdate()
@@ -91,7 +89,8 @@ namespace Game.Entity.Enemies
         {
             if (Vector2.Distance(player.transform.position, transform.position) < sightRange)
             {
-                RaycastHit2D hit2D = Physics2D.Linecast(transform.position, player.transform.position, layerVisibleByTheUnit);
+                RaycastHit2D hit2D =
+                    Physics2D.Linecast(transform.position, player.transform.position, layerVisibleByTheUnit);
 
                 if (hit2D.collider != null)
                     Debug.DrawLine(transform.position, hit2D.collider.transform.position, Color.red);
@@ -123,9 +122,9 @@ namespace Game.Entity.Enemies
 
             animator.SetBool(Values.AnimationParameters.Enemy.Walking, false);
 
-            if(IsPlayerInSight())
+            if (IsPlayerInSight())
             {
-                if((!isDumbEnoughToFall && IsThereAHole(surrounding)) || IsThereAWall(surrounding))
+                if ((!isDumbEnoughToFall && IsThereAHole(surrounding)) || IsThereAWall(surrounding))
                 {
                     rootMover.LookAtPlayer();
                     rootMover.StopWalking();
@@ -142,7 +141,7 @@ namespace Game.Entity.Enemies
             }
             else
             {
-                if((!isDumbEnoughToFall && IsThereAHole(surrounding)) || IsThereAWall(surrounding))
+                if ((!isDumbEnoughToFall && IsThereAHole(surrounding)) || IsThereAWall(surrounding))
                 {
                     if (direction == 1)
                         transform.rotation = Quaternion.AngleAxis(180, Vector2.up);
@@ -161,12 +160,21 @@ namespace Game.Entity.Enemies
 
         private bool IsThereAHole(bool[,] surrounding)
         {
-            int direction = (transform.rotation.y == 1 || transform.rotation.y == -1 ? -1 : 1);
-            Vector2Int center = new Vector2Int(surroundingRange, surroundingRange);
-
-            if (!surrounding[center.x + direction, center.y - 1] && !surrounding[center.x + direction, center.y - 2])
+            if (!rootMover.IsJumping)
             {
-                return true;
+                int direction = (transform.rotation.y == 1 || transform.rotation.y == -1 ? -1 : 1);
+                int coliderEdgePosition = pathFinder
+                    .WorldToGrid(transform.position + (Vector3.right * ((colider.size.x / 2) * direction))).x;
+
+                Vector2Int center =
+                    new Vector2Int(
+                        (coliderEdgePosition - pathFinder.WorldToGrid(transform.position).x) + surroundingRange,
+                        surroundingRange);
+
+                if (!surrounding[center.x, center.y - 1] && !surrounding[center.x, center.y - 2])
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -182,6 +190,7 @@ namespace Game.Entity.Enemies
                 return true;
             }
 
+
             return false;
         }
 
@@ -194,12 +203,16 @@ namespace Game.Entity.Enemies
                     {
                         if (surrounding[x + surroundingRange, y + surroundingRange] == true)
                             Gizmos.DrawCube(
-                                new Vector3(transform.position.x + (x * .32f), transform.position.y + (y * .32f), 0),
+                                ((Vector3) pathFinder.WorldToGrid(
+                                    (transform.position + (Vector3.right * x * .32f) + (Vector3.up * y * .32f)))) *
+                                .32f,
                                 Vector3.one * .16f);
                         else
                         {
                             Gizmos.DrawSphere(
-                                new Vector3(transform.position.x + (x * .32f), transform.position.y + (y * .32f), 0),
+                                ((Vector3) pathFinder.WorldToGrid(
+                                    (transform.position + (Vector3.right * x * .32f) + (Vector3.up * y * .32f)))) *
+                                .32f,
                                 .16f);
                         }
                     }
