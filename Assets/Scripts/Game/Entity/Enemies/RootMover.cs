@@ -33,10 +33,8 @@ namespace Game.Entity.Enemies
 
         private void FixedUpdate()
         {
-            Debug.Log(this.rootRigidBody.velocity.y);
             if (this.isJumping && this.rootRigidBody.velocity.y == 0.0)
             {
-                
                 this.isJumping = false;
                 animator.SetTrigger(Values.AnimationParameters.Enemy.JumpEnd);
             }

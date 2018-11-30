@@ -174,7 +174,7 @@ namespace Game.Controller
         {
             PauseGame();
 
-            bonusScore += LevelRemainingTime;
+            bonusScore += LevelRemainingTime * 2;
             if (currentLevel.NextLevel != null)
             {
                 levelFinishUI.OnLevelFinished();

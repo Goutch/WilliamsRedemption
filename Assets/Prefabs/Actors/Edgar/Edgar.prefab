@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 114823022257222956}
   - component: {fileID: 114412290214006220}
   - component: {fileID: 114889107845127718}
+  - component: {fileID: 114729615837740824}
   - component: {fileID: 114355167586666278}
   - component: {fileID: 114109857756450516}
   - component: {fileID: 114249678001657846}
@@ -1341,6 +1342,18 @@ MonoBehaviour:
   - {fileID: 114830030037052890}
   passiveCapacities: []
   animator: {fileID: 95395829336313276}
+--- !u!114 &114729615837740824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495303630612842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c27cf691b2cf9b46ace296aa2175c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeInactive: 1
 --- !u!114 &114823022257222956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1398,8 +1411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d166c8656b6e24f80103ab06134757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 0
+  scoreValue: 500
   phases:
+  - {fileID: 114729615837740824}
   - {fileID: 114355167586666278}
   - {fileID: 114109857756450516}
   woundedSound: {fileID: 8300000, guid: 680ed7d77a7e6ca478b3d5dceb57c665, type: 3}

@@ -21,10 +21,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private float positionYLaser;
 
         private SpawnedTilesManager spawnedTilesManager;
+        private ProjectileManager projectileManager;
 
         protected override void Init()
         {
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
+            projectileManager = GetComponent<ProjectileManager>();
 
             Vector2 size = laserSpawnPointsZone.bounds.size;
             Vector2 center = laserSpawnPointsZone.bounds.center;
@@ -67,8 +69,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 } while (spawnedTilesManager.IsAnySpawnedTiles(position =>
                     spawnedTilesManager.ConvertLocalToCell(new Vector2(positionX, 0)).x == position.Key.x));
 
-
-                Instantiate(lasePrefab, new Vector2(positionX, positionYLaser), Quaternion.identity);
+                projectileManager.SpawnProjectile(lasePrefab, new Vector2(positionX, positionYLaser), Quaternion.identity);
             }
         }
     }
