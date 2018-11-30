@@ -65,7 +65,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 {
                     positionX = Random.Range(leftBorderSpawnLaser, rightBorderSpawnLaser);
                 } while (spawnedTilesManager.IsAnySpawnedTiles(position =>
-                    spawnedTilesManager.ConvertLocalToCell(new Vector2(positionX, 0)).x == position.x));
+                    spawnedTilesManager.ConvertLocalToCell(new Vector2(positionX, 0)).x == position.Key.x));
 
 
                 Instantiate(lasePrefab, new Vector2(positionX, positionYLaser), Quaternion.identity);

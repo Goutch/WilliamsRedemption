@@ -83,7 +83,6 @@ namespace Game.Entity.Enemies
         {
             if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
-                base.OnHit(hitStimulus);
                 int direction = (transform.position.x-hitStimulus.transform.position.x > 0 ? -1 : 1);
 
                 rigidbody.AddForce(new Vector2(DarknessKnockBackForce.x * -direction, DarknessKnockBackForce.y),
