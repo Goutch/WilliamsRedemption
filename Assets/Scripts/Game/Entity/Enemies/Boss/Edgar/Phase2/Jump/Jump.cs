@@ -128,7 +128,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             Vector3Int cellPos = spawnedTilesManager.ConvertLocalToCell(transform.position);
             cellPos.y += yOffSetTileToSpawn;
 
-            spawnedTilesManager.SpawnTiles(cellPos, spawnedTileRelativePositions.ToList<Vector3Int>(), tileToSpawn);
+            spawnedTilesManager.SpawnTiles(cellPos, spawnedTileRelativePositions.ToList<Vector3Int>(), tileToSpawn, 30);
         }
     }
 }

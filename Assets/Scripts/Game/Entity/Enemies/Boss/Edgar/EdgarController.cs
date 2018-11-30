@@ -10,6 +10,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         [SerializeField] private GameObject soundToPlayPrefab;
 
         private RootMover mover;
+        private ProjectileManager projectileManager;
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
@@ -29,12 +30,20 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private void OnEnable()
         {
             mover = GetComponent<RootMover>();
+            projectileManager = GetComponent<ProjectileManager>();
             mover.LookAtPlayer();
             health.OnHealthChange += CallWoundedSound;
+            health.OnDeath += Health_OnDeath;
+        }
+
+        private void Health_OnDeath(GameObject receiver, GameObject attacker)
+        {
+            projectileManager.Clear();
         }
 
         private void OnDisable()
         {
+            health.OnDeath -= Health_OnDeath;
             health.OnHealthChange -= CallWoundedSound;
         }
 

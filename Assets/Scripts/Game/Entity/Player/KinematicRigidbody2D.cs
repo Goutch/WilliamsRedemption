@@ -261,36 +261,36 @@ namespace Game.Entity.Player
 
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
 
-            if (isVerticalDelta)
-            {
-                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
-                var heightHalf = rigidbody.position.y - bottomY;
+//            if (isVerticalDelta)
+//            {
+//                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
+//                var heightHalf = rigidbody.position.y - bottomY;
 
-#if UNITY_EDITOR
-                if (showDebugInformation)
-                {
-                    Debug.DrawLine(transform.position, transform.position - Vector3.up * heightHalf, Color.magenta);
-                }
-#endif
+//#if UNITY_EDITOR
+//                if (showDebugInformation)
+//                {
+//                    Debug.DrawLine(transform.position, transform.position - Vector3.up * heightHalf, Color.magenta);
+//                }
+//#endif
 
-                var nbRays = Physics2D.Raycast(transform.position, Vector2.down, contactFilter, preallocaRaycastHits);
-                for (var i = 0; i < nbRays; i++)
-                {
-                    var raycastHit = preallocaRaycastHits[i];
+//                var nbRays = Physics2D.Raycast(transform.position, Vector2.down, contactFilter, preallocaRaycastHits);
+//                for (var i = 0; i < nbRays; i++)
+//                {
+//                    var raycastHit = preallocaRaycastHits[i];
 
-                    if (!allColliders.Contains(raycastHit.collider) &&
-                        !raycastHit.collider.CompareTag(Values.Tags.PassThrough))
-                    {
-                        var floorPosition = raycastHit.point;
-                        if (floorPosition.y > bottomY)
-                        {
-                            var rectifiedPosition = transform.position;
-                            rectifiedPosition.y = floorPosition.y + heightHalf;
-                            rigidbody.position = rectifiedPosition;
-                        }
-                    }
-                }
-            }
+//                    if (!allColliders.Contains(raycastHit.collider) &&
+//                        !raycastHit.collider.CompareTag(Values.Tags.PassThrough))
+//                    {
+//                        var floorPosition = raycastHit.point;
+//                        if (floorPosition.y > bottomY)
+//                        {
+//                            var rectifiedPosition = transform.position;
+//                            rectifiedPosition.y = floorPosition.y + heightHalf;
+//                            rigidbody.position = rectifiedPosition;
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 }

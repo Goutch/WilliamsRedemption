@@ -219,7 +219,7 @@ MonoBehaviour:
   animator: {fileID: 95185587434919710}
   zombiePrefab: {fileID: 1291848360045852, guid: 82bace9fd06070f4e8259879ebe97c17,
     type: 2}
-  cooldown: 1
+  cooldown: 1.5
 --- !u!114 &114435984049298574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0c0f31d44efac4e904f7ea63166046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfEnemySpawnAllowed: 4
+  numberOfEnemySpawnAllowed: 3
   resetWhenAllEnemyDied: 1
 --- !u!114 &114665657003816676
 MonoBehaviour:

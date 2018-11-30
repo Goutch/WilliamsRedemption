@@ -21,6 +21,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private const float EQUALITY_DISTANCE_SENSIBILITY = 1f;
 
         private RootMover rootMover;
+        private SpawnedTilesManager spawnedTilesManager;
 
         private float lastTimeUsed;
         private GameObject[] particules;
@@ -32,6 +33,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 lastTimeUsed = -cooldown;
 
             rootMover = GetComponent<RootMover>();
+            spawnedTilesManager = GetComponent<SpawnedTilesManager>();
         }
 
         public override void Act()
@@ -63,6 +65,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             if (numberOfParticulesLeft == 0 && allParticulesSpawned)
                 Finish();
+        }
+
+        public override void Finish()
+        {
+            base.Finish();
+            spawnedTilesManager.DestroyAllTiles();
         }
 
         public override bool CanEnter()

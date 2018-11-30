@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0369a32814134b22809743808605bab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 10
+  scoreValue: 15
   damageKnockBackForce: 1
   disapearTimeLimitBeforeDespawn: 3
   lifeDuration: 12
