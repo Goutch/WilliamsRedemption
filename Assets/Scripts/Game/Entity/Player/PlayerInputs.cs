@@ -92,18 +92,11 @@ namespace Game.Entity.Player
                 
             }
 
-            if ((controllerState.Buttons.B == ButtonState.Pressed||controllerState.Triggers.Right >0.1) &&
-                playerController.CurrentController.CanUseBasicAttack())
+            if (playerController.CurrentController.CanUseBasicAttack()&&(controllerState.Buttons.B == ButtonState.Pressed||controllerState.Triggers.Right >0.1))
             {
                 playerController.CurrentController.UseBasicAttack(playerController);
-                GamePad.SetVibration(PlayerIndex.One,0,10000);
             }
-           
-            if ( (controllerState.Buttons.B == ButtonState.Released &&controllerState.Triggers.Right <0.1))    
-            {
-                GamePad.SetVibration(PlayerIndex.One,0,0);
-            }
-           
+ 
         }
     }
 }
