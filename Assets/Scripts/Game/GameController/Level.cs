@@ -10,6 +10,7 @@ namespace Game.Controller
         [SerializeField] private int _expectedTime;
         [SerializeField] private string sceneName;
         [SerializeField] private Level nextLevel;
+        [SerializeField] private AudioClip levelMusic;
 
 
         public int NumberCollectables => numberCollectables;
@@ -19,5 +20,7 @@ namespace Game.Controller
         public string Scene => sceneName;
 
         public Level NextLevel => nextLevel;
+
+        public AudioClip LevelMusic => levelMusic;
     }
 }

@@ -9,8 +9,7 @@ namespace Game.Audio
 
         private AudioManagerBackgroundSound audioManager;
 
-        private AudioClip levelMusic;
-        private bool isMusicPlaying = false;
+        private AudioClip levelMusic;   
 
         private void Awake()
         {
@@ -22,13 +21,15 @@ namespace Game.Audio
         {
             if (other.transform.root.CompareTag(Values.Tags.Player))
             {
-                if (!isMusicPlaying)
+                if (isTriggerStartingMusic)
                 {
                     audioManager.Init(GameObject.FindGameObjectWithTag(Values.Tags.GameController)
-                        .GetComponent<GameController>().GameMusic);
+                        .GetComponent<GameController>().CurrentLevel.LevelMusic);
                 }
-
-                audioManager.UpdateMusicTriggers();
+                else
+                {
+                    audioManager.StopSound();
+                }
                 gameObject.SetActive(false);
             }
         }
