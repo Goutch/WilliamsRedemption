@@ -92,11 +92,12 @@ namespace Game.Entity.Player
                 
             }
 
-            if (playerController.CurrentController.CanUseBasicAttack()&&(controllerState.Buttons.B == ButtonState.Pressed||controllerState.Triggers.Right >0.1))
+            if ((controllerState.Buttons.B == ButtonState.Pressed||controllerState.Triggers.Right >0.1) &&
+                playerController.CurrentController.CanUseBasicAttack())
             {
                 playerController.CurrentController.UseBasicAttack(playerController);
             }
- 
+
         }
     }
 }
