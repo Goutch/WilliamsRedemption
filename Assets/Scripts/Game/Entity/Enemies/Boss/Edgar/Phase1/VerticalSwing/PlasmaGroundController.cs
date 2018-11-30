@@ -57,9 +57,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
             flipFactor = transform.rotation.y == -1 || transform.rotation.y == 1 ? -1 : 1;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            if (grounded)
+             if (grounded)
             {
                 Scale();
                 MoveForward();
