@@ -27,7 +27,6 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private const float RAYCAST_LENGTH = 0.32f;
 
         private new Rigidbody2D rigidbody;
-        private new Collider2D collider;
         private SpawnedTilesManager spawnedTilesManager;
         private Vector2 originSize;
         private Vector2 explosionEffectSize;
@@ -39,11 +38,8 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody2D>();
-            collider = GetComponent<Collider2D>();
-
             originSize = GetComponent<SpriteRenderer>().size;
             explosionEffectSize = explosionEffect.GetComponent<SpriteRenderer>().size;
-
             scale = transform.localScale.x;
         }
 
@@ -57,9 +53,9 @@ namespace Game.Entity.Enemies.Boss.Edgar
             flipFactor = transform.rotation.y == -1 || transform.rotation.y == 1 ? -1 : 1;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            if (grounded)
+             if (grounded)
             {
                 Scale();
                 MoveForward();

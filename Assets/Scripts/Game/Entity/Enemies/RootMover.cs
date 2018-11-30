@@ -33,8 +33,10 @@ namespace Game.Entity.Enemies
 
         private void FixedUpdate()
         {
+            Debug.Log(this.rootRigidBody.velocity.y);
             if (this.isJumping && this.rootRigidBody.velocity.y == 0.0)
             {
+                
                 this.isJumping = false;
                 animator.SetTrigger(Values.AnimationParameters.Enemy.JumpEnd);
             }
@@ -50,7 +52,7 @@ namespace Game.Entity.Enemies
 
         public void StopWalking()
         {
-            rootRigidBody.velocity = new Vector2(0, rootRigidBody.velocity.x);
+            rootRigidBody.velocity = new Vector2(0, rootRigidBody.velocity.y);
         }
 
         public void FlyToward(Vector2 targetPosition)
@@ -81,7 +83,8 @@ namespace Game.Entity.Enemies
         public void Jump()
         {
             this.isJumping = true;
-            this.rootRigidBody.AddForce(new Vector2(currentDir * jumpBoost, jumpForce), ForceMode2D.Impulse);
+            int direction = (transform.rotation.y == 1 || transform.rotation.y == -1 ? -1 : 1);
+            this.rootRigidBody.AddForce(new Vector2(direction * jumpBoost, jumpForce), ForceMode2D.Impulse);
             animator.SetTrigger(Values.AnimationParameters.Enemy.Jump);
         }
 

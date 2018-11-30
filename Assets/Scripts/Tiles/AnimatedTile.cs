@@ -97,5 +97,5 @@ namespace Tiles
                 EditorUtility.SetDirty(tile);
         }
     }
-}
 #endif
+}
