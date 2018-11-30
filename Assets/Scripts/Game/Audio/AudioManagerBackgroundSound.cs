@@ -1,13 +1,15 @@
 ﻿using Game.Entity;
 using Game.Entity.Player;
 using UnityEngine;
+using Game.Controller;
 
 public class AudioManagerBackgroundSound : MonoBehaviour
 {
+    [SerializeField] private float soundValue;
+    
     private AudioSource source;
     private AudioClip clip;
     private bool shouldMusicBePlaying;
-    private bool isAMusicTrigger;
 
     private void Awake()
     {
@@ -36,11 +38,6 @@ public class AudioManagerBackgroundSound : MonoBehaviour
         {
             StopSound();
         }
-
-        if (isAMusicTrigger)
-        {
-            shouldMusicBePlaying = false;
-        }
     }
 
     private void OnPlayerDie(GameObject gameObject, GameObject gameObject2)
@@ -50,7 +47,7 @@ public class AudioManagerBackgroundSound : MonoBehaviour
 
     public void PlaySound()
     {
-        source.PlayOneShot(clip, 1F);
+        source.PlayOneShot(clip, soundValue);
     }
 
     public void StopSound()
@@ -59,8 +56,11 @@ public class AudioManagerBackgroundSound : MonoBehaviour
         shouldMusicBePlaying = false;
     }
 
-    public void UpdateMusicTriggers()
+    public void TimerSoundStop()
     {
-        isAMusicTrigger = true;
+        StopSound();
+        clip = GameObject.FindGameObjectWithTag(Game.Values.Tags.GameController)
+            .GetComponent<GameController>().CurrentLevel.LevelMusic;
+        Init(clip);
     }
 }

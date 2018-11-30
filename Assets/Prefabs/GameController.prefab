@@ -412,7 +412,6 @@ GameObject:
   - component: {fileID: 114905848433553954}
   - component: {fileID: 114065069803920612}
   - component: {fileID: 114121882780505760}
-  - component: {fileID: 114224029016411610}
   - component: {fileID: 114604305476603922}
   - component: {fileID: 114177835004335976}
   m_Layer: 0
@@ -1523,17 +1522,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Expert mode
---- !u!114 &114224029016411610
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1453289080750168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc1d28d788e433893d5681acd69756a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114227042121655068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1790,6 +1778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLevel: {fileID: 11400000, guid: 25fbb541bbd6a7a4d9664185ca09f786, type: 2}
+  gameMusic: {fileID: 8300000, guid: 812714379fd5ecc43bae8168fd8283bf, type: 3}
 --- !u!114 &114364510484665114
 MonoBehaviour:
   m_ObjectHideFlags: 1

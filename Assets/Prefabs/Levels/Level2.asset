@@ -15,3 +15,4 @@ MonoBehaviour:
   _expectedTime: 500
   sceneName: Level2
   nextLevel: {fileID: 11400000, guid: b523f614d601f5049a396edcd8b567b3, type: 2}
+  levelMusic: {fileID: 8300000, guid: 90dc2bdcb7b5f4ed59b9fd276ab5f10b, type: 3}
