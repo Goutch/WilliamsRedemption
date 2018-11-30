@@ -14,6 +14,7 @@ namespace Game.Controller
     public class GameController : MonoBehaviour
     {
         [SerializeField] private Level startLevel;
+        [SerializeField] private Level[] levels = new Level[3];
         private int score;
         private int bonusScore;
         private float time;
@@ -61,7 +62,7 @@ namespace Game.Controller
         public bool IsGamePaused => isGamePaused;
         public bool IsGameWinned => isGameWinned;
 
-        public int TotalTime => totalTime+(int)time;
+        public int TotalTime => totalTime + (int) time;
 
         private int totalTime = 0;
 
@@ -171,7 +172,7 @@ namespace Game.Controller
         {
             PauseGame();
 
-            bonusScore += LevelRemainingTime;
+            bonusScore += LevelRemainingTime * 2;
             if (currentLevel.NextLevel != null)
             {
                 levelFinishUI.OnLevelFinished();
@@ -181,6 +182,22 @@ namespace Game.Controller
             {
                 Win();
                 GameOver();
+            }
+        }
+
+        public void ChangeStartLevel(int level)
+        {
+            if (level == 0)
+            {
+                startLevel = levels[0];
+            }
+            else if (level == 1)
+            {
+                startLevel = levels[1];
+            }
+            else if (level == 2)
+            {
+                startLevel = levels[2];
             }
         }
 
@@ -198,7 +215,12 @@ namespace Game.Controller
             {
                 isGameStarted = true;
                 isGamePaused = false;
+                if (isGameInExpertMode)
+                {
+                    startLevel = levels[0];
+                }
                 currentLevel = startLevel;
+                
                 LoadLevel(currentLevel);
             }
             else

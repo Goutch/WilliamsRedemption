@@ -232,7 +232,7 @@ namespace Game.Controller
 
         private void CollectableFound(OnCollectableFound collectableEvent)
         {
-            if (collectableEvent.Level.Scene == Values.GameObject.Level1)
+          if (collectableEvent.Level.Scene == Values.GameObject.Level1)
             {
                 collectableLevel1Count++;
                 if (collectableLevel1Count == collectableEvent.Level.NumberCollectables)

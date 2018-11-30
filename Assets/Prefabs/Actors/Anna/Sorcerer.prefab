@@ -191,14 +191,17 @@ MonoBehaviour:
   scoreValue: 0
   isDumbEnoughToFall: 0
   surroundingRange: 2
+  layerVisibleByTheUnit:
+    serializedVersion: 2
+    m_Bits: 2048
+  sightRange: 10
+  bulletKnockBackForce: {x: 0, y: 0}
+  DarknessKnockBackForce: {x: 0, y: 0}
   projectilePrefab: {fileID: 1689002622773110, guid: 9f9b92c56ac471a4e98c7bb616735709,
     type: 2}
   spawnProjectilePoint: {fileID: 1582922546320492}
-  sightRange: 10
+  delayBeforeShootingAfterSeeingPlayer: 0
   attackCooldown: 1.5
-  layerVisibleByTheUnit:
-    serializedVersion: 2
-    m_Bits: 3072
 --- !u!114 &114906147488221910
 MonoBehaviour:
   m_ObjectHideFlags: 1
