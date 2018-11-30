@@ -15,7 +15,7 @@ namespace Game.Controller
     {
         [SerializeField] private Level startLevel;
         [SerializeField] private AudioClip gameMusic;
-        [SerializeField] private Level[] levels=new Level[3];
+        [SerializeField] private Level[] levels = new Level[3];
         private int score;
         private int bonusScore;
         private float time;
@@ -218,7 +218,12 @@ namespace Game.Controller
             {
                 isGameStarted = true;
                 isGamePaused = false;
+                if (isGameInExpertMode)
+                {
+                    startLevel = levels[0];
+                }
                 currentLevel = startLevel;
+                
                 LoadLevel(currentLevel);
             }
             else
