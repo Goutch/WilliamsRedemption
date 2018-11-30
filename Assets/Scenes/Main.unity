@@ -3956,7 +3956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLevel: {fileID: 11400000, guid: 25fbb541bbd6a7a4d9664185ca09f786, type: 2}
-  gameMusic: {fileID: 0}
   levels:
   - {fileID: 11400000, guid: 25fbb541bbd6a7a4d9664185ca09f786, type: 2}
   - {fileID: 11400000, guid: ad3143ee454f23042b4672a61a77871c, type: 2}
