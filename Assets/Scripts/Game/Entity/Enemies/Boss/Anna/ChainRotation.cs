@@ -53,7 +53,7 @@ namespace Game.Entity.Enemies.Boss.Anna
         {
             base.Idle();
 
-            chain.transform.Rotate(-Vector3.forward, rotationSpeed);
+            chain.transform.Rotate(-Vector3.forward, rotationSpeed*Time.deltaTime);
         }
     }
 }

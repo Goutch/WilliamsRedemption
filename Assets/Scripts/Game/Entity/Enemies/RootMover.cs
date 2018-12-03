@@ -69,7 +69,7 @@ namespace Game.Entity.Enemies
         public void MoveForward()
         {
             rootRigidBody.MovePosition(new Vector2(
-                transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 ? -1 : 1),
+                transform.position.x + Speed * Time.deltaTime * (transform.rotation.y == 1 || transform.rotation.y == -1 ? -1 : 1),
                 transform.position.y));
         }
 
