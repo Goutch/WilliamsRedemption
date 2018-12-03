@@ -8,8 +8,8 @@ public static class SoundCaller
         , bool shouldSoundStopOnOriginDestruction)
     {
         var soundToPlay = Object.Instantiate(soundToPlayPrefab, soundOrigin.transform.position, Quaternion.identity);
-        soundToPlay.GetComponent<AudioManagerSpecificSounds>()
-            .Init(sound, shouldSoundStopOnOriginDestruction, soundOrigin);
-        soundToPlay.GetComponent<AudioManagerSpecificSounds>().PlaySound();
+        var soundToPlayComponent = soundToPlay.GetComponent<AudioManagerSpecificSounds>();
+        soundToPlayComponent.Init(sound, shouldSoundStopOnOriginDestruction, soundOrigin);
+        soundToPlayComponent.PlaySound();
     }
 }
