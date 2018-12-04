@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using Game.Controller;
+using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,8 @@ namespace Game.Puzzle
         private float timerStartTime;
         private bool timerHasStarted;
         private SpriteRenderer spriteRenderer;
+
+        private GameController gameController;
 
         private void Awake()
         {
@@ -93,6 +96,10 @@ namespace Game.Puzzle
 
         private void Start()
         {
+            if (hasTimer)
+            {
+                gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
+            }
             spriteRenderer = GetComponent<SpriteRenderer>();
             timerStartTime = 0.0f;
             foreach (var triggerable in triggerables)
@@ -116,6 +123,7 @@ namespace Game.Puzzle
         {
             if (hasTimer && timerHasStarted)
             {
+                gameController.EventTime = shutDownTime - GetTimeSinceTriggered();
                 if (TimeIsUp())
                 {
                     ChangeSate();
@@ -126,7 +134,7 @@ namespace Game.Puzzle
 
         private bool TimeIsUp()
         {
-            if (Time.time - timerStartTime >= shutDownTime)
+            if (GetTimeSinceTriggered() >= shutDownTime)
             {
                 return true;
             }
@@ -154,6 +162,11 @@ namespace Game.Puzzle
                     timerHasStarted = false;
                 }
             }
+        }
+
+        private float GetTimeSinceTriggered()
+        {
+            return Time.time - timerStartTime;
         }
     }
 }

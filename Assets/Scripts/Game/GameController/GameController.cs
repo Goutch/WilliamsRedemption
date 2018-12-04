@@ -42,6 +42,7 @@ namespace Game.Controller
         private MenuManager menu;
         private LifePointsUI lifePointsUI;
         private LevelFinishedUI levelFinishUI;
+        private EventTimerUI eventTimerUI;
 
         //Getters
 
@@ -63,6 +64,8 @@ namespace Game.Controller
         public int LevelRemainingTime { get; set; }
         private float savedTime;
         private float actualTimeSaved;
+        
+        public float EventTime { get; set; }
 
         private float startTime;
 
@@ -73,6 +76,7 @@ namespace Game.Controller
             scoreUI = GetComponent<ScoreUI>();
             lifePointsUI = GetComponent<LifePointsUI>();
             levelFinishUI = GetComponent<LevelFinishedUI>();
+            eventTimerUI = GetComponent<EventTimerUI>();
             collectablesEventChannel = GetComponent<CollectablesEventChannel>();
             SceneManager.sceneLoaded += OnSceneLoaded;
             achievementManager = GetComponent<AchievementManager>();
