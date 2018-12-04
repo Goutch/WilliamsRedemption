@@ -45,7 +45,6 @@ namespace Game.Entity.Player
         private new Rigidbody2D rigidbody;
         private ContactFilter2D contactFilter;
         private RaycastHit2D[] preallocaRaycastHits;
-        private float verticalCapacityOffset;
         public bool isOnMovingGround;
 
         public LayerMask LayerMask
@@ -174,11 +173,6 @@ namespace Game.Entity.Player
         private bool CanPassThrough(Vector2 position, Vector2 hitPosition)
         {
             return position.y <= hitPosition.y;
-        }
-
-        public float GetVerticalOffset()
-        {
-            return verticalCapacityOffset;
         }
 
         private void ApplyDeltaPosition(Vector2 deltaPosition, bool isVerticalDelta)

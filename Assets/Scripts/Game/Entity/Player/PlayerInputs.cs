@@ -50,14 +50,14 @@ namespace Game.Entity.Player
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift) &&
-                playerController.CurrentController.CapacityUsable(playerController))
+                playerController.CurrentController.CapacityUsable())
             {
-                playerController.CurrentController.UseCapacity(playerController);
+                playerController.CurrentController.UseCapacity();
             }
 
             if (Input.GetKey(KeyCode.Return) && playerController.CurrentController.CanUseBasicAttack())
             {
-                playerController.CurrentController.UseBasicAttack(playerController);
+                playerController.CurrentController.UseBasicAttack();
             }
         }
 
@@ -86,16 +86,16 @@ namespace Game.Entity.Player
             }
 
             if ((controllerState.Buttons.X == ButtonState.Pressed||controllerState.Triggers.Left>0) &&
-                playerController.CurrentController.CapacityUsable(playerController))
+                playerController.CurrentController.CapacityUsable())
             {
-                playerController.CurrentController.UseCapacity(playerController);
+                playerController.CurrentController.UseCapacity();
                 
             }
 
             if ((controllerState.Buttons.B == ButtonState.Pressed||controllerState.Triggers.Right >0.1) &&
                 playerController.CurrentController.CanUseBasicAttack())
             {
-                playerController.CurrentController.UseBasicAttack(playerController);
+                playerController.CurrentController.UseBasicAttack();
             }
 
         }
