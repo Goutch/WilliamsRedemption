@@ -17,27 +17,37 @@ namespace Game.Entity.Player
         [Tooltip("Amount of time between teleportations.")] [SerializeField]
         private float TeleportationCoolDown;
 
+        [Tooltip("End position height offset. Only used when the raycast does not hit anything before a teleportation occurs. Prevents ending up in walls when teleporting on a moving platform.")]
+        [SerializeField] private float TeleportationHeightOffset;
+
         [SerializeField] private GameObject tpEffect1;
         [SerializeField] private GameObject tpEffect2;
 
         [Header("Sound")] [SerializeField] private AudioClip teleportSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        
+        
 
+
+        private PlayerController player;
         private bool capacityCanBeUsed;
         private bool finishTpEffect;
         private float timerStartTime;
         private BoxCollider2D bc;
-        private Vector2 tpOffset;
-        private Vector2 tpPosition;
         private bool mustTeleport;
         private Rigidbody2D rb;
-        
+        private Vector2 tpOffset;
+        private Vector2 tpPosition;
+        private Vector3 raycastHeightOffset;
+
 
         private void Start()
         {
+            player = GetComponentInParent<PlayerController>();
             capacityCanBeUsed = true;
             timerStartTime = 0;
             bc = GetComponent<BoxCollider2D>();
+            raycastHeightOffset = new Vector2(0, bc.size.y / 2);
             tpOffset = bc.size;
             mustTeleport = false;
             rb = GetComponentInParent<Rigidbody2D>();
@@ -50,19 +60,20 @@ namespace Game.Entity.Player
             finishTpEffect = false;
         }
 
-        public override void UseCapacity(PlayerController player)
+        public override void UseCapacity()
         {
+            player.LockTransformation();
             SoundCaller.CallSound(teleportSound, soundToPlayPrefab, gameObject, false);
             Transform root = transform.parent;
             Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity), 5);
 
-            Debug.DrawLine(root.position,
+            Debug.DrawLine(root.position - raycastHeightOffset,
                 new Vector3(root.position.x + teleportationDistance * player.playerHorizontalDirection.x,
-                    root.position.y, root.position.z), Color.blue,
+                    root.position.y - raycastHeightOffset.y, root.position.z), Color.blue,
                 10);
             RaycastHit2D hit =
                 Physics2D.Raycast(
-                    root.position,
+                    root.position - raycastHeightOffset,
                     player.playerHorizontalDirection, teleportationDistance,
                     1 << LayerMask.NameToLayer(Values.Layers.Platform));
 
@@ -72,14 +83,14 @@ namespace Game.Entity.Player
                     tpPosition =
                         new Vector2(
                             player.transform.position.x + teleportationDistance * player.playerHorizontalDirection.x -
-                            (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y);
+                            (tpOffset.x * player.playerHorizontalDirection.x), player.transform.position.y + TeleportationHeightOffset);
                 else
                 {
                     tpPosition =
                         new Vector2(
                             player.transform.position.x + teleportationDistance * player.playerHorizontalDirection.x -
                             (tpOffset.x * player.playerHorizontalDirection.x),
-                            player.transform.position.y + player.kRigidBody.GetVerticalOffset());
+                            player.transform.position.y + TeleportationHeightOffset);
                 }
             }
             else
@@ -95,13 +106,13 @@ namespace Game.Entity.Player
                         new Vector2(
                             player.transform.position.x + hit.distance * player.playerHorizontalDirection.x -
                             (tpOffset.x * player.playerHorizontalDirection.x),
-                            player.transform.position.y + player.kRigidBody.GetVerticalOffset());
+                            player.transform.position.y);
                 }
             }
 
             mustTeleport = true;
             capacityCanBeUsed = false;
-            timerStartTime = Time.time;            
+            timerStartTime = Time.time;
             OnAttackFinish();
         }
 
@@ -112,6 +123,7 @@ namespace Game.Entity.Player
                 rb.MovePosition(tpPosition);
                 mustTeleport = false;
                 finishTpEffect = true;
+                player.UnlockTransformation();
             }
         }
 
@@ -122,10 +134,9 @@ namespace Game.Entity.Player
                 Destroy(Instantiate(tpEffect2, rb.position, Quaternion.identity), 5);
                 finishTpEffect = false;
             }
-            
         }
 
-        public override bool CapacityUsable(PlayerController player)
+        public override bool CapacityUsable()
         {
             if (capacityCanBeUsed && player.IsOnGround)
             {
@@ -144,7 +155,7 @@ namespace Game.Entity.Player
             return false;
         }
 
-        public override void UseBasicAttack(PlayerController player)
+        public override void UseBasicAttack()
         {
             Quaternion angle = Quaternion.identity;
 
