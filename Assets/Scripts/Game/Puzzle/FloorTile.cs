@@ -13,6 +13,7 @@ namespace Game.Puzzle
 
         private Vector2 initialePosition;
         private bool playerOnFloor = false;
+        private float deplacementY;
 
         public bool IsAtInitialPosition
         {
@@ -22,6 +23,12 @@ namespace Game.Puzzle
         private void Awake()
         {
             initialePosition = transform.position;
+        }
+
+        private void FixedUpdate()
+        {
+            GetComponent<Rigidbody2D>().Translate(new Vector2(0, deplacementY) * Time.fixedDeltaTime);
+            deplacementY = 0;
         }
 
         public override void MoveUp()
@@ -37,9 +44,7 @@ namespace Game.Puzzle
 
             while (Mathf.Abs(transform.position.y - targetPosition.y) > 0.01f)
             {
-                float deplacementY = directionY * speed;
-
-                GetComponent<Rigidbody2D>().Translate(new Vector2(0, deplacementY) * Time.fixedDeltaTime);
+                deplacementY = directionY * speed;
 
                 yield return new WaitForFixedUpdate();
             }

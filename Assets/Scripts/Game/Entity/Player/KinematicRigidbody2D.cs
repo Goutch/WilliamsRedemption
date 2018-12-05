@@ -28,6 +28,9 @@ namespace Game.Entity.Player
         [SerializeField] [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
         private float deltaPrecision = 0.01f;
 
+        [SerializeField]
+        private float deltaPrecision2 = 0.03f;
+
 #if UNITY_EDITOR
         [Header("Debug")]
         [SerializeField]
@@ -255,36 +258,44 @@ namespace Game.Entity.Player
 
             rigidbody.position += deltaPosition.normalized * deltaMagnitude;
 
-//            if (isVerticalDelta)
-//            {
-//                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
-//                var heightHalf = rigidbody.position.y - bottomY;
+            if (isVerticalDelta)
+            {
+                var bottomY = allColliders.Where(it => !it.isTrigger).Min(it => it.bounds.min.y);
+                var heightHalf = rigidbody.position.y - bottomY;
 
-//#if UNITY_EDITOR
-//                if (showDebugInformation)
-//                {
-//                    Debug.DrawLine(transform.position, transform.position - Vector3.up * heightHalf, Color.magenta);
-//                }
-//#endif
+#if UNITY_EDITOR
+                if (showDebugInformation)
+                {
+                    Debug.DrawLine(transform.position, transform.position - Vector3.up * heightHalf, Color.magenta);
+                }
+#endif
 
-//                var nbRays = Physics2D.Raycast(transform.position, Vector2.down, contactFilter, preallocaRaycastHits);
-//                for (var i = 0; i < nbRays; i++)
-//                {
-//                    var raycastHit = preallocaRaycastHits[i];
+                var nbRays = Physics2D.Raycast(transform.position, Vector2.down, contactFilter, preallocaRaycastHits);
+                Vector3? smallestPosition = null;
+                for (var i = 0; i < nbRays; i++)
+                {
+                    var raycastHit = preallocaRaycastHits[i];
 
-//                    if (!allColliders.Contains(raycastHit.collider) &&
-//                        !raycastHit.collider.CompareTag(Values.Tags.PassThrough))
-//                    {
-//                        var floorPosition = raycastHit.point;
-//                        if (floorPosition.y > bottomY)
-//                        {
-//                            var rectifiedPosition = transform.position;
-//                            rectifiedPosition.y = floorPosition.y + heightHalf;
-//                            rigidbody.position = rectifiedPosition;
-//                        }
-//                    }
-//                }
-//            }
+                    if (!allColliders.Contains(raycastHit.collider) &&
+                        !raycastHit.collider.CompareTag(Values.Tags.PassThrough))
+                    {
+                        var floorPosition = raycastHit.point;
+                        
+                        if (floorPosition.y > bottomY)
+                        {
+                            if (smallestPosition == null || floorPosition.y < smallestPosition.Value.y)
+                                smallestPosition = floorPosition;
+                        }
+                    }
+                }
+
+                if(smallestPosition != null)
+                {
+                    var rectifiedPosition = transform.position;
+                    rectifiedPosition.y =  smallestPosition.Value.y + heightHalf + deltaPrecision2;
+                    rigidbody.position = rectifiedPosition;
+                }
+            }
         }
     }
 }
