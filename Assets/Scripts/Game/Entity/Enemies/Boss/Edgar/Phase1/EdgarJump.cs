@@ -96,7 +96,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private void Land()
         {
-            SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
+            Audio.SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
             Finish();
             Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
             ShootProjectile(Quaternion.AngleAxis(0, Vector3.up));

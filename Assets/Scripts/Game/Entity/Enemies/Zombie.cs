@@ -105,7 +105,7 @@ namespace Game.Entity.Enemies
                 Vector2.Distance(transform.position, player.transform.position) <
                 maximumDistanceBetweenPlayerAndObjectSound)
             {
-                SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
+                Audio.SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
                 timeSinceLastMoan = Time.time;
             }
         }

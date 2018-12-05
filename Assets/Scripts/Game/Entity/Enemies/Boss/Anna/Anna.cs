@@ -48,7 +48,7 @@ namespace Game.Entity.Enemies.Boss.Anna
 
         private void CallWoundedSound(GameObject receiver, GameObject attacker)
         {
-            SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
         }
     }
 }

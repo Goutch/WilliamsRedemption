@@ -36,7 +36,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         private void CallWoundedSound(GameObject receiver, GameObject attacker)
         {
-            SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
         }
     }
 }

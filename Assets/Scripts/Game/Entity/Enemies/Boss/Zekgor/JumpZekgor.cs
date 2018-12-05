@@ -39,7 +39,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         {
             base.Finish();
 
-            SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
+            Audio.SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
             
             if (landingEffect != null && landingEffectSpawnPoint != null)
                 Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);

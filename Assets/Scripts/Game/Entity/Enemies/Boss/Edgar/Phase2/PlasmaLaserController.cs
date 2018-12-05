@@ -15,7 +15,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         public void LaserFinish()
         {
             OnLaserFinish?.Invoke(this);
-            SoundCaller.CallSound(plasmaLaserSound, soundToPlayPrefab, gameObject, false);
+            Audio.SoundCaller.CallSound(plasmaLaserSound, soundToPlayPrefab, gameObject, false);
             Destroy(this.gameObject);
         }
     }
