@@ -15,7 +15,8 @@ namespace Game.Entity.Enemies.Attack
 
         [Header("Sound")] [SerializeField] private AudioClip projectileSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
+        [SerializeField] private float maximumDistanceSoundX;
+        [SerializeField] private float maximumDistanceSoundY;
 
         protected HitStimulus hitStimulus;
         protected float birth;
@@ -35,8 +36,9 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
-            if (Vector2.Distance(transform.position, GameObject.FindGameObjectWithTag(Values.Tags.Player)
-                    .transform.position) < maximumDistanceBetweenPlayerAndObjectSound)
+            Vector2 distancePlayerAndProjectile = transform.position - GameObject.FindGameObjectWithTag(Values.Tags.Player).transform.position;
+            if (Mathf.Abs(distancePlayerAndProjectile.x) < maximumDistanceSoundX &&
+                Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY)
             {
                 SoundCaller.CallSound(projectileSound, soundToPlayPrefab, gameObject, false);
             }
