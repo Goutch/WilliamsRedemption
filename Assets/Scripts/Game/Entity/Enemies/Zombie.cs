@@ -1,6 +1,7 @@
 ﻿using Game.Entity.Enemies.Attack;
 using Game.Entity.Player;
 using Harmony;
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Entity.Enemies
@@ -15,7 +16,9 @@ namespace Game.Entity.Enemies
         [SerializeField] private float timerBetweenZombieMoans;
         [SerializeField] private GameObject soundToPlayPrefab;
         [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
+
         private float timeSinceLastMoan;
+        private const float PUSH_BACK_TIME = 0.2f;
 
         private new Rigidbody2D rigidbody;
         private HitStimulus[] hitStimuli;
@@ -56,8 +59,6 @@ namespace Game.Entity.Enemies
         {
             if (!knocked)
                 base.FixedUpdate();
-            if (knocked && rigidbody.velocity.y == 0)
-                knocked = false;
         }
 
         private void Update()
@@ -75,7 +76,7 @@ namespace Game.Entity.Enemies
 
                 rigidbody.AddForce(new Vector2(DarknessKnockBackForce.x * -direction, DarknessKnockBackForce.y),
                     ForceMode2D.Impulse);
-                knocked = true;
+                StartCoroutine(KnockBack());
                 return true;
             }
             else if (hitStimulus.Type == HitStimulus.DamageType.Physical)
@@ -84,11 +85,18 @@ namespace Game.Entity.Enemies
 
                 rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction, bulletKnockBackForce.y),
                     ForceMode2D.Impulse);
-                knocked = true;
+                StartCoroutine(KnockBack());
                 return true;
             }
 
             return false;
+        }
+
+        private IEnumerator KnockBack()
+        {
+            knocked = true;
+            yield return new WaitForSeconds(PUSH_BACK_TIME);
+            knocked = false;
         }
 
         private void ZombieMoans()

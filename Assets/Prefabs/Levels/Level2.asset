@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e21b8fd2082440a85d0cfd645223e82, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  numberCollectables: 11
-  _expectedTime: 500
+  numberCollectables: 12
+  _expectedTime: 600
   sceneName: Level2
   nextLevel: {fileID: 11400000, guid: b523f614d601f5049a396edcd8b567b3, type: 2}
   levelMusic: {fileID: 8300000, guid: 90dc2bdcb7b5f4ed59b9fd276ab5f10b, type: 3}
