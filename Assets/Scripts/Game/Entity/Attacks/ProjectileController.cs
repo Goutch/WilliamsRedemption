@@ -18,6 +18,7 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float maximumDistanceSoundY;
 
         protected HitStimulus hitStimulus;
+        public GameObject target;
         protected float birth;
 
         public float Speed
@@ -61,7 +62,18 @@ namespace Game.Entity.Enemies.Attack
 
         private void FixedUpdate()
         {
+            if(target != null)
+                transform.rotation = TargetDirection(target.transform.position);
+
             transform.Translate(Speed * Time.deltaTime, 0, 0);
+        }
+
+        private Quaternion TargetDirection(Vector3 target)
+        {
+            Vector2 dir = target - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion direction = Quaternion.AngleAxis(angle, Vector3.forward);
+            return direction;
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
