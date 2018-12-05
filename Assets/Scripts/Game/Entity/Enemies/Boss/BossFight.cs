@@ -40,8 +40,11 @@ namespace Game.Entity.Enemies.Boss
 
                     audioManager?.PlaySound();
                 }
-
+                
+                doorToCloseOnBossFightBegin?.Unlock();
                 doorToCloseOnBossFightBegin?.Close();
+                
+                
 
                 doorToOpenOnBossDeath?.Close();
 

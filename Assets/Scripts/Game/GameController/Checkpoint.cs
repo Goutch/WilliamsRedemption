@@ -13,14 +13,12 @@ namespace Game.Controller
         {
             private int healthPointAtTimeOfTrigger;
             private int scoreAtTimeOfTrigger;
-            private float timeAtTimeOfTrigger;
             private Vector3 positionAtTimeOfTrigger;
+            public float time;
 
             public int HealthPointAtTimeOfTrigger => healthPointAtTimeOfTrigger;
 
             public int ScoreAtTimeOfTrigger => scoreAtTimeOfTrigger;
-
-            public float TimeAtTimeOfTrigger => timeAtTimeOfTrigger;
 
             public Vector3 PositionAtTimeOfTrigger => positionAtTimeOfTrigger;
 
@@ -28,8 +26,8 @@ namespace Game.Controller
             {
                 healthPointAtTimeOfTrigger = health;
                 scoreAtTimeOfTrigger = score;
-                timeAtTimeOfTrigger = time;
                 positionAtTimeOfTrigger = position;
+                this.time = time;
             }
         }
 
@@ -52,7 +50,7 @@ namespace Game.Controller
             if (!trigerred && gamecontroller.ExpertMode == false && other.Root().CompareTag(Values.Tags.Player))
             {
                 trigerred = true;
-                data = new CheckPointData(player.GetComponent<Health>().HealthPoints, gamecontroller.Score, Time.time,
+                data = new CheckPointData(player.GetComponent<Health>().HealthPoints, gamecontroller.Score, gamecontroller.LevelRemainingTime,
                     transform.position);
                 gamecontroller.OnCheckPointTrigerred(data);
             }

@@ -182,7 +182,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1614425044747906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4401172887138826}
@@ -197,7 +197,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1648149651207108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.4, y: 1.18, z: 0}
+  m_LocalPosition: {x: -21.676, y: 3.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4615305419536734}
@@ -237,7 +237,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: -0.02}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.31366432, y: 0.44475156}
@@ -262,7 +262,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.02}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -327,9 +327,6 @@ MonoBehaviour:
   playerNoLongerGroundedDelay: 0.1
   amountOfAdditionalJumps: 1
   additionalJumpVelocity: 0.76
-  jumpSound: {fileID: 8300000, guid: d3e10c7fb82fbc54ab5e216f49746eae, type: 3}
-  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
-    type: 2}
 --- !u!114 &114157675786075196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 5
 --- !u!114 &114185727942441164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,6 +393,7 @@ MonoBehaviour:
     type: 2}
   teleportationDistance: 1.92
   TeleportationCoolDown: 0.8
+  TeleportationHeightOffset: 0.01
   tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
   tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
   teleportSound: {fileID: 8300000, guid: bc881043d23671e40a8a9e733ceb4a60, type: 3}
