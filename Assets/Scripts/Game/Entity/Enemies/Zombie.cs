@@ -107,7 +107,7 @@ namespace Game.Entity.Enemies
                 Mathf.Abs(distancePlayerAndProjectile.x) < maximumDistanceSoundX &&
                 Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY)
             {
-                SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
+                Audio.SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
                 timeSinceLastMoan = Time.time;
             }
         }

@@ -58,7 +58,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             animator.SetTrigger(Values.AnimationParameters.Edgar.HeavySwing);
             lastTimeCapacityUsed = Time.time;
-            SoundCaller.CallSound(heavySwingSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(heavySwingSound, soundToPlayPrefab, gameObject, true);
 
             ChangeDirection();
         }

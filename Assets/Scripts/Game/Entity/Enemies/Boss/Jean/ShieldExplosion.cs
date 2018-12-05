@@ -52,7 +52,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             animator.SetTrigger(Values.AnimationParameters.Jean.ShieldExplosion);
 
-            SoundCaller.CallSound(shieldExplosionSound, soundToPlayPrefab, gameObject, false);
+            Audio.SoundCaller.CallSound(shieldExplosionSound, soundToPlayPrefab, gameObject, false);
             
             StartCoroutine(SpawnShieldExplosions());
         }

@@ -48,7 +48,7 @@ namespace Game.Entity.Enemies.Boss.Jean
                 : projectileSpawnPoint2.transform.position;
             Instantiate(projectile, spawnPosition, transform.rotation);
             
-            SoundCaller.CallSound(shootLaserSound, soundToPlayPrefab, gameObject, false);
+            Audio.SoundCaller.CallSound(shootLaserSound, soundToPlayPrefab, gameObject, false);
 
             shieldManager.UseShield(shieldCost);
 

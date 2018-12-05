@@ -38,12 +38,12 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 
         private void CallWoundedSound(GameObject receiver, GameObject attacker)
         {
-            SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
         }
 
         public void SoundDuringWalk()
         {
-            SoundCaller.CallSound(walkSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(walkSound, soundToPlayPrefab, gameObject, true);
         }
     }
 }
