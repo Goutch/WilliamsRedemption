@@ -12,9 +12,4 @@ public static class SoundCaller
         soundToPlayComponent.Init(sound, shouldSoundStopOnOriginDestruction, soundOrigin);
         soundToPlayComponent.PlaySound();
     }
-
-    public static void CallBackgroundSoundtrackTrigger(int soundtrackLevelNumber)
-    {
-        
-    }
 }

@@ -11,11 +11,7 @@ namespace Game.Controller
         [SerializeField] private string sceneName;
         [SerializeField] private Level nextLevel;
 
-        [SerializeField] private AudioClip levelMusic;
-
-        [SerializeField] private int numberSoundTrackPerlevel;
-        /*[SerializeField] private AudioClip levelMusic1;
-        [SerializeField] private AudioClip levelMusic2;*/
+        [SerializeField] private AudioClip[] levelMusics;
 
 
         public int NumberCollectables => numberCollectables;
@@ -26,12 +22,6 @@ namespace Game.Controller
 
         public Level NextLevel => nextLevel;
 
-        public AudioClip LevelMusic => levelMusic;
-
-        public int NumberSoundTrackPerlevel => numberSoundTrackPerlevel;
-
-        /*public AudioClip LevelMusic1 => levelMusic1;
-        
-        public AudioClip LevelMusic2 => levelMusic2;*/
+        public AudioClip[] LevelMusics => levelMusics;
     }
 }

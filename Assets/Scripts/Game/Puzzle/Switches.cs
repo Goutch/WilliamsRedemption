@@ -24,6 +24,7 @@ namespace Game.Puzzle
         [Header("Sound")] [SerializeField] private AudioClip switchesSound;
         [SerializeField] private AudioClip timerSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        [SerializeField] private int numberSoundTrackPlayAfterTimer;
         private AudioManagerBackgroundSound audioManagerForTimer;
         
         private float timerStartTime;
@@ -127,7 +128,7 @@ namespace Game.Puzzle
                 if (TimeIsUp())
                 {
                     ChangeSate();
-                    audioManagerForTimer?.TimerSoundStop();
+                    audioManagerForTimer?.TimerSoundStop(numberSoundTrackPlayAfterTimer);
                 }
             }
         }

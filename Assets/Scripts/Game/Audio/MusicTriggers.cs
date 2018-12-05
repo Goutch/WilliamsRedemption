@@ -10,12 +10,16 @@ namespace Game.Audio
 
         private AudioManagerBackgroundSound audioManager;
 
-        private AudioClip levelMusic;   
+        private AudioClip levelMusic;
+
+        private Level currentLevel;
 
         private void Awake()
         {
             audioManager = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera)
                 .GetComponent<AudioManagerBackgroundSound>();
+            currentLevel=GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                .GetComponent<GameController>().CurrentLevel;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -24,14 +28,10 @@ namespace Game.Audio
             {
                 if (isTriggerStartingMusic)
                 {
-                    Level currentLevel=GameObject.FindGameObjectWithTag(Values.Tags.GameController)
-                        .GetComponent<GameController>().CurrentLevel;
-                    if (numberSoundtrackToPlay>0 && numberSoundtrackToPlay<=currentLevel.NumberSoundTrackPerlevel)
+                    if (numberSoundtrackToPlay>0 && numberSoundtrackToPlay<=currentLevel.LevelMusics.Length)
                     {
-                        //InitializeSound(numberSoundtrackToPlay);
+                        InitializeSound();
                     }
-                    /*levelMusic = currentLevel.LevelMusic;
-                    audioManager.Init(levelMusic);*/
                 }
                 else
                 {
@@ -41,23 +41,14 @@ namespace Game.Audio
             }
         }
 
-        /*private void InitializeSound(int soundtrackNumber)
+        private void InitializeSound()
         {
             AudioClip clip;
-            if (soundtrackNumber == 1)
-            {
-                clip = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
-                    .GetComponent<GameController>().CurrentLevel.LevelMusic1;
-            }
-            else if(soundtrackNumber == 2)
-            {
-                clip = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
-                    .GetComponent<GameController>().CurrentLevel.LevelMusic2;
-            }
+            clip = currentLevel.LevelMusics[numberSoundtrackToPlay-1];
             if (clip != null)
             {
                 audioManager.Init(clip);
             }
-        }*/
+        }
     }
 }

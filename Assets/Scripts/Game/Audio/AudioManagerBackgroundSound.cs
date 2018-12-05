@@ -56,11 +56,18 @@ public class AudioManagerBackgroundSound : MonoBehaviour
         shouldMusicBePlaying = false;
     }
 
-    public void TimerSoundStop()
+    public void TimerSoundStop(int numberSoundtrackToPlay)
     {
-        StopSound();
-        clip = GameObject.FindGameObjectWithTag(Game.Values.Tags.GameController)
-            .GetComponent<GameController>().CurrentLevel.LevelMusic;
-        Init(clip);
+        StopSound();        
+        Level currentLevel=GameObject.FindGameObjectWithTag(Game.Values.Tags.GameController)
+            .GetComponent<GameController>().CurrentLevel;
+        if (currentLevel.LevelMusics.Length >= numberSoundtrackToPlay)
+        {
+            clip = currentLevel.LevelMusics[numberSoundtrackToPlay-1];
+            if (clip != null)
+            {
+                Init(clip);
+            }
+        }
     }
 }
