@@ -14,7 +14,7 @@ namespace Game.Controller
     public class GameController : MonoBehaviour
     {
         [SerializeField] private Level startLevel;
-        [SerializeField] private Level[] levels = new Level[3];
+        [SerializeField] public Level[] levels = new Level[3];
         private int score;
         private int bonusScore;
         private int collectable;
