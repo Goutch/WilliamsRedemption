@@ -6,6 +6,7 @@ namespace Game.Audio
     public class MusicTriggers : MonoBehaviour
     {
         [SerializeField] private bool isTriggerStartingMusic;
+        [SerializeField] private int numberSoundtrackToPlay;
 
         private AudioManagerBackgroundSound audioManager;
 
@@ -23,8 +24,14 @@ namespace Game.Audio
             {
                 if (isTriggerStartingMusic)
                 {
-                    audioManager.Init(GameObject.FindGameObjectWithTag(Values.Tags.GameController)
-                        .GetComponent<GameController>().CurrentLevel.LevelMusic);
+                    Level currentLevel=GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                        .GetComponent<GameController>().CurrentLevel;
+                    if (numberSoundtrackToPlay>0 && numberSoundtrackToPlay<=currentLevel.NumberSoundTrackPerlevel)
+                    {
+                        //InitializeSound(numberSoundtrackToPlay);
+                    }
+                    /*levelMusic = currentLevel.LevelMusic;
+                    audioManager.Init(levelMusic);*/
                 }
                 else
                 {
@@ -33,5 +40,24 @@ namespace Game.Audio
                 gameObject.SetActive(false);
             }
         }
+
+        /*private void InitializeSound(int soundtrackNumber)
+        {
+            AudioClip clip;
+            if (soundtrackNumber == 1)
+            {
+                clip = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                    .GetComponent<GameController>().CurrentLevel.LevelMusic1;
+            }
+            else if(soundtrackNumber == 2)
+            {
+                clip = GameObject.FindGameObjectWithTag(Values.Tags.GameController)
+                    .GetComponent<GameController>().CurrentLevel.LevelMusic2;
+            }
+            if (clip != null)
+            {
+                audioManager.Init(clip);
+            }
+        }*/
     }
 }
