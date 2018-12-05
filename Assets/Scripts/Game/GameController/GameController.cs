@@ -152,6 +152,13 @@ namespace Game.Controller
 
         private void ReturnCheckPoint()
         {
+            if (currentCheckPointdata.DoorsToOpenOnRespawn.Count > 0)
+            {
+                foreach (var door in currentCheckPointdata.DoorsToOpenOnRespawn)
+                {
+                    door.Unlock();
+                }
+            }
             spawnAtCheckPoint = false;
             score = currentCheckPointdata.ScoreAtTimeOfTrigger;
             collectable = 0;
@@ -160,8 +167,6 @@ namespace Game.Controller
             Health playerHealth = player.GetComponent<Health>();
             playerHealth.ResetHealth();
             lifePointsUI.UpdateHealth();
-
-
             player.transform.position = currentCheckPointdata.PositionAtTimeOfTrigger;
         }
 
