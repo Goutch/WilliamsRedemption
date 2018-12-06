@@ -104,7 +104,8 @@ MonoBehaviour:
   delayBeforeDestruction: 5
   destroyOnPlatformsCollision: 0
   projectileSound: {fileID: 0}
-  soundToPlayPrefab: {fileID: 0}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
   maximumDistanceSoundX: 5
   maximumDistanceSoundY: 2
   target: {fileID: 0}
