@@ -347,6 +347,9 @@ MonoBehaviour:
   - {fileID: 0}
   cooldown: 12
   capacityUsableAtStart: 1
+  floorSound: {fileID: 8300000, guid: a00ac73422f81c3438123c3e04ee0534, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114493219404357776
 MonoBehaviour:
   m_ObjectHideFlags: 1
