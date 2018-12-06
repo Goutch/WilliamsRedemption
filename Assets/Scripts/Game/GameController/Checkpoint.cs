@@ -78,7 +78,7 @@ namespace Game.Controller
             {
                 foreach (var door in DoorsToOpen)
                 {
-                    if (door.IsLocked())
+                    if (door.IsLocked()&& !door.IsOpened())
                     {
                         return false;
                     }
