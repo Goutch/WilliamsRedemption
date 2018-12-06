@@ -11,7 +11,7 @@ public class DeathClone : Enemy
 {
     [SerializeField] private GameObject projectile;
     [SerializeField] private float delayBetweenShot;
-
+    [SerializeField] private Transform projectileSpawnPoint;
     private RootMover mover;
     private float lastShot;
 
@@ -35,15 +35,16 @@ public class DeathClone : Enemy
 
         if (Time.time - lastShot > delayBetweenShot)
         {
-            ShootProjectile();
+            animator.SetTrigger("PlasmaShoot");
             lastShot = Time.time;
         }
     }
 
 
-    private void ShootProjectile()
+    private void ShootPlasmaProjectile()
     {
-        GameObject projectileObject = Instantiate(projectile, transform.position, transform.rotation);
+        GameObject projectileObject = Instantiate(projectile, projectileSpawnPoint.position, transform.rotation);
         projectileObject.GetComponent<HitStimulus>().Type = HitStimulus.DamageType.Enemy;
+        
     }
 }
