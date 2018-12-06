@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Game.Entity;
+using Game.Entity.Enemies.Boss;
 using Game.Entity.Player;
 using Game.Puzzle;
 using Harmony;
@@ -28,7 +29,7 @@ namespace Game.Controller
 
             public String CheckPointName => checkPointName;
 
-            public CheckPointData(int health, int score, float time, Vector3 position , String name)
+            public CheckPointData(int health, int score, float time, Vector3 position, String name)
             {
                 healthPointAtTimeOfTrigger = health;
                 scoreAtTimeOfTrigger = score;
@@ -38,7 +39,37 @@ namespace Game.Controller
             }
         }
 
-        [SerializeField] private List<Doors> DoorsToOpen;
+        [Header("BossFight")]
+        [Tooltip("Check this box if a Boss Fight needs to be disabled when the player respawns.")]
+        [SerializeField]
+        private bool DisableBossFight;
+
+        [Tooltip("This BossFight will be disabled when the player respawns if DisableBossFight is true.")]
+        [SerializeField]
+        private BossFight FightToDisableOnRespawn;
+
+        [Header("Checkpoints")]
+        [Tooltip("Check this box to disable all previous checkpoints when this one is triggered.")]
+        [SerializeField]
+        private bool DisablePreviousCheckPoints;
+
+        [Tooltip(
+            "Contains every checkPoint that will be disabled when this one is triggered. (If DisablePreviousCheckPoints is true).")]
+        [SerializeField]
+        private List<Checkpoint> CheckPointsToDisableOnRespawn;
+
+        [Header("Doors")] [SerializeField] private List<Doors> DoorsToOpen;
+
+        [Tooltip("Check this box to disable all previous keys when this checkpoint is triggered.")]
+        [Header("Keys")]
+        [SerializeField]
+        private bool DisablePreviousKeys;
+
+        [Tooltip(
+            "Contains every key that will be disabled when this checkpoint is triggered (If DisablePreviousKeys is true.)")]
+        [SerializeField]
+        private List<Keys> KeysToDisable;
+
         private GameController gamecontroller;
         private PlayerController player;
         private CheckPointData data;
@@ -57,34 +88,58 @@ namespace Game.Controller
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (CheckIfCheckPointCanBeTriggered() && !gamecontroller.ExpertMode &&
-                other.Root().CompareTag(Values.Tags.Player))
+            if (CheckIfCheckPointCanBeTriggered(other))
             {
-                data = new CheckPointData(player.GetComponent<Health>().HealthPoints, gamecontroller.Score,
-                    gamecontroller.LevelRemainingTime,
-                    transform.position,gameObject.name);
-                gamecontroller.OnCheckPointTrigerred(data);
-                gamecontroller.LastCheckpoint = this;
+                if (!gamecontroller.ExpertMode)
+                {
+                    data = new CheckPointData(player.GetComponent<Health>().HealthPoints, gamecontroller.Score,
+                        gamecontroller.LevelRemainingTime,
+                        transform.position, gameObject.name);
+                    gamecontroller.OnCheckPointTrigerred(data);
+                    gamecontroller.LastCheckpoint = this;
+                }
+
+                if (DisableBossFight && FightToDisableOnRespawn.isActiveAndEnabled)
+                {
+                    DisableBossFightOnTrigger();
+                    DisableBossFight = false;
+                }
+
+                if (DisablePreviousCheckPoints)
+                {
+                    DisablePreviousCheckPointsOnTrigger();
+                    DisablePreviousCheckPoints = false;
+                }
+
+                if (DisablePreviousKeys)
+                {
+                    DisablePreviousKeysOnTriggers();
+                    DisablePreviousKeys = false;
+                }
             }
         }
 
-        private bool CheckIfCheckPointCanBeTriggered()
+        private bool CheckIfCheckPointCanBeTriggered(Collider2D other)
         {
-            if (DoorsToOpen.Count ==0)
+            if (DoorsToOpen.Count == 0)
             {
                 return true;
             }
-            else
+
+            if (!other.Root().CompareTag(Values.Tags.Player))
             {
-                foreach (var door in DoorsToOpen)
+                return false;
+            }
+
+            foreach (var door in DoorsToOpen)
+            {
+                if (door.IsLocked() && !door.IsOpened())
                 {
-                    if (door.IsLocked()&& !door.IsOpened())
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                return true;
             }
+
+            return true;
         }
 
         public void UnlockDoors()
@@ -92,6 +147,27 @@ namespace Game.Controller
             foreach (var door in DoorsToOpen)
             {
                 door.Unlock();
+            }
+        }
+
+        private void DisableBossFightOnTrigger()
+        {
+            FightToDisableOnRespawn.gameObject.SetActive(false);
+        }
+
+        private void DisablePreviousCheckPointsOnTrigger()
+        {
+            foreach (var checkPoint in CheckPointsToDisableOnRespawn)
+            {
+                checkPoint.gameObject.SetActive(false);
+            }
+        }
+
+        private void DisablePreviousKeysOnTriggers()
+        {
+            foreach (var key in KeysToDisable)
+            {
+                key.gameObject.SetActive(false);
             }
         }
     }
