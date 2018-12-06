@@ -14,7 +14,7 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private bool destroyOnPlatformsCollision = true;
 
         [Header("Sound")] [SerializeField] private AudioClip projectileSound;
-        [SerializeField] private GameObject soundToPlayPrefab;
+        [SerializeField] protected GameObject soundToPlayPrefab;
         [SerializeField] private float maximumDistanceSoundX;
         [SerializeField] private float maximumDistanceSoundY;
 

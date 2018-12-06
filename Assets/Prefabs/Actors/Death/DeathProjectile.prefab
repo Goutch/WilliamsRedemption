@@ -163,12 +163,16 @@ MonoBehaviour:
   speed: 3
   delayBeforeDestruction: 15
   destroyOnPlatformsCollision: 1
-  projectileSound: {fileID: 0}
-  soundToPlayPrefab: {fileID: 0}
-  maximumDistanceSoundX: 0
-  maximumDistanceSoundY: 0
+  projectileSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
+  maximumDistanceSoundX: 10
+  maximumDistanceSoundY: 10
   target: {fileID: 0}
   canBeReturned: 1
+  floorSound: {fileID: 8300000, guid: a00ac73422f81c3438123c3e04ee0534, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114841679602737112
 MonoBehaviour:
   m_ObjectHideFlags: 1

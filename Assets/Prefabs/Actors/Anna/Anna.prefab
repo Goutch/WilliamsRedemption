@@ -1083,7 +1083,7 @@ MonoBehaviour:
   passiveCapacities:
   - {fileID: 114451709148410488}
   chain: {fileID: 1399442314183866}
-  rotationSpeed: 120
+  rotationSpeed: 150
   teleportationPoint: {fileID: 0}
   light: {fileID: 0}
 --- !u!114 &114979179747525042
