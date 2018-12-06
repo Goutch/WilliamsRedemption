@@ -1,4 +1,5 @@
-﻿using Game.Controller.Events;
+﻿using System.Diagnostics.Eventing.Reader;
+using Game.Controller.Events;
 using Game.Entity;
 using Game.Entity.Player;
 using Game.UI;
@@ -71,7 +72,7 @@ namespace Game.Controller
         public int LevelRemainingTime { get; set; }
         private float savedTime;
         private float actualTimeSaved;
-        
+
         public float EventTime { get; set; }
 
         private float startTime;
@@ -111,7 +112,6 @@ namespace Game.Controller
         {
             if (scene.name != Values.Scenes.Menu && scene.name != Values.Scenes.Main)
             {
-
                 player = GameObject.FindGameObjectWithTag(Values.Tags.Player)
                     .GetComponent<PlayerController>();
                 player.GetComponent<Health>().OnDeath += OnPlayerDie;
@@ -122,7 +122,7 @@ namespace Game.Controller
             }
             else if (scene.name == Values.Scenes.Menu)
             {
-                TotalTime =0;
+                TotalTime = 0;
             }
 
             Time.timeScale = 1f;
@@ -147,7 +147,8 @@ namespace Game.Controller
 
             if (!isGamePaused && isGameStarted)
             {
-                LevelRemainingTime = Mathf.RoundToInt(currentLevel.ExpectedTime - (Time.time - startTime) - actualTimeSaved);
+                LevelRemainingTime =
+                    Mathf.RoundToInt(currentLevel.ExpectedTime - (Time.time - startTime) - actualTimeSaved);
                 if (LevelRemainingTime < 0)
                     LevelRemainingTime = 0;
             }
@@ -179,11 +180,10 @@ namespace Game.Controller
         public void LevelFinished()
         {
             PauseGame();
-            TotalTime += currentLevel.ExpectedTime-LevelRemainingTime;
+            TotalTime += currentLevel.ExpectedTime - LevelRemainingTime;
             bonusScore += 2 * LevelRemainingTime;
             if (currentLevel.NextLevel != null)
             {
-                
                 levelFinishUI.OnLevelFinished();
                 menu.DisplayLevelFinishedPanel();
             }
@@ -228,8 +228,9 @@ namespace Game.Controller
                 {
                     startLevel = levels[0];
                 }
+
                 currentLevel = startLevel;
-                
+
                 LoadLevel(currentLevel);
             }
             else
@@ -275,7 +276,17 @@ namespace Game.Controller
         [UsedImplicitly]
         public void Restart()
         {
-            LoadLevel(startLevel);
+            if (ExpertMode)
+            {
+                LoadLevel(startLevel);
+            }
+
+            else
+            {
+                LoadLevel(currentLevel);
+            }
+
+
             menu.HideGameOverPanel();
             menu.HidePausePanel();
             bonusScore = 0;
