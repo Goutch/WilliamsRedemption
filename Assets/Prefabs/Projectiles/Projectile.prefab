@@ -131,7 +131,9 @@ MonoBehaviour:
   projectileSound: {fileID: 8300000, guid: 2d06a53aed1ff944fbd246b3bfd05b00, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
-  maximumDistanceBetweenPlayerAndObjectSound: 15
+  maximumDistanceSoundX: 5
+  maximumDistanceSoundY: 2
+  target: {fileID: 0}
 --- !u!212 &212303321489881524
 SpriteRenderer:
   m_ObjectHideFlags: 1
