@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114689533996660742}
   - component: {fileID: 61871927213290918}
   - component: {fileID: 114979766900876248}
+  - component: {fileID: 114081981927114342}
   m_Layer: 8
   m_Name: Sorcerer
   m_TagString: Enemy
@@ -140,6 +141,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114081981927114342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545161308005982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e017af5ecc42cab23dc438c5af3a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114666089055966140
 MonoBehaviour:
   m_ObjectHideFlags: 1
