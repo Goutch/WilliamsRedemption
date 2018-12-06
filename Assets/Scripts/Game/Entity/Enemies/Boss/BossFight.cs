@@ -63,26 +63,26 @@ namespace Game.Entity.Enemies.Boss
 
         private void LockBossDoors()
         {
-            doorToCloseOnBossFightBegin.Lock();
-            doorToOpenOnBossDeath.Lock();
+            doorToCloseOnBossFightBegin?.Lock();
+            doorToOpenOnBossDeath?.Lock();
         }
 
         private void OpenBossDoors()
         {
-            doorToCloseOnBossFightBegin.Open();
-            doorToOpenOnBossDeath.Open();
+            doorToCloseOnBossFightBegin?.Open();
+            doorToOpenOnBossDeath?.Open();
         }
 
         private void CloseBossDoors()
         {
-            doorToCloseOnBossFightBegin.Close();
-            doorToOpenOnBossDeath.Close();
+            doorToCloseOnBossFightBegin?.Close();
+            doorToOpenOnBossDeath?.Close();
         }
 
         private void UnlockBossDoors()
         {
-            doorToCloseOnBossFightBegin.Unlock();
-            doorToOpenOnBossDeath.Unlock();
+            doorToCloseOnBossFightBegin?.Unlock();
+            doorToOpenOnBossDeath?.Unlock();
         }
     }
 }

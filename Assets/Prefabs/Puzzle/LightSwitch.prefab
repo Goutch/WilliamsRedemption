@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212802372452397250}
   - component: {fileID: 61351709984373016}
   - component: {fileID: 114510032234855456}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: LightSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,6 +89,7 @@ MonoBehaviour:
   timerSound: {fileID: 8300000, guid: d686ce1d839f7f34a97da3dd3dc146ca, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
+  numberSoundTrackPlayAfterTimer: 0
 --- !u!212 &212802372452397250
 SpriteRenderer:
   m_ObjectHideFlags: 1
