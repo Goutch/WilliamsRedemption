@@ -26,7 +26,7 @@ namespace Game.Puzzle
         [SerializeField] private AudioClip timerSound;
         [SerializeField] private GameObject soundToPlayPrefab;
         [SerializeField] private int numberSoundTrackPlayAfterTimer;
-        private AudioManagerBackgroundSound audioManagerForTimer;
+        private AudioManagerSpecificSounds audioManagerForTimer;
         
         private float timerStartTime;
         private bool timerHasStarted;
@@ -37,7 +37,7 @@ namespace Game.Puzzle
         private void Awake()
         {
             audioManagerForTimer = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera)
-                .GetComponent<AudioManagerBackgroundSound>();
+                .GetComponent<AudioManagerSpecificSounds>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -59,7 +59,7 @@ namespace Game.Puzzle
                             timerStartTime = Time.time;
                             timerHasStarted = true;
                             
-                            audioManagerForTimer?.Init(timerSound);
+                            audioManagerForTimer?.Init(timerSound,false,this.gameObject);
                             audioManagerForTimer?.PlaySound();
                         }
 
@@ -79,7 +79,7 @@ namespace Game.Puzzle
                             timerStartTime = Time.time;
                             timerHasStarted = true;
                             
-                            audioManagerForTimer?.Init(timerSound);
+                            audioManagerForTimer?.Init(timerSound, false , this.gameObject);
                             audioManagerForTimer?.PlaySound();
                         }
 
@@ -129,7 +129,7 @@ namespace Game.Puzzle
                 if (TimeIsUp())
                 {
                     ChangeSate();
-                    audioManagerForTimer?.TimerSoundStop(numberSoundTrackPlayAfterTimer);
+                    audioManagerForTimer?.StopSound();
                 }
             }
         }
