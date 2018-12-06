@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7413c34c58a3a8a46a84806b6bd817dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 0
+  scoreValue: 500
   phases:
   - {fileID: 114006857454406636}
   - {fileID: 114959991973311724}
