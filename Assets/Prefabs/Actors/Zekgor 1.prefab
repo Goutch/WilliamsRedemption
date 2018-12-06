@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf06888f84ad2649ba02643fa6e22fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 0
+  scoreValue: 250
   phases:
   - {fileID: 114109206625813964}
   woundedSound: {fileID: 8300000, guid: 44d980eea1bba1a439e53ddd8432807f, type: 3}

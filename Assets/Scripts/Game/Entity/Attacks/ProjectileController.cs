@@ -39,7 +39,8 @@ namespace Game.Entity.Enemies.Attack
         {
             Vector2 distancePlayerAndProjectile = transform.position - GameObject.FindGameObjectWithTag(Values.Tags.Player).transform.position;
             if (Mathf.Abs(distancePlayerAndProjectile.x) < maximumDistanceSoundX &&
-                Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY)
+                Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY
+                && soundToPlayPrefab != null)
             {
                 SoundCaller.CallSound(projectileSound, soundToPlayPrefab, gameObject, false);
             }
