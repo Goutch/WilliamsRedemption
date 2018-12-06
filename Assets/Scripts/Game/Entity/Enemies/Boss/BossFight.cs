@@ -42,13 +42,10 @@ namespace Game.Entity.Enemies.Boss
                     audioManager?.PlaySound();
                 }
                 
-                doorToCloseOnBossFightBegin?.Unlock();
-                doorToCloseOnBossFightBegin?.Close();
-                
-                
-
-                doorToOpenOnBossDeath?.Close();
-
+                UnlockBossDoors();
+                CloseBossDoors();
+                LockBossDoors();
+               
                 cameraController.FixPoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
 
                 Destroy(GetComponent<BoxCollider2D>());
@@ -57,9 +54,35 @@ namespace Game.Entity.Enemies.Boss
 
         private void OnBossDead(GameObject receiver, GameObject attacker)
         {
-            doorToOpenOnBossDeath?.Open();
+            UnlockBossDoors();
+            OpenBossDoors();
+            LockBossDoors();
             audioManager?.StopSound();
             cameraController.ResumeFollow();
+        }
+
+        private void LockBossDoors()
+        {
+            doorToCloseOnBossFightBegin.Lock();
+            doorToOpenOnBossDeath.Lock();
+        }
+
+        private void OpenBossDoors()
+        {
+            doorToCloseOnBossFightBegin.Open();
+            doorToOpenOnBossDeath.Open();
+        }
+
+        private void CloseBossDoors()
+        {
+            doorToCloseOnBossFightBegin.Close();
+            doorToOpenOnBossDeath.Close();
+        }
+
+        private void UnlockBossDoors()
+        {
+            doorToCloseOnBossFightBegin.Unlock();
+            doorToOpenOnBossDeath.Unlock();
         }
     }
 }
