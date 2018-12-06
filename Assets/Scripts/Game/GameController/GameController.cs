@@ -113,6 +113,10 @@ namespace Game.Controller
                     ReturnCheckPoint();
                 }
             }
+            else if (scene.name == Values.Scenes.Menu)
+            {
+                TotalTime =0;
+            }
 
             Time.timeScale = 1f;
             SceneManager.SetActiveScene(scene);
@@ -168,11 +172,11 @@ namespace Game.Controller
         public void LevelFinished()
         {
             PauseGame();
-
+            TotalTime += currentLevel.ExpectedTime-LevelRemainingTime;
             bonusScore += 2 * LevelRemainingTime;
             if (currentLevel.NextLevel != null)
             {
-                TotalTime += LevelRemainingTime;
+                
                 levelFinishUI.OnLevelFinished();
                 menu.DisplayLevelFinishedPanel();
             }
@@ -241,8 +245,6 @@ namespace Game.Controller
 
         public void GameOver()
         {
-            TotalTime += LevelRemainingTime;
-
             PauseGame();
             OnGameEnd?.Invoke();
             menu.DisplayGameOverPanel();
