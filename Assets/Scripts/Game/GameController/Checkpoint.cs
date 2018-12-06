@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Game.Entity;
@@ -16,7 +17,7 @@ namespace Game.Controller
             private int healthPointAtTimeOfTrigger;
             private int scoreAtTimeOfTrigger;
             private Vector3 positionAtTimeOfTrigger;
-            private List<Doors> doorsToOpenOnRespawn;
+            private string checkPointName;
             public float time;
 
             public int HealthPointAtTimeOfTrigger => healthPointAtTimeOfTrigger;
@@ -25,14 +26,14 @@ namespace Game.Controller
 
             public Vector3 PositionAtTimeOfTrigger => positionAtTimeOfTrigger;
 
-            public List<Doors> DoorsToOpenOnRespawn => doorsToOpenOnRespawn;
+            public String CheckPointName => checkPointName;
 
-            public CheckPointData(int health, int score, float time, Vector3 position , List<Doors> allDoors)
+            public CheckPointData(int health, int score, float time, Vector3 position , String name)
             {
                 healthPointAtTimeOfTrigger = health;
                 scoreAtTimeOfTrigger = score;
                 positionAtTimeOfTrigger = position;
-                doorsToOpenOnRespawn = allDoors;
+                checkPointName = name;
                 this.time = time;
             }
         }
@@ -61,8 +62,9 @@ namespace Game.Controller
             {
                 data = new CheckPointData(player.GetComponent<Health>().HealthPoints, gamecontroller.Score,
                     gamecontroller.LevelRemainingTime,
-                    transform.position,DoorsToOpen);
+                    transform.position,gameObject.name);
                 gamecontroller.OnCheckPointTrigerred(data);
+                gamecontroller.LastCheckpoint = this;
             }
         }
 
@@ -82,6 +84,14 @@ namespace Game.Controller
                     }
                 }
                 return true;
+            }
+        }
+
+        public void UnlockDoors()
+        {
+            foreach (var door in DoorsToOpen)
+            {
+                door.Unlock();
             }
         }
     }
