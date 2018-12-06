@@ -136,7 +136,7 @@ MonoBehaviour:
   boss: {fileID: 0}
   doorToCloseOnBossFightBegin: {fileID: 0}
   doorToOpenOnBossDeath: {fileID: 0}
-  bossMusic: {fileID: 8300000, guid: 008656a5796cfd5418c8b989c7ba57ba, type: 3}
+  bossMusic: {fileID: 8300000, guid: 392e81d4e2b1bf14b928835d50f1c62b, type: 3}
 --- !u!210 &210502156331533738
 SortingGroup:
   m_ObjectHideFlags: 1

@@ -16,4 +16,4 @@ MonoBehaviour:
   sceneName: Level1
   nextLevel: {fileID: 11400000, guid: ad3143ee454f23042b4672a61a77871c, type: 2}
   levelMusics:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 572e2a97a4e4d34429d235a4149ab756, type: 3}
