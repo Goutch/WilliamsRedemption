@@ -275,7 +275,7 @@ namespace Game.Controller
         [UsedImplicitly]
         public void Restart()
         {
-            LoadLevel(currentLevel);
+            LoadLevel(startLevel);
             menu.HideGameOverPanel();
             menu.HidePausePanel();
             bonusScore = 0;

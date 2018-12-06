@@ -8,6 +8,9 @@ namespace Game.Entity.Player
         private Mover player;
         private PlayerIndex controllerNumber;
         private PlayerController playerController;
+
+        public GamePadState ControllerState => controllerState;
+
         private GamePadState controllerState;
         private bool jumpButtonPressed;
 
