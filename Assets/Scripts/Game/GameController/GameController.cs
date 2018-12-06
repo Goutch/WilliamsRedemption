@@ -25,6 +25,7 @@ namespace Game.Controller
         private bool isGameWinned = false;
         private bool spawnAtCheckPoint = false;
         private AchievementManager achievementManager;
+        private Checkpoint lastCheckpoint;
 
         private Level currentLevel;
         public event GameControllerEventHandler OnGameEnd;
@@ -58,6 +59,12 @@ namespace Game.Controller
         public bool IsGameWinned => isGameWinned;
 
         public Level CurrentLevel => currentLevel;
+
+        public Checkpoint LastCheckpoint
+        {
+            get { return lastCheckpoint; }
+            set { lastCheckpoint = value; }
+        }
 
         //Time access
         public int TotalTime { get; set; }
@@ -164,9 +171,9 @@ namespace Game.Controller
             Health playerHealth = player.GetComponent<Health>();
             playerHealth.ResetHealth();
             lifePointsUI.UpdateHealth();
-
-
             player.transform.position = currentCheckPointdata.PositionAtTimeOfTrigger;
+            lastCheckpoint = GameObject.Find(currentCheckPointdata.CheckPointName).GetComponent<Checkpoint>();
+            lastCheckpoint.UnlockDoors();
         }
 
         public void LevelFinished()
