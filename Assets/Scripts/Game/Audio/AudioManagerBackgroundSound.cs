@@ -69,6 +69,7 @@ namespace Game.Audio
                 if (clip != null)
                 {
                     Init(clip);
+                    PlaySound();
                 }
             }
         }
