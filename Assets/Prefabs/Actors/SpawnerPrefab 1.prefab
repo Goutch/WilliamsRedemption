@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4645091844784828}
   - component: {fileID: 114664739381472382}
   - component: {fileID: 58238405524114542}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: SpawnerPrefab 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,6 +69,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1545161308005982, guid: 2e6c7c33d2d025745800ad55263bf5df,
     type: 2}
-  spawnNumber: 1
-  secondsBetweenSpawns: 1
-  spawnOneTime: 1
