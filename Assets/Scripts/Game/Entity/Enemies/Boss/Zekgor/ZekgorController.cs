@@ -15,7 +15,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         {
             if (other.Type == HitStimulus.DamageType.Darkness && !IsInvulnerable)
             {
-                base.OnHit(other);
+                health.Hit(other.gameObject);
                 return true;
             }
             else if (other.Type == HitStimulus.DamageType.Physical)
