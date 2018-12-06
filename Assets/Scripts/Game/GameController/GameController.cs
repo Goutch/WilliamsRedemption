@@ -14,7 +14,7 @@ namespace Game.Controller
     public class GameController : MonoBehaviour
     {
         [SerializeField] private Level startLevel;
-        [SerializeField] private Level[] levels = new Level[3];
+        [SerializeField] public Level[] levels = new Level[3];
         private int score;
         private int bonusScore;
         private int collectable;
@@ -120,6 +120,10 @@ namespace Game.Controller
                     ReturnCheckPoint();
                 }
             }
+            else if (scene.name == Values.Scenes.Menu)
+            {
+                TotalTime =0;
+            }
 
             Time.timeScale = 1f;
             SceneManager.SetActiveScene(scene);
@@ -175,11 +179,11 @@ namespace Game.Controller
         public void LevelFinished()
         {
             PauseGame();
-
+            TotalTime += currentLevel.ExpectedTime-LevelRemainingTime;
             bonusScore += 2 * LevelRemainingTime;
             if (currentLevel.NextLevel != null)
             {
-                TotalTime += LevelRemainingTime;
+                
                 levelFinishUI.OnLevelFinished();
                 menu.DisplayLevelFinishedPanel();
             }
@@ -248,8 +252,6 @@ namespace Game.Controller
 
         public void GameOver()
         {
-            TotalTime += LevelRemainingTime;
-
             PauseGame();
             OnGameEnd?.Invoke();
             menu.DisplayGameOverPanel();

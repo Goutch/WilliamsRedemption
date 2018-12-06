@@ -30,7 +30,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         public override void Enter()
         {
             base.Enter();
-            SoundCaller.CallSound(exhaustedSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(exhaustedSound, soundToPlayPrefab, gameObject, true);
             health.OnHealthChange += OnHurt;
             animator.SetTrigger(Values.AnimationParameters.ZekGor.Vulnerable);
         }

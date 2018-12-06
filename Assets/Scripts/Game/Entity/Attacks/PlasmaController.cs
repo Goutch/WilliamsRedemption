@@ -5,6 +5,7 @@ namespace Game.Entity.Enemies.Attack
     public class PlasmaController : ProjectileController
     {
         [SerializeField] private bool canBeReturned;
+
         private HitSensor hitSensor;
 
         public bool CanBeReturned

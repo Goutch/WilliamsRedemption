@@ -108,7 +108,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private void Land()
         {
-            SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
+            Audio.SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
             Finish();
             Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
             GameObject areaOfEffect = Instantiate(landingAreaOfEffectDamage, landingEffectSpawnPoint);

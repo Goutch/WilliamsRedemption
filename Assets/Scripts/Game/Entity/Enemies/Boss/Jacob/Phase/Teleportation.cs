@@ -44,7 +44,7 @@ namespace Game.Entity.Enemies.Boss.Jacob
 
             Teleport();
 
-            SoundCaller.CallSound(teleportationSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(teleportationSound, soundToPlayPrefab, gameObject, true);
 
             lastUsed = Time.time;
 

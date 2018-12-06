@@ -15,7 +15,7 @@ namespace Game.Puzzle
         {
             if (other.transform.root.CompareTag(Values.Tags.Player))
             {
-                SoundCaller.CallSound(keySound, soundToPlayPrefab, gameObject, false);
+                Audio.SoundCaller.CallSound(keySound, soundToPlayPrefab, gameObject, false);
                 door.Unlock();
                 Debug.Log("Unlock");
                 gameObject.SetActive(false);

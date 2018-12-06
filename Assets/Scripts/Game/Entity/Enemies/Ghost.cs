@@ -48,7 +48,7 @@ namespace Game.Entity.Enemies
         {
             if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
-                health.Hit(hitStimulus.gameObject);
+                base.OnHit(hitStimulus);
 
                 Vector2 kockBackDir = (this.transform.position - hitStimulus.transform.root.position);
                 rigidBody.AddForce(kockBackDir.normalized * damageKnockBackForce, ForceMode2D.Impulse);

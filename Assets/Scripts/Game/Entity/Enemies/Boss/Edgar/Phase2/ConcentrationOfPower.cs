@@ -105,6 +105,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 ProjectileController projectileController = particules[i].GetComponent<ProjectileController>();
                 projectileController.Speed = particulesSpeed;
                 projectileController.DestroyOnPlatformsCollision = false;
+                projectileController.target = this.gameObject;
 
                 yield return new WaitForSeconds(delayBetweenEachParticuleSpawn);
             }

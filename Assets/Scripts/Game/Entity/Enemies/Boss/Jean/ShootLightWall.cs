@@ -30,7 +30,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
             
-            SoundCaller.CallSound(shootLaserSound, soundToPlayPrefab, gameObject, false);
+            Audio.SoundCaller.CallSound(shootLaserSound, soundToPlayPrefab, gameObject, false);
 
             shieldManager.UseShield(shieldCost);
 

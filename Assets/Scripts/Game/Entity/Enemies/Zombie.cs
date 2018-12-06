@@ -15,8 +15,9 @@ namespace Game.Entity.Enemies
         [Header("Sound")] [SerializeField] private AudioClip zombieSound;
         [SerializeField] private float timerBetweenZombieMoans;
         [SerializeField] private GameObject soundToPlayPrefab;
-        [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
-
+        [SerializeField] private float maximumDistanceSoundX;
+        [SerializeField] private float maximumDistanceSoundY;
+        
         private float timeSinceLastMoan;
         private const float PUSH_BACK_TIME = 0.2f;
 
@@ -101,11 +102,12 @@ namespace Game.Entity.Enemies
 
         private void ZombieMoans()
         {
+            Vector2 distancePlayerAndProjectile = transform.position - GameObject.FindGameObjectWithTag(Values.Tags.Player).transform.position;
             if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans &&
-                Vector2.Distance(transform.position, player.transform.position) <
-                maximumDistanceBetweenPlayerAndObjectSound)
+                Mathf.Abs(distancePlayerAndProjectile.x) < maximumDistanceSoundX &&
+                Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY)
             {
-                SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
+                Audio.SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
                 timeSinceLastMoan = Time.time;
             }
         }

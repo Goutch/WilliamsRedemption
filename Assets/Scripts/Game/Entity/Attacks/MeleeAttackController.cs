@@ -1,3 +1,4 @@
+using Game.Audio;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Attack

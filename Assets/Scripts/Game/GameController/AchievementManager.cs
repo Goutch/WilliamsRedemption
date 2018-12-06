@@ -93,6 +93,23 @@ namespace Game.Controller
             }
 
             CheckIfPlayerIsLegendaryAndAddIt();
+
+            Level[] levels = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>().levels;
+
+            if (collectableLevel1Count == levels[0].NumberCollectables)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue1]);
+            }
+
+            if (collectableLevel2Count == levels[1].NumberCollectables)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue2]);
+            }
+
+            if (collectableLevel3Count == levels[2].NumberCollectables)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue3]);
+            }
         }
 
         public void Reset()
@@ -235,28 +252,19 @@ namespace Game.Controller
           if (collectableEvent.Level.Scene == Values.GameObject.Level1)
             {
                 collectableLevel1Count++;
-                if (collectableLevel1Count == collectableEvent.Level.NumberCollectables)
-                {
-                    acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue1]);
-                }
+
             }
 
             if (collectableEvent.Level.Scene == Values.GameObject.Level2)
             {
                 collectableLevel2Count++;
-                if (collectableLevel2Count == collectableEvent.Level.NumberCollectables)
-                {
-                    acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue2]);
-                }
+
             }
 
             if (collectableEvent.Level.Scene == Values.GameObject.Level3)
             {
                 collectableLevel3Count++;
-                if (collectableLevel3Count == collectableEvent.Level.NumberCollectables)
-                {
-                    acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue3]);
-                }
+
             }
         }
 
