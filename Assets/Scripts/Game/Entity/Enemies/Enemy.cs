@@ -11,6 +11,7 @@ namespace Game.Entity.Enemies
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField] private int scoreValue = 0;
+        [SerializeField] private GameObject dmgEffect;
 
         protected Health health;
         protected Animator animator;
@@ -44,10 +45,17 @@ namespace Game.Entity.Enemies
             {
                 health.Hit(hitStimulus.gameObject);
                 StartCoroutine(OnDamageTakenRoutine());
+                Bleed(hitStimulus);
                 return true;
             }
 
             return false;
+        }
+
+        protected void Bleed(HitStimulus hitStimulus)
+        {
+            if (dmgEffect != null)
+                Destroy(Instantiate(dmgEffect, hitStimulus.transform.position, hitStimulus.transform.rotation), 5);
         }
 
         protected abstract void Init();

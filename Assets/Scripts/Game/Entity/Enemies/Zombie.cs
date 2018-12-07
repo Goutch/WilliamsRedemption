@@ -87,6 +87,9 @@ namespace Game.Entity.Enemies
                 rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction, bulletKnockBackForce.y),
                     ForceMode2D.Impulse);
                 StartCoroutine(KnockBack());
+
+                Bleed(hitStimulus);
+
                 return true;
             }
 

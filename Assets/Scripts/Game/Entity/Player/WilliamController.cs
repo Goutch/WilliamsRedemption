@@ -36,6 +36,8 @@ namespace Game.Entity.Player
             capacityCanBeUsed = true;
             shootEventChannel = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
                 .GetComponent<PlayerShootEventChannel>();
+
+
         }
 
         public override void UseCapacity()

@@ -63,8 +63,6 @@ namespace Game.Entity.Enemies.Attack
 
         private void HitStimulus_OnHitStimulusSensed(HitSensor hitSensor)
         {
-            if (particules != null && hitSensor.tag == Values.Tags.Enemy&&hitSensor.GetComponent<BleedMarker>()!=null)
-                Destroy(Instantiate(particules, transform.position, transform.rotation),5);
             Destroy(gameObject);
         }
 

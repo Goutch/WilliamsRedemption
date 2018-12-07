@@ -35,6 +35,7 @@ namespace Game.Entity.Player
 
         [SerializeField] private AudioClip woundedSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        [SerializeField] private GameObject dmgEffect;
 
         private PlayerHealthEventChannel playerHealthEventChannel;
         private GameController gameController;
@@ -141,10 +142,18 @@ namespace Game.Entity.Player
             if (!IsInvincible&&other.Type == HitStimulus.DamageType.Enemy)
             {
                 DamagePlayer(other.gameObject);
+                if (CurrentController is WilliamController)
+                    Bleed(other);
                 return true;
             }
 
             return false;
+        }
+
+        protected void Bleed(HitStimulus hitStimulus)
+        {
+            if (dmgEffect != null)
+                Destroy(Instantiate(dmgEffect, hitStimulus.transform.position, hitStimulus.transform.rotation), 5);
         }
 
 

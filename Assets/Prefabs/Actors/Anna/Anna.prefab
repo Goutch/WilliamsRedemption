@@ -773,6 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 500
+  dmgEffect: {fileID: 1173383280645278, guid: 13f9e689b49ab8c4a8edea122c32e38c, type: 2}
   phases:
   - {fileID: 114316374265905198}
   - {fileID: 114970165815894016}
