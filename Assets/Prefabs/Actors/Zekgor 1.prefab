@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 58825218769572598}
   - component: {fileID: 114398947951889462}
   - component: {fileID: 114367434440583304}
+  - component: {fileID: 210266968528343708}
   m_Layer: 2
   m_Name: CircleMeshLight (2)
   m_TagString: Untagged
@@ -395,6 +396,9 @@ MonoBehaviour:
   detectionLayers:
     serializedVersion: 2
     m_Bits: 3586
+  closeSprite: {fileID: 0}
+  particleSystem: {fileID: 0}
+  closeSystem: {fileID: 0}
   coneAngle: 0
   faceAngle: 292
   minAlpha: 0.3
@@ -513,6 +517,16 @@ MonoBehaviour:
   jumpForce: 5
   speed: 1
   jumpBoost: 0
+--- !u!210 &210266968528343708
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1826675314671122}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -5
 --- !u!212 &212799050329188220
 SpriteRenderer:
   m_ObjectHideFlags: 1
