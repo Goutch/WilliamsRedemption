@@ -63,7 +63,6 @@ namespace Game.Entity.Player
 
         public override void UseCapacity()
         {
-            player.LockTransformation();
             SoundCaller.CallSound(teleportSound, soundToPlayPrefab, gameObject, false);
             Transform root = transform.parent;
             Destroy(Instantiate(tpEffect1, root.position, Quaternion.identity), 5);
@@ -124,7 +123,6 @@ namespace Game.Entity.Player
                 rb.MovePosition(tpPosition);
                 mustTeleport = false;
                 finishTpEffect = true;
-                player.UnlockTransformation();
             }
         }
 
