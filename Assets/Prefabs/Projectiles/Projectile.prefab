@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  delayBeforeDestruction: 2
+  delayBeforeDestruction: 1.2
   destroyOnPlatformsCollision: 1
   particules: {fileID: 1173383280645278, guid: 13f9e689b49ab8c4a8edea122c32e38c, type: 2}
   projectileSound: {fileID: 8300000, guid: 2d06a53aed1ff944fbd246b3bfd05b00, type: 3}
