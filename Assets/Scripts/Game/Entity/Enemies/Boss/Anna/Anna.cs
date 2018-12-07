@@ -22,7 +22,7 @@ namespace Game.Entity.Enemies.Boss.Anna
             }
             else if(hitStimulus.Type == HitStimulus.DamageType.Enemy)
             {
-                health.Hit(hitStimulus.gameObject);
+                base.OnHit(hitStimulus);
 
                 return true;
             }
