@@ -14,6 +14,7 @@ namespace Game.Entity.Enemies.Boss
         [SerializeField] private Doors doorToCloseOnBossFightBegin;
         [SerializeField] private Doors doorToOpenOnBossDeath;
         [SerializeField] private AudioClip bossMusic;
+        [SerializeField] private MusicTriggers musicTrigger;
 
         private Collider2D bossArea;
         private CameraController cameraController;
@@ -40,6 +41,7 @@ namespace Game.Entity.Enemies.Boss
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            
             if (!other.isTrigger && other.transform.root.CompareTag(Values.Tags.Player))
             {
                 boss.SetActive(true);
@@ -49,6 +51,8 @@ namespace Game.Entity.Enemies.Boss
                 LockBossDoors();
                
                 cameraController.FixPoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
+                
+                musicTrigger.StopAllCoroutines();
                 
                 if (bossMusic != null)
                 {
