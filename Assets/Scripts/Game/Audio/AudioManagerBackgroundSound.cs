@@ -56,7 +56,8 @@ namespace Game.Audio
         public void PlaySound()
         {
             //source.volume = 1;
-            source.PlayOneShot(clip, 1.0f);
+           // source.PlayOneShot(clip, 1.0f);
+            source.Play();
         }
 
         public void StopSound()

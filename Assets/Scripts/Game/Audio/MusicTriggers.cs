@@ -37,7 +37,7 @@ namespace Game.Audio
 
         private void Start()
         {
-            audioSource = audioManager.GetAudioSource();
+            audioSource = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera).GetComponent<AudioSource>();
             startVolume = audioSource.volume;
         }
 
@@ -48,7 +48,7 @@ namespace Game.Audio
                 if (!isTriggered)
                 {
                     
-                    StopCoroutine(FadeOut());
+                    StopAllCoroutines();
                     isTriggered = true;
                     StartCoroutine(FadeIn());
 //                    if (musicIsPlaying)
@@ -69,7 +69,7 @@ namespace Game.Audio
         {
             if (other.Root().CompareTag(Values.Tags.Player))
             {
-                StopCoroutine(FadeIn());
+                StopAllCoroutines();
                 isTriggered = false;
                 StartCoroutine(FadeOut());             
             }          
@@ -77,7 +77,7 @@ namespace Game.Audio
 
         private void StopSound()
         {
-            audioManager.StopSound();
+            audioSource.Stop();
             musicIsPlaying = false;
         }
 
@@ -87,7 +87,7 @@ namespace Game.Audio
             clip = currentLevel.LevelMusics[TrackIndex];
             if (clip != null)
             {
-                audioManager.Init(clip);
+                audioSource.clip = clip;
             }
         }
 
@@ -95,7 +95,7 @@ namespace Game.Audio
         {
             while (audioSource.volume > 0)
             {
-                audioSource.volume -= startVolume / AudioFadeTime * Time.deltaTime;   
+                audioSource.volume -= 1 / AudioFadeTime * Time.deltaTime;   
                 yield return null;
             }
 
@@ -109,19 +109,22 @@ namespace Game.Audio
         {
             if (!musicIsPlaying)
             {
-                InitializeSound();               
+                InitializeSound();  
+                PlaySound();
                 musicIsPlaying = true;
             }
-            else
-            {
-                
-            }
+
 
             while (audioSource.volume < 1)
             {
-                audioSource.volume += startVolume / AudioFadeTime * Time.deltaTime;   
+                audioSource.volume += 1 / AudioFadeTime * Time.deltaTime;   
                 yield return null;
             }                    
+        }
+
+        private void PlaySound()
+        {
+            audioSource.Play();
         }
     }
 }
