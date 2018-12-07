@@ -289,7 +289,7 @@ namespace Game.Controller
                 Level2PlayerDamageCount++;
             }
 
-            if (gameController.CurrentLevel.Scene == Values.GameObject.Level2)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level3)
             {
                 Level3PlayerDamageCount++;
             }
