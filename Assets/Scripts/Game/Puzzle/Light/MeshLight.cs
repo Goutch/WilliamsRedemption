@@ -21,8 +21,7 @@ namespace Game.Puzzle.Light
         [SerializeField] protected Sprite closeSprite;
         [SerializeField] private ParticleSystem particleSystem;
         [SerializeField] private ParticleSystem closeSystem;
-
-        private Sprite openSprite;
+        [SerializeField] private Sprite openSprite;
 
         private bool isLocked;
         private bool permanentlyLocked;
@@ -66,8 +65,6 @@ namespace Game.Puzzle.Light
             permanentlyLocked = false;
 
             spriteRenderer = GetComponentInParent<SpriteRenderer>();
-            if (spriteRenderer != null)
-                openSprite = spriteRenderer.sprite;
         }
 
         protected void Start()

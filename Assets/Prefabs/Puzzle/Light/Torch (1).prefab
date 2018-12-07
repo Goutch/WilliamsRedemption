@@ -216,9 +216,10 @@ MonoBehaviour:
   detectionLayers:
     serializedVersion: 2
     m_Bits: 3584
-  closeSprite: {fileID: 21300000, guid: b351d8b998001f44a88bfac6ff393112, type: 3}
+  closeSprite: {fileID: 21300000, guid: b786f8631f9b91244b7d424c50cbcc42, type: 3}
   particleSystem: {fileID: 198240585466858942}
   closeSystem: {fileID: 198305631091459734}
+  openSprite: {fileID: 21300000, guid: 834c7780cb4019e44b0dc825cff2a29c, type: 3}
   coneAngle: 360
   faceAngle: 292
   minAlpha: 0.3
