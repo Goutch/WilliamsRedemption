@@ -71,7 +71,9 @@ namespace Game.Entity.Enemies.Boss
             OpenBossDoors();
             LockBossDoors();
             audioSource.Stop();
+            audioSource.volume = 0;
             cameraController.ResumeFollow();
+            
         }
 
         private void LockBossDoors()
