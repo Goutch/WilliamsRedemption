@@ -43,19 +43,20 @@ namespace Game.Entity.Enemies.Boss
             if (!other.isTrigger && other.transform.root.CompareTag(Values.Tags.Player))
             {
                 boss.SetActive(true);
-
-                if (bossMusic != null)
-                {
-                    audioSource.clip = bossMusic;
-                }
-                
+    
                 UnlockBossDoors();
                 CloseBossDoors();
                 LockBossDoors();
                
                 cameraController.FixPoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
-                audioSource.volume = 1;
-                audioSource.Play();
+                
+                if (bossMusic != null)
+                {
+                    audioSource.clip = bossMusic;
+                    audioSource.volume = 1;
+                    audioSource.Play();
+                }
+                
                 Destroy(GetComponent<BoxCollider2D>());
             }
         }
