@@ -189,6 +189,7 @@ namespace Game.Controller
 
             gameController.AddBonusScore(bonusScoreValue);
             achievementUi.DisplayAchievements(achievementListText);
+            acomplishedAchievements.Clear();
         }
 
         private void OnEnemyDie(OnEnemyDeath enemyDeath)

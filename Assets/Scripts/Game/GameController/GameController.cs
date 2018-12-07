@@ -118,11 +118,14 @@ namespace Game.Controller
                 if (!isGameInExpertMode && spawnAtCheckPoint)
                 {
                     ReturnCheckPoint();
+                    
                 }
+                
             }
             else if (scene.name == Values.Scenes.Menu)
             {
                 TotalTime = 0;
+                Camera.main.GetComponent<AudioSource>().Stop();
             }
 
             Time.timeScale = 1f;
