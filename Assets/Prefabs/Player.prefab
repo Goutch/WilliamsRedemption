@@ -397,7 +397,7 @@ MonoBehaviour:
   TeleportationHeightOffset: 0.01
   tpEffect1: {fileID: 1076074800309914, guid: 73e9fcef131feb04bbcb08a4b16ecf2a, type: 2}
   tpEffect2: {fileID: 1076074800309914, guid: 23b167ec11f4eed4e950a219cad38b06, type: 2}
-  teleportSound: {fileID: 8300000, guid: bc881043d23671e40a8a9e733ceb4a60, type: 3}
+  teleportSound: {fileID: 8300000, guid: 5fbfde5c414f2d74481ed6c313055d58, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
 --- !u!114 &114405242051272348

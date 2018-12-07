@@ -203,7 +203,7 @@ MonoBehaviour:
   cooldown: 1
   spawnParticulePrefab: {fileID: 1328404312031126, guid: cdc4f3174b20de742aeff67c5f171c81,
     type: 2}
-  teleportationSound: {fileID: 8300000, guid: bc881043d23671e40a8a9e733ceb4a60, type: 3}
+  teleportationSound: {fileID: 8300000, guid: 5fbfde5c414f2d74481ed6c313055d58, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
 --- !u!114 &114386250798373468
