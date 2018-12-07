@@ -17,7 +17,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         {
             if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
-                health.Hit(hitStimulus.gameObject);
+                base.OnHit(hitStimulus);
                 return true;
             }
             else if (hitStimulus.Type == HitStimulus.DamageType.Physical)

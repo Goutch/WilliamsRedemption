@@ -55,7 +55,7 @@ namespace Game.Entity.Enemies
         protected void Bleed(HitStimulus hitStimulus)
         {
             if (dmgEffect != null)
-                Destroy(Instantiate(dmgEffect, hitStimulus.transform.position, hitStimulus.transform.rotation), 5);
+                Destroy(Instantiate(dmgEffect, transform.position, hitStimulus.transform.rotation), 5);
         }
 
         protected abstract void Init();
