@@ -51,16 +51,6 @@ namespace Game.Audio
                     StopAllCoroutines();
                     isTriggered = true;
                     StartCoroutine(FadeIn());
-//                    if (musicIsPlaying)
-//                    {
-//                        StopCoroutine(FadeOut());
-//                        StartCoroutine(FadeIn());
-//                        
-//                    }
-//                    else
-//                    {
-//                        StartCoroutine(FadeIn());  
-//                    }
                 }
             }
         }
