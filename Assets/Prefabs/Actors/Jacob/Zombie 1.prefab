@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 0
+  dmgEffect: {fileID: 1173383280645278, guid: 13f9e689b49ab8c4a8edea122c32e38c, type: 2}
   isDumbEnoughToFall: 1
   surroundingRange: 2
   layerVisibleByTheUnit:
@@ -192,7 +193,8 @@ MonoBehaviour:
   timerBetweenZombieMoans: 2
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
-  maximumDistanceBetweenPlayerAndObjectSound: 6
+  maximumDistanceSoundX: 0
+  maximumDistanceSoundY: 0
 --- !u!114 &114428076605782380
 MonoBehaviour:
   m_ObjectHideFlags: 1
