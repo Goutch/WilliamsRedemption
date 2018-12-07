@@ -289,7 +289,7 @@ namespace Game.Entity.Player
                     }
                 }
 
-                if(smallestPosition != null)
+                if(smallestPosition != null && isOnMovingGround)
                 {
                     var rectifiedPosition = transform.position;
                     rectifiedPosition.y =  smallestPosition.Value.y + heightHalf + deltaPrecision2;

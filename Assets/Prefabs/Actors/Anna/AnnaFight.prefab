@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4672043972084456}
   - component: {fileID: 114398835962305020}
   - component: {fileID: 50459505193231154}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Moving platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,6 +372,9 @@ MonoBehaviour:
   detectionLayers:
     serializedVersion: 2
     m_Bits: 264450
+  closeSprite: {fileID: 0}
+  particleSystem: {fileID: 0}
+  closeSystem: {fileID: 0}
   coneAngle: 49
   faceAngle: 270
   minAlpha: 0.75
