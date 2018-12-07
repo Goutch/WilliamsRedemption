@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Game.Controller;
 using Game.Puzzle;
 using UnityEngine;
 
@@ -289,7 +290,9 @@ namespace Game.Entity.Player
                     }
                 }
 
-                if(smallestPosition != null && isOnMovingGround)
+                GameController gmae = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
+
+                if (smallestPosition != null && (isOnMovingGround || gmae.CurrentLevel.NextLevel == null))
                 {
                     var rectifiedPosition = transform.position;
                     rectifiedPosition.y =  smallestPosition.Value.y + heightHalf + deltaPrecision2;
