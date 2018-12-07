@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using System.Collections;
+using DefaultNamespace;
 using Game.Audio;
 using UnityEngine;
 using Game.Entity.Player;
@@ -12,11 +13,12 @@ namespace Game.Entity.Enemies.Attack
         [SerializeField] private float speed;
         [SerializeField] public float delayBeforeDestruction;
         [SerializeField] private bool destroyOnPlatformsCollision = true;
-
+        [SerializeField] private GameObject particules;
         [Header("Sound")] [SerializeField] private AudioClip projectileSound;
-        [SerializeField] private GameObject soundToPlayPrefab;
+        [SerializeField] protected GameObject soundToPlayPrefab;
         [SerializeField] private float maximumDistanceSoundX;
         [SerializeField] private float maximumDistanceSoundY;
+
 
         protected HitStimulus hitStimulus;
         public GameObject target;
@@ -37,9 +39,12 @@ namespace Game.Entity.Enemies.Attack
 
         protected virtual void Awake()
         {
-            Vector2 distancePlayerAndProjectile = transform.position - GameObject.FindGameObjectWithTag(Values.Tags.Player).transform.position;
+            Vector2 distancePlayerAndProjectile = transform.position -
+                                                  GameObject.FindGameObjectWithTag(Values.Tags.Player).transform
+                                                      .position;
             if (Mathf.Abs(distancePlayerAndProjectile.x) < maximumDistanceSoundX &&
-                Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY)
+                Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY
+                && soundToPlayPrefab != null)
             {
                 SoundCaller.CallSound(projectileSound, soundToPlayPrefab, gameObject, false);
             }
@@ -58,12 +63,14 @@ namespace Game.Entity.Enemies.Attack
 
         private void HitStimulus_OnHitStimulusSensed(HitSensor hitSensor)
         {
+            if (particules != null && hitSensor.tag == Values.Tags.Enemy&&hitSensor.GetComponent<BleedMarker>()!=null)
+                Destroy(Instantiate(particules, transform.position, transform.rotation),5);
             Destroy(gameObject);
         }
 
         private void FixedUpdate()
         {
-            if(target != null)
+            if (target != null)
                 transform.rotation = TargetDirection(target.transform.position);
 
             transform.Translate(Speed * Time.deltaTime, 0, 0);

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114684068800591400}
   - component: {fileID: 58085851145409604}
   - component: {fileID: 114110981729864788}
+  - component: {fileID: 114849313494430258}
   m_Layer: 8
   m_Name: Bat
   m_TagString: Enemy
@@ -240,11 +241,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 10
-  batSound: {fileID: 8300000, guid: 72806ae5e7cb33a458c1e1866feac8e9, type: 3}
   exponentialFonction: {x: 0, y: 0}
   fonctionYOffSet: -0.36
+  batSound: {fileID: 8300000, guid: 72806ae5e7cb33a458c1e1866feac8e9, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
+--- !u!114 &114849313494430258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596194178111558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e017af5ecc42cab23dc438c5af3a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114981646875737574
 MonoBehaviour:
   m_ObjectHideFlags: 1

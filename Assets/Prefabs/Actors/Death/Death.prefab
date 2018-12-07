@@ -299,6 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95228b8b3b762de438973951d0091c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: {fileID: 8300000, guid: 6c1be75bbc771a948974b3e9b04b6f20, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114321550884033156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -344,6 +347,9 @@ MonoBehaviour:
   - {fileID: 0}
   cooldown: 12
   capacityUsableAtStart: 1
+  floorSound: {fileID: 8300000, guid: a00ac73422f81c3438123c3e04ee0534, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114493219404357776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -482,11 +488,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7413c34c58a3a8a46a84806b6bd817dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 0
+  scoreValue: 500
   phases:
   - {fileID: 114006857454406636}
   - {fileID: 114959991973311724}
   - {fileID: 114080446936731618}
+  woundedSound: {fileID: 8300000, guid: 1870f7d03413bb044bb321731615c5e2, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114943263336845552
 MonoBehaviour:
   m_ObjectHideFlags: 1
