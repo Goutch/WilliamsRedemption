@@ -33,6 +33,11 @@ namespace Game.Puzzle
                 transform.root.rotation = Quaternion.EulerAngles(0, 0, linkedLight.FaceAngle);
             }
 
+            isLocked = false;
+        }
+
+        private void Start()
+        {
             if (isOpen)
             {
                 Open();
@@ -41,14 +46,12 @@ namespace Game.Puzzle
             {
                 Close();
             }
-
-            isLocked = false;
         }
 
         public void Open()
         {
-            isOpen
-                = true;
+            isOpen = true;
+
             spriteRenderer.sprite = openSprite;
         }
 
