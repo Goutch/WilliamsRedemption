@@ -39,7 +39,7 @@ namespace Game.Entity.Enemies.Boss
                 {
                     audioManager?.Init(bossMusic);
 
-                    audioManager?.PlaySound();
+               //     audioManager?.PlaySound();
                 }
                 
                 UnlockBossDoors();

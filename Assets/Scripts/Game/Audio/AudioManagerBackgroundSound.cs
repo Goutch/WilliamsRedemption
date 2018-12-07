@@ -13,15 +13,21 @@ namespace Game.Audio
         private AudioClip clip;
         private bool shouldMusicBePlaying;
 
-        private void Awake()
+        
+        public AudioSource GetAudioSource()
         {
+            return source;
+        }
+        
+        private void Awake()
+        {  
             source = GetComponent<AudioSource>();
             shouldMusicBePlaying = false;
         }
 
         private void Start()
         {
-            PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;
+            PlayerController.instance.GetComponent<Health>().OnDeath += OnPlayerDie;          
         }
 
         public void Init(AudioClip clip)
@@ -39,7 +45,7 @@ namespace Game.Audio
             else if (!source.isPlaying && !shouldMusicBePlaying)
             {
                 StopSound();
-            }
+           }
         }
 
         private void OnPlayerDie(GameObject gameObject, GameObject gameObject2)
@@ -49,7 +55,9 @@ namespace Game.Audio
 
         public void PlaySound()
         {
-            source.PlayOneShot(clip, soundValue);
+            //source.volume = 1;
+           // source.PlayOneShot(clip, 1.0f);
+            source.Play();
         }
 
         public void StopSound()
@@ -73,5 +81,7 @@ namespace Game.Audio
                 }
             }
         }
+
+
     }
 }
