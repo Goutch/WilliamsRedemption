@@ -23,10 +23,12 @@ namespace Game.Puzzle
         private bool lockLinkedObjects;
 
         [Header("Sound")] [SerializeField] private AudioClip switchesSound;
-        [SerializeField] private AudioClip timerSound;
+       // [SerializeField] private AudioClip timerSound;
         [SerializeField] private GameObject soundToPlayPrefab;
-        [SerializeField] private int numberSoundTrackPlayAfterTimer;
-        private AudioManagerBackgroundSound audioManagerForTimer;
+       // [SerializeField] private int numberSoundTrackPlayAfterTimer;
+        //private AudioManagerSpecificSounds audioManagerForTimer;
+
+        private AudioSource audioSource;
         
         private float timerStartTime;
         private bool timerHasStarted;
@@ -36,8 +38,7 @@ namespace Game.Puzzle
 
         private void Awake()
         {
-            audioManagerForTimer = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera)
-                .GetComponent<AudioManagerBackgroundSound>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -58,9 +59,8 @@ namespace Game.Puzzle
                             triggerable.GetComponent<ITriggerable>()?.Lock();
                             timerStartTime = Time.time;
                             timerHasStarted = true;
+                            audioSource.Play();
                             
-                            audioManagerForTimer?.Init(timerSound);
-                            audioManagerForTimer?.PlaySound();
                         }
 
                         if (lockLinkedObjects)
@@ -78,9 +78,8 @@ namespace Game.Puzzle
                             triggerable.GetComponent<ITriggerable>()?.Lock();
                             timerStartTime = Time.time;
                             timerHasStarted = true;
+                            audioSource.Play();
                             
-                            audioManagerForTimer?.Init(timerSound);
-                            audioManagerForTimer?.PlaySound();
                         }
 
                         if (lockLinkedObjects)
@@ -129,7 +128,7 @@ namespace Game.Puzzle
                 if (TimeIsUp())
                 {
                     ChangeSate();
-                    audioManagerForTimer?.TimerSoundStop(numberSoundTrackPlayAfterTimer);
+                    audioSource.Stop();
                 }
             }
         }
