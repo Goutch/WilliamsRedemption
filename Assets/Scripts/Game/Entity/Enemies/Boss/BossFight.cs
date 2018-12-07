@@ -1,7 +1,9 @@
 ﻿using Game.Audio;
 using Game.Controller;
 using Game.Puzzle;
+using Game.Values;
 using UnityEngine;
+using GameObject = UnityEngine.GameObject;
 
 namespace Game.Entity.Enemies.Boss
 {
@@ -16,6 +18,7 @@ namespace Game.Entity.Enemies.Boss
         private Collider2D bossArea;
         private CameraController cameraController;
         private AudioManagerBackgroundSound audioManager;
+        private AudioSource audioSource;
 
         private void Awake()
         {
@@ -29,6 +32,12 @@ namespace Game.Entity.Enemies.Boss
                 .GetComponent<CameraController>();
         }
 
+        private void Start()
+        {
+            audioSource = GameObject.FindGameObjectWithTag(Values.Tags.MainCamera).GetComponent<AudioSource>();
+            
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.isTrigger && other.transform.root.CompareTag(Values.Tags.Player))
@@ -37,9 +46,7 @@ namespace Game.Entity.Enemies.Boss
 
                 if (bossMusic != null)
                 {
-                    audioManager?.Init(bossMusic);
-
-               //     audioManager?.PlaySound();
+                    audioSource.clip = bossMusic;
                 }
                 
                 UnlockBossDoors();
@@ -47,7 +54,8 @@ namespace Game.Entity.Enemies.Boss
                 LockBossDoors();
                
                 cameraController.FixPoint(bossArea.bounds.center, bossArea.bounds.size.x / 3);
-
+                audioSource.volume = 1;
+                audioSource.Play();
                 Destroy(GetComponent<BoxCollider2D>());
             }
         }
@@ -57,7 +65,7 @@ namespace Game.Entity.Enemies.Boss
             UnlockBossDoors();
             OpenBossDoors();
             LockBossDoors();
-            audioManager?.StopSound();
+            audioSource.Stop();
             cameraController.ResumeFollow();
         }
 
