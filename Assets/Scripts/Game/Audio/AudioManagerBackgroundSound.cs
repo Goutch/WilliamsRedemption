@@ -45,7 +45,7 @@ namespace Game.Audio
             else if (!source.isPlaying && !shouldMusicBePlaying)
             {
                 StopSound();
-            }
+           }
         }
 
         private void OnPlayerDie(GameObject gameObject, GameObject gameObject2)
@@ -55,8 +55,8 @@ namespace Game.Audio
 
         public void PlaySound()
         {
-            source.volume = 1;
-            source.PlayOneShot(clip, soundValue);
+            //source.volume = 1;
+            source.PlayOneShot(clip, 1.0f);
         }
 
         public void StopSound()

@@ -47,16 +47,20 @@ namespace Game.Audio
             {
                 if (!isTriggered)
                 {
-                    if (musicIsPlaying)
-                    {
-                        StopCoroutine(FadeOut());
-                        StartCoroutine(FadeIn());
-                        
-                    }
-                    else
-                    {
-                        StartCoroutine(FadeIn());  
-                    }
+                    
+                    StopCoroutine(FadeOut());
+                    isTriggered = true;
+                    StartCoroutine(FadeIn());
+//                    if (musicIsPlaying)
+//                    {
+//                        StopCoroutine(FadeOut());
+//                        StartCoroutine(FadeIn());
+//                        
+//                    }
+//                    else
+//                    {
+//                        StartCoroutine(FadeIn());  
+//                    }
                 }
             }
         }
@@ -66,6 +70,7 @@ namespace Game.Audio
             if (other.Root().CompareTag(Values.Tags.Player))
             {
                 StopCoroutine(FadeIn());
+                isTriggered = false;
                 StartCoroutine(FadeOut());             
             }          
         }
@@ -88,10 +93,9 @@ namespace Game.Audio
 
         private IEnumerator FadeOut()
         {
-            isTriggered = false;
             while (audioSource.volume > 0)
             {
-                audioSource.volume -= startVolume * Time.deltaTime / AudioFadeTime;
+                audioSource.volume -= startVolume / AudioFadeTime * Time.deltaTime;   
                 yield return null;
             }
 
@@ -103,7 +107,6 @@ namespace Game.Audio
 
         private IEnumerator FadeIn()
         {
-            isTriggered = true;
             if (!musicIsPlaying)
             {
                 InitializeSound();               
@@ -111,11 +114,12 @@ namespace Game.Audio
             }
             else
             {
-                StopCoroutine(FadeOut());
+                
             }
-            while (audioSource.volume < startVolume)
+
+            while (audioSource.volume < 1)
             {
-                audioSource.volume += startVolume * Time.deltaTime / AudioFadeTime;    
+                audioSource.volume += startVolume / AudioFadeTime * Time.deltaTime;   
                 yield return null;
             }                    
         }
