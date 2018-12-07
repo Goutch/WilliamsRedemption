@@ -103,7 +103,8 @@ MonoBehaviour:
   speed: 2
   delayBeforeDestruction: 5
   destroyOnPlatformsCollision: 1
-  projectileSound: {fileID: 8300000, guid: 31d43461da62d144c9d69404fe7999a1, type: 3}
+  particules: {fileID: 0}
+  projectileSound: {fileID: 8300000, guid: 7183fcde0f6f57b4390ed0c48bf59db9, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
   maximumDistanceSoundX: 4
