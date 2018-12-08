@@ -20,8 +20,7 @@ namespace Game.Entity.Player
             playerController = GetComponent<PlayerController>();
             controllerNumber = PlayerIndex.One;
             controllerState = GamePad.GetState(controllerNumber);
-            jumpButtonPressed = false;
-            
+            jumpButtonPressed = false;          
         }
 
         private void Update()

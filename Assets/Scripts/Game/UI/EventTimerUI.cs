@@ -24,7 +24,7 @@ namespace Game.UI
 		{
 			if (gameController.EventTime > 0)
 			{
-				timeText.text = Mathf.RoundToInt(gameController.EventTime).ToString();
+				UpdateEventTimerUI();
 			}
 			else
 			{
@@ -32,6 +32,19 @@ namespace Game.UI
 			}
 			
 		}
+		
+		private void UpdateEventTimerUI()
+		{
+			timeText.text = Mathf.RoundToInt(gameController.EventTime).ToString();
+		}
+
+		public void Reset()
+		{
+			gameController.EventTime = 0;
+		}
+		
+		
+		
 
 
 	}
