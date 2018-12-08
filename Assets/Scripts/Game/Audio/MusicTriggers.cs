@@ -47,7 +47,6 @@ namespace Game.Audio
             {
                 if (!isTriggered)
                 {
-                    
                     StopAllCoroutines();
                     isTriggered = true;
                     StartCoroutine(FadeIn());
@@ -81,6 +80,7 @@ namespace Game.Audio
             }
         }
 
+        //stop la coroutine.
         private IEnumerator FadeOut()
         {
             while (audioSource.volume > 0)

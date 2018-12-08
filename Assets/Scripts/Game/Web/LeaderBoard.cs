@@ -62,11 +62,11 @@ public class LeaderBoard : MonoBehaviour
 
         var formData = System.Text.Encoding.UTF8.GetBytes(json);
 
-        WWW www = new WWW("http://35.188.160.44/api/insert", formData, postHeader);
+        WWW www = new WWW("http://35.238.189.15/api/insert", formData, postHeader);
     }
 
     public void GoToLeaderboardOnWeb()
     {
-        Application.OpenURL("http://35.188.160.44/leaderboardPage");
+        Application.OpenURL("http://35.238.189.15/leaderboardPage");
     }
 }
