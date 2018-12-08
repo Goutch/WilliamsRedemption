@@ -118,14 +118,11 @@ namespace Game.Controller
                 if (!isGameInExpertMode && spawnAtCheckPoint)
                 {
                     ReturnCheckPoint();
-                    
                 }
-                
             }
             else if (scene.name == Values.Scenes.Menu)
             {
-                TotalTime = 0;
-                Camera.main.GetComponent<AudioSource>().Stop();
+                TotalTime = 0;               
             }
 
             Time.timeScale = 1f;
@@ -220,7 +217,7 @@ namespace Game.Controller
             bonusScore = 0;
             collectable = 0;
             scoreUI.OnScoreChange();
-
+            spawnAtCheckPoint = false;
 
             OnLevelChange?.Invoke();
             if (SceneManager.GetActiveScene().name == Values.Scenes.Menu)
