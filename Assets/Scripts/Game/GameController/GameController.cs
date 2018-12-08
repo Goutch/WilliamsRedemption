@@ -145,6 +145,7 @@ namespace Game.Controller
             collectable = 0;
             collectableUI.UpdateCollectableUI();
             scoreUI.OnScoreChange();
+            eventTimerUI.Reset();
             Health playerHealth = player.GetComponent<Health>();
             playerHealth.ResetHealth();
             lifePointsUI.UpdateHealth();

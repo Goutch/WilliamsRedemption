@@ -23,7 +23,7 @@ namespace Game.Entity.Player
             controllerState = GamePad.GetState(controllerNumber);
             gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController).GetComponent<GameController>();
             jumpButtonPressed = false;
-            
+                    
         }
 
         private void Update()
