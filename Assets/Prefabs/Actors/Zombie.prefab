@@ -202,11 +202,11 @@ MonoBehaviour:
   DarknessKnockBackForce: {x: 3, y: 1}
   playerKnockBackForce: {x: 1, y: 1.5}
   zombieSound: {fileID: 8300000, guid: 4ce2afae967de5c4b8b8f981ac0439d1, type: 3}
-  timerBetweenZombieMoans: 2
+  timerBetweenZombieMoans: 3
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
-  maximumDistanceSoundX: 5
-  maximumDistanceSoundY: 2
+  maximumDistanceSoundX: 1.28
+  maximumDistanceSoundY: 0.96
 --- !u!114 &114428076605782380
 MonoBehaviour:
   m_ObjectHideFlags: 1
