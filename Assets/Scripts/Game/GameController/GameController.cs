@@ -168,7 +168,7 @@ namespace Game.Controller
         private void ReturnCheckPoint()
         {
             spawnAtCheckPoint = false;
-            score = currentCheckPointdata.ScoreAtTimeOfTrigger;
+            score = currentCheckPointdata.ScoreAtTimeOfTrigger - (collectable * 100);
             collectable = 0;
             collectableUI.UpdateCollectableUI();
             scoreUI.OnScoreChange();
