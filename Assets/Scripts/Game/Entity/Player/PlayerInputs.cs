@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Controller;
+using UnityEngine;
 using XInputDotNetPure;
 
 namespace Game.Entity.Player
@@ -13,13 +14,14 @@ namespace Game.Entity.Player
 
         private GamePadState controllerState;
         private bool jumpButtonPressed;
-
+        private GameController gameController;
         private void Start()
         {
             player = GetComponent<Mover>();
             playerController = GetComponent<PlayerController>();
             controllerNumber = PlayerIndex.One;
             controllerState = GamePad.GetState(controllerNumber);
+            gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController).GetComponent<GameController>();
             jumpButtonPressed = false;
             
         }
@@ -43,6 +45,10 @@ namespace Game.Entity.Player
                 player.Jump();
             }
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameController.OnPauseButtonPressed();
+            }
             if (Input.GetKey(KeyCode.A))
             {
                 player.MoveLeft();
@@ -74,6 +80,10 @@ namespace Game.Entity.Player
                 jumpButtonPressed = true;
             }
 
+            if (controllerState.Buttons.Start == ButtonState.Pressed)
+            {
+                gameController.OnPauseButtonPressed();
+            }
             if (controllerState.Buttons.A == ButtonState.Released)
             {
                 jumpButtonPressed = false;

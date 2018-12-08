@@ -122,37 +122,13 @@ namespace Game.Controller
             }
             else if (scene.name == Values.Scenes.Menu)
             {
-                TotalTime = 0;               
+                TotalTime = 0;
             }
 
             Time.timeScale = 1f;
             SceneManager.SetActiveScene(scene);
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (!IsGamePaused)
-                {
-                    PauseGame();
-                    menu.DisplayPausePanel();
-                }
-                else
-                {
-                    ResumeGame();
-                    menu.HidePausePanel();
-                }
-            }
-
-            if (!isGamePaused && isGameStarted)
-            {
-                LevelRemainingTime =
-                    Mathf.RoundToInt(currentLevel.ExpectedTime - (Time.time - startTime) - actualTimeSaved);
-                if (LevelRemainingTime < 0)
-                    LevelRemainingTime = 0;
-            }
-        }
 
         public void AddScore(int score)
         {
@@ -317,6 +293,28 @@ namespace Game.Controller
             {
                 spawnAtCheckPoint = true;
                 Restart();
+            }
+        }
+
+        public void OnPauseButtonPressed()
+        {
+            if (!IsGamePaused)
+            {
+                PauseGame();
+                menu.DisplayPausePanel();
+            }
+            else
+            {
+                ResumeGame();
+                menu.HidePausePanel();
+            }
+
+            if (!isGamePaused && isGameStarted)
+            {
+                LevelRemainingTime =
+                    Mathf.RoundToInt(currentLevel.ExpectedTime - (Time.time - startTime) - actualTimeSaved);
+                if (LevelRemainingTime < 0)
+                    LevelRemainingTime = 0;
             }
         }
 
