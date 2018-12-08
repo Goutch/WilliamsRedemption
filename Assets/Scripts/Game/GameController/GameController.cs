@@ -156,6 +156,7 @@ namespace Game.Controller
 
         public void LevelFinished()
         {
+            spawnAtCheckPoint = false;
             PauseGame();
             TotalTime += currentLevel.ExpectedTime - LevelRemainingTime;
             bonusScore += 2 * LevelRemainingTime;
