@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Game.Controller;
 using Game.Puzzle;
 using UnityEngine;
 
@@ -28,6 +29,9 @@ namespace Game.Entity.Player
         [SerializeField] [Tooltip("Precision of the simulation. Don't make it lower than 0.01.")]
         private float deltaPrecision = 0.01f;
 
+        [SerializeField]
+        private float deltaPrecision2 = 0.03f;
+
 #if UNITY_EDITOR
         [Header("Debug")]
         [SerializeField]
@@ -45,7 +49,6 @@ namespace Game.Entity.Player
         private new Rigidbody2D rigidbody;
         private ContactFilter2D contactFilter;
         private RaycastHit2D[] preallocaRaycastHits;
-        private float verticalCapacityOffset;
         public bool isOnMovingGround;
 
         public LayerMask LayerMask
@@ -176,11 +179,6 @@ namespace Game.Entity.Player
             return position.y <= hitPosition.y;
         }
 
-        public float GetVerticalOffset()
-        {
-            return verticalCapacityOffset;
-        }
-
         private void ApplyDeltaPosition(Vector2 deltaPosition, bool isVerticalDelta)
         {
             var deltaMagnitude = deltaPosition.magnitude;
@@ -274,6 +272,7 @@ namespace Game.Entity.Player
 #endif
 
                 var nbRays = Physics2D.Raycast(transform.position, Vector2.down, contactFilter, preallocaRaycastHits);
+                Vector3? smallestPosition = null;
                 for (var i = 0; i < nbRays; i++)
                 {
                     var raycastHit = preallocaRaycastHits[i];
@@ -282,13 +281,22 @@ namespace Game.Entity.Player
                         !raycastHit.collider.CompareTag(Values.Tags.PassThrough))
                     {
                         var floorPosition = raycastHit.point;
+                        
                         if (floorPosition.y > bottomY)
                         {
-                            var rectifiedPosition = transform.position;
-                            rectifiedPosition.y = floorPosition.y + heightHalf;
-                            rigidbody.position = rectifiedPosition;
+                            if (smallestPosition == null || floorPosition.y < smallestPosition.Value.y)
+                                smallestPosition = floorPosition;
                         }
                     }
+                }
+
+                GameController gmae = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
+
+                if (smallestPosition != null && (isOnMovingGround || gmae.CurrentLevel.NextLevel == null))
+                {
+                    var rectifiedPosition = transform.position;
+                    rectifiedPosition.y =  smallestPosition.Value.y + heightHalf + deltaPrecision2;
+                    rigidbody.position = rectifiedPosition;
                 }
             }
         }

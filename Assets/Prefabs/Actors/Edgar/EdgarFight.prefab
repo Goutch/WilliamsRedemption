@@ -84,7 +84,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.6537018, y: -0.93334985}
+  m_Offset: {x: -1.4520569, y: -0.93334985}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -95,7 +95,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.973572, y: 2.8666997}
+  m_Size: {x: 7.570282, y: 2.8666997}
   m_EdgeRadius: 0
 --- !u!61 &61263645333409076
 BoxCollider2D:
@@ -133,10 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f0dd62a5d6db5488f4bfe642b6a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 1495303630612842, guid: e792e992ee9b40d4aa85c2645ff4a298, type: 2}
+  boss: {fileID: 0}
   doorToCloseOnBossFightBegin: {fileID: 0}
   doorToOpenOnBossDeath: {fileID: 0}
-  bossMusic: {fileID: 8300000, guid: 008656a5796cfd5418c8b989c7ba57ba, type: 3}
+  bossMusic: {fileID: 8300000, guid: 392e81d4e2b1bf14b928835d50f1c62b, type: 3}
 --- !u!210 &210502156331533738
 SortingGroup:
   m_ObjectHideFlags: 1

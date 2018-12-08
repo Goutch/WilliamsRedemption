@@ -13,6 +13,9 @@ namespace Game.Entity.Enemies.Boss.Death
         [SerializeField] private Transform[] spawnTeleport;
         [SerializeField] private float cooldown;
         [SerializeField] private bool capacityUsableAtStart;
+        
+        [Header("Sound")] [SerializeField] private AudioClip floorSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private RootMover mover;
         private FloorManager floorManager;
@@ -47,6 +50,8 @@ namespace Game.Entity.Enemies.Boss.Death
 
             Teleport();
 
+            Audio.SoundCaller.CallSound(floorSound, soundToPlayPrefab, gameObject, true);
+            
             floorManager.ShiftFloors();
 
             mover.LookAtPlayer();

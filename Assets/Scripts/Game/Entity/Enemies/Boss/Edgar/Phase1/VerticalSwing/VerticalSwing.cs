@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Audio;
+using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Edgar
 {
@@ -24,6 +25,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private float lastTimeUsed;
 
         private SpawnedTilesManager spawnedTilesManager;
+        private RootMover mover;
 
         protected override void Init()
         {
@@ -31,6 +33,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
                 lastTimeUsed = -cooldown;
 
             spawnedTilesManager = GetComponent<SpawnedTilesManager>();
+            mover = GetComponent<RootMover>();
         }
 
         public override void Act()
@@ -49,7 +52,10 @@ namespace Game.Entity.Enemies.Boss.Edgar
         {
             base.Enter();
 
+            mover.LookAtPlayer();
+
             animator.SetTrigger(Values.AnimationParameters.Edgar.VerticalSwing);
+            
             lastTimeUsed = Time.time;
         }
 

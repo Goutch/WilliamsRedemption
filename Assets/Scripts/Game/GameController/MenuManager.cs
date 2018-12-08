@@ -11,6 +11,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gameHUD;
     [SerializeField] private GameObject levelFinishedPanel;
+    [SerializeField] private GameObject LevelSelectPanel;
+    [SerializeField] private GameObject creditsPanel;
     private GameController gameController;
     private const string gameCompletedTextString = "Congratulations!";
     private const string deathTextString = "Game Over";
@@ -36,6 +38,7 @@ public class MenuManager : MonoBehaviour
         else
         {
             HideMainMenu();
+            HideLevelSelectPanel();
             DisplayGameHUD();
         }
     }
@@ -51,11 +54,6 @@ public class MenuManager : MonoBehaviour
         HidePausePanel();
         HideGameHUD();
         DisplayMainMenu();
-    }
-
-    public void OnStartButtonClick()
-    {
-        gameController.NextLevel();
     }
 
     public void HideMainMenu()
@@ -106,5 +104,25 @@ public class MenuManager : MonoBehaviour
     public void HideLevelFinishedPanel()
     {
         levelFinishedPanel.SetActive(false);
+    }
+
+    public void DisplayLevelSelectPanel()
+    {
+        LevelSelectPanel.SetActive(true);
+    }
+
+    public void HideLevelSelectPanel()
+    {
+        LevelSelectPanel.SetActive(false);
+    }
+
+    public void DisplayCreditsPanel()
+    {
+        creditsPanel.SetActive(true);
+    }
+
+    public void HideCreditsPanel()
+    {
+        creditsPanel.SetActive(false);
     }
 }

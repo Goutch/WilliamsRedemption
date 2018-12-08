@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -57,7 +58,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
             animator.SetTrigger(Values.AnimationParameters.Edgar.HeavySwing);
             lastTimeCapacityUsed = Time.time;
-            SoundCaller.CallSound(heavySwingSound, soundToPlayPrefab, gameObject, true);
+            Audio.SoundCaller.CallSound(heavySwingSound, soundToPlayPrefab, gameObject, true);
 
             ChangeDirection();
         }
@@ -65,12 +66,12 @@ namespace Game.Entity.Enemies.Boss.Edgar
         private void ChangeDirection()
         {
             Vector3Int cellBossPosition = spawnedTilesManager.ConvertLocalToCell(transform.position);
-            Func<Vector3Int, bool> positionsToTheLeftOfBoss = position => position.x < cellBossPosition.x;
-            Func<Vector3Int, bool> positionsToTheRightOfBoss = position => position.x > cellBossPosition.x;
+            Func<KeyValuePair<Vector3Int, BirthLifeTime>, bool> positionsToTheLeftOfBoss = position => position.Key.x < cellBossPosition.x;
+            Func< KeyValuePair<Vector3Int, BirthLifeTime>, bool> positionsToTheRightOfBoss = position => position.Key.x > cellBossPosition.x;
 
             mover.LookAtPlayer();
 
-            float directionX = transform.rotation.y == -1 ? -1 : 1;
+            float directionX = transform.rotation.y == -1 || transform.rotation.y == 1 ? -1 : 1;
 
             if (directionX > 0 && spawnedTilesManager.IsAnySpawnedTiles(positionsToTheRightOfBoss))
             {

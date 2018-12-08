@@ -1,17 +1,24 @@
-﻿using UnityEngine;
+﻿using Harmony;
+using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.XR.WSA;
 
 namespace Game.Entity.Enemies
 {
     public class PathFinder
     {
         public Tilemap[] Obstacles { get; set; }
-
+        public Grid grid;
         public PathFinder(Tilemap[] obstacles)
         {
             Obstacles = obstacles;
+            grid = obstacles[0].Parent().GetComponent<Grid>();
         }
 
+        public Vector3Int WorldToGrid(Vector3 position)
+        {
+           return grid.WorldToCell(position);
+        }
         public bool[,] GetSurrounding(int range, Vector2 myPosition)
         {
             bool[,] surrounding = new bool[range * 2 + 1, range * 2 + 1];

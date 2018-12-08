@@ -265,11 +265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718160daed98b454985daa1e0297c23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 100
+  scoreValue: 40
   bulletPrefab: {fileID: 1555886954156834, guid: 02a9a5485789ca344b783acb69fe4a95,
     type: 2}
   projectileSpawnPoint: {fileID: 4983832373098882}
-  ProjectileLifeSpanInSeconds: 0
+  projectileLifeSpanInSeconds: 0
 --- !u!114 &114894377200128018
 MonoBehaviour:
   m_ObjectHideFlags: 1

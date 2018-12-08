@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4672043972084456}
   - component: {fileID: 114398835962305020}
   - component: {fileID: 50459505193231154}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Moving platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,6 +337,7 @@ MonoBehaviour:
   boss: {fileID: 0}
   doorToCloseOnBossFightBegin: {fileID: 0}
   doorToOpenOnBossDeath: {fileID: 0}
+  bossMusic: {fileID: 8300000, guid: d0b55472978c84a88b087ac7917906e5, type: 3}
 --- !u!114 &114217516282589926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,6 +372,9 @@ MonoBehaviour:
   detectionLayers:
     serializedVersion: 2
     m_Bits: 264450
+  closeSprite: {fileID: 0}
+  particleSystem: {fileID: 0}
+  closeSystem: {fileID: 0}
   coneAngle: 49
   faceAngle: 270
   minAlpha: 0.75
@@ -397,6 +401,7 @@ MonoBehaviour:
   VerticalSpeed: 0
   isHeadingRight: 1
   isHeadingUpwards: 1
+  DirectionChangeDelay: 0
   isUsingQuadraticCurve: 0
   quadraticA: 0.5
   quadraticB: 0

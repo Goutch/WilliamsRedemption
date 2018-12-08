@@ -64,12 +64,14 @@ namespace Game.Entity.Enemies.Boss.Anna
 
             if (Mathf.Abs(transform.position.x - player.transform.position.x) > 0.25f)
             {
-                mover.MoveForward();
+                mover.MoveOnXAxis(transform.rotation.y == 1 || transform.rotation.y == -1 ? -1 : 1);
 
                 animator.SetBool(Values.AnimationParameters.Anna.Walking, true);
             }
             else
             {
+                mover.StopWalking();
+
                 animator.SetBool(Values.AnimationParameters.Anna.Walking, false);
             }
         }

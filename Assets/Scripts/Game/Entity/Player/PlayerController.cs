@@ -1,6 +1,7 @@
 ﻿using Game.Puzzle.Light;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Audio;
 using Game.Controller;
 using Game.Controller.Events;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace Game.Entity.Player
 
         [SerializeField] private AudioClip woundedSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        [SerializeField] private GameObject dmgEffect;
 
         private PlayerHealthEventChannel playerHealthEventChannel;
         private GameController gameController;
@@ -137,13 +139,21 @@ namespace Game.Entity.Player
 
         private bool HandleCollision(HitStimulus other)
         {
-            if (other.Type == HitStimulus.DamageType.Enemy)
+            if (!IsInvincible&&other.Type == HitStimulus.DamageType.Enemy)
             {
                 DamagePlayer(other.gameObject);
+                if (CurrentController is WilliamController)
+                    Bleed(other);
                 return true;
             }
 
             return false;
+        }
+
+        protected void Bleed(HitStimulus hitStimulus)
+        {
+            if (dmgEffect != null)
+                Destroy(Instantiate(dmgEffect, transform.position, hitStimulus.transform.rotation), 5);
         }
 
 

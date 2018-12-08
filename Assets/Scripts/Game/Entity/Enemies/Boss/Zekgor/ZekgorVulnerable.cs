@@ -6,6 +6,9 @@ namespace Game.Entity.Enemies.Boss.Zekgor
 {
     class ZekgorVulnerable : Vulnerable
     {
+        [Header("Sound")] [SerializeField] private AudioClip exhaustedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
         private Animator animator;
         private Health health;
         private Enemy enemy;
@@ -27,6 +30,7 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         public override void Enter()
         {
             base.Enter();
+            Audio.SoundCaller.CallSound(exhaustedSound, soundToPlayPrefab, gameObject, true);
             health.OnHealthChange += OnHurt;
             animator.SetTrigger(Values.AnimationParameters.ZekGor.Vulnerable);
         }

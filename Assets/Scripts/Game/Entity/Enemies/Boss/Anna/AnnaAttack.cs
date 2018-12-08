@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.Audio;
 using UnityEngine;
 
 namespace Game.Entity.Enemies.Boss.Anna
@@ -12,6 +13,9 @@ namespace Game.Entity.Enemies.Boss.Anna
     class AnnaAttack : Capacity
     {
         [SerializeField] private float range;
+        
+        [Header("Sound")] [SerializeField] private AudioClip attackSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private Animator animator;
         private RootMover mover;
@@ -37,6 +41,7 @@ namespace Game.Entity.Enemies.Boss.Anna
 
             mover.LookAtPlayer();
             animator.SetTrigger(Values.AnimationParameters.Anna.Attack);
+            SoundCaller.CallSound(attackSound, soundToPlayPrefab, gameObject, true);
         }
 
         [UsedImplicitly]

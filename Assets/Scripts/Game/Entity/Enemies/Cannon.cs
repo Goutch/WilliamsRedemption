@@ -7,7 +7,7 @@ namespace Game.Entity.Enemies
     {
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private Transform projectileSpawnPoint;
-        [SerializeField] private float ProjectileLifeSpanInSeconds;
+        [SerializeField] private float projectileLifeSpanInSeconds;
         private float timeJustAfterShooting;
         private const float TIME_BEFORE_SHOOTING_AGAIN = 2;
 
@@ -18,7 +18,7 @@ namespace Game.Entity.Enemies
 
         public void Update()
         {
-            if (CanCannonShoot() == true)
+            if (CanCannonShoot())
             {
                 Shoot();
             }
@@ -26,8 +26,9 @@ namespace Game.Entity.Enemies
 
         private void Shoot()
         {
-            Destroy(Instantiate(bulletPrefab, projectileSpawnPoint.position, this.transform.rotation),
-                ProjectileLifeSpanInSeconds);
+            GameObject gameObject = Instantiate(bulletPrefab, projectileSpawnPoint.position, this.transform.rotation);
+            gameObject.GetComponent<ProjectileController>().delayBeforeDestruction = projectileLifeSpanInSeconds;
+
             animator.SetTrigger("Shoot");
         }
 

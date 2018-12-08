@@ -39,6 +39,9 @@ namespace Game.Entity.Enemies.Boss.Death
         {
             base.Enter();
 
+            foreach (SpawnedEnemyManager spawnedEnemyManager in spawnedEnemyManagers)
+                spawnedEnemyManager.ResetEnemySpawnedCount();
+
             closeLight.Close();
             openLight.Open();
 

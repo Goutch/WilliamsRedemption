@@ -20,8 +20,8 @@ namespace Game.Entity.Player
             Collider = GetComponent<Collider2D>();
         }
 
-        public abstract void UseCapacity(PlayerController player);
-        public abstract bool CapacityUsable(PlayerController player);
+        public abstract void UseCapacity();
+        public abstract bool CapacityUsable();
 
         public bool CanUseBasicAttack()
         {
@@ -34,7 +34,7 @@ namespace Game.Entity.Player
             return false;
         }
 
-        public abstract void UseBasicAttack(PlayerController player);
+        public abstract void UseBasicAttack();
 
         [UsedImplicitly]
         public void OnAttackFinish()

@@ -2,45 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManagerSpecificSounds : MonoBehaviour
+namespace Game.Audio
 {
-    private AudioSource source;
-    private AudioClip clip;
-    private GameObject linkedObject;
-    private bool doesSoundStopOnObjectDestroy;
-    private float soundValue = 1F;
-
-    private void Awake()
+    public class AudioManagerSpecificSounds : MonoBehaviour
     {
-        source = GetComponent<AudioSource>();
-    }
+        [SerializeField] private float soundValue;
+    
+        private AudioSource source;
+        private AudioClip clip;
+        private GameObject linkedObject;
+        private bool doesSoundStopOnObjectDestroy;
+        private bool repeatSound;
 
-    public void Init(AudioClip clip, bool doesSoundStopOnObjectDestroy, GameObject linkedObject)
-    {
-        this.clip = clip;
-        this.doesSoundStopOnObjectDestroy = doesSoundStopOnObjectDestroy;
-        this.linkedObject = linkedObject;
-    }
-
-    private void Update()
-    {
-        if (linkedObject != null)
+        public bool RepeatSound
         {
-            transform.position = linkedObject.transform.position;
+            get { return repeatSound;}
+            set { repeatSound = value; }
         }
-        else if (linkedObject == null && doesSoundStopOnObjectDestroy)
+        
+        
+        private void Awake()
         {
-            Destroy(gameObject);
+            source = GetComponent<AudioSource>();
+            repeatSound = false;
         }
 
-        if (!source.isPlaying)
+        public void Init(AudioClip clip, bool doesSoundStopOnObjectDestroy, GameObject linkedObject)
         {
-            Destroy(gameObject);
+            this.clip = clip;
+            this.doesSoundStopOnObjectDestroy = doesSoundStopOnObjectDestroy;
+            this.linkedObject = linkedObject;
         }
-    }
+        
+        
 
-    public void PlaySound()
-    {
-        source.PlayOneShot(clip, soundValue);
+        private void Update()
+        {
+            if (linkedObject != null)
+            {
+                transform.position = linkedObject.transform.position;
+            }
+            else if (linkedObject == null && doesSoundStopOnObjectDestroy)
+            {
+                Destroy(gameObject);
+            }
+            else if (repeatSound)
+            {
+                
+            }
+            if (!source.isPlaying)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void StopSound()
+        {
+            source.Stop();
+        }
+        
+        public void PlaySound()
+        {
+            source.PlayOneShot(clip, soundValue);
+        }
     }
 }

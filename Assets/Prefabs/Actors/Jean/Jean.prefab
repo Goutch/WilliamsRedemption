@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114952871157717710}
   - component: {fileID: 114579297954634884}
   - component: {fileID: 114709575273337866}
+  - component: {fileID: 114550906128317484}
   - component: {fileID: 114395644961458362}
   - component: {fileID: 114935588871652824}
   - component: {fileID: 114086748840397258}
@@ -54,7 +55,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1499245767565336
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,8 +108,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1561829701515230}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.017, y: -0.009, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.004, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4580102293706636}
@@ -121,8 +122,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1064224145319852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.14, y: -0.21, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -16.99, y: -18, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 4556330282302978}
   - {fileID: 4426380787680582}
@@ -214,7 +215,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.48, y: 0.48}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -232,7 +233,7 @@ Animator:
   m_GameObject: {fileID: 1064224145319852}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3b4a3e9b9c8e924a98a957aa2e9b360, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -252,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7beac1489d00c1642b01e13dc7e9fdfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minScale: {x: 0.15, y: 0.25}
+  minScale: {x: 0.25, y: 0.4}
   maxScale: {x: 1, y: 1}
   shield: {fileID: 1561829701515230}
 --- !u!114 &114100981985410178
@@ -282,6 +283,9 @@ MonoBehaviour:
   scoreValue: 0
   phases:
   - {fileID: 114709575273337866}
+  woundedSound: {fileID: 8300000, guid: 18e776f2c13ec3e4fb5c05c302d3a7e1, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114337954919764314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -294,11 +298,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacityUsableAtStart: 1
-  shieldCost: 0.05
+  shieldCost: 0.1
   projectile: {fileID: 1047017288053898, guid: 8285bc44bc727604a8eedead51303605, type: 2}
   projectileSpawnPoint1: {fileID: 1499245767565336}
   projectileSpawnPoint2: {fileID: 1022768048566138}
   probabilitySpawn1: 70
+  shootLaserSound: {fileID: 8300000, guid: 22d7bb93f53b5b74185088f659033f8a, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114395644961458362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -310,11 +317,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4368df0e125ab624fa05a4c0a3ec29bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayBeforeUse: 4
   shieldExplosion: {fileID: 1086338758886814, guid: 3c8d3ce971831d64fa593c441ee9beb2,
     type: 2}
-  delayBetweenExplosion: 1
-  numberOfExplosion: 3
+  delayBetweenExplosion: 2
+  numberOfExplosion: 1
+  shieldExplosionSound: {fileID: 8300000, guid: 6c10ce99731570140b28439405bed912,
+    type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114530282841922372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -326,7 +336,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 10
+--- !u!114 &114550906128317484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064224145319852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe02150060618074da3da34deb49105a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subStates:
+  - {fileID: 114395644961458362}
+  - {fileID: 114935588871652824}
+  passiveCapacities: []
+  inactiveTimeBeforeUseCapacity: 2
 --- !u!114 &114579297954634884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -338,10 +364,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57fcbed8e69ef3143852bb48fa452c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldCost: 0.9
+  shieldCost: 0.2
   projectile: {fileID: 1213396422633402, guid: 6946085c8e4e9074e8584f35d96f1116, type: 2}
   projectileSpawnPoint: {fileID: 1499245767565336}
-  delayAfterCapacityUsed: 2
+  shootLaserSound: {fileID: 8300000, guid: 22d7bb93f53b5b74185088f659033f8a, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114647329472817938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,8 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subStates:
   - {fileID: 114982114051710506}
-  - {fileID: 114395644961458362}
-  - {fileID: 114935588871652824}
+  - {fileID: 114550906128317484}
   passiveCapacities: []
 --- !u!114 &114935588871652824
 MonoBehaviour:
@@ -384,9 +411,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95377748971913308}
-  duration: 2
-  delayBeforeDoingDamageToPlayerAfterLeavingState: 0
-  attackCollider: {fileID: 0}
+  duration: 1
+  delayBeforeDoingDamageToPlayerAfterLeavingState: 1
+  attackCollider: {fileID: 60126747322919268}
+  endForceAddToPlayer: {x: -5, y: 3}
+  delayBeforeBeingActive: 1
 --- !u!114 &114952871157717710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -497,7 +526,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c7913c7b348ad2d42b9ffad4f6a1c287, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b3b690cc470d6114fa0aa17067253af7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

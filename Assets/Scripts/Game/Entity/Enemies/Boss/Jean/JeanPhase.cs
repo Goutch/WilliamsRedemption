@@ -1,12 +1,16 @@
-﻿namespace Game.Entity.Enemies.Boss.Jean
+﻿using UnityEngine;
+
+namespace Game.Entity.Enemies.Boss.Jean
 {
-    class JeanPhase : SequentialLoopPhase
+    class JeanPhase : NonSequentialPhase
     {
         private RootMover mover;
+        private Animator animator;
 
         protected override void Init()
         {
             mover = GetComponent<RootMover>();
+            animator = GetComponent<Animator>();
         }
 
         public override void Act()
@@ -27,6 +31,8 @@
 
         protected override void EnterIdle()
         {
+            base.EnterIdle();
+            animator.SetTrigger(Values.AnimationParameters.Jean.Idle);
         }
     }
 }

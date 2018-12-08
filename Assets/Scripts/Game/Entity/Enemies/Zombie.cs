@@ -1,6 +1,7 @@
 ﻿using Game.Entity.Enemies.Attack;
 using Game.Entity.Player;
 using Harmony;
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Entity.Enemies
@@ -8,13 +9,17 @@ namespace Game.Entity.Enemies
     public class Zombie : WalkTowardPlayerEnnemy
     {
         [SerializeField] private Vector2 bulletKnockBackForce;
+        [SerializeField] private Vector2 DarknessKnockBackForce;
         [SerializeField] private Vector2 playerKnockBackForce;
 
         [Header("Sound")] [SerializeField] private AudioClip zombieSound;
         [SerializeField] private float timerBetweenZombieMoans;
         [SerializeField] private GameObject soundToPlayPrefab;
-        [SerializeField] private int maximumDistanceBetweenPlayerAndObjectSound;
+        [SerializeField] private float maximumDistanceSoundX;
+        [SerializeField] private float maximumDistanceSoundY;
+        
         private float timeSinceLastMoan;
+        private const float PUSH_BACK_TIME = 0.2f;
 
         private new Rigidbody2D rigidbody;
         private HitStimulus[] hitStimuli;
@@ -55,8 +60,6 @@ namespace Game.Entity.Enemies
         {
             if (!knocked)
                 base.FixedUpdate();
-            if (knocked && rigidbody.velocity.y == 0)
-                knocked = false;
         }
 
         private void Update()
@@ -66,10 +69,15 @@ namespace Game.Entity.Enemies
 
         protected override bool OnHit(HitStimulus hitStimulus)
         {
+            
             if (hitStimulus.Type == HitStimulus.DamageType.Darkness)
             {
                 base.OnHit(hitStimulus);
+                int direction = (transform.rotation.y == -1 ? -1 : 1);
 
+                rigidbody.AddForce(new Vector2(DarknessKnockBackForce.x * -direction, DarknessKnockBackForce.y),
+                    ForceMode2D.Impulse);
+                StartCoroutine(KnockBack());
                 return true;
             }
             else if (hitStimulus.Type == HitStimulus.DamageType.Physical)
@@ -78,7 +86,9 @@ namespace Game.Entity.Enemies
 
                 rigidbody.AddForce(new Vector2(bulletKnockBackForce.x * -direction, bulletKnockBackForce.y),
                     ForceMode2D.Impulse);
-                knocked = true;
+                StartCoroutine(KnockBack());
+
+                Bleed(hitStimulus);
 
                 return true;
             }
@@ -86,13 +96,21 @@ namespace Game.Entity.Enemies
             return false;
         }
 
+        private IEnumerator KnockBack()
+        {
+            knocked = true;
+            yield return new WaitForSeconds(PUSH_BACK_TIME);
+            knocked = false;
+        }
+
         private void ZombieMoans()
         {
+            Vector2 distancePlayerAndProjectile = transform.position - GameObject.FindGameObjectWithTag(Values.Tags.Player).transform.position;
             if (Time.time - timeSinceLastMoan > timerBetweenZombieMoans &&
-                Vector2.Distance(transform.position, player.transform.position) <
-                maximumDistanceBetweenPlayerAndObjectSound)
+                Mathf.Abs(distancePlayerAndProjectile.x) < maximumDistanceSoundX &&
+                Mathf.Abs(distancePlayerAndProjectile.y) < maximumDistanceSoundY)
             {
-                SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
+                Audio.SoundCaller.CallSound(zombieSound, soundToPlayPrefab, gameObject, true);
                 timeSinceLastMoan = Time.time;
             }
         }

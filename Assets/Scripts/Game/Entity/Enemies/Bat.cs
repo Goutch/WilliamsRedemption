@@ -1,5 +1,6 @@
 ﻿using Game.Entity.Player;
 using System.Collections;
+using Game.Audio;
 using UnityEngine;
 
 namespace Game.Entity.Enemies

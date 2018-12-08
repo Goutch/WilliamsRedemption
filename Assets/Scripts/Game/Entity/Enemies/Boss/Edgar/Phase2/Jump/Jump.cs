@@ -21,9 +21,11 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         [SerializeField] private Tile tileToSpawn;
         [SerializeField] private float jumpDuration;
-        [SerializeField] private float landingDelay;
         [SerializeField] private GameObject landingEffect;
         [SerializeField] private Transform landingEffectSpawnPoint;
+        [SerializeField] private GameObject landingAreaOfEffectDamage;
+        [SerializeField] private float areaEffectDuration;
+
 
         [Header("Sound")] [SerializeField] private AudioClip landingSound;
         [SerializeField] private GameObject soundToPlayPrefab;
@@ -42,6 +44,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         private float lastTimeCapacityUsed;
         private float speed;
+        private bool collideWithWall;
 
         protected override void Init()
         {
@@ -56,11 +59,19 @@ namespace Game.Entity.Enemies.Boss.Edgar
 
         public override void Act()
         {
-            rootMover.MoveOnXAxis();
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1, 1 << LayerMask.NameToLayer(Values.Layers.Platform));
+            Debug.DrawLine(transform.position, (Vector2)transform.position + Vector2.down* 1, Color.blue);
 
             if (rb.velocity.y == 0)
+                collideWithWall = true;
+
+            if (rb.velocity.y == 0 && hit.collider != null)
             {
-                StartCoroutine(landing());
+                Land();
+            }
+            else if(rb.velocity.y != 0 && !collideWithWall)
+            {
+                rootMover.MoveOnXAxis();
             }
         }
 
@@ -84,6 +95,8 @@ namespace Game.Entity.Enemies.Boss.Edgar
             rootMover.LookAtPlayer();
 
             rootMover.Jump();
+
+            collideWithWall = false;
         }
 
         private void SetNewSpeed(Vector2 targetPoint, float duration)
@@ -93,12 +106,13 @@ namespace Game.Entity.Enemies.Boss.Edgar
             rootMover.Speed = speed;
         }
 
-        private IEnumerator landing()
+        private void Land()
         {
-            SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
-            yield return new WaitForSeconds(landingDelay);
+            Audio.SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
             Finish();
             Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
+            GameObject areaOfEffect = Instantiate(landingAreaOfEffectDamage, landingEffectSpawnPoint);
+            Destroy(areaOfEffect, areaEffectDuration);
         }
 
         public override void Finish()
@@ -114,7 +128,7 @@ namespace Game.Entity.Enemies.Boss.Edgar
             Vector3Int cellPos = spawnedTilesManager.ConvertLocalToCell(transform.position);
             cellPos.y += yOffSetTileToSpawn;
 
-            spawnedTilesManager.SpawnTiles(cellPos, spawnedTileRelativePositions.ToList<Vector3Int>(), tileToSpawn);
+            spawnedTilesManager.SpawnTiles(cellPos, spawnedTileRelativePositions.ToList<Vector3Int>(), tileToSpawn, 30);
         }
     }
 }

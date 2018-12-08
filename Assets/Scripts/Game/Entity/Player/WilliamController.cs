@@ -20,6 +20,7 @@ namespace Game.Entity.Player
         [Tooltip("Amount of time between dashes.")] [SerializeField]
         private float DashCoolDown;
 
+        private PlayerController player;
         private bool capacityCanBeUsed;
         private float? lastTimeAttack = null;
         private float timerStartTime;
@@ -28,22 +29,25 @@ namespace Game.Entity.Player
 
         private void Start()
         {
+            player = GetComponentInParent<PlayerController>();
             timerStartTime = 0;
             capacityCanBeUsed = true;
             animator = GetComponent<Animator>();
             capacityCanBeUsed = true;
             shootEventChannel = GameObject.FindGameObjectWithTag(Values.GameObject.GameController)
                 .GetComponent<PlayerShootEventChannel>();
+
+
         }
 
-        public override void UseCapacity(PlayerController player)
+        public override void UseCapacity()
         {
-            StartCoroutine(Dash(player, player.playerHorizontalDirection));
+            StartCoroutine(Dash(player.playerHorizontalDirection));
             capacityCanBeUsed = false;
             timerStartTime = Time.time;
         }
 
-        public override bool CapacityUsable(PlayerController player)
+        public override bool CapacityUsable()
         {
             if (capacityCanBeUsed)
             {
@@ -59,7 +63,7 @@ namespace Game.Entity.Player
             return false;
         }
 
-        private IEnumerator Dash(PlayerController player, Vector2 direction)
+        private IEnumerator Dash(Vector2 direction)
         {
             animator.SetTrigger(Values.AnimationParameters.Player.Dash);
             player.LockTransformation();
@@ -93,7 +97,6 @@ namespace Game.Entity.Player
             {
                 Vector2 temp = Vector2.right * direction.x *
                                dashSpeed;
-                Debug.Log(temp);
                 time += Time.deltaTime;
                 player.kRigidBody.VelocityModifier =
                     temp; //set our rigidbody velocity to a custom velocity every frame.
@@ -107,7 +110,7 @@ namespace Game.Entity.Player
             OnAttackFinish();
         }
 
-        public override void UseBasicAttack(PlayerController player)
+        public override void UseBasicAttack()
         {
             animator.SetTrigger(Values.AnimationParameters.Player.Attack);
             Quaternion angle = Quaternion.identity;

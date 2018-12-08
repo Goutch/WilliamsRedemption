@@ -1,4 +1,5 @@
-﻿using Game.Controller.Events;
+﻿using System.Diagnostics.Eventing.Reader;
+using Game.Controller.Events;
 using Game.Entity;
 using Game.Entity.Player;
 using Game.UI;
@@ -14,19 +15,18 @@ namespace Game.Controller
     public class GameController : MonoBehaviour
     {
         [SerializeField] private Level startLevel;
-        [SerializeField] private AudioClip gameMusic;
+        [SerializeField] public Level[] levels = new Level[3];
         private int score;
         private int bonusScore;
-        private float time;
         private int collectable;
-        private float startTime;
-        private int levelRemainingTime;
         private bool isGamePaused = false;
         private bool isGameStarted = false;
         private bool isGameInExpertMode = false;
         public bool ExpertMode => isGameInExpertMode;
         private bool isGameWinned = false;
         private bool spawnAtCheckPoint = false;
+        private AchievementManager achievementManager;
+        private Checkpoint lastCheckpoint;
 
         private Level currentLevel;
         public event GameControllerEventHandler OnGameEnd;
@@ -44,13 +44,9 @@ namespace Game.Controller
         private MenuManager menu;
         private LifePointsUI lifePointsUI;
         private LevelFinishedUI levelFinishUI;
+        private EventTimerUI eventTimerUI;
 
         //Getters
-        public AudioClip GameMusic => gameMusic;
-
-        public float CurrentGameTime => time;
-
-        public int LevelRemainingTime => levelRemainingTime;
 
         public int Score => score;
 
@@ -63,11 +59,23 @@ namespace Game.Controller
         public bool IsGamePaused => isGamePaused;
         public bool IsGameWinned => isGameWinned;
 
-        public int TotalTime => totalTime;
-
-        private int totalTime = 0;
-
         public Level CurrentLevel => currentLevel;
+
+        public Checkpoint LastCheckpoint
+        {
+            get { return lastCheckpoint; }
+            set { lastCheckpoint = value; }
+        }
+
+        //Time access
+        public int TotalTime { get; set; }
+        public int LevelRemainingTime { get; set; }
+        private float savedTime;
+        private float actualTimeSaved;
+
+        public float EventTime { get; set; }
+
+        private float startTime;
 
         private void Awake()
         {
@@ -76,9 +84,10 @@ namespace Game.Controller
             scoreUI = GetComponent<ScoreUI>();
             lifePointsUI = GetComponent<LifePointsUI>();
             levelFinishUI = GetComponent<LevelFinishedUI>();
+            eventTimerUI = GetComponent<EventTimerUI>();
             collectablesEventChannel = GetComponent<CollectablesEventChannel>();
             SceneManager.sceneLoaded += OnSceneLoaded;
-
+            achievementManager = GetComponent<AchievementManager>();
             Scene[] loadedScenes = SceneManager.GetAllScenes();
             if (loadedScenes.Length == 1 && SceneManager.GetActiveScene().name == "Main")
             {
@@ -99,11 +108,21 @@ namespace Game.Controller
             }
         }
 
+        private void Update()
+        {
+            if (!isGamePaused && isGameStarted)
+            {
+                LevelRemainingTime =
+                    Mathf.RoundToInt(currentLevel.ExpectedTime - (Time.time - startTime) - actualTimeSaved);
+                if (LevelRemainingTime < 0)
+                    LevelRemainingTime = 0;
+            }
+        }
+
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name != Values.Scenes.Menu && scene.name != Values.Scenes.Main)
             {
-                startTime = Time.time;
                 player = GameObject.FindGameObjectWithTag(Values.Tags.Player)
                     .GetComponent<PlayerController>();
                 player.GetComponent<Health>().OnDeath += OnPlayerDie;
@@ -112,38 +131,15 @@ namespace Game.Controller
                     ReturnCheckPoint();
                 }
             }
+            else if (scene.name == Values.Scenes.Menu)
+            {
+                TotalTime = 0;
+            }
 
             Time.timeScale = 1f;
             SceneManager.SetActiveScene(scene);
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (!IsGamePaused)
-                {
-                    PauseGame();
-                    menu.DisplayPausePanel();
-                }
-                else
-                {
-                    ResumeGame();
-                    menu.HidePausePanel();
-                }
-            }
-
-            if (!isGamePaused && isGameStarted)
-            {
-                time = Time.time - startTime;
-                if (levelRemainingTime > 0)
-                    levelRemainingTime = Mathf.RoundToInt((currentLevel.ExpectedTime - CurrentGameTime));
-                else
-                {
-                    levelRemainingTime = 0;
-                }
-            }
-        }
 
         public void AddScore(int score)
         {
@@ -156,24 +152,25 @@ namespace Game.Controller
         private void ReturnCheckPoint()
         {
             spawnAtCheckPoint = false;
-            score = currentCheckPointdata.ScoreAtTimeOfTrigger;
+            score = currentCheckPointdata.ScoreAtTimeOfTrigger - (collectable * 100);
             collectable = 0;
             collectableUI.UpdateCollectableUI();
             scoreUI.OnScoreChange();
+            eventTimerUI.Reset();
             Health playerHealth = player.GetComponent<Health>();
             playerHealth.ResetHealth();
             lifePointsUI.UpdateHealth();
-
             player.transform.position = currentCheckPointdata.PositionAtTimeOfTrigger;
-
-            startTime = time - currentCheckPointdata.TimeAtTimeOfTrigger;
+            lastCheckpoint = GameObject.Find(currentCheckPointdata.CheckPointName).GetComponent<Checkpoint>();
+            lastCheckpoint.UnlockDoors();
         }
 
         public void LevelFinished()
         {
+            spawnAtCheckPoint = false;
             PauseGame();
-
-            bonusScore += LevelRemainingTime;
+            TotalTime += currentLevel.ExpectedTime - LevelRemainingTime;
+            bonusScore += 2 * LevelRemainingTime;
             if (currentLevel.NextLevel != null)
             {
                 levelFinishUI.OnLevelFinished();
@@ -186,20 +183,43 @@ namespace Game.Controller
             }
         }
 
+        public void ChangeStartLevel(int level)
+        {
+            if (level == 0)
+            {
+                startLevel = levels[0];
+            }
+            else if (level == 1)
+            {
+                startLevel = levels[1];
+            }
+            else if (level == 2)
+            {
+                startLevel = levels[2];
+            }
+        }
+
         public void NextLevel()
         {
             menu.HideLevelFinishedPanel();
             score += bonusScore;
             bonusScore = 0;
+            collectable = 0;
             scoreUI.OnScoreChange();
-
+            spawnAtCheckPoint = false;
 
             OnLevelChange?.Invoke();
             if (SceneManager.GetActiveScene().name == Values.Scenes.Menu)
             {
                 isGameStarted = true;
                 isGamePaused = false;
+                if (isGameInExpertMode)
+                {
+                    startLevel = levels[0];
+                }
+
                 currentLevel = startLevel;
+
                 LoadLevel(currentLevel);
             }
             else
@@ -208,7 +228,6 @@ namespace Game.Controller
                 currentLevel = currentLevel.NextLevel;
                 isGameStarted = true;
                 isGamePaused = false;
-                totalTime += Mathf.RoundToInt(CurrentGameTime);
                 if (currentLevel != null)
                 {
                     LoadLevel(currentLevel);
@@ -233,35 +252,44 @@ namespace Game.Controller
         {
             currentLevel = null;
             isGameStarted = false;
+            achievementManager.Reset();
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
             SceneManager.LoadSceneAsync(Game.Values.Scenes.Menu, LoadSceneMode.Additive);
             menu.ReturnToMenu();
             score = 0;
             bonusScore = 0;
             scoreUI.OnScoreChange();
-            totalTime = 0;
             collectable = 0;
         }
 
         [UsedImplicitly]
         public void Restart()
         {
-            LoadLevel(currentLevel);
+            if (ExpertMode)
+            {
+                LoadLevel(startLevel);
+            }
+
+            else
+            {
+                LoadLevel(currentLevel);
+            }
+
+
             menu.HideGameOverPanel();
             menu.HidePausePanel();
             bonusScore = 0;
             score = 0;
             scoreUI.OnScoreChange();
-            totalTime = 0;
             collectable = 0;
         }
 
         public void LoadLevel(Level level)
         {
+            startTime = Time.time;
+            actualTimeSaved = savedTime;
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
             SceneManager.LoadSceneAsync(level.Scene, LoadSceneMode.Additive);
-            levelRemainingTime = level.ExpectedTime;
-            startTime = Time.time;
             isGameStarted = true;
             isGamePaused = false;
             isGameWinned = false;
@@ -278,6 +306,20 @@ namespace Game.Controller
             {
                 spawnAtCheckPoint = true;
                 Restart();
+            }
+        }
+
+        public void OnPauseButtonPressed()
+        {
+            if (!IsGamePaused)
+            {
+                PauseGame();
+                menu.DisplayPausePanel();
+            }
+            else
+            {
+                ResumeGame();
+                menu.HidePausePanel();
             }
         }
 
@@ -310,6 +352,7 @@ namespace Game.Controller
         public void OnCheckPointTrigerred(Checkpoint.CheckPointData checkpoint)
         {
             currentCheckPointdata = checkpoint;
+            savedTime = currentLevel.ExpectedTime - LevelRemainingTime;
         }
 
         public void AddCollectable(int scoreValue)

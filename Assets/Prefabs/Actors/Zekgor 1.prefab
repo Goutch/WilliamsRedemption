@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 58825218769572598}
   - component: {fileID: 114398947951889462}
   - component: {fileID: 114367434440583304}
+  - component: {fileID: 210266968528343708}
   m_Layer: 2
   m_Name: CircleMeshLight (2)
   m_TagString: Untagged
@@ -347,6 +348,9 @@ MonoBehaviour:
   duration: 2
   delayBeforeDoingDamageToPlayerAfterLeavingState: 0.5
   attackCollider: {fileID: 61571351620049780}
+  exhaustedSound: {fileID: 8300000, guid: 6a8e81ddc622a3b4fb2e5c536a3e2499, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114367434440583304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,6 +396,10 @@ MonoBehaviour:
   detectionLayers:
     serializedVersion: 2
     m_Bits: 3586
+  closeSprite: {fileID: 0}
+  particleSystem: {fileID: 0}
+  closeSystem: {fileID: 0}
+  openSprite: {fileID: 0}
   coneAngle: 0
   faceAngle: 292
   minAlpha: 0.3
@@ -421,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 5
 --- !u!114 &114538616596867882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -449,9 +457,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf06888f84ad2649ba02643fa6e22fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 0
+  scoreValue: 250
+  dmgEffect: {fileID: 1173383280645278, guid: 13f9e689b49ab8c4a8edea122c32e38c, type: 2}
   phases:
   - {fileID: 114109206625813964}
+  woundedSound: {fileID: 8300000, guid: 44d980eea1bba1a439e53ddd8432807f, type: 3}
+  walkSound: {fileID: 8300000, guid: a6c32734892e38841bf4b44d34a205fd, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114766713406565336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,6 +491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   landingEffect: {fileID: 0}
   landingEffectSpawnPoint: {fileID: 0}
+  landingSound: {fileID: 8300000, guid: adaad0fd676c3aa4f90e28adf9776810, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114878588810971664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -503,6 +519,16 @@ MonoBehaviour:
   jumpForce: 5
   speed: 1
   jumpBoost: 0
+--- !u!210 &210266968528343708
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1826675314671122}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -5
 --- !u!212 &212799050329188220
 SpriteRenderer:
   m_ObjectHideFlags: 1

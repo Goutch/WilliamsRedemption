@@ -16,7 +16,7 @@ namespace Game.Entity.Enemies.Boss
         {
             UsePassiveCapacity();
 
-            if (currentState == null)
+            if (currentState == null && CanSwitchState())
                 TransiteToNextStateIfReady();
 
             if (currentState != null)
@@ -37,6 +37,11 @@ namespace Game.Entity.Enemies.Boss
                 currentState.OnStateFinish += CurrentState_OnStateFinish;
                 currentState.Enter();
             }
+        }
+
+        protected virtual bool CanSwitchState()
+        {
+            return true;
         }
 
         protected virtual void Idle()
@@ -66,11 +71,13 @@ namespace Game.Entity.Enemies.Boss
         protected virtual void EnterIdle()
         {
             IsIdling = true;
+            Debug.Log("Enter idle: " + this);
         }
 
         protected virtual void ExitIdle()
         {
             IsIdling = false;
+            Debug.Log("Exit idle: " + this);
         }
 
         protected virtual void CurrentState_OnStateFinish(State state)

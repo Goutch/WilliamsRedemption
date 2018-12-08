@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212443732803149902}
   - component: {fileID: 114830849948216266}
   - component: {fileID: 61441894024830104}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MovingPlatform
-  m_TagString: MovingPlatform
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +86,7 @@ MonoBehaviour:
   VerticalSpeed: 0.5
   isHeadingRight: 0
   isHeadingUpwards: 0
+  DirectionChangeDelay: 0
   isUsingQuadraticCurve: 0
   quadraticA: 0
   quadraticB: 0

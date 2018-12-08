@@ -14,5 +14,7 @@
         public const string Obstacle = "Obstacle";
         public const string MovingPlatform = "MovingPlatform";
         public const string PassThrough = "PassThrough";
+        public const string PhysicObjectAI = "PhysicObjectAI";
+        public const string Wall = "Wall";
     }
 }

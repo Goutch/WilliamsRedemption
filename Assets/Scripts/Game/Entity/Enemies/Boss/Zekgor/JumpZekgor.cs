@@ -11,6 +11,10 @@ namespace Game.Entity.Enemies.Boss.Zekgor
     {
         [SerializeField] private GameObject landingEffect;
         [SerializeField] private Transform landingEffectSpawnPoint;
+        
+        [Header("Sound")] [SerializeField] private AudioClip landingSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+
 
         private RootMover mover;
         private Rigidbody2D rb;
@@ -35,6 +39,8 @@ namespace Game.Entity.Enemies.Boss.Zekgor
         {
             base.Finish();
 
+            Audio.SoundCaller.CallSound(landingSound, soundToPlayPrefab, gameObject, false);
+            
             if (landingEffect != null && landingEffectSpawnPoint != null)
                 Instantiate(landingEffect, landingEffectSpawnPoint.position, Quaternion.identity);
         }

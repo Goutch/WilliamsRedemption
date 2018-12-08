@@ -179,7 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0c6a1963be45444aea770100521efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 0
+  scoreValue: 250
+  dmgEffect: {fileID: 1173383280645278, guid: 13f9e689b49ab8c4a8edea122c32e38c, type: 2}
   phases:
   - {fileID: 114665657003816676}
 --- !u!114 &114253204107131226
@@ -202,7 +203,7 @@ MonoBehaviour:
   cooldown: 1
   spawnParticulePrefab: {fileID: 1328404312031126, guid: cdc4f3174b20de742aeff67c5f171c81,
     type: 2}
-  teleportationSound: {fileID: 8300000, guid: bc881043d23671e40a8a9e733ceb4a60, type: 3}
+  teleportationSound: {fileID: 8300000, guid: 5fbfde5c414f2d74481ed6c313055d58, type: 3}
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
 --- !u!114 &114386250798373468
@@ -219,7 +220,7 @@ MonoBehaviour:
   animator: {fileID: 95185587434919710}
   zombiePrefab: {fileID: 1291848360045852, guid: 82bace9fd06070f4e8259879ebe97c17,
     type: 2}
-  cooldown: 1
+  cooldown: 1.5
 --- !u!114 &114435984049298574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0c0f31d44efac4e904f7ea63166046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfEnemySpawnAllowed: 4
+  numberOfEnemySpawnAllowed: 3
   resetWhenAllEnemyDied: 1
 --- !u!114 &114665657003816676
 MonoBehaviour:
@@ -245,8 +246,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subStates:
-  - {fileID: 114386250798373468}
   - {fileID: 114915048040240046}
+  - {fileID: 114386250798373468}
+  - {fileID: 114253204107131226}
   passiveCapacities:
   - {fileID: 114253204107131226}
   animator: {fileID: 95185587434919710}

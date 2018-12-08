@@ -9,16 +9,24 @@ namespace Game.Puzzle
 
         [Header("Sound")] [SerializeField] private AudioClip keySound;
         [SerializeField] private GameObject soundToPlayPrefab;
+        
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.transform.root.CompareTag(Values.Tags.Player))
             {
-                SoundCaller.CallSound(keySound, soundToPlayPrefab, gameObject, false);
+                Audio.SoundCaller.CallSound(keySound, soundToPlayPrefab, gameObject, false);
                 door.Unlock();
                 Debug.Log("Unlock");
                 gameObject.SetActive(false);
             }
+        }
+
+        public void PickUpOnRespawn()
+        {
+            door.Unlock();
+            Debug.Log("Unlock");
+            gameObject.SetActive(false);
         }
     }
 }

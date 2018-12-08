@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Audio;
+using UnityEngine;
 
 namespace Game.Puzzle
 {
@@ -9,6 +10,8 @@ namespace Game.Puzzle
 
         [Tooltip("Check this box if objects tied to this trigger need to be opened on start")] [SerializeField]
         private bool IsOpened;
+
+        [SerializeField]private bool PermanentlyLockTriggerable;
         
         [Header("Sound")] [SerializeField] private AudioClip doorSound;
         [SerializeField] private GameObject soundToPlayPrefab;
@@ -34,22 +37,29 @@ namespace Game.Puzzle
             {
                 foreach (var triggerable in triggerables)
                 {
-                    if (!triggerable.GetComponent<ITriggerable>().IsLocked() &&
-                        triggerable.GetComponent<ITriggerable>().IsOpened())
+                    ITriggerable linkedTriggerable = triggerable.GetComponent<ITriggerable>();
+                  
+                    if (!linkedTriggerable.IsLocked() &&
+                        linkedTriggerable.IsOpened())
                     {
-                        triggerable.GetComponent<ITriggerable>()?.Close();
+                        linkedTriggerable?.Close();
                         isTripped = true;
-                        triggerable.GetComponent<ITriggerable>()?.Lock();
+                        linkedTriggerable?.Lock();
                     }
-                    else if (!triggerable.GetComponent<ITriggerable>().IsLocked())
+                    else if (!linkedTriggerable.IsLocked())
                     {
                         SoundCaller.CallSound(doorSound, soundToPlayPrefab, gameObject, false);
-                        triggerable.GetComponent<ITriggerable>()?.Open();
+                        linkedTriggerable?.Open();
                         isTripped = true;
-                        triggerable.GetComponent<ITriggerable>()?.Lock();
+                        linkedTriggerable?.Lock();
+                    }
+                    else
+                    {
+                        linkedTriggerable.PermanentlyLock();
                     }
                 }
             }
         }
+
     }
 }

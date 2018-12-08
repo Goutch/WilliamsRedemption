@@ -8,12 +8,16 @@ namespace Game.Entity.Enemies.Boss.Jean
         [SerializeField] private float shieldCost;
         [SerializeField] private GameObject projectile;
         [SerializeField] private GameObject projectileSpawnPoint;
-        [SerializeField] private float delayAfterCapacityUsed;
+        
+        [Header("Sound")] [SerializeField] private AudioClip shootLaserSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
         private ShieldManager shieldManager;
+        private Animator animator;
 
         protected override void Init()
         {
+            animator = GetComponent<Animator>();
         }
 
         public override void Enter()
@@ -22,16 +26,14 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             shieldManager = GetComponent<ShieldManager>();
 
+            animator.SetTrigger(Values.AnimationParameters.Jean.BothHandShoot);
+
             Instantiate(projectile, projectileSpawnPoint.transform.position, transform.rotation);
+            
+            Audio.SoundCaller.CallSound(shootLaserSound, soundToPlayPrefab, gameObject, false);
 
             shieldManager.UseShield(shieldCost);
 
-            StartCoroutine(WaitBeforeFinish());
-        }
-
-        private IEnumerator WaitBeforeFinish()
-        {
-            yield return new WaitForSeconds(delayAfterCapacityUsed);
             Finish();
         }
 

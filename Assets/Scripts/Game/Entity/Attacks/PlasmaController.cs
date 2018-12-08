@@ -5,6 +5,7 @@ namespace Game.Entity.Enemies.Attack
     public class PlasmaController : ProjectileController
     {
         [SerializeField] private bool canBeReturned;
+
         private HitSensor hitSensor;
 
         public bool CanBeReturned
@@ -28,10 +29,13 @@ namespace Game.Entity.Enemies.Attack
         {
             if (CanBeReturned
                 && hitStimulus.Type == HitStimulus.DamageType.Darkness
-                && hitStimulus.Range == HitStimulus.AttackRange.Melee)
+                && hitStimulus.Range == HitStimulus.AttackRange.Melee 
+                && this.hitStimulus.Type != HitStimulus.DamageType.Darkness)
             {
                 transform.localRotation *= Quaternion.Euler(0, 0, 180);
                 this.hitStimulus.Type = HitStimulus.DamageType.Darkness;
+
+                birth = Time.time;
 
                 return false;
             }

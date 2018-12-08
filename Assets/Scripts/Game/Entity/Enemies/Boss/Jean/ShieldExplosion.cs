@@ -5,19 +5,23 @@ namespace Game.Entity.Enemies.Boss.Jean
 {
     public class ShieldExplosion : Capacity
     {
-        [SerializeField] private float delayBeforeUse;
         [SerializeField] private GameObject shieldExplosion;
         [SerializeField] private float delayBetweenExplosion;
         [SerializeField] private int numberOfExplosion;
-        private ShieldManager shieldManager;
+        
+        [Header("Sound")] [SerializeField] private AudioClip shieldExplosionSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
 
-        private float lastTimeUsed;
+        private ShieldManager shieldManager;
+        private Animator animator;
+
         private int numberOfExplosionSpawned = 0;
         private int numberOfExplosionAlive = 0;
 
         protected override void Init()
         {
             shieldManager = GetComponent<ShieldManager>();
+            animator = GetComponent<Animator>();
         }
 
         public override void Finish()
@@ -31,7 +35,7 @@ namespace Game.Entity.Enemies.Boss.Jean
 
         public override bool CanEnter()
         {
-            if (shieldManager.ShieldPercent == 0 && Time.time - lastTimeUsed > delayBeforeUse)
+            if (shieldManager.ShieldPercent == 0)
                 return true;
             else
                 return false;
@@ -46,6 +50,10 @@ namespace Game.Entity.Enemies.Boss.Jean
 
             shieldManager.IsShieldActive = false;
 
+            animator.SetTrigger(Values.AnimationParameters.Jean.ShieldExplosion);
+
+            Audio.SoundCaller.CallSound(shieldExplosionSound, soundToPlayPrefab, gameObject, false);
+            
             StartCoroutine(SpawnShieldExplosions());
         }
 

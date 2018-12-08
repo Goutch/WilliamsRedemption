@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114216607206163880}
   - component: {fileID: 61713765814383116}
   - component: {fileID: 114854751574253946}
+  - component: {fileID: 114215364004690724}
   m_Layer: 8
   m_Name: Zombie
   m_TagString: Enemy
@@ -167,6 +168,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114215364004690724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1291848360045852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e017af5ecc42cab23dc438c5af3a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114216607206163880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,15 +191,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 10
+  dmgEffect: {fileID: 1173383280645278, guid: 13f9e689b49ab8c4a8edea122c32e38c, type: 2}
   isDumbEnoughToFall: 1
-  surroundingRange: 1
+  surroundingRange: 2
+  layerVisibleByTheUnit:
+    serializedVersion: 2
+    m_Bits: 2560
+  sightRange: 3
   bulletKnockBackForce: {x: 1, y: 1}
-  playerKnockBackForce: {x: 2, y: 1.5}
+  DarknessKnockBackForce: {x: 3, y: 1}
+  playerKnockBackForce: {x: 1, y: 1.5}
   zombieSound: {fileID: 8300000, guid: 4ce2afae967de5c4b8b8f981ac0439d1, type: 3}
-  timerBetweenZombieMoans: 2
+  timerBetweenZombieMoans: 3
   soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
     type: 2}
-  maximumDistanceBetweenPlayerAndObjectSound: 6
+  maximumDistanceSoundX: 1.28
+  maximumDistanceSoundY: 0.96
 --- !u!114 &114428076605782380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 3
 --- !u!114 &114735139327729026
 MonoBehaviour:
   m_ObjectHideFlags: 1

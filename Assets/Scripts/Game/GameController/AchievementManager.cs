@@ -10,6 +10,8 @@ using Game.UI;
 using Game.Values.AnimationParameters;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
+using Anna = Game.Entity.Enemies.Boss.Anna.Anna;
+using Death = Game.Entity.Enemies.Boss.Death.Death;
 
 namespace Game.Controller
 {
@@ -90,6 +92,45 @@ namespace Game.Controller
                 return;
             }
 
+            CheckIfPlayerIsLegendaryAndAddIt();
+
+            Level[] levels = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>().levels;
+
+            if (collectableLevel1Count == levels[0].NumberCollectables)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue1]);
+            }
+
+            if (collectableLevel2Count == levels[1].NumberCollectables)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue2]);
+            }
+
+            if (collectableLevel3Count == levels[2].NumberCollectables)
+            {
+                acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue3]);
+            }
+        }
+
+        public void Reset()
+        {
+            acomplishedAchievements.Clear();
+            zombieKillCount = 0;
+            ghostKillCount = 0;
+            batKillCount = 0;
+            sorcererKillCount = 0;
+            collectableLevel1Count = 0;
+            collectableLevel2Count = 0;
+            collectableLevel3Count = 0;
+            Level1PlayerDamageCount = 0;
+            Level2PlayerDamageCount = 0;
+            Level3PlayerDamageCount = 0;
+            playerJumpCount = 0;
+            playerShootCount = 0;
+        }
+
+        private void CheckIfPlayerIsLegendaryAndAddIt()
+        {
             if (gameController.CurrentLevel.Scene == Values.Scenes.Level1)
             {
                 if (Level1PlayerDamageCount == 0)
@@ -117,6 +158,7 @@ namespace Game.Controller
 
         private void OnGameEnd()
         {
+            CheckIfPlayerIsLegendaryAndAddIt();
             if (gameController.IsGameWinned && gameController.TotalTime <= supersonic)
             {
                 acomplishedAchievements.Add(achievements[Values.Achievements.SuperSonic]);
@@ -145,8 +187,9 @@ namespace Game.Controller
                 bonusScoreValue += achievement.ScoreValue;
             }
 
-            achievementUi.DisplayAchievements(achievementListText);
             gameController.AddBonusScore(bonusScoreValue);
+            achievementUi.DisplayAchievements(achievementListText);
+            acomplishedAchievements.Clear();
         }
 
         private void OnEnemyDie(OnEnemyDeath enemyDeath)
@@ -165,19 +208,19 @@ namespace Game.Controller
                 {
                     acomplishedAchievements.Add(achievements[Values.Achievements.PriestSlayer]);
                 }
-                // else if(enemyDeath.Enemy is AnnaController)
-                // {
-                //     acomplishedAchievements.Add(achievements[Values.Achievements.KnightSlayer]);
-                // }
+                else if (enemyDeath.Enemy is Anna)
+                {
+                    acomplishedAchievements.Add(achievements[Values.Achievements.TangledChains]);
+                }
                 else if (enemyDeath.Enemy is ZekgorController)
                 {
                     acomplishedAchievements.Add(achievements[Values.Achievements.DemonSlayer]);
                 }
 
-                // else if(enemyDeath.Enemy is DeathController)
-                // {
-                //     acomplishedAchievements.Add(achievements[Values.Achievements.KnightSlayer]);
-                // }
+                else if (enemyDeath.Enemy is Death)
+                {
+                    acomplishedAchievements.Add(achievements[Values.Achievements.DeathByDeath]);
+                }
             }
             else
             {
@@ -207,31 +250,22 @@ namespace Game.Controller
 
         private void CollectableFound(OnCollectableFound collectableEvent)
         {
-            if (collectableEvent.Level.Scene == Values.GameObject.Level1)
+          if (collectableEvent.Level.Scene == Values.GameObject.Level1)
             {
                 collectableLevel1Count++;
-                if (collectableLevel1Count == collectableEvent.Level.NumberCollectables)
-                {
-                    acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue1]);
-                }
+
             }
 
             if (collectableEvent.Level.Scene == Values.GameObject.Level2)
             {
                 collectableLevel2Count++;
-                if (collectableLevel2Count == collectableEvent.Level.NumberCollectables)
-                {
-                    acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue2]);
-                }
+
             }
 
             if (collectableEvent.Level.Scene == Values.GameObject.Level3)
             {
                 collectableLevel3Count++;
-                if (collectableLevel3Count == collectableEvent.Level.NumberCollectables)
-                {
-                    acomplishedAchievements.Add(achievements[Values.Achievements.Archeologue3]);
-                }
+
             }
         }
 
@@ -256,7 +290,7 @@ namespace Game.Controller
                 Level2PlayerDamageCount++;
             }
 
-            if (gameController.CurrentLevel.Scene == Values.GameObject.Level2)
+            if (gameController.CurrentLevel.Scene == Values.GameObject.Level3)
             {
                 Level3PlayerDamageCount++;
             }

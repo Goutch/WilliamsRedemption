@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114689533996660742}
   - component: {fileID: 61871927213290918}
   - component: {fileID: 114979766900876248}
+  - component: {fileID: 114081981927114342}
   m_Layer: 8
   m_Name: Sorcerer
   m_TagString: Enemy
@@ -121,7 +122,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.11337662, y: 0.22319733}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.001
 --- !u!95 &95172281191564444
 Animator:
   serializedVersion: 3
@@ -140,6 +141,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114081981927114342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545161308005982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e017af5ecc42cab23dc438c5af3a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114666089055966140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,17 +177,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9ecb6fb888483c9a56b76a0ca4f8cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 15
+  scoreValue: 20
+  dmgEffect: {fileID: 1173383280645278, guid: 13f9e689b49ab8c4a8edea122c32e38c, type: 2}
   isDumbEnoughToFall: 0
   surroundingRange: 2
+  layerVisibleByTheUnit:
+    serializedVersion: 2
+    m_Bits: 2560
+  sightRange: 4
+  bulletKnockBackForce: {x: 1, y: 1}
+  DarknessKnockBackForce: {x: 2, y: 1}
   projectilePrefab: {fileID: 1689002622773110, guid: 9f9b92c56ac471a4e98c7bb616735709,
     type: 2}
   spawnProjectilePoint: {fileID: 1408236923699132}
-  sightRange: 2
-  attackCooldown: 1
-  layerVisibleByTheUnit:
-    serializedVersion: 2
-    m_Bits: 3072
+  delayBeforeShootingAfterSeeingPlayer: 1
+  attackCooldown: 2
 --- !u!114 &114799244635330762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
 --- !u!114 &114866177961309394
 MonoBehaviour:
   m_ObjectHideFlags: 1

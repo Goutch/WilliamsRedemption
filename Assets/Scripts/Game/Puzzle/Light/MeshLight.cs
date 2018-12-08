@@ -18,9 +18,17 @@ namespace Game.Puzzle.Light
         [SerializeField] private bool hasMovingObstaclesInRange = false;
         [SerializeField] protected bool isOpen;
         [SerializeField] protected LayerMask detectionLayers;
+        [SerializeField] protected Sprite closeSprite;
+        [SerializeField] private ParticleSystem particleSystem;
+        [SerializeField] private ParticleSystem closeSystem;
+        [SerializeField] private Sprite openSprite;
 
         private bool isLocked;
+        private bool permanentlyLocked;
         private MeshRenderer renderer;
+        private SpriteRenderer spriteRenderer;
+
+        
 
         public bool UpdateEveryFrame
         {
@@ -54,6 +62,9 @@ namespace Game.Puzzle.Light
             vertices = new List<Vector3>();
             triangles = new List<int>();
             mesh = new Mesh();
+            permanentlyLocked = false;
+
+            spriteRenderer = GetComponentInParent<SpriteRenderer>();
         }
 
         protected void Start()
@@ -189,6 +200,15 @@ namespace Game.Puzzle.Light
             {
                 renderer.enabled = true;
             }
+
+            if (spriteRenderer != null)
+                spriteRenderer.sprite = openSprite;
+
+            if (particleSystem != null)
+                particleSystem.gameObject.SetActive(true);
+
+            if (closeSystem != null)
+                closeSystem.gameObject.SetActive(false);
         }
 
         public void Close()
@@ -198,6 +218,15 @@ namespace Game.Puzzle.Light
             vertices.Clear();
             if (renderer != null)
                 renderer.enabled = false;
+
+            if (spriteRenderer != null)
+                spriteRenderer.sprite = closeSprite;
+
+            if (particleSystem != null)
+                particleSystem.gameObject.SetActive(false);
+
+            if (closeSystem != null)
+                closeSystem.gameObject.SetActive(true);
         }
 
 
@@ -219,6 +248,14 @@ namespace Game.Puzzle.Light
         public bool IsLocked()
         {
             return isLocked;
+        }
+        
+        public bool StateIsPermanentlyLocked() => permanentlyLocked;
+        
+        public void PermanentlyLock()
+        {
+            isLocked = true;
+            permanentlyLocked = true;
         }
     }
 }

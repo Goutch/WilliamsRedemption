@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4598425127177810}
   - component: {fileID: 61402177662799346}
-  - component: {fileID: 212065004387346890}
   - component: {fileID: 114765053705159018}
   m_Layer: 0
   m_Name: Slash
@@ -61,14 +60,14 @@ GameObject:
   - component: {fileID: 114080446936731618}
   - component: {fileID: 114450089619044190}
   - component: {fileID: 114321550884033156}
-  - component: {fileID: 114730351764756956}
+  - component: {fileID: 114943646572846864}
   m_Layer: 8
   m_Name: Death
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1377995697912674
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,13 +91,13 @@ Transform:
   m_GameObject: {fileID: 1324683670952020}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 102.44, y: -28.52, z: 0.48828125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 4598425127177810}
   - {fileID: 4356617335327174}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4356617335327174
 Transform:
   m_ObjectHideFlags: 1
@@ -106,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1377995697912674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.054, y: 0, z: 0}
+  m_LocalPosition: {x: -0.116, y: -0.162, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4022960167499502}
@@ -139,7 +138,7 @@ Rigidbody2D:
   m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -157,7 +156,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.021166444, y: -0.3649016}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -168,7 +167,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.66096663, y: 1.0917714}
   m_EdgeRadius: 0
 --- !u!61 &61893955372302254
 BoxCollider2D:
@@ -182,18 +181,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009864807, y: 0}
+  m_Offset: {x: -0.10952377, y: -0.07288456}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 1.26, y: 0.9}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23449707, y: 0.32}
+  m_Size: {x: 0.433815, y: 0.5966625}
   m_EdgeRadius: 0
 --- !u!95 &95465511782943692
 Animator:
@@ -228,7 +227,7 @@ MonoBehaviour:
   - {fileID: 114943263336845552}
   - {fileID: 114525399535067738}
   passiveCapacities: []
-  percentageHealthTransitionCondition: 0.5
+  percentageHealthTransitionCondition: 0.3
   enemyManagers: []
 --- !u!114 &114014927560698340
 MonoBehaviour:
@@ -259,7 +258,8 @@ MonoBehaviour:
   - {fileID: 114321550884033156}
   passiveCapacities:
   - {fileID: 114525399535067738}
-  meshLight: {fileID: 0}
+  closeLight: {fileID: 0}
+  openLight: {fileID: 0}
 --- !u!114 &114110445470110296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
   - {fileID: 114616341134684518}
   - {fileID: 114767248054814838}
   passiveCapacities: []
-  cooldownBetweenCapacities: 1
+  cooldownBetweenCapacities: 0.6
 --- !u!114 &114317294668877986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,6 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95228b8b3b762de438973951d0091c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: {fileID: 8300000, guid: 6c1be75bbc771a948974b3e9b04b6f20, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114321550884033156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -311,7 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subStates:
-  - {fileID: 114730351764756956}
+  - {fileID: 114943646572846864}
   passiveCapacities: []
   numberOfShoots: 2
   cooldown: 4
@@ -344,6 +347,9 @@ MonoBehaviour:
   - {fileID: 0}
   cooldown: 12
   capacityUsableAtStart: 1
+  floorSound: {fileID: 8300000, guid: a00ac73422f81c3438123c3e04ee0534, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114493219404357776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -366,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a80b36328bc884fb3f3bdb71fceb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 30
 --- !u!114 &114525399535067738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -378,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b435f6c888545f47b8179df5ef86e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToInvoque: {fileID: 1291848360045852, guid: d12d43f3ff00f204cba30b3fd16fbb7b,
+  enemyToInvoque: {fileID: 1291848360045852, guid: a7c157b6afe38c6418c2c6e3583b227e,
     type: 2}
   cooldown: 7
   invocationPoints:
@@ -428,25 +434,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceFromPlayer: 0.5
-  cooldown: 1
+  cooldown: 0.6
   tpInFront: 1
---- !u!114 &114730351764756956
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1324683670952020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49d91de8db41773478205c0e2f5d5f23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 95465511782943692}
-  cooldown: 0.2
-  capacityUsableAtStart: 1
-  bullet: {fileID: 1010380849831362, guid: 4148fe92d53e5ce4b9bc0f06942b5569, type: 2}
-  particuleEffect: {fileID: 0}
-  spawnPoint: {fileID: 4356617335327174}
 --- !u!114 &114765053705159018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -472,7 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceFromPlayer: 0.1
-  cooldown: 1
+  cooldown: 0.6
   tpInFront: 0
 --- !u!114 &114848607316411996
 MonoBehaviour:
@@ -486,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceFromPlayer: 1
-  cooldown: 1
+  cooldown: 0.6
   tpInFront: 0
 --- !u!114 &114928777321539104
 MonoBehaviour:
@@ -499,11 +488,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7413c34c58a3a8a46a84806b6bd817dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 0
+  scoreValue: 500
   phases:
   - {fileID: 114006857454406636}
   - {fileID: 114959991973311724}
   - {fileID: 114080446936731618}
+  woundedSound: {fileID: 8300000, guid: 1870f7d03413bb044bb321731615c5e2, type: 3}
+  soundToPlayPrefab: {fileID: 1352970673462576, guid: ac4cb947e9011d04485f5ce599f4e7b4,
+    type: 2}
 --- !u!114 &114943263336845552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -519,7 +511,24 @@ MonoBehaviour:
   - {fileID: 114247629053363404}
   - {fileID: 114317294668877986}
   passiveCapacities: []
-  cooldown: 3
+  cooldown: 1
+--- !u!114 &114943646572846864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324683670952020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92e8f5d552443f4bcb8427f20daf566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 95465511782943692}
+  cooldown: 0.5
+  capacityUsableAtStart: 0
+  bullet: {fileID: 1010380849831362, guid: 4148fe92d53e5ce4b9bc0f06942b5569, type: 2}
+  particuleEffect: {fileID: 0}
+  spawnPoint: {fileID: 4356617335327174}
 --- !u!114 &114959991973311724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -545,52 +554,6 @@ MonoBehaviour:
   positionToGoWhenPhaseStart: {fileID: 0}
   enemyManager: {fileID: 114371337635207778}
   light: {fileID: 0}
---- !u!212 &212065004387346890
-SpriteRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1291030583244394}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: cc404297f0bf2c246b371087940ccde4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.3, y: 0.19}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!212 &212560407015353898
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -626,7 +589,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bdcfafe27e0b6634a9051b579d12ee17, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e038fcbc72573d4db0e141dba33d2da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

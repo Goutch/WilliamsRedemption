@@ -1,4 +1,6 @@
-﻿using Harmony;
+﻿using Game.Audio;
+using Game.Controller;
+using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,11 +23,23 @@ namespace Game.Puzzle
         private bool lockLinkedObjects;
 
         [Header("Sound")] [SerializeField] private AudioClip switchesSound;
+       // [SerializeField] private AudioClip timerSound;
         [SerializeField] private GameObject soundToPlayPrefab;
+       // [SerializeField] private int numberSoundTrackPlayAfterTimer;
+        //private AudioManagerSpecificSounds audioManagerForTimer;
+
+        private AudioSource audioSource;
         
         private float timerStartTime;
         private bool timerHasStarted;
         private SpriteRenderer spriteRenderer;
+
+        private GameController gameController;
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -45,6 +59,8 @@ namespace Game.Puzzle
                             triggerable.GetComponent<ITriggerable>()?.Lock();
                             timerStartTime = Time.time;
                             timerHasStarted = true;
+                            audioSource.Play();
+                            
                         }
 
                         if (lockLinkedObjects)
@@ -62,6 +78,8 @@ namespace Game.Puzzle
                             triggerable.GetComponent<ITriggerable>()?.Lock();
                             timerStartTime = Time.time;
                             timerHasStarted = true;
+                            audioSource.Play();
+                            
                         }
 
                         if (lockLinkedObjects)
@@ -79,6 +97,10 @@ namespace Game.Puzzle
 
         private void Start()
         {
+            if (hasTimer)
+            {
+                gameController = GameObject.FindGameObjectWithTag(Values.Tags.GameController).GetComponent<GameController>();
+            }
             spriteRenderer = GetComponent<SpriteRenderer>();
             timerStartTime = 0.0f;
             foreach (var triggerable in triggerables)
@@ -102,16 +124,18 @@ namespace Game.Puzzle
         {
             if (hasTimer && timerHasStarted)
             {
+                gameController.EventTime = shutDownTime - GetTimeSinceTriggered();
                 if (TimeIsUp())
                 {
                     ChangeSate();
+                    audioSource.Stop();
                 }
             }
         }
 
         private bool TimeIsUp()
         {
-            if (Time.time - timerStartTime >= shutDownTime)
+            if (GetTimeSinceTriggered() >= shutDownTime)
             {
                 return true;
             }
@@ -123,21 +147,27 @@ namespace Game.Puzzle
         {
             foreach (var triggerable in triggerables)
             {
-                if (triggerable.GetComponent<ITriggerable>().IsOpened())
+                ITriggerable linkedTriggerable = triggerable.GetComponent<ITriggerable>();
+                if (linkedTriggerable.IsOpened()&&!linkedTriggerable.StateIsPermanentlyLocked())
                 {
-                    triggerable.GetComponent<ITriggerable>()?.Unlock();
-                    triggerable.GetComponent<ITriggerable>()?.Close();
+                    linkedTriggerable?.Unlock();
+                    linkedTriggerable?.Close();
                     spriteRenderer.sprite = unToggledSprite;
                     timerHasStarted = false;
                 }
-                else if (!triggerable.GetComponent<ITriggerable>().IsOpened())
+                else if (!linkedTriggerable.IsOpened()&& !linkedTriggerable.StateIsPermanentlyLocked())
                 {
-                    triggerable.GetComponent<ITriggerable>()?.Unlock();
-                    triggerable.GetComponent<ITriggerable>()?.Open();
+                    linkedTriggerable?.Unlock();
+                    linkedTriggerable?.Open();
                     spriteRenderer.sprite = toggledSprite;
                     timerHasStarted = false;
                 }
             }
+        }
+
+        private float GetTimeSinceTriggered()
+        {
+            return Time.time - timerStartTime;
         }
     }
 }

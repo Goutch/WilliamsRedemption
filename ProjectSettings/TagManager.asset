@@ -19,6 +19,8 @@ TagManager:
   - MovingPlatform
   - Collectable
   - Obstacle
+  - PhysicObjectAI
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -34,9 +36,9 @@ TagManager:
   - Platform
   - Obstacles
   - LightZone
-  - 
-  - 
-  - 
+  - Secret
+  - Darkness
+  - Music
   - 
   - 
   - 
@@ -73,4 +75,7 @@ TagManager:
     locked: 0
   - name: Edgar
     uniqueID: 4250622967
+    locked: 0
+  - name: ForeGround
+    uniqueID: 1807051657
     locked: 0

@@ -8,13 +8,21 @@ namespace Game.Entity.Enemies.Boss.Anna
 {
     public class Anna : BossController
     {
+        [Header("Sound")] [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
         protected override bool OnHit(HitStimulus hitStimulus)
         {
-            if (hitStimulus.Type == HitStimulus.DamageType.Enemy)
+            if (IsInvulnerable && hitStimulus.Type == HitStimulus.DamageType.Enemy)
             {
                 IsInvulnerable = false;
                 animator.SetBool(Values.AnimationParameters.Anna.Invulnerable, false);
-                health.Hit(hitStimulus.gameObject);
+
+                return true;
+            }
+            else if(hitStimulus.Type == HitStimulus.DamageType.Enemy)
+            {
+                base.OnHit(hitStimulus);
 
                 return true;
             }
@@ -26,6 +34,21 @@ namespace Game.Entity.Enemies.Boss.Anna
             }
 
             return true;
+        }
+        
+        private void OnEnable()
+        {
+            health.OnHealthChange += CallWoundedSound;
+        }
+
+        private void OnDisable()
+        {
+            health.OnHealthChange -= CallWoundedSound;
+        }
+
+        private void CallWoundedSound(GameObject receiver, GameObject attacker)
+        {
+            Audio.SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
         }
     }
 }

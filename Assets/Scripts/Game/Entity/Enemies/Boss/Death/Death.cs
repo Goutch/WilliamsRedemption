@@ -11,6 +11,9 @@ namespace Game.Entity.Enemies.Boss.Death
 {
     class Death : BossController
     {
+        [Header("Sound")] [SerializeField] private AudioClip woundedSound;
+        [SerializeField] private GameObject soundToPlayPrefab;
+        
         private FloorManager floorManager;
         private ProjectileManager projectileManager;
 
@@ -36,6 +39,21 @@ namespace Game.Entity.Enemies.Boss.Death
             floorManager.MoveAllFloorsUp();
 
             projectileManager.Clear();
+        }
+        
+        private void OnEnable()
+        {
+            health.OnHealthChange += CallWoundedSound;
+        }
+
+        private void OnDisable()
+        {
+            health.OnHealthChange -= CallWoundedSound;
+        }
+        
+        private void CallWoundedSound(GameObject receiver, GameObject attacker)
+        {
+            Audio.SoundCaller.CallSound(woundedSound, soundToPlayPrefab, gameObject, true);
         }
     }
 }
