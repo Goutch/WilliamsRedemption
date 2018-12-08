@@ -15,6 +15,7 @@ namespace Game.Entity.Player
         private GamePadState controllerState;
         private bool jumpButtonPressed;
         private GameController gameController;
+        private bool pauseButtonPressed;
         private void Start()
         {
             player = GetComponent<Mover>();
@@ -23,7 +24,8 @@ namespace Game.Entity.Player
             controllerState = GamePad.GetState(controllerNumber);
             gameController = GameObject.FindGameObjectWithTag(Values.GameObject.GameController).GetComponent<GameController>();
             jumpButtonPressed = false;
-                    
+            pauseButtonPressed = false;
+
         }
 
         private void Update()
@@ -80,9 +82,15 @@ namespace Game.Entity.Player
                 jumpButtonPressed = true;
             }
 
-            if (controllerState.Buttons.Start == ButtonState.Pressed)
+            if (controllerState.Buttons.Start == ButtonState.Pressed && !pauseButtonPressed)
             {
                 gameController.OnPauseButtonPressed();
+                pauseButtonPressed = true;
+            }
+
+            if (controllerState.Buttons.Start == ButtonState.Released)
+            {
+                pauseButtonPressed = false;
             }
             if (controllerState.Buttons.A == ButtonState.Released)
             {
