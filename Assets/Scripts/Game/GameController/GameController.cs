@@ -108,6 +108,17 @@ namespace Game.Controller
             }
         }
 
+        private void Update()
+        {
+            if (!isGamePaused && isGameStarted)
+            {
+                LevelRemainingTime =
+                    Mathf.RoundToInt(currentLevel.ExpectedTime - (Time.time - startTime) - actualTimeSaved);
+                if (LevelRemainingTime < 0)
+                    LevelRemainingTime = 0;
+            }
+        }
+
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name != Values.Scenes.Menu && scene.name != Values.Scenes.Main)
@@ -309,14 +320,6 @@ namespace Game.Controller
             {
                 ResumeGame();
                 menu.HidePausePanel();
-            }
-
-            if (!isGamePaused && isGameStarted)
-            {
-                LevelRemainingTime =
-                    Mathf.RoundToInt(currentLevel.ExpectedTime - (Time.time - startTime) - actualTimeSaved);
-                if (LevelRemainingTime < 0)
-                    LevelRemainingTime = 0;
             }
         }
 
