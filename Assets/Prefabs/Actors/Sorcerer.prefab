@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 114866177961309394}
   - component: {fileID: 114689533996660742}
   - component: {fileID: 61871927213290918}
-  - component: {fileID: 114979766900876248}
   - component: {fileID: 114081981927114342}
   m_Layer: 8
   m_Name: Sorcerer
@@ -205,17 +204,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
 --- !u!114 &114866177961309394
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1545161308005982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1143381153d2a54b84f48dcf11b16e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114979766900876248
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

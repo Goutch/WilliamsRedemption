@@ -21,6 +21,7 @@ namespace Game.Entity.Enemies.Attack
             Darkness,
             Physical,
             Enemy
+            
         }
 
         public enum AttackRange

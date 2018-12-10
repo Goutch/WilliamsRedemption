@@ -150,7 +150,7 @@ namespace Game.Entity.Player
             return false;
         }
 
-        protected void Bleed(HitStimulus hitStimulus)
+        private void Bleed(HitStimulus hitStimulus)
         {
             if (dmgEffect != null)
                 Destroy(Instantiate(dmgEffect, transform.position, hitStimulus.transform.rotation), 5);
