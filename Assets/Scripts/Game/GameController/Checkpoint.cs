@@ -121,14 +121,15 @@ namespace Game.Controller
 
         private bool CheckIfCheckPointCanBeTriggered(Collider2D other)
         {
-            if (DoorsToOpen.Count == 0)
-            {
-                return true;
-            }
-
+            
             if (!other.Root().CompareTag(Values.Tags.Player))
             {
                 return false;
+            }
+            
+            if (DoorsToOpen.Count == 0)
+            {
+                return true;
             }
 
             foreach (var door in DoorsToOpen)
