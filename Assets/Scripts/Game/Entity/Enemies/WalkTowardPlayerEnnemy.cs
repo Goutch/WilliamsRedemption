@@ -202,18 +202,23 @@ namespace Game.Entity.Enemies
                     for (int x = -surroundingRange; x < surroundingRange + 1; x++)
                     {
                         if (surrounding[x + surroundingRange, y + surroundingRange] == true)
+
+                        {
+                            Gizmos.color = Color.red;
                             Gizmos.DrawCube(
-                                ((Vector3) pathFinder.WorldToGrid(
-                                    (transform.position + (Vector3.right * x * .32f) + (Vector3.up * y * .32f)))) *
-                                .32f,
-                                Vector3.one * .16f);
+                                ((Vector3) (pathFinder.WorldToGrid(
+                                     (transform.position + (Vector3.right * x * .32f) + (Vector3.up * y * .32f)))) *
+                                 .32f) + (Vector3.one * .16f),
+                                Vector3.one * .08f);
+                        }
                         else
                         {
+                            Gizmos.color = Color.green;
                             Gizmos.DrawSphere(
-                                ((Vector3) pathFinder.WorldToGrid(
-                                    (transform.position + (Vector3.right * x * .32f) + (Vector3.up * y * .32f)))) *
-                                .32f,
-                                .16f);
+                                ((Vector3) (pathFinder.WorldToGrid(
+                                     (transform.position + (Vector3.right * x * .32f) + (Vector3.up * y * .32f)))) *
+                                 .32f) + (Vector3.one * .16f),
+                                .08f);
                         }
                     }
                 }
